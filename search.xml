@@ -311,17 +311,6 @@
       </categories>
   </entry>
   <entry>
-    <title>hexo如何引用本地图片</title>
-    <url>/2020/04/10/hexo/hexo%E5%A6%82%E4%BD%95%E5%BC%95%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87/</url>
-    <content><![CDATA[<h2 id="如何引用本地图片？"><a href="#如何引用本地图片？" class="headerlink" title="如何引用本地图片？"></a>如何引用本地图片？</h2><p>把图片img1.png放到 hexo_dir/source/images/ 中，然后可以直接在文章中用</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">![<span class="string">图片的alt</span>](<span class="link">/images/img1.png 'title'</span>)</span><br></pre></td></tr></table></figure>
-<p>来使用</p>
-]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
-  </entry>
-  <entry>
     <title>音视频任务1</title>
     <url>/2020/04/10/Android/%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A11/</url>
     <content><![CDATA[<p>跟着大神的步骤一步一步做，加油！<br>任务列表：<a href="http://blog.51cto.com/ticktick/1956269" target="_blank" rel="noopener">http://blog.51cto.com/ticktick/1956269</a></p>
@@ -334,6 +323,52 @@
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"300dp"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"300dp"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">".MainActivity"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:clipChildren</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/iv_lu"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:visibility</span>=<span class="string">"gone"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintLeft_toLeftOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintRight_toRightOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">SurfaceView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/sv_lu"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:visibility</span>=<span class="string">"gone"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">com.example.lll.va.DrawView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Android</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>hexo如何引用本地图片</title>
+    <url>/2020/04/10/hexo/hexo%E5%A6%82%E4%BD%95%E5%BC%95%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87/</url>
+    <content><![CDATA[<h2 id="如何引用本地图片？"><a href="#如何引用本地图片？" class="headerlink" title="如何引用本地图片？"></a>如何引用本地图片？</h2><p>首先在source下创建images page文件夹，必须用以下命令创建，否则没有index.md, 图片会显示错误</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new page images</span><br></pre></td></tr></table></figure>
+<p>然后把图片img1.png放到 hexo_dir/source/images/ 中，然后可以直接在文章中用</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">![<span class="string">图片的alt</span>](<span class="link">/images/img1.png 'title'</span>)</span><br></pre></td></tr></table></figure>
+<p>来使用</p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Ubuntu16下 pip安装，卸载、升级，报错</title>
+    <url>/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/</url>
+    <content><![CDATA[<p>新装的ubuntu16，自带的python2.7，使用pip升级后，报错，修改记录如下：</p>
+<h2 id="如何彻底卸载pip？"><a href="#如何彻底卸载pip？" class="headerlink" title="如何彻底卸载pip？"></a>如何彻底卸载pip？</h2><p>sudo python -m pip uninstall pip</p>
+<h2 id="如何安装pip"><a href="#如何安装pip" class="headerlink" title="如何安装pip"></a>如何安装pip</h2><p>sudo apt install python-pip</p>
+<h2 id="如何安装指定版本的pip"><a href="#如何安装指定版本的pip" class="headerlink" title="如何安装指定版本的pip"></a>如何安装指定版本的pip</h2><p>python -m pip install pip==18.1(换成你想要的版本编号)</p>
+<h2 id="pip安装软件过程中报错："><a href="#pip安装软件过程中报错：" class="headerlink" title="pip安装软件过程中报错："></a>pip安装软件过程中报错：</h2><p>Command “python setup.py egg_info” failed with error code 1 in /tmp/pip-build-BqMhb7/matplotlib/</p>
+<ol>
+<li>安装并升级setuptools<br>pip install –upgrade setuptools</li>
+<li>升级pip<br>pip install –upgrade pip</li>
+</ol>
+<h2 id="pip升级后报错"><a href="#pip升级后报错" class="headerlink" title="pip升级后报错"></a>pip升级后报错</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "/usr/bin/pip", line 9, in &lt;module&gt;</span><br><span class="line">    from pip import main</span><br><span class="line">ImportError: cannot import name 'main'</span><br><span class="line">修改/usr/bin/pip如下：</span><br><span class="line">//修改前</span><br><span class="line">from pip import main  </span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(main()) </span><br><span class="line">修改后</span><br><span class="line">from pip import __main__  //这行也要修改</span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(__main__._main())//增加__main__._  （注意最后main()前面有个_）</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>如何理解linux挂载</title>
+    <url>/2020/04/10/linux/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3linux%E6%8C%82%E8%BD%BD/</url>
+    <content><![CDATA[<p>根据树结构去理解整个文件系统的挂载和挂载点还是有点困难，所以自己做了些总结，有不对的地方还请指正</p>
+<p>df -h命令后</p>
+<p>Filesystem 这里的文件系统表示的是目录的层次结构，而不是所谓的像ext4，fat那种真正的文件系统类型<br>一个具体的设备文件(或分区) ，或许是一块硬盘上的一个分区，或许是u盘上的一个分区</p>
+<p>目录就相当于门<br>整个linux中的文件系统就像一个世界接着一个世界，不同的世界代表不同的被挂载的文件系统，挂载点就相当于任意门（特殊的门），各个被挂载的文件系统之间是独立的，但是要进入其中一个需要一个一个进入任意门去穿梭，整个世界的第一个门是 / ，它里面的世界是第一个文件系统，这个世界里又有很多个门，有的门背后的世界和这个世界是同一个，则他们是在同一个文件系统里，而当有其他的分区被挂载到一个目录的时候，例如<br>对一个目录 /home/lll，要到达这个门后的世界，要穿过 / 和 home/ （这个门在 / 后面的世界里） 和 lll/ （这个门在 home/ 后面的世界里），形象的描述为：</p>
+<p>/ —》 世界A （包含 home/ —-》 世界B （包含 lll/ —》 世界C ）如果不做任何其他挂载，世界A、B、C是同一个世界）当要把/dev/sda1这个id所指向的分区挂载到 /home/lll 则相当于把 /home/lll/ 这个门变成任意门，它通往的世界变成了sda1的世界空间，自然的，只要进了这个世界，如果再不挂载其他的，则所有对 /home/lll/… 的操作都在sda1的世界里，而对这个门前面的世界的操作，如对/home/aaa的操作，仍然在一开始的那个世界里<br>把挂载点想象成一个任意门，进入第一个任意门是世界A，里面还有一个任意门通往世界B，虽然只有进了第一个任意门才能进第二个任意门，但世界A和世界B是毫无关系彼此独立的（挂载的文件系统之间彼此独立）<br>挂载绑定：把一个目录挂载到另一个目录，比如 mount –bind dir1 dir2 则是相当于对dir2这个门做了特殊处理，让dir2和dir1通往同一个世界的同一个位置，而dir2原本通往的那个位置里面的东西会被遮盖掉，当解除挂载后，dir2会恢复它原本通往的世界和位置，且里面的东西还在</p>
+<p>当把目录A挂载到目录B，= mount –bind A B ; 其中B是新的挂载点 ，就是让门B通往的地方和门A通往的地方一毛一样<br>把设备A挂载到目录B = mount A B ; 其中B是新的挂载点，就是让门B通往的地方是A的世界空间。<br>挂载点必须是目录（门）</p>
+<p>可以对同一个目录多次挂载，最后生效的结果是最后一次挂载，此时卸载，则倒数第二次挂载生效，再卸载，则倒数第三次挂载生效</p>
+]]></content>
+      <categories>
+        <category>linux</category>
       </categories>
   </entry>
   <entry>
@@ -440,39 +475,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Ubuntu16下 pip安装，卸载、升级，报错</title>
-    <url>/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/</url>
-    <content><![CDATA[<p>新装的ubuntu16，自带的python2.7，使用pip升级后，报错，修改记录如下：</p>
-<h2 id="如何彻底卸载pip？"><a href="#如何彻底卸载pip？" class="headerlink" title="如何彻底卸载pip？"></a>如何彻底卸载pip？</h2><p>sudo python -m pip uninstall pip</p>
-<h2 id="如何安装pip"><a href="#如何安装pip" class="headerlink" title="如何安装pip"></a>如何安装pip</h2><p>sudo apt install python-pip</p>
-<h2 id="如何安装指定版本的pip"><a href="#如何安装指定版本的pip" class="headerlink" title="如何安装指定版本的pip"></a>如何安装指定版本的pip</h2><p>python -m pip install pip==18.1(换成你想要的版本编号)</p>
-<h2 id="pip安装软件过程中报错："><a href="#pip安装软件过程中报错：" class="headerlink" title="pip安装软件过程中报错："></a>pip安装软件过程中报错：</h2><p>Command “python setup.py egg_info” failed with error code 1 in /tmp/pip-build-BqMhb7/matplotlib/</p>
-<ol>
-<li>安装并升级setuptools<br>pip install –upgrade setuptools</li>
-<li>升级pip<br>pip install –upgrade pip</li>
-</ol>
-<h2 id="pip升级后报错"><a href="#pip升级后报错" class="headerlink" title="pip升级后报错"></a>pip升级后报错</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "/usr/bin/pip", line 9, in &lt;module&gt;</span><br><span class="line">    from pip import main</span><br><span class="line">ImportError: cannot import name 'main'</span><br><span class="line">修改/usr/bin/pip如下：</span><br><span class="line">//修改前</span><br><span class="line">from pip import main  </span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(main()) </span><br><span class="line">修改后</span><br><span class="line">from pip import __main__  //这行也要修改</span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(__main__._main())//增加__main__._  （注意最后main()前面有个_）</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>如何理解linux挂载</title>
-    <url>/2020/04/10/linux/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3linux%E6%8C%82%E8%BD%BD/</url>
-    <content><![CDATA[<p>根据树结构去理解整个文件系统的挂载和挂载点还是有点困难，所以自己做了些总结，有不对的地方还请指正</p>
-<p>df -h命令后</p>
-<p>Filesystem 这里的文件系统表示的是目录的层次结构，而不是所谓的像ext4，fat那种真正的文件系统类型<br>一个具体的设备文件(或分区) ，或许是一块硬盘上的一个分区，或许是u盘上的一个分区</p>
-<p>目录就相当于门<br>整个linux中的文件系统就像一个世界接着一个世界，不同的世界代表不同的被挂载的文件系统，挂载点就相当于任意门（特殊的门），各个被挂载的文件系统之间是独立的，但是要进入其中一个需要一个一个进入任意门去穿梭，整个世界的第一个门是 / ，它里面的世界是第一个文件系统，这个世界里又有很多个门，有的门背后的世界和这个世界是同一个，则他们是在同一个文件系统里，而当有其他的分区被挂载到一个目录的时候，例如<br>对一个目录 /home/lll，要到达这个门后的世界，要穿过 / 和 home/ （这个门在 / 后面的世界里） 和 lll/ （这个门在 home/ 后面的世界里），形象的描述为：</p>
-<p>/ —》 世界A （包含 home/ —-》 世界B （包含 lll/ —》 世界C ）如果不做任何其他挂载，世界A、B、C是同一个世界）当要把/dev/sda1这个id所指向的分区挂载到 /home/lll 则相当于把 /home/lll/ 这个门变成任意门，它通往的世界变成了sda1的世界空间，自然的，只要进了这个世界，如果再不挂载其他的，则所有对 /home/lll/… 的操作都在sda1的世界里，而对这个门前面的世界的操作，如对/home/aaa的操作，仍然在一开始的那个世界里<br>把挂载点想象成一个任意门，进入第一个任意门是世界A，里面还有一个任意门通往世界B，虽然只有进了第一个任意门才能进第二个任意门，但世界A和世界B是毫无关系彼此独立的（挂载的文件系统之间彼此独立）<br>挂载绑定：把一个目录挂载到另一个目录，比如 mount –bind dir1 dir2 则是相当于对dir2这个门做了特殊处理，让dir2和dir1通往同一个世界的同一个位置，而dir2原本通往的那个位置里面的东西会被遮盖掉，当解除挂载后，dir2会恢复它原本通往的世界和位置，且里面的东西还在</p>
-<p>当把目录A挂载到目录B，= mount –bind A B ; 其中B是新的挂载点 ，就是让门B通往的地方和门A通往的地方一毛一样<br>把设备A挂载到目录B = mount A B ; 其中B是新的挂载点，就是让门B通往的地方是A的世界空间。<br>挂载点必须是目录（门）</p>
-<p>可以对同一个目录多次挂载，最后生效的结果是最后一次挂载，此时卸载，则倒数第二次挂载生效，再卸载，则倒数第三次挂载生效</p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-  </entry>
-  <entry>
     <title>brew从国内源安装</title>
     <url>/2020/04/10/mac/brew%E4%BB%8E%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<p>最近按照默认方法安装brew特别慢，但是想切换从国内源安装，得到的都是老版本的切换方法：</p>
@@ -542,24 +544,6 @@
       </categories>
   </entry>
   <entry>
-    <title>html中的符号</title>
-    <url>/2020/04/10/%E5%85%B6%E4%BB%96/html%E4%B8%AD%E7%AC%A6%E5%8F%B7/</url>
-    <content><![CDATA[<p><img src="/images/html-symbol1.png" alt="1"><br><img src="/images/html-symbol2.png" alt="2"></p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>一个包含各种算法的好网站</title>
-    <url>/2020/04/10/%E5%85%B6%E4%BB%96/%E4%B8%80%E4%B8%AA%E5%8C%85%E5%90%AB%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E5%A5%BD%E7%BD%91%E7%AB%99/</url>
-    <content><![CDATA[<p>包括排序，查找、各种数据结构都有<br>码一下<br><a href="https://www.geeksforgeeks.org" target="_blank" rel="noopener">https://www.geeksforgeeks.org</a></p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-  </entry>
-  <entry>
     <title>跳表</title>
     <url>/2020/04/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%B7%B3%E8%A1%A8/</url>
     <content><![CDATA[<p>本文大部分内容借鉴自<a href="https://baijiahao.baidu.com/s?id=1633338040568845450&amp;wfr=spider&amp;for=pc，感谢大神的辛勤劳动！" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1633338040568845450&amp;wfr=spider&amp;for=pc，感谢大神的辛勤劳动！</a></p>
@@ -591,6 +575,24 @@
 ]]></content>
       <categories>
         <category>数据结构</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>html中的符号</title>
+    <url>/2020/04/10/%E5%85%B6%E4%BB%96/html%E4%B8%AD%E7%AC%A6%E5%8F%B7/</url>
+    <content><![CDATA[<p><img src="/images/html-symbol1.png" alt="1"><br><img src="/images/html-symbol2.png" alt="2"></p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>一个包含各种算法的好网站</title>
+    <url>/2020/04/10/%E5%85%B6%E4%BB%96/%E4%B8%80%E4%B8%AA%E5%8C%85%E5%90%AB%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E5%A5%BD%E7%BD%91%E7%AB%99/</url>
+    <content><![CDATA[<p>包括排序，查找、各种数据结构都有<br>码一下<br><a href="https://www.geeksforgeeks.org" target="_blank" rel="noopener">https://www.geeksforgeeks.org</a></p>
+]]></content>
+      <categories>
+        <category>其他</category>
       </categories>
   </entry>
   <entry>
@@ -860,45 +862,6 @@ RabbitMQ针对这个问题，提供了两种解决方式:</code></pre><ul>
       </categories>
   </entry>
   <entry>
-    <title>springboot 静态资源无法访问以及添加静态资源无法立即访问</title>
-    <url>/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/</url>
-    <content><![CDATA[<h2 id="springboot-静态资源无法访问"><a href="#springboot-静态资源无法访问" class="headerlink" title="springboot 静态资源无法访问"></a>springboot 静态资源无法访问</h2><blockquote>
-<p>在一个项目中WebMvcConfigurationSupport只能存在一个，多个的时候，只有一个会生效。（按名称排序后第一个的）</p>
-</blockquote>
-<p>1.SpringBoot 的 @EnableAutoConfiguration 会启用自动配置类 </p>
-<p>2.WebMvcAutoConfiguration，该类配置了一些默认的静态资源映射</p>
-<ul>
-<li>自动映射 localhost:8080/** 为以下路径<pre><code>classpath:/resources/
-classpath:/static/
-classpath:/public/
-classpath:/META-INF/resources/</code></pre><ol start="2">
-<li>自动映射 localhost:8080/webjars/** 为以下路径<br> classpath:/META-INF/resources/webjars/</li>
-</ol>
-</li>
-</ul>
-<p>此时，我们不需要多做什么，只要将静态资源放入 src/main/resources 目录下的 resources、static 或 public 文件夹下，即可通过 url 定位相关资源，例如 localhost:8080/index.html 可定位至 src/main/resources/static/index.html</p>
-<p><strong>但是！</strong><br>一旦使用继承了WebMvcConfigurationSupport或者WebMvcConfigurerAdapter的自定义配置类，即使没有重写addResourceHandlers方法，默认配置都会被不被采用。如果要采用原本默认的配置，则需要webmvc配置类中重写如下方法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoWebMvcConfigurerAdapter</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//配置静态资源处理</span></span><br><span class="line">        registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"resources/"</span>, <span class="string">"static/"</span>, <span class="string">"public/"</span>, </span><br><span class="line">                <span class="string">"META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"classpath:resources/"</span>, <span class="string">"classpath:static/"</span>, </span><br><span class="line">                <span class="string">"classpath:public/"</span>, <span class="string">"classpath:META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"file:///tmp/webapps/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>经过试验得证：如果不使用WebMvcConfigurationSupport，则使用application.properties中的默认配置<br>如果重写了application.properties中的配置，则使用重写后的配置，如：</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">spring.resources.<span class="keyword">static</span>-locations=resources<span class="regexp">/, static/</span>, <span class="keyword">public</span><span class="regexp">/, \ META-INF/</span>resources<span class="regexp">/, resources/</span>, <span class="keyword">classpath</span>:<span class="keyword">static</span><span class="regexp">/, public/</span>, <span class="keyword">classpath</span>:META-INF<span class="regexp">/resources/</span>, \<span class="keyword">file</span>:<span class="comment">///tmp/webapps/</span></span><br><span class="line"></span><br><span class="line">spring.mvc.<span class="keyword">static</span>-path-pattern=<span class="comment">/**</span></span><br></pre></td></tr></table></figure>
-
-<p>一旦使用了WebMvcConfigurationSupport（或WebMvcConfigurerAdapter）那么必须要重写addResourceHandlers来配置资源映射，此时application.properties中关于静态资源访问的配置将失效（除非对url写了响应的controller来处理，那是另一回事）</p>
-<h2 id="当添加了静态资源后，无法立即访问的问题"><a href="#当添加了静态资源后，无法立即访问的问题" class="headerlink" title="当添加了静态资源后，无法立即访问的问题"></a>当添加了静态资源后，无法立即访问的问题</h2><p>如果访问项目中的静态资源，访问的所有的东西其实都是target目录中的，这是经过编译的，如果对项目目录下的静态资源进行修改（增删改），由于target下的东西没有受影响，所以没法立即生效，比如往/resouces/static下增加一张图片，通过url无法立即访问到，必须重启项目。其实重启就是让资源文件经过编译（其实资源文件根本不编译）后，加到target中，那么这样就很麻烦，要是想对一个静态资源修改后能立即通过url访问到要如何做呢？<br>解决办法将静态资源放在非项目类路径下即可，例如 “file:///Users/mytest/inspector/independent_resources/“);，并且在资源处理器中加上路径即可。<br>file:// 后面跟的必须是文件系统的绝对路径</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**”)</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>resources/<span class="string">", "</span><span class="keyword">static</span>/<span class="string">", "</span><span class="keyword">public</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>classpath:resources/<span class="string">", "</span>classpath:<span class="keyword">static</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>classpath:<span class="keyword">public</span>/<span class="string">", "</span>classpath:META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        //如果要让添加的静态资源立即生效，则不能把它放到项目资源里面，应该放在外面，比如下面的目录</span></span><br><span class="line"><span class="string">        //这样一旦静态资源添加到这个目录，则直接从该位置获取，而不是从编译的target位置获取</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>file:<span class="comment">///Users/mytest/inspector/independent_resources/");</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**********之间的是项目类的路径，不用管，最下面的是非项目类的路径</span></span><br><span class="line"><span class="comment">这样的话，在项目运行时，往/Users/mytest/inspector/independent_resources/目录下添加一个111.png后，在浏览器中通过localhost:8080/111.png就可访问到这个图片了。</span></span><br><span class="line"><span class="comment">如果不添加这个，在项目运行时，往项目的src/main/resources 下添加一个111.png后，不能立即通过浏览器访问到这个图片，因为项目类的所有资源和文件必须编译为target版本后才对外服务，而添加资源后不重启项目无法重新编译，target中的东西没有更新。</span></span><br></pre></td></tr></table></figure>
-<p>见<a href="https://blog.csdn.net/rui18300072030/article/details/74923580" target="_blank" rel="noopener">https://blog.csdn.net/rui18300072030/article/details/74923580</a></p>
-<blockquote>
-<p>因此，需要修改后立即生效的文件，尤其是非代码文件（除去html，css这种）最好是放在项目类的外部，放在文件系统的绝对路径下。如果文件必须放在项目中，但又必须得立即生效，<br>那么对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
-</blockquote>
-<p>如果文件必须放在项目中，但又必须得立即生效，那么用下面的方法：<br>对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">        .addResourceLocations(<span class="string">"classpath:static/"</span>)</span><br><span class="line"> .addResourceLocations(<span class="string">"file:///Users/mytest/inspector/src/main/resources/static/"</span>);</span><br></pre></td></tr></table></figure>
-<p>上面两个路径其实是同一个，但通过上面相对路径访问的是target中的东西。在运行时添加一个文件后，target没有更新，通过相对路径就访问不到，但实际上文件系统是更新了，所以用下面的绝对路径直接访问文件系统中的文件就可。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>spring</category>
-      </categories>
-  </entry>
-  <entry>
     <title>循环引用&amp;使用aop时注入属性失效的问题</title>
     <url>/2020/04/10/java/spring/%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8&amp;%E4%BD%BF%E7%94%A8aop%E6%97%B6%E6%B3%A8%E5%85%A5%E5%B1%9E%E6%80%A7%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<p>结论：如果一个对象要被生成代理，那么不要对它的属性或方法进行注入，这些都会变成null（构造器注入是可以的）</p>
@@ -935,6 +898,45 @@ classpath:/META-INF/resources/</code></pre><ol start="2">
 <p>可以进入堆栈中看：<br>在创建aop1util时，当执行完populateBean时，它的“aop2Util”属性就已经被填充了，此时它仍是正常的实例<br><img src="https://img-blog.csdnimg.cn/20200318114610355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="8"><br>在进入initialzeBean后，执行完前置处理后，可以看到这个bean仍然没有变化：（在initialzeBean中以wrappedBean为准）<br><img src="https://img-blog.csdnimg.cn/20200318114610342.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="9"></p>
 <p>但一经过后置处理，可以看到wrappedBean已经变成了代理对象，而且其aop2util属性是空<br><img src="https://img-blog.csdnimg.cn/20200318114610381.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="10"></p>
 <p><strong>结论：如果一个对象要被生成代理，那么不要对它的属性或方法进行注入，这些都会变成null（构造器注入是可以的,因为构造器注入时创建代理对象时必须要调用其父类（也就是被代理类）的构造函数，此时就会把要注入的对象注入了）</strong></p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>spring</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>springboot 静态资源无法访问以及添加静态资源无法立即访问</title>
+    <url>/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/</url>
+    <content><![CDATA[<h2 id="springboot-静态资源无法访问"><a href="#springboot-静态资源无法访问" class="headerlink" title="springboot 静态资源无法访问"></a>springboot 静态资源无法访问</h2><blockquote>
+<p>在一个项目中WebMvcConfigurationSupport只能存在一个，多个的时候，只有一个会生效。（按名称排序后第一个的）</p>
+</blockquote>
+<p>1.SpringBoot 的 @EnableAutoConfiguration 会启用自动配置类 </p>
+<p>2.WebMvcAutoConfiguration，该类配置了一些默认的静态资源映射</p>
+<ul>
+<li>自动映射 localhost:8080/** 为以下路径<pre><code>classpath:/resources/
+classpath:/static/
+classpath:/public/
+classpath:/META-INF/resources/</code></pre><ol start="2">
+<li>自动映射 localhost:8080/webjars/** 为以下路径<br> classpath:/META-INF/resources/webjars/</li>
+</ol>
+</li>
+</ul>
+<p>此时，我们不需要多做什么，只要将静态资源放入 src/main/resources 目录下的 resources、static 或 public 文件夹下，即可通过 url 定位相关资源，例如 localhost:8080/index.html 可定位至 src/main/resources/static/index.html</p>
+<p><strong>但是！</strong><br>一旦使用继承了WebMvcConfigurationSupport或者WebMvcConfigurerAdapter的自定义配置类，即使没有重写addResourceHandlers方法，默认配置都会被不被采用。如果要采用原本默认的配置，则需要webmvc配置类中重写如下方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoWebMvcConfigurerAdapter</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//配置静态资源处理</span></span><br><span class="line">        registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"resources/"</span>, <span class="string">"static/"</span>, <span class="string">"public/"</span>, </span><br><span class="line">                <span class="string">"META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"classpath:resources/"</span>, <span class="string">"classpath:static/"</span>, </span><br><span class="line">                <span class="string">"classpath:public/"</span>, <span class="string">"classpath:META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"file:///tmp/webapps/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>经过试验得证：如果不使用WebMvcConfigurationSupport，则使用application.properties中的默认配置<br>如果重写了application.properties中的配置，则使用重写后的配置，如：</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">spring.resources.<span class="keyword">static</span>-locations=resources<span class="regexp">/, static/</span>, <span class="keyword">public</span><span class="regexp">/, \ META-INF/</span>resources<span class="regexp">/, resources/</span>, <span class="keyword">classpath</span>:<span class="keyword">static</span><span class="regexp">/, public/</span>, <span class="keyword">classpath</span>:META-INF<span class="regexp">/resources/</span>, \<span class="keyword">file</span>:<span class="comment">///tmp/webapps/</span></span><br><span class="line"></span><br><span class="line">spring.mvc.<span class="keyword">static</span>-path-pattern=<span class="comment">/**</span></span><br></pre></td></tr></table></figure>
+
+<p>一旦使用了WebMvcConfigurationSupport（或WebMvcConfigurerAdapter）那么必须要重写addResourceHandlers来配置资源映射，此时application.properties中关于静态资源访问的配置将失效（除非对url写了响应的controller来处理，那是另一回事）</p>
+<h2 id="当添加了静态资源后，无法立即访问的问题"><a href="#当添加了静态资源后，无法立即访问的问题" class="headerlink" title="当添加了静态资源后，无法立即访问的问题"></a>当添加了静态资源后，无法立即访问的问题</h2><p>如果访问项目中的静态资源，访问的所有的东西其实都是target目录中的，这是经过编译的，如果对项目目录下的静态资源进行修改（增删改），由于target下的东西没有受影响，所以没法立即生效，比如往/resouces/static下增加一张图片，通过url无法立即访问到，必须重启项目。其实重启就是让资源文件经过编译（其实资源文件根本不编译）后，加到target中，那么这样就很麻烦，要是想对一个静态资源修改后能立即通过url访问到要如何做呢？<br>解决办法将静态资源放在非项目类路径下即可，例如 “file:///Users/mytest/inspector/independent_resources/“);，并且在资源处理器中加上路径即可。<br>file:// 后面跟的必须是文件系统的绝对路径</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**”)</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>resources/<span class="string">", "</span><span class="keyword">static</span>/<span class="string">", "</span><span class="keyword">public</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>classpath:resources/<span class="string">", "</span>classpath:<span class="keyword">static</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>classpath:<span class="keyword">public</span>/<span class="string">", "</span>classpath:META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        //如果要让添加的静态资源立即生效，则不能把它放到项目资源里面，应该放在外面，比如下面的目录</span></span><br><span class="line"><span class="string">        //这样一旦静态资源添加到这个目录，则直接从该位置获取，而不是从编译的target位置获取</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>file:<span class="comment">///Users/mytest/inspector/independent_resources/");</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**********之间的是项目类的路径，不用管，最下面的是非项目类的路径</span></span><br><span class="line"><span class="comment">这样的话，在项目运行时，往/Users/mytest/inspector/independent_resources/目录下添加一个111.png后，在浏览器中通过localhost:8080/111.png就可访问到这个图片了。</span></span><br><span class="line"><span class="comment">如果不添加这个，在项目运行时，往项目的src/main/resources 下添加一个111.png后，不能立即通过浏览器访问到这个图片，因为项目类的所有资源和文件必须编译为target版本后才对外服务，而添加资源后不重启项目无法重新编译，target中的东西没有更新。</span></span><br></pre></td></tr></table></figure>
+<p>见<a href="https://blog.csdn.net/rui18300072030/article/details/74923580" target="_blank" rel="noopener">https://blog.csdn.net/rui18300072030/article/details/74923580</a></p>
+<blockquote>
+<p>因此，需要修改后立即生效的文件，尤其是非代码文件（除去html，css这种）最好是放在项目类的外部，放在文件系统的绝对路径下。如果文件必须放在项目中，但又必须得立即生效，<br>那么对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
+</blockquote>
+<p>如果文件必须放在项目中，但又必须得立即生效，那么用下面的方法：<br>对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">        .addResourceLocations(<span class="string">"classpath:static/"</span>)</span><br><span class="line"> .addResourceLocations(<span class="string">"file:///Users/mytest/inspector/src/main/resources/static/"</span>);</span><br></pre></td></tr></table></figure>
+<p>上面两个路径其实是同一个，但通过上面相对路径访问的是target中的东西。在运行时添加一个文件后，target没有更新，通过相对路径就访问不到，但实际上文件系统是更新了，所以用下面的绝对路径直接访问文件系统中的文件就可。</p>
 ]]></content>
       <categories>
         <category>java</category>

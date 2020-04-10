@@ -561,6 +561,157 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">Ubuntu16下 pip安装，卸载、升级，报错</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：16:48:11" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>新装的ubuntu16，自带的python2.7，使用pip升级后，报错，修改记录如下：</p>
+<h2 id="如何彻底卸载pip？"><a href="#如何彻底卸载pip？" class="headerlink" title="如何彻底卸载pip？"></a>如何彻底卸载pip？</h2><p>sudo python -m pip uninstall pip</p>
+<h2 id="如何安装pip"><a href="#如何安装pip" class="headerlink" title="如何安装pip"></a>如何安装pip</h2><p>sudo apt install python-pip</p>
+<h2 id="如何安装指定版本的pip"><a href="#如何安装指定版本的pip" class="headerlink" title="如何安装指定版本的pip"></a>如何安装指定版本的pip</h2><p>python -m pip install pip==18.1(换成你想要的版本编号)</p>
+<h2 id="pip安装软件过程中报错："><a href="#pip安装软件过程中报错：" class="headerlink" title="pip安装软件过程中报错："></a>pip安装软件过程中报错：</h2><p>Command “python setup.py egg_info” failed with error code 1 in /tmp/pip-build-BqMhb7/matplotlib/</p>
+<ol>
+<li>安装并升级setuptools<br>pip install –upgrade setuptools</li>
+<li>升级pip<br>pip install –upgrade pip</li>
+</ol>
+<h2 id="pip升级后报错"><a href="#pip升级后报错" class="headerlink" title="pip升级后报错"></a>pip升级后报错</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "/usr/bin/pip", line 9, in &lt;module&gt;</span><br><span class="line">    from pip import main</span><br><span class="line">ImportError: cannot import name 'main'</span><br><span class="line">修改/usr/bin/pip如下：</span><br><span class="line">//修改前</span><br><span class="line">from pip import main  </span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(main()) </span><br><span class="line">修改后</span><br><span class="line">from pip import __main__  //这行也要修改</span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(__main__._main())//增加__main__._  （注意最后main()前面有个_）</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/linux/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3linux%E6%8C%82%E8%BD%BD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/linux/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3linux%E6%8C%82%E8%BD%BD/" class="post-title-link" itemprop="url">如何理解linux挂载</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：16:00:26" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>根据树结构去理解整个文件系统的挂载和挂载点还是有点困难，所以自己做了些总结，有不对的地方还请指正</p>
+<p>df -h命令后</p>
+<p>Filesystem 这里的文件系统表示的是目录的层次结构，而不是所谓的像ext4，fat那种真正的文件系统类型<br>一个具体的设备文件(或分区) ，或许是一块硬盘上的一个分区，或许是u盘上的一个分区</p>
+<p>目录就相当于门<br>整个linux中的文件系统就像一个世界接着一个世界，不同的世界代表不同的被挂载的文件系统，挂载点就相当于任意门（特殊的门），各个被挂载的文件系统之间是独立的，但是要进入其中一个需要一个一个进入任意门去穿梭，整个世界的第一个门是 / ，它里面的世界是第一个文件系统，这个世界里又有很多个门，有的门背后的世界和这个世界是同一个，则他们是在同一个文件系统里，而当有其他的分区被挂载到一个目录的时候，例如<br>对一个目录 /home/lll，要到达这个门后的世界，要穿过 / 和 home/ （这个门在 / 后面的世界里） 和 lll/ （这个门在 home/ 后面的世界里），形象的描述为：</p>
+<p>/ —》 世界A （包含 home/ —-》 世界B （包含 lll/ —》 世界C ）如果不做任何其他挂载，世界A、B、C是同一个世界）当要把/dev/sda1这个id所指向的分区挂载到 /home/lll 则相当于把 /home/lll/ 这个门变成任意门，它通往的世界变成了sda1的世界空间，自然的，只要进了这个世界，如果再不挂载其他的，则所有对 /home/lll/… 的操作都在sda1的世界里，而对这个门前面的世界的操作，如对/home/aaa的操作，仍然在一开始的那个世界里<br>把挂载点想象成一个任意门，进入第一个任意门是世界A，里面还有一个任意门通往世界B，虽然只有进了第一个任意门才能进第二个任意门，但世界A和世界B是毫无关系彼此独立的（挂载的文件系统之间彼此独立）<br>挂载绑定：把一个目录挂载到另一个目录，比如 mount –bind dir1 dir2 则是相当于对dir2这个门做了特殊处理，让dir2和dir1通往同一个世界的同一个位置，而dir2原本通往的那个位置里面的东西会被遮盖掉，当解除挂载后，dir2会恢复它原本通往的世界和位置，且里面的东西还在</p>
+<p>当把目录A挂载到目录B，= mount –bind A B ; 其中B是新的挂载点 ，就是让门B通往的地方和门A通往的地方一毛一样<br>把设备A挂载到目录B = mount A B ; 其中B是新的挂载点，就是让门B通往的地方是A的世界空间。<br>挂载点必须是目录（门）</p>
+<p>可以对同一个目录多次挂载，最后生效的结果是最后一次挂载，此时卸载，则倒数第二次挂载生效，再卸载，则倒数第三次挂载生效</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/Concurrent%20mode%20failure%E5%92%8C%20promotion%20failed/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -881,157 +1032,6 @@
 <li>只能保证一个共享变量的原子操作。这个时候就可以用锁</li>
 </ul>
 <p>》使用锁机制实现原子操作<br>    锁机制保证了只有获得锁的线程才能够操作锁定的内存区域。JVM内部实现了很多种锁机制，有偏向锁、轻量级锁和互斥锁。有意思的是除了偏向锁，JVM实现锁的方式都用了循环CAS，即当一个线程想进入同步块的时候使用循环CAS的方式来获取锁，当它退出同步块的时候使用循环CAS释放锁。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="RockMaster~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RockMaster's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">Ubuntu16下 pip安装，卸载、升级，报错</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：16:48:11" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>新装的ubuntu16，自带的python2.7，使用pip升级后，报错，修改记录如下：</p>
-<h2 id="如何彻底卸载pip？"><a href="#如何彻底卸载pip？" class="headerlink" title="如何彻底卸载pip？"></a>如何彻底卸载pip？</h2><p>sudo python -m pip uninstall pip</p>
-<h2 id="如何安装pip"><a href="#如何安装pip" class="headerlink" title="如何安装pip"></a>如何安装pip</h2><p>sudo apt install python-pip</p>
-<h2 id="如何安装指定版本的pip"><a href="#如何安装指定版本的pip" class="headerlink" title="如何安装指定版本的pip"></a>如何安装指定版本的pip</h2><p>python -m pip install pip==18.1(换成你想要的版本编号)</p>
-<h2 id="pip安装软件过程中报错："><a href="#pip安装软件过程中报错：" class="headerlink" title="pip安装软件过程中报错："></a>pip安装软件过程中报错：</h2><p>Command “python setup.py egg_info” failed with error code 1 in /tmp/pip-build-BqMhb7/matplotlib/</p>
-<ol>
-<li>安装并升级setuptools<br>pip install –upgrade setuptools</li>
-<li>升级pip<br>pip install –upgrade pip</li>
-</ol>
-<h2 id="pip升级后报错"><a href="#pip升级后报错" class="headerlink" title="pip升级后报错"></a>pip升级后报错</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "/usr/bin/pip", line 9, in &lt;module&gt;</span><br><span class="line">    from pip import main</span><br><span class="line">ImportError: cannot import name 'main'</span><br><span class="line">修改/usr/bin/pip如下：</span><br><span class="line">//修改前</span><br><span class="line">from pip import main  </span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(main()) </span><br><span class="line">修改后</span><br><span class="line">from pip import __main__  //这行也要修改</span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(__main__._main())//增加__main__._  （注意最后main()前面有个_）</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/linux/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3linux%E6%8C%82%E8%BD%BD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="RockMaster~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RockMaster's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/linux/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3linux%E6%8C%82%E8%BD%BD/" class="post-title-link" itemprop="url">如何理解linux挂载</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：16:00:26" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>根据树结构去理解整个文件系统的挂载和挂载点还是有点困难，所以自己做了些总结，有不对的地方还请指正</p>
-<p>df -h命令后</p>
-<p>Filesystem 这里的文件系统表示的是目录的层次结构，而不是所谓的像ext4，fat那种真正的文件系统类型<br>一个具体的设备文件(或分区) ，或许是一块硬盘上的一个分区，或许是u盘上的一个分区</p>
-<p>目录就相当于门<br>整个linux中的文件系统就像一个世界接着一个世界，不同的世界代表不同的被挂载的文件系统，挂载点就相当于任意门（特殊的门），各个被挂载的文件系统之间是独立的，但是要进入其中一个需要一个一个进入任意门去穿梭，整个世界的第一个门是 / ，它里面的世界是第一个文件系统，这个世界里又有很多个门，有的门背后的世界和这个世界是同一个，则他们是在同一个文件系统里，而当有其他的分区被挂载到一个目录的时候，例如<br>对一个目录 /home/lll，要到达这个门后的世界，要穿过 / 和 home/ （这个门在 / 后面的世界里） 和 lll/ （这个门在 home/ 后面的世界里），形象的描述为：</p>
-<p>/ —》 世界A （包含 home/ —-》 世界B （包含 lll/ —》 世界C ）如果不做任何其他挂载，世界A、B、C是同一个世界）当要把/dev/sda1这个id所指向的分区挂载到 /home/lll 则相当于把 /home/lll/ 这个门变成任意门，它通往的世界变成了sda1的世界空间，自然的，只要进了这个世界，如果再不挂载其他的，则所有对 /home/lll/… 的操作都在sda1的世界里，而对这个门前面的世界的操作，如对/home/aaa的操作，仍然在一开始的那个世界里<br>把挂载点想象成一个任意门，进入第一个任意门是世界A，里面还有一个任意门通往世界B，虽然只有进了第一个任意门才能进第二个任意门，但世界A和世界B是毫无关系彼此独立的（挂载的文件系统之间彼此独立）<br>挂载绑定：把一个目录挂载到另一个目录，比如 mount –bind dir1 dir2 则是相当于对dir2这个门做了特殊处理，让dir2和dir1通往同一个世界的同一个位置，而dir2原本通往的那个位置里面的东西会被遮盖掉，当解除挂载后，dir2会恢复它原本通往的世界和位置，且里面的东西还在</p>
-<p>当把目录A挂载到目录B，= mount –bind A B ; 其中B是新的挂载点 ，就是让门B通往的地方和门A通往的地方一毛一样<br>把设备A挂载到目录B = mount A B ; 其中B是新的挂载点，就是让门B通往的地方是A的世界空间。<br>挂载点必须是目录（门）</p>
-<p>可以对同一个目录多次挂载，最后生效的结果是最后一次挂载，此时卸载，则倒数第二次挂载生效，再卸载，则倒数第三次挂载生效</p>
 
       
     </div>
