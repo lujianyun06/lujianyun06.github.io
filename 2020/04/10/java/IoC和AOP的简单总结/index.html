@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lujianyun06.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="IoC： context是总管家。总领全局    context创建一个bean工厂，一个解析工具（如xmlReader）。先让解析工具去完成对xml或者注解中bean的解析，对于每个bean节点，提取出其中的名称，类型、属性来构建出一个beandefinition(bd)，并存放到解析工具的map中，之后创建这个map中的bd全部移到bean工厂的map中，然后扫描出所有类型为bean初始化前">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IoC和AOP的简单总结">
+<meta property="og:url" content="https://lujianyun06.github.io/2020/04/10/java/IoC%E5%92%8CAOP%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="RockMaster&#39;s Blog">
+<meta property="og:description" content="IoC： context是总管家。总领全局    context创建一个bean工厂，一个解析工具（如xmlReader）。先让解析工具去完成对xml或者注解中bean的解析，对于每个bean节点，提取出其中的名称，类型、属性来构建出一个beandefinition(bd)，并存放到解析工具的map中，之后创建这个map中的bd全部移到bean工厂的map中，然后扫描出所有类型为bean初始化前">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-10T01:17:08.000Z">
+<meta property="article:modified_time" content="2020-04-10T09:03:14.571Z">
+<meta property="article:author" content="RockMaster~Lu">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="后台开发">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://lujianyun06.github.io/2020/04/10/java/IoC%E5%92%8CAOP%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>IoC和AOP的简单总结 | RockMaster's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">RockMaster's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">0</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">12</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">31</span></a>
+
+  </li>
+        
+            
+  <li class="menu-item menu-item-docs">
+
+    <a href="/docs/" rel="section"><i class="fa fa-book fa-fw"></i>Docs</a>
+
+  </li>
+
+
+      
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/IoC%E5%92%8CAOP%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          IoC和AOP的简单总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:03:14" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<h2 id="IoC："><a href="#IoC：" class="headerlink" title="IoC："></a>IoC：</h2><hr>
+<p>context是总管家。总领全局<br>    context创建一个bean工厂，一个解析工具（如xmlReader）。先让解析工具去完成对xml或者注解中bean的解析，对于每个bean节点，提取出其中的名称，类型、属性来构建出一个beandefinition(bd)，并存放到解析工具的map中，之后创建这个map中的bd全部移到bean工厂的map中，然后扫描出所有类型为bean初始化前置/后置处理器的bean，此时就要把它们创建好，并把它们都加到bean工厂的前置/后置处理列表中。<br>此时bean工厂中有了所有的bean的bd（但bean本身还没创建，除了前置/后置处理器bean）<br>（tiny中是全部bean都在这里创建，而在spring中，bean创建可以等到用户第一次getbean时，再触发下面的动作）<br>之后进行bean的创建，进行context的onrefresh，在bean工厂中遍历map，创建bean的实例，并且对每个bean实例做如下工作：<br>    创建后把bean实例和它的bd绑定起来（把它赋给bd的一个属性），并且从bd中取出之前设定的一些属性，给bean赋上。然后对从bean工厂中取出之前加入到前置处理器列表中的bean，使用这些处理器bean对当前的这个bean做前置处理；然后进行这个bean的初始化方法（指定的init-method），然后取出之前加入到后置处理器列表中的bean，使用这些处理器bean对当前的这个bean做后置处理（比如aop就是在这一步发挥作用，检测这个bean的类型是不是符合要拦截处理的类型，如果是，则创建用一个该类代理类型的bean代替当前的这个bean返回）； 做完前置/后置处理后都会返回bean(这个bean可能已经被修改了)，再次把这个最终经过前后置处理的bean重新与bd绑定（之前绑定的就作废了）。（真正的spring中还有给每个bean设置关于容器感知，名称感知，context感知之类的功能）<br>（如果对于特定类型的bean要执行特定的前置/后置处理，只需在处理器中判断bean的类型，满足再处理，否则就把传入的bean原样返回即可）<br>此时，bean的初始化就完成了，获取bean的话，就通过context得到bean工厂，再从bean工厂中通过要获取的bean的类型或名称得到bd，再从bd得到与之绑定的bean。</p>
+<h2 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h2><p>有一个后置处理器叫AspectJAwareAdvisorAutoProxyCreator（简称apc），它的作用是在bean的后置处理时如果需要创建代理，则创建代理来代替原始bean返回<br>有一个类叫TargetSource，它可以封装一个其他类的实例对象，类型，以及它实现和继承的类型/接口集合，相当于是某个实例对象的信息组合。<br>一个类叫AdvisedSupport（具体实现是proxyFactory），它是一个aop的核心类型，它有targetsource的成员变量，有方法拦截器的成员变量，有方法匹配器的成员变量。<br>advisors实际上是包含所有需要代理的类的名单，需要拦截的方法的名单，以及所有的方法拦截器。<br>advisors由多个advisor组成，每个advisor包含一个pointcut成员，一个advice成员。<br>    pointcut定义了一组规则，包括符合条件的类型名规则，符合拦截的方法名规则。（术语是切点）<br>    advice就是一个方法拦截器.(其实就是执行额外的逻辑代码的工具) （术语是通知）<br>（这里advisor的术语就是aspect，即切面，实际上就是切点和通知的综合体）<br>每个advisor也是一个bean，它在spring中实际上就是注解了@AspectJ的类的实例，其pointcut和advice可能都是自己。（而且为了保证advisor必须在其他实例创建之前就创建好，每次有一个bean进入创建代理的后置处理器时，会从容器获得所有的advisor(利用getBeansForType)，如果有某个advisor还没创建，则优先创建它。因此会保证如果一个bean需要被代理，则其advisor一定在它用之前就创建好）</p>
+<p>当有一个bean要进行apc的后置处理的时候，遍历所有的advisor，如果不符合所有的advisor类型规则，则直接返回bean；如果发现符合其中一个advisor的类型规则，进入下一步：（真正的spring中使用拦截链，也就是说可以有多个advisor匹配当前的bean，调用方法的时候会一个挨一个调用）<br>创建一个advisedSupport<br>  ·根据这个bean去创建一个它的targetSource，并且把这个targetSource设置给advisedSupport的成员<br>  ·把当前的advisor的方法规则（方法匹配器）设置给advisedSupport<br>  ·把当前advisor的方法拦截规则（方法拦截器）设置给advisedSupport</p>
+<p>使用advisedSupport生成一个代理工厂，该代理工厂拥有advisedSupport的成员变量，并且这个代理工厂是一个调用处理器(InvocationHandler)。<br>    使用代理工厂去生成一个当前这个bean的代理对象。如果用jdk动态代理的话，使用<br>Proxy.newProxyInstance(当前类的类型加载器, bean的所有实现和继承的类型/接口集合, 调用处理器(也就是生成它的代理工厂)）来得到一个代理对象，这个代理对象拥有所有bean的同名方法，当调用代理对象的一个方法时，会调用它的调研处理器的invoke方法，并且会把bean的原本该名称的方法、bean对象，参数都传入invoke<br>，在调用处理器（即代理工厂）的invoke方法中，使用它的成员advisedSupport的方法匹配规则来判断当前调用的这个方法是不是需要拦截的，如果不是则直接调用bean的原来的方法；如果是需要拦截的，则使用advisedSupport的方法拦截器，去执行具体的拦截器的额外逻辑代码（这里还涉及到一个MethodInvocation，但它实际上就是对一个方法、对象、参数的包装，只是为了方便打包传递，从调用处理器传递到拦截器，没有额外的用途），当然这个额外的逻辑代码中也可以调用bean原来的方法，也可以去做一些额外的操作。<br>生成代理后返回，则此时代理对象就取代了原本的bean成为了bean容器中针对原来的bean类型的合法代言人了，别的地方不论是通过原本的类型，还是设置的名称，获得的都是这个代理，而原来的bean就只存在于代理对象的调用处理器中的advisedSupport中的targetSource中（层层包裹，外部是无法得到这个bean的）。</p>
+<p>另：<br>生成代理对象的方式有jdk动态代理，还有其他一些，如Cglib2等，但原理都是一样的。</p>
+<blockquote>
+<p>注意，jdk动态代理生成的对象只能转成实际类实现的接口类型的对象，而无法转成实在的类的对象（而cglib能）<br>例如，A implements I<br>jdk动态代理创建好的代理proxy只能强转成I类型的，而不能强转成A类型的。</p>
+</blockquote>
+<blockquote>
+<p>注意，InvocationHandler的invoke方法，传递过来的是proxy，而不是原始对象，所以如果要运行原本实例的方法(method.invoke)，需要在InvocationHandler中保存原本的实例</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/10/java/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8GC%E4%B8%ADparallel%20scavenge%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BDCMS%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8%EF%BC%9F/" rel="prev" title="垃圾收集器GC中parallel scavenge收集器为什么不能CMS配合使用？">
+      <i class="fa fa-chevron-left"></i> 垃圾收集器GC中parallel scavenge收集器为什么不能CMS配合使用？
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/10/java/Concurrent%20mode%20failure%E5%92%8C%20promotion%20failed/" rel="next" title="Concurrent mode failure和 promotion failed">
+      Concurrent mode failure和 promotion failed <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#IoC："><span class="nav-number">1.</span> <span class="nav-text">IoC：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOP"><span class="nav-number">2.</span> <span class="nav-text">AOP</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="RockMaster~Lu"
+      src="/images/lu.jpg">
+  <p class="site-author-name" itemprop="name">RockMaster~Lu</p>
+  <div class="site-description" itemprop="description">记录学习生活，力求每日进步</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fas fa-cloud"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RockMaster~Lu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

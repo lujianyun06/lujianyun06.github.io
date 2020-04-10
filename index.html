@@ -125,12 +125,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">1</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">12</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">2</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">31</span></a>
 
   </li>
         
@@ -197,7 +197,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/java%E6%B5%8B%E8%AF%95/">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/hexo/hexo%E5%A6%82%E4%BD%95%E5%BC%95%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
@@ -211,7 +211,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/04/10/java/java%E6%B5%8B%E8%AF%95/" class="post-title-link" itemprop="url">java测试</a>
+            <a href="/2020/04/10/hexo/hexo%E5%A6%82%E4%BD%95%E5%BC%95%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87/" class="post-title-link" itemprop="url">hexo如何引用本地图片</a>
         </h2>
 
         <div class="post-meta">
@@ -222,7 +222,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：13:38:32" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+              <time title="创建时间：2020-04-10 20:39:40 / 修改时间：20:43:02" itemprop="dateCreated datePublished" datetime="2020-04-10T20:39:40+08:00">2020-04-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -230,7 +230,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                  <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
                 </span>
             </span>
 
@@ -245,17 +245,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>字典树的实现：c-p299<br>实现字典树，并实现,假设字符都是a到z<br>insert，添加word，可以重复添加<br>delete 删除word，如果word有多个，仅删除一个<br>search 查询word是否在字典中<br>prefixNumber：返回以字符串pre为前缀的单词数量</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tire</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> wordCount;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isWord;</span><br><span class="line">    <span class="keyword">private</span> Tire[] table = <span class="keyword">new</span> Tire[<span class="number">26</span>];</span><br><span class="line"></span><br><span class="line">    Tire()&#123;</span><br><span class="line">        isWord = <span class="keyword">false</span>;</span><br><span class="line">        wordCount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(String word)</span></span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] s = word.toCharArray();</span><br><span class="line">        Tire cur = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.length;i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> index = s[i]-<span class="string">'a'</span>;</span><br><span class="line">            <span class="keyword">if</span>(cur.table[index]==<span class="keyword">null</span>)&#123;</span><br><span class="line">                cur.table[index] = <span class="keyword">new</span> Tire();</span><br><span class="line">            &#125;</span><br><span class="line">            cur = cur.table[index];</span><br><span class="line">            <span class="keyword">if</span>(i==s.length-<span class="number">1</span>)&#123;</span><br><span class="line">                cur.isWord = <span class="keyword">true</span>;</span><br><span class="line">                cur.wordCount++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">delete</span><span class="params">(String word)</span></span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] s = word.toCharArray();</span><br><span class="line">        Tire cur = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.length;i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> index = s[i]-<span class="string">'a'</span>;</span><br><span class="line">            cur = cur.table[index];</span><br><span class="line">            <span class="keyword">if</span>(i==s.length-<span class="number">1</span>)&#123;</span><br><span class="line">                cur.wordCount = Math.max(cur.wordCount-<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">                cur.isWord = cur.wordCount!=<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">search</span><span class="params">(String word)</span></span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] s = word.toCharArray();</span><br><span class="line">        Tire cur = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.length;i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> index = s[i]-<span class="string">'a'</span>;</span><br><span class="line">            cur = cur.table[index];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cur.isWord;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">prefixNumber</span><span class="params">(String pre)</span></span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] s = pre.toCharArray();</span><br><span class="line">        Tire cur = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.length;i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> index = s[i]-<span class="string">'a'</span>;</span><br><span class="line">            cur = cur.table[index];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> findWord(cur);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">findWord</span><span class="params">(Tire root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> res = root.wordCount;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">26</span>;i++)&#123;</span><br><span class="line">            res += findWord(root.table[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>dadadasd<br>dadad</p>
-<h2 id="dasda"><a href="#dasda" class="headerlink" title="dasda"></a>dasda</h2><p>dsadasegf<br>d</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> a+b</span><br></pre></td></tr></table></figure>
-
-<p>zccxzcca</p>
-<p>adsdas</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+          <h2 id="如何引用本地图片？"><a href="#如何引用本地图片？" class="headerlink" title="如何引用本地图片？"></a>如何引用本地图片？</h2><p>把图片img1.png放到 hexo_dir/public/images/ 中，然后可以直接在文章中用</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">图片的alt</span>](<span class="link">/images/img1.png 'title'</span>)</span><br></pre></td></tr></table></figure>
+<p>来使用</p>
 
       
     </div>
@@ -275,7 +267,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/09/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/%E5%85%B6%E4%BB%96/html%E4%B8%AD%E7%AC%A6%E5%8F%B7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
@@ -289,7 +281,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/04/09/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+            <a href="/2020/04/10/%E5%85%B6%E4%BB%96/html%E4%B8%AD%E7%AC%A6%E5%8F%B7/" class="post-title-link" itemprop="url">html中的符号</a>
         </h2>
 
         <div class="post-meta">
@@ -298,16 +290,19 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-04-09 22:17:00" itemprop="dateCreated datePublished" datetime="2020-04-09T22:17:00+08:00">2020-04-09</time>
+              <time title="创建时间：2020-04-10 19:23:08 / 修改时间：20:38:34" itemprop="dateCreated datePublished" datetime="2020-04-10T19:23:08+08:00">2020-04-10</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-10 13:35:33" itemprop="dateModified" datetime="2020-04-10T13:35:33+08:00">2020-04-10</time>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
               </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%85%B6%E4%BB%96/" itemprop="url" rel="index"><span itemprop="name">其他</span></a>
+                </span>
+            </span>
 
           
 
@@ -320,19 +315,777 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+          <p><img src="/images/html-symbol1.png" alt="1"><br><img src="/images/html-symbol2.png" alt="2"></p>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+      
+    </div>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/rabbitmq/rabbitmq%E7%AC%94%E8%AE%B0/">
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/java/rabbitmq/rabbitmq%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">rabbitmq笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 18:23:08 / 修改时间：18:29:30" itemprop="dateCreated datePublished" datetime="2020-04-10T18:23:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/rabbitmq/" itemprop="url" rel="index"><span itemprop="name">rabbitmq</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="》如果没有交换机，那么routekey就必须是队列名，否则通道不知道要把消息传到哪个队列中去"><a href="#》如果没有交换机，那么routekey就必须是队列名，否则通道不知道要把消息传到哪个队列中去" class="headerlink" title="》如果没有交换机，那么routekey就必须是队列名，否则通道不知道要把消息传到哪个队列中去"></a>》如果没有交换机，那么routekey就必须是队列名，否则通道不知道要把消息传到哪个队列中去</h2><h2 id="》RabbitMQ-默认将消息顺序发送给下一个消费者，这样，每个消费者会得到相同数量的消息。即轮询（round-robin）分发消息。"><a href="#》RabbitMQ-默认将消息顺序发送给下一个消费者，这样，每个消费者会得到相同数量的消息。即轮询（round-robin）分发消息。" class="headerlink" title="》RabbitMQ 默认将消息顺序发送给下一个消费者，这样，每个消费者会得到相同数量的消息。即轮询（round-robin）分发消息。"></a>》RabbitMQ 默认将消息顺序发送给下一个消费者，这样，每个消费者会得到相同数量的消息。即轮询（round-robin）分发消息。</h2><p>假如信息a已经被发送给了消费者1，那么一定会等到信息a的ack返回后，才会把信息b发送给消费者2(即下一个消费者)，不管消费者1空闲与否或者其他消费者空闲与否，这里应该叫“轮流，顺上来”的概念<br>即默认情况下，当一个信息被发送给一个消费者，那么下一个信息一定会被发送给下一个消费者，而不是其他消费者。<br>当然，只有1个消费者时，由于它自己就是下一个消费者，那就一直是它获得消息<br>怎样才能做到按照每个消费者的能力分配消息呢？联合使用 Qos 和 Acknowledge 就可以做到。<br>basicQos 方法设置了当前信道最大预获取（prefetch）消息数量为1。消息从队列异步推送给消费者，消费者的 ack 也是异步发送给队列，从队列的视角去看，总是会有一批消息已推送但尚未获得 ack 确认，Qos 的 prefetchCount 参数就是用来限制这批未确认消息数量的。设为1时，队列只有在收到消费者发回的上一条消息 ack 确认后，才会向该消费者发送下一条消息。prefetchCount 的默认值为0，即没有限制，队列会将所有消息尽快发给消费者。</p>
+<ol>
+<li><p>轮询分发 ：使用任务队列的优点之一就是可以轻易的并行工作。如果我们积压了好多工作，我们可以通过增加工作者（消费者）来解决这一问题，使得系统的伸缩性更加容易。在默认情况下，RabbitMQ将逐个发送消息到在序列中的下一个消费者(而不考虑每个任务的时长等等，且是提前一次性分配，并非一个一个分配)。平均每个消费者获得相同数量的消息。这种方式分发消息机制称为Round-Robin（轮询）。</p>
+</li>
+<li><p>公平分发 ：虽然上面的分配法方式也还行，但是有个问题就是：比如：现在有2个消费者，所有的奇数的消息都是繁忙的，而偶数则是轻松的。按照轮询的方式，奇数的任务交给了第一个消费者，所以一直在忙个不停。偶数的任务交给另一个消费者，则立即完成任务，然后闲得不行。而RabbitMQ则是不了解这些的。这是因为当消息进入队列，RabbitMQ就会分派消息。它不看消费者为应答的数目，只是盲目的将消息发给轮询指定的消费者。</p>
+</li>
+</ol>
+<p>为了解决这个问题，我们使用basicQos( prefetchCount = 1)方法，来限制RabbitMQ只发不超过1条的消息给同一个消费者。当消息处理完毕后，有了反馈，才会进行第二次发送。<br>还有一点需要注意，使用非公平分发，必须关闭自动应答，改为手动应答。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 同一时刻服务器只会发一条消息给消费者</span></span><br><span class="line">channel.basicQos(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//开启这行 表示使用手动确认模式</span></span><br><span class="line">channel.basicAck(delivery.getEnvelope().getDeliveryTag(), <span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">同时改为手动确认：</span><br><span class="line"><span class="comment">// 监听队列，false表示手动返回完成状态，true表示自动</span></span><br><span class="line">channel.basicConsume(QUEUE_NAME, <span class="keyword">false</span>, consumer);</span><br><span class="line">这样的话，消费快的消费者能得到更多的消息</span><br></pre></td></tr></table></figure>
+
+<h2 id="》如果交换机设置为fanout类型，那么routekey是不会起作用的，交换机一定会把它收到的所有消息都发给所有与它绑定的队列，只有当类型为topic或direct时才会起作用"><a href="#》如果交换机设置为fanout类型，那么routekey是不会起作用的，交换机一定会把它收到的所有消息都发给所有与它绑定的队列，只有当类型为topic或direct时才会起作用" class="headerlink" title="》如果交换机设置为fanout类型，那么routekey是不会起作用的，交换机一定会把它收到的所有消息都发给所有与它绑定的队列，只有当类型为topic或direct时才会起作用"></a>》如果交换机设置为fanout类型，那么routekey是不会起作用的，交换机一定会把它收到的所有消息都发给所有与它绑定的队列，只有当类型为topic或direct时才会起作用</h2><h2 id="》消息无法由exchange路由到合适的队列的处理方法（这种情况一定是direct或topic，fanout不存在这种问题）"><a href="#》消息无法由exchange路由到合适的队列的处理方法（这种情况一定是direct或topic，fanout不存在这种问题）" class="headerlink" title="》消息无法由exchange路由到合适的队列的处理方法（这种情况一定是direct或topic，fanout不存在这种问题）"></a>》消息无法由exchange路由到合适的队列的处理方法（这种情况一定是direct或topic，fanout不存在这种问题）</h2><h3 id="》1-设置mandatory参数为true"><a href="#》1-设置mandatory参数为true" class="headerlink" title="》1.设置mandatory参数为true"></a>》1.设置mandatory参数为true</h3><pre><code>上一篇文章中我们知道，生产者将消息发送到RabbitMQ的交换器中通过RoutingKey与BindingKey的匹配将之路由到具体的队列中以供消费者消费。那么当我们通过匹配规则找不到队列的时候，消息将何去何从呢?Rabbit给我们提供了两种方式。mandatory与备份交换器。
+mandatory参数是channel.BasicPublish方法中的参数。其主要功能是消息传递过程中不可达目的地时将消息返回给生产者。当mandatory 参数设为true 时，交换器无法根据自身的类型和路由键找到一个符合条件的队列，那么RabbitMQ 会调用BasicReturn 命令将消息返回给生产者。当mandatory 参数设置为false 时。则消息直接被丢弃。其运转流程与实现代码如下(以C# RabbitMQ.Client 3.6.9为例):
+注意，这和死信队列没关系，死信是已经在队列中的内容过期后的处理措施，这个mandatory是交换器把这个消息路由不到任何消息队列的处理方法。</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String message = <span class="string">"hello world"</span>;</span><br><span class="line">channel.basicPublish(<span class="string">"eee"</span>, <span class="string">""</span>, <span class="keyword">true</span>, properties, message.getBytes());</span><br><span class="line">System.out.println(<span class="string">"[x] Sent '"</span> + message + <span class="string">"'"</span>);</span><br><span class="line"></span><br><span class="line">channel.addReturnListener(<span class="keyword">new</span> ReturnListener() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleReturn</span><span class="params">(<span class="keyword">int</span> replyCode, String replyText, String exchange, String routingKey, AMQP.BasicProperties properties, <span class="keyword">byte</span>[] body)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"replyCode="</span>+replyCode + <span class="string">" replyText="</span>+replyText+<span class="string">" exchange="</span>+exchange + <span class="string">" routeKey="</span>+routingKey+<span class="string">" body="</span>+<span class="keyword">new</span> String(body));  <span class="comment">//#1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">注意，由于是异步的，如果主线程先结束了，#1处的代码可能还没执行就整体结束了。</span><br></pre></td></tr></table></figure>
+
+<h3 id="》设置备份exchange"><a href="#》设置备份exchange" class="headerlink" title="》设置备份exchange"></a>》设置备份exchange</h3><pre><code>当消息不能路由到队列时，通过mandatory设置参数,我们可以将消息返回给生产者处理。但这样会有一个问题，就是生产者需要开一个回调的函数来处理不能路由到的消息，这无疑会增加生产者的处理逻辑。备份交换器(Altemate Exchange)则提供了另一种方式来处理不能路由的消息。备份交换器可以将未被路由的消息存储在RabbitMQ中，在需要的时候去处理这些消息。其主要实现代码如下:</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Object&gt; arguments = <span class="keyword">new</span> HashMap&lt;String, Object&gt;(<span class="number">16</span>);</span><br><span class="line">arguments.put(<span class="string">"alternate-exchange"</span>, <span class="string">"backup"</span>);</span><br><span class="line"><span class="comment">//普通交换器和普通队列</span></span><br><span class="line">channel.exchangeDeclare(<span class="string">"normal"</span>, <span class="string">"direct"</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, arguments);</span><br><span class="line">channel.queueDeclare(<span class="string">"q1"</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>);</span><br><span class="line">channel.queueBind(<span class="string">"q1"</span>, <span class="string">"normal"</span>, <span class="string">"r1"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//备份交换器和备份队列</span></span><br><span class="line">channel.exchangeDeclare(<span class="string">"backup"</span>, <span class="string">"fanout"</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">null</span>);</span><br><span class="line">channel.queueDeclare(<span class="string">"qb"</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>);</span><br><span class="line">channel.queueBind(<span class="string">"qb"</span>, <span class="string">"backup"</span>, <span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">channel.basicPublish(<span class="string">"normal"</span>, <span class="string">""</span>, <span class="keyword">null</span>, <span class="string">"abcdef"</span>.getBytes());</span><br></pre></td></tr></table></figure>
+
+<p>备份交换器其实和普通的交换器没有太大的区别，为了方便使用，建议设置为fanout类型，若设置为direct 或者topic的类型。需要注意的是，消息被重新发送到备份交换器时的路由键和从生产者发出的路由键是一样的。考虑这样一种情况，如果备份交换器的类型是direct,并且有一个与其绑定的队列，假设绑定的路由键是key1，当某条携带路由键为key2 的消息被转发到这个备份交换器的时候，备份交换器没有匹配到合适的队列，则消息丢失。如果消息携带的路由键为key1，则可以存储到队列中。<br>对于备份交换器，有以下几种特殊情况:</p>
+<ul>
+<li>如果设置的备份交换器不存在，客户端和RabbitMQ 服务端都不会有异常出现，此时消息会丢失。</li>
+<li>如果备份交换器没有绑定任何队列，客户端和RabbitMQ 服务端都不会有异常出现，此时消息会丢失。</li>
+<li>如果备份交换器没有任何匹配的队列，客户端和RabbitMQ 服务端都不会有异常出现，此时消息会丢失。</li>
+<li>如果备份交换器和mandatory参数一起使用，那么mandatory参数无效。</li>
+</ul>
+<h2 id="》设置消息的TTL："><a href="#》设置消息的TTL：" class="headerlink" title="》设置消息的TTL："></a>》设置消息的TTL：</h2><pre><code>目前有两种方法可以设置消息的TTL。第一种方法是通过队列属性设置，队列中所有消息都有相同的过期时间。第二种方法是对消息本身进行单独设置，每条消息的TTL可以不同。如果两种方法一起使用，则消息的TTL 以两者之间较小的那个数值为准。消息在队列中的生存时间一旦超过设置的TTL值时，就会变成&quot;死信&quot; (Dead Message) ，消费者将无法再收到该消息。(有关死信队列请往下看)</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">方法一：给队列参数上加上x-message-ttl属性，这样所有进入该队列的消息都会有统一的过期时间</span><br><span class="line">Map&lt;String, Object&gt; arguments = <span class="keyword">new</span> HashMap&lt;String, Object&gt;(<span class="number">16</span>);</span><br><span class="line">arguments.put(<span class="string">"x-message-ttl"</span>, <span class="number">10000</span>);</span><br><span class="line">arguments.put(<span class="string">"x-max-priority"</span>, <span class="number">10</span>);</span><br><span class="line">channel.exchangeDeclare(<span class="string">"eee"</span>, <span class="string">"fanout"</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">null</span>);</span><br><span class="line">channel.queueDeclare(QUEUE_NAME, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, arguments);</span><br><span class="line">方法二：给消息上加上属性：</span><br><span class="line">        AMQP.BasicProperties properties = <span class="keyword">new</span> AMQP.BasicProperties.Builder()</span><br><span class="line">                .expiration(<span class="string">"20000"</span>) <span class="comment">//表示20000ms</span></span><br><span class="line">                .build();</span><br><span class="line">        String message = <span class="string">"hello world"</span>;</span><br><span class="line">        channel.basicPublish(<span class="string">"eee"</span>, <span class="string">""</span>, properties, message.getBytes());</span><br></pre></td></tr></table></figure>
+<p>注意:对于第一种设置队列TTL属性的方法，一旦消息过期，就会从队列中抹去，而在第二种方法中，即使消息过期，也不会马上从队列中抹去，因为每条消息是否过期是在即将投递到消费者之前判定的。Why?在第一种方法里，队列中己过期的消息肯定在队列头部， RabbitMQ 只要定期从队头开始扫描是否有过期的消息即可。而第二种方法里，每条消息的过期时间不同，如果要删除所有过期消息势必要扫描整个队列，所以不如等到此消息即将被消费时再判定是否过期，如果过期再进行删除即可。</p>
+<h2 id="》设置队列的TTL"><a href="#》设置队列的TTL" class="headerlink" title="》设置队列的TTL"></a>》设置队列的TTL</h2><pre><code>注意，这里和上述通过队列设置消息的TTL不同。上面删除的是消息，而这里删除的是队列。通过channel.queueDeclare 方法中的x-expires参数可以控制队列被自动删除前处于未使用状态的时间。这个未使用的意思是队列上没有任何的消费者，队列也没有被重新声明，并且在过期时间段内也未调用过channel.basicGet命令。
+设置队列里的TTL可以应用于类似RPC方式的回复队列，在RPC中，许多队列会被创建出来，但是却是未被使用的(有关RabbitMQ实现RPC请往下看)。RabbitMQ会确保在过期时间到达后将队列删除，但是不保障删除的动作有多及时。在RabbitMQ 重启后， 持久化的队列的过期时间会被重新计算。用于表示过期时间的x-expires参数以毫秒为单位， 井且服从和x-message-ttl一样的约束条件，不同的是它不能设置为0(会报错)。</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Object&gt; arguments = <span class="keyword">new</span> HashMap&lt;String, Object&gt;(<span class="number">16</span>);</span><br><span class="line">arguments.put(<span class="string">"x-expires"</span>, <span class="number">2000</span>);</span><br><span class="line">channel.exchangeDeclare(<span class="string">"eee"</span>, <span class="string">"fanout"</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">null</span>);</span><br><span class="line">channel.queueDeclare(QUEUE_NAME, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, arguments);</span><br></pre></td></tr></table></figure>
+
+<h2 id="》死信队列"><a href="#》死信队列" class="headerlink" title="》死信队列"></a>》死信队列</h2><pre><code>DLX(Dead-Letter-Exchange)死信交换器，当消息在一个队列中变成死信之后，它能被重新被发送到另一个交换器中，这个交换器就是DLX ，绑定DLX的队列就称之为死信队列。</code></pre><p>消息变成死信主要有以下几种情况:</p>
+<ul>
+<li>消息被拒绝(BasicReject/BasicNack) ，井且设置requeue 参数为false;</li>
+<li>消息过期;</li>
+<li>队列达到最大长度。<br>  DLX也是一个正常的交换器，和一般的交换器没有区别，它能在任何的队列上被指定，实际上就是设置某个队列的属性。当这个队列中存在死信时，RabbitMQ 就会自动地将这个消息重新发布到设置的DLX上去，进而被路由到另一个队列，即死信队列。可以监听这个队列中的消息、以进行相应的处理。<br>  通过在channel.queueDeclare 方法中设置x-dead-letter-exchange参数来为这个队列添加DLX。其示例代码如下:</li>
+</ul>
+<h2 id="》对于队列参数的设置，map的内容必须是在声明队列之前就有了，不能设置了arguments后再往map中放东西"><a href="#》对于队列参数的设置，map的内容必须是在声明队列之前就有了，不能设置了arguments后再往map中放东西" class="headerlink" title="》对于队列参数的设置，map的内容必须是在声明队列之前就有了，不能设置了arguments后再往map中放东西"></a>》对于队列参数的设置，map的内容必须是在声明队列之前就有了，不能设置了arguments后再往map中放东西</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Object&gt; arguments = <span class="keyword">new</span> HashMap&lt;String, Object&gt;(<span class="number">16</span>);</span><br><span class="line"><span class="comment">//死信队列配置  ----------------</span></span><br><span class="line">String dlxExchangeName = <span class="string">"dlx.exchange"</span>;</span><br><span class="line">String dlxQueueName = <span class="string">"dlx.queue"</span>;</span><br><span class="line">String dlxRoutingKey = <span class="string">"#"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为队列设置队列交换器</span></span><br><span class="line">arguments.put(<span class="string">"x-dead-letter-exchange"</span>, dlxExchangeName); <span class="comment">//只能设置死信交换器，不能直接把死信队列与其他队列绑定</span></span><br><span class="line"><span class="comment">// 设置队列中的消息 3s 钟后过期</span></span><br><span class="line">arguments.put(<span class="string">"x-message-ttl"</span>, <span class="number">3000</span>);</span><br><span class="line">channel.exchangeDeclare(<span class="string">"eee"</span>, <span class="string">"fanout"</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">null</span>);</span><br><span class="line">channel.queueDeclare(QUEUE_NAME, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, arguments);  </span><br><span class="line"><span class="comment">//给arguments中设置内容不能放在这句后面不然参数不起作用</span></span><br><span class="line">channel.queueBind(QUEUE_NAME, <span class="string">"eee"</span>, <span class="string">"”);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// 创建死信交换器和队列</span></span><br><span class="line"><span class="string">channel.exchangeDeclare(dlxExchangeName, "</span>topic<span class="string">", true, false, null);</span></span><br><span class="line"><span class="string">channel.queueDeclare(dlxQueueName, true, false, false, null);</span></span><br><span class="line">channel.queueBind(dlxQueueName, dlxExchangeName, "#");</span><br></pre></td></tr></table></figure>
+
+<h3 id="》必须有一个交换器与之绑定。死信队列一定要持久化，但设置死信队列的队列不一定要持久化"><a href="#》必须有一个交换器与之绑定。死信队列一定要持久化，但设置死信队列的队列不一定要持久化" class="headerlink" title="》必须有一个交换器与之绑定。死信队列一定要持久化，但设置死信队列的队列不一定要持久化**"></a>》必须有一个交换器与之绑定。死信队列一定要持久化，但设置死信队列的队列不一定要持久化**</h3><p>死信队列和死信交换器的声明和普通队列，交换器没什么区别（除了一定要持久化），表明它是死信交换器的位置是把它的名字设置为一个其他队列的“x-dead-letter-exchange” 参数 </p>
+<h3 id="》可以用过期队列-死信队列-来模拟延迟队列"><a href="#》可以用过期队列-死信队列-来模拟延迟队列" class="headerlink" title="》可以用过期队列+死信队列 来模拟延迟队列**"></a>》可以用过期队列+死信队列 来模拟延迟队列**</h3><pre><code>生产者将消息发送到过期时间为n的队列中，这个队列并未有消费者来消费消息，当过期时间到达时，消息会通过死信交换器被转发到死信队列中。而消费者从死信队列中消费消息。这个时候就达到了生产者发布了消息在讲过了n时间后消费者消费了消息，起到了延迟消费的作用。
+ 延迟队列在我们的项目中可以应用于很多场景，如：下单后两个消息取消订单，七天自动收货，七天自动好评，密码冻结后24小时解冻，以及在分布式系统中消息补偿机制(1s后补偿,10s后补偿，5m后补偿......)。</code></pre><h2 id="》优先级队列"><a href="#》优先级队列" class="headerlink" title="》优先级队列:"></a>》优先级队列:</h2><p>  就像我们生活中的“特殊”人士一样，我们的业务上也存在一些“特殊”消息，可能需要优先进行处理，在生活上我们可能会对这部分特殊人士开辟一套VIP通道，而Rabbit同样也有这样的VIP通道(前提是在3.5的版本以后)，即优先级队列，队列中的消息会有优先级。优先级高的消息具备优先被消费的特权。针对这些VIP消息，我们只需做两件事:<br>我们只需做两件事情：<br>    1.将队列声明为优先级队列，即在创建队列的时候添加参数 x-max-priority 以指定最大的优先级，值为0-255（整数）。<br>    2.为优先级消息添加优先级。<br>其示例代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">channel.exchangeDeclare(<span class="string">"exchange.priority"</span>, <span class="string">"direct"</span>, <span class="keyword">true</span>);<span class="comment">//定义交换器</span></span><br><span class="line">Map&lt;String, Object&gt; arguments = <span class="keyword">new</span> HashMap&lt;String, Object&gt;(<span class="number">16</span>);</span><br><span class="line"><span class="comment">// 为队列设置队列交换器</span></span><br><span class="line">arguments.put(<span class="string">"x-dead-letter-exchange"</span>, dlxExchangeName);</span><br><span class="line"><span class="comment">// 设置队列中的消息 ms 钟后过期</span></span><br><span class="line">arguments.put(<span class="string">"x-message-ttl"</span>, <span class="number">10000</span>);</span><br><span class="line">arguments.put(<span class="string">"x-max-priority"</span>, <span class="number">10</span>);args.Add(<span class="string">"x-max-priority"</span>, <span class="number">10</span>);<span class="comment">//定义优先级队列的最大优先级为10</span></span><br><span class="line">channel.queueDeclare(<span class="string">"queue.priority"</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, args);<span class="comment">//定义优先级队列</span></span><br><span class="line">channel.queueBind(<span class="string">"queue.priority"</span>, <span class="string">"exchange.priority"</span>, <span class="string">"priorityKey"</span>);<span class="comment">//队列交换器绑定</span></span><br><span class="line">AMQP.BasicProperties properties = <span class="keyword">new</span> AMQP.BasicProperties.Builder()</span><br><span class="line">        .priority(<span class="number">8</span>)</span><br><span class="line">        .build();</span><br><span class="line"><span class="keyword">var</span> message = “testMsg8<span class="string">";</span></span><br><span class="line"><span class="string">//发布消息</span></span><br><span class="line"><span class="string">channel.BasicPublish("</span>exchange.priority<span class="string">", "</span>priorityKey<span class="string">", properties, message);</span></span><br></pre></td></tr></table></figure>
+<p>注意：没有指定优先级的消息会将优先级以0对待。 对于超过优先级队列所定最大优先级的消息，优先级以最大优先级对待。对于相同优先级的消息，后进的排在前面。如果在消费者的消费速度大于生产者的速度且Broker 中没有消息堆积的情况下， 对发送的消息设置优先级也就没有什么实际意义。因为生产者刚发送完一条消息就被消费者消费了，那么就相当于Broker 中至多只有一条消息，对于单条消息来说优先级是没有什么意义的。<br>    关于优先级队列，好像违背了队列这种数据结构先进先出的原则，其具体是怎么实现的在这里就不过多讨论。</p>
+<p>何时创建队列<br>    从前面的文章我们知道，RabbitMQ可以选择在生产者创建队列，也可以在消费者端创建队列，也可以提前创建好队列，而生产者消费者直接使用即可。<br>    RabbitMQ的消息存储在队列中，交换器的使用并不真正耗费服务器的性能，而队列会。如在实际业务应用中，需要对所创建的队列的流量、内存占用及网卡占用有一个清晰的认知，预估其平均值和峰值，以便在固定硬件资源的情况下能够进行合理有效的分配。<br>    按照RabbitMQ官方建议，生产者和消费者都应该尝试创建(这里指声明操作)队列。这虽然是一个很好的建议，但是在我看来这个时间上没有最好的方案，只有最适合的方案。我们往往需要结合业务、资源等方面在各种方案里面选择一个最适合我们的方案。<br>    如果业务本身在架构设计之初己经充分地预估了队列的使用情况，完全可以在业务程序上线之前在服务器上创建好(比如通过页面管理、RabbitMQ命令或者更好的是从配置中心下发)，这样业务程序也可以免去声明的过程，直接使用即可。预先创建好资源还有一个好处是，可以确保交换器和队列之间正确地绑定匹配。很多时候，由于人为因素、代码缺陷等，发送消息的交换器并没有绑定任何队列，那么消息将会丢失:或者交换器绑定了某个队列，但是发送消息时的路由键无法与现存的队列匹配，那么消息也会丢失。当然可以配合mandatory参数或者备份交换器(关于mandatory参数的使用详细可参考我的上一篇文章) 来提高程序的健壮性。与此同时，预估好队列的使用情况非常重要，如果在后期运行过程中超过预定的阈值，可以根据实际情况对当前集群进行扩容或者将相应的队列迁移到其他集群。迁移的过程也可以对业务程序完全透明。此种方法也更有利于开发和运维分工，便于相应资源的管理。如果集群资源充足，而即将使用的队列所占用的资源又在可控的范围之内，为了增加业务程序的灵活性，也完全可以在业务程序中声明队列。至于是使用预先分配创建资源的静态方式还是动态的创建方式，需要从业务逻辑本身、公司运维体系和公司硬件资源等方面考虑。<br>也就是说，如果预先创建好了队列或者交换器，就不用再queueDeclare或exchangeDeclare了，直接用即可。</p>
+<h2 id="》持久化策略"><a href="#》持久化策略" class="headerlink" title="》持久化策略"></a>》持久化策略</h2><p>持久化及策略#<br>    作为一个内存中间件，在保证了速度的情况下，不可避免存在如内存数据库同样的问题，即丢失问题。持久化可以提高RabbitMQ 的可靠性，以防在异常情况(重启、关闭、宕机等)下的数据丢失。RabbitMQ的持久化分为三个部分:交换器的持久化、队列的持久化和消息的持久化。</p>
+<ol>
+<li>交换器的持久化<br> 交换器的持久化是通过在声明队列是将durable 参数置为true 实现的(该参数默认为false)。如果交换器不设置持久化，那么在RabbitMQ 服务重启之后，相关的交换器元数据会丢失，不过消息不会丢失，只是不能将消息发送到这个交换器中了。对一个长期使用的交换器来说，建议将其置为持久化的。</li>
+<li>队列的持久化<br> 队列的持久化是通过在声明队列时将durable 参数置为true 实现的(该参数默认为false)，如果队列不设置持久化，那么在RabbitMQ 服务重启之后，相关队列的元数据会丢失，此时数据也会丢失。正所谓”皮之不存，毛将焉附”，队列都没有了，消息又能存在哪里呢?</li>
+<li>消息的持久化<br> 队列的持久化能保证其本身的元数据不会因异常情况而丢失，但是并不能保证内部所存储的消息不会丢失。要确保消息不会丢失，需要将其设置为持久化。通过将消息的投递模式(BasicProperties中的DeliveryMode属性)设置为2即可实现消息的持久化。<br> 因此，消息如果要想在Rabbit重启、关闭、宕机时能够恢复，需要做到以下三点:</li>
+</ol>
+<ul>
+<li>把消息的投递模式设置为2</li>
+<li>发送到持久化的交换器</li>
+<li>到达持久化的队列<br>  注意:RabbitMQ 确保持久化消息能从服务器重启中恢复的方式是将它们写入磁盘上的一个持久化日志文件中。当发布一条持久化消息到持久化交换器时，Rabbit会在日志提交到日志文件后才发送响应(开启生产者确认机制)。之后，如果消息到了非持久化队列，它会自动从日志文件中删除，并且无法在服务器重启后恢复。因此单单只设置队列持久化，重启之后消息会丢失;单单只设置消息的持久化，重启之后队列消失，继而消息也丢失。单单设置消息持久化而不设置队列的持久化是毫无意义的。当从持久化队列中消费了消息后(并且确认后)，RabbitMQ会在持久化日志中把这条消息标记为等待垃圾收集。而在消费持久化消息之前，若RabbitMQ服务器重启，会自动重建交换器、队列以及绑定，重播持久化日志文件中的消息到合适的队列或者交换器上(取决于宕机时，消息处在路由的哪个环节)。<br>  为了保障消息不会丢失，也许我们可以简单粗暴的将所有的消息标记为持久化，但这样我们会付出性能的代价。写入磁盘的速度比写入内存的速度慢得不只一点点。对于可靠性不是那么高的消息可以不采用持久化处理以提高整体的吞吐量。在选择是否要将消息持久化时，需要在可靠性和吐吞量之间做一个权衡。<br>  将交换器、队列、消息都设置了持久化之后就能百分之百保证数据不丢失了吗?</li>
+<li>从消费者来说，如果在订阅消费队列时将noAck参数设置为true ，那么当消费者接收到相关消息之后，还没来得及处理就宕机了，这样也算数据丢失。</li>
+<li>在持久化的消息正确存入RabbitMQ 之后，还需要有一段时间(虽然很短，但是不可忽视〉才能存入磁盘之中。RabbitMQ 并不会为每条消息都进行同步存盘的处理，可能仅仅保存到操作系统缓存之中而不是物理磁盘之中。如果在这段时间内RabbitMQ 服务节点发生了岩机、重启等异常情况，消息保存还没来得及落盘，那么这些消息将会丢失。<br>  关于第一个问题，可以通过消费者确认机制来解决。而第二个问题可以通过生产者确认机制来解决，也可以使用镜像队列机制(镜像队列机制，将在运维篇总结)。生产者确认消费者确认请往下看。</li>
+</ul>
+<h2 id="》生产者确认机制"><a href="#》生产者确认机制" class="headerlink" title="》生产者确认机制"></a>》生产者确认机制</h2><pre><code>上文我们知道，在使用RabbitMQ的时候，可以通过消息持久化操作来解决因为服务器的异常崩溃而导致的消息丢失，除此之外，我们还会遇到一个问题，当消息的生产者将消息发送出去之后，消息到底有没有正确地到达服务器呢?如果不进行特殊配置，默认情况下发送消息的操作是不会返回任何信息给生产者的，也就是默认情况下生产者是不知道消息有没有正确地到达服务器。如果在消息到达服务器之前己经丢失，持久化操作也解决不了这个问题，因为消息根本没有到达服务器，何谈持久化?
+RabbitMQ针对这个问题，提供了两种解决方式:</code></pre><ul>
+<li>通过事务机制实现:</li>
+<li>通过发送方确认(publisher confirm)机制实现。</li>
+</ul>
+<h3 id="1-RabbitMQ-事务机制"><a href="#1-RabbitMQ-事务机制" class="headerlink" title="1.RabbitMQ 事务机制#"></a>1.RabbitMQ 事务机制#</h3><pre><code>RabbitMQ 客户端中与事务机制相关的方法有三个:channel.txSelect(用于将当前信道设置为事务模式);channel.txCommit(用于提交事务)，channel.txRollback(用于回滚事务)。在通过channel.txSelect方法开启事务之后，我们便可以发布消息给RabbitMQ了，如果事务提交成功，则消息一定到达了RabbitMQ 中，如果在事务提交执行之前由于RabbitMQ异常崩溃或者其他原因抛出异常，这个时候我们便可以将其捕获，进而通过执行channel.txRollback方法来实现事务回滚。示例代码如下所示:（如果在事务提交后异常，则就算执行rollback也不能回滚了）</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">channel.txSelect();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    channel.basicPublish(<span class="string">"eee"</span>, <span class="string">"r1"</span>, <span class="keyword">true</span>, <span class="keyword">null</span>, <span class="string">"dasd12*(!@*#!"</span>.getBytes());</span><br><span class="line">    channel.txCommit();</span><br><span class="line">&#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">    System.out.println(<span class="string">"rollback"</span>);</span><br><span class="line">    channel.txRollback();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>事务确实能够解决消息发送方和RabbitMQ之间消息确认的问题，只有消息成功被RabbitMQ接收，事务才能提交成功，否则便可在捕获异常之后进行事务回滚，与此同时可以进行消息重发。但是使用事务同样会带来一些问题。</code></pre><ul>
+<li>会阻塞，发布者必须等待broker处理每个消息。</li>
+<li>事务是重量级的，每次提交都需要fsync()，需要耗费大量的时间</li>
+<li>事务非常耗性能，会降低RabbitMQ的消息吞吐量。</li>
+</ul>
+<h3 id="2-发送方确认机制"><a href="#2-发送方确认机制" class="headerlink" title="2.发送方确认机制#"></a>2.发送方确认机制#</h3><pre><code>前面介绍了RabbitMQ可能会遇到的一个问题，即消息发送方(生产者〉并不知道消息是否真正地到达了RabbitMQ。随后了解到在AMQP协议层面提供了事务机制来解决这个问题，但是采用事务机制实现会严重降低RabbitMQ的消息吞吐量，这里就引入了一种轻量级的方式一发送方确认(publisher confirm)机制。生产者将信道设置成confirm确认)模式，一旦信道进入confirm模式，所有在该信道上面发布的消息都会被指派一个唯一的ID( 从1开始)，一旦消息被投递到所有匹配的队列之后（或者是没有合适的队列而被丢弃。总之是消息确确实实到了rabbitmq上），RabbitMQ就会发送一个确认(BasicAck) 给生产者(包含消息的唯一ID)，这就使得生产者知晓消息已经正确到达了目的地了。（注意，一旦消息到了rabbitmq(即到了队列或者被丢弃)就返回确认，而不是等到被消费）如果消息和队列是可持久化的，那么确认消息会在消息写入磁盘之后发出。</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">》同步方法：</span><br><span class="line">channel.confirmSelect();   <span class="comment">//一定要写明这句，表示将信道设置为确认模式，否则会报错：Confirms not selected</span></span><br><span class="line">String message = <span class="string">"qazwsx"</span>;</span><br><span class="line">channel.basicPublish(<span class="string">"eee"</span>, <span class="string">""</span>, <span class="keyword">false</span>, <span class="keyword">null</span>, message.getBytes());</span><br><span class="line"><span class="keyword">boolean</span> result = channel.waitForConfirms();</span><br><span class="line"><span class="keyword">if</span>(result)&#123;</span><br><span class="line">    System.out.println(<span class="string">"arrived"</span>);</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    System.out.println(<span class="string">"no way"</span>);</span><br><span class="line">&#125;</span><br><span class="line">》异步方法：</span><br><span class="line">channel.confirmSelect();   <span class="comment">////一定要写明这句，表示将信道设置为确认模式，否则confrimListener的ack/nack方法不会被调用</span></span><br><span class="line">String message = <span class="string">"qazwsx"</span>;</span><br><span class="line">channel.basicPublish(<span class="string">"eee"</span>, <span class="string">"r1"</span>, <span class="keyword">false</span>, <span class="keyword">null</span>, message.getBytes());</span><br><span class="line">channel.addConfirmListener(<span class="keyword">new</span> ConfirmListener() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleAck</span><span class="params">(<span class="keyword">long</span> deliveryTag, <span class="keyword">boolean</span> multiple)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"arrived"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleNack</span><span class="params">(<span class="keyword">long</span> deliveryTag, <span class="keyword">boolean</span> multiple)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"no way"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre><code>关于生产者确认机制同样会有一些问题，broker（也就是rabbitmq系统，exchange和queue等的统称）不能保证消息会被confirm，只知道将会进行confirm。这样如果broker与生产者之间的连接断开，导致生产者不能收到确认消息，可能会重复进行发布。总之，生产者确认模式给客户端提供了一种较为轻量级的方式，能够跟踪哪些消息被broker处理，哪些可能因为broker宕掉或者网络失败的情况而重新发布。
+注意:事务机制和publisher confirm机制两者是互斥的，不能共存。如果企图将已开启事务模式的信道再设置为publisher confirm模式， RabbitMQ会报错,或者如果企图将已开启publisher confirm模式的信道设置为事务模式， RabbitMQ也会报错。在性能上来看，而到底应该选择事务机制还是Confirm机制，则需要结合我们的业务场景。</code></pre><h2 id="》消费者确认机制"><a href="#》消费者确认机制" class="headerlink" title="》消费者确认机制"></a>》消费者确认机制</h2><p>由于生产者和消费者不直接通信,生产者只负责把消息发送到队列,消费者只负责从队列获取消息(不管是push还是pull)。<br>消息被”消费”后,是需要从队列中删除的.那怎么确认消息被”成功消费”了呢?<br>是消费者从队列获取到消息后,broker 就从队列中删除该消息?<br>那如果消费者收到消息后,还没来得及”消费”它,或者说还没来得及进行业务逻辑处理时,消费者所在的信道或者连接因某种原因断开了,那这条消息岂不是就被无情的抛弃了…<br>我们更期望的是,消费者从队列获取到消息后,broker 暂时不删除该条消息,等到消费者”成功消费”掉该消息后,再删除它。<br>所以需要一个机制来确认生产者发送的消息被消费者”成功消费”。<br>RabbitMQ 提供了一种叫做”消费者确认”的机制.<br>    如上，消费者在消费消息的同时，Rabbit会同步给予消费者一个DeliveryTag，这个DeliveryTag就像我们数据库中的主键，消费者在消费完毕后拿着这个DeliveryTag去Rabbit确认或拒绝这个消息。<br>消费者确认<br>消费者确认分两种:自动确认和手动确认.<br>在自动确认模式中,消息在发送到消费者后即被认为”成功消费”.这种模式可以降低吞吐量（只要消费者可以跟上）,以降低交付和消费者处理的安全性.这种模式通常被称为“即发即忘”.与手动确认模型不同,如果消费者的TCP连接或通道在真正的”成功消费”之前关闭,则服务器发送的消息将丢失.因此,自动消息确认应被视为不安全,并不适用于所有工作负载.   channel.basicConsume(QUEUE_NAME, true, consumer); //第二个参数是autoAck，为true则证明开启自动确认。<br>使用自动确认模式时需要考虑的另一件事是消费者过载.手动确认模式通常与有界信道预取(BasicQos方法)一起使用,该预取限制了信道上未完成（“进行中”）的消息的数量.但是,自动确认没有这种限制.因此,消费者可能会被消息的发送速度所淹没,可能会导致消息积压并耗尽堆或使操作系统终止其进程.某些客户端库将应用TCP反压(停止从套接字读取,直到未处理的交付积压超过某个限制).因此,仅建议能够以稳定的速度有效处理消息的消费者使用自动确认模式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">QueueingConsumer consumer = <span class="keyword">new</span> QueueingConsumer(channel);</span><br><span class="line"></span><br><span class="line"><span class="comment">//自动确认：</span></span><br><span class="line">channel.basicConsume(QUEUE_NAME, <span class="keyword">true</span>, consumer);</span><br><span class="line">channel.basicQos(<span class="number">1</span>);</span><br><span class="line"><span class="comment">//手动确认：拉模式：只有当broker收到消费确认后，才从队列中删除这一条消息。</span></span><br><span class="line">channel.basicConsume(QUEUE_NAME, <span class="keyword">false</span>, consumer);</span><br><span class="line">channel.basicQos(<span class="number">1</span>);</span><br><span class="line">QueueingConsumer.Delivery delivery = consumer.nextDelivery();</span><br><span class="line">String message = <span class="keyword">new</span> String(delivery.getBody());</span><br><span class="line">channel.basicAck(delivery.getEnvelope().getDeliveryTag(), <span class="keyword">false</span>); <span class="comment">//发出消费者确认</span></span><br><span class="line">basicAck(deliveryTag, multiple):</span><br><span class="line">第一个参数deliveryTag</span><br><span class="line">    就是接受的消息的deliveryTag,可以通过delivery.getEnvelope().getDeliveryTag()获得</span><br><span class="line">第二个参数 multiple</span><br><span class="line">    如果为<span class="keyword">true</span>，确认之前接受到的消息；如果为<span class="keyword">false</span>，只确认当前消息。</span><br><span class="line">    如果为<span class="keyword">true</span>就表示连续取得多条消息才发会确认，和计算机网络的中tcp协议接受分组的累积确认十分相似，能够提高效率。</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">basicAck</span><span class="params">(<span class="keyword">long</span> deliveryTag, <span class="keyword">boolean</span> multiple)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">basicReject</span><span class="params">(<span class="keyword">long</span> deliveryTag, <span class="keyword">boolean</span> requeue)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">basicNack</span><span class="params">(<span class="keyword">long</span> deliveryTag, <span class="keyword">boolean</span> multiple, <span class="keyword">boolean</span> requeue)</span></span>;</span><br><span class="line">* deliveryTag:可以看作消息的编号，它是一个<span class="number">64</span>位的长整型值，最大值是<span class="number">9223372036854775807</span>。</span><br><span class="line">* requeue:如果requeue 参数设置为<span class="keyword">true</span>，则RabbitMQ会重新将这条消息存入队列，以便可以发送给下一个订阅的消费者;如果requeue 参数设置为<span class="keyword">false</span>，则RabbitMQ立即会把消息从队列中移除，而不会把它发送给新的消费者。</span><br><span class="line">* BasicReject命令一次只能拒绝一条消息，如果想要批量拒绝消息，则可以使用Basic.Nack这个命令。</span><br><span class="line">* multiple:在BasicAck中，multiple 参数设置为<span class="keyword">true</span> 则表示确认deliveryTag编号之前所有已被当前消费者确认的消息。在BasicNack中，multiple 参数设置为<span class="keyword">true</span> 则表示拒绝deliveryTag 编号之前所有未被当前消费者确认的消息。</span><br><span class="line">说明:将channel.BasicReject 或者channel.BasicNack中的requeue设置为<span class="keyword">false</span> ，可以启用<span class="string">"死信队列"</span>的功能。</span><br><span class="line">上述requeue，都会将消息重新存入队列发送给下一个消费者(也有可能是其它消费者)。关于requeue还有下面一种用法。可以选择是否补发给当前的consumer。</span><br><span class="line"><span class="comment">//补发消息 true退回到queue中 /false只补发给当前的consumer</span></span><br><span class="line">channel.basicRecover(<span class="keyword">true</span>);</span><br><span class="line">    注意：RabbitMQ仅仅通过Consumer的连接中断来确认该Message并没有被正确处理。也就是说，RabbitMQ给了Consumer足够长的时间来做数据处理。如果忘记了ack，那么后果很严重。当Consumer退出时，Message会重新分发。然后RabbitMQ会占用越来越多的内存，由于RabbitMQ会长时间运行，这个“内存泄漏”是致命的。</span><br></pre></td></tr></table></figure>
+
+<h2 id="》消息传输保障"><a href="#》消息传输保障" class="headerlink" title="》消息传输保障"></a>》消息传输保障</h2><p>消息可靠传输一般是业务系统接入消息中间件时首要考虑的问题，一般消息中间件的消息传输保障分为三个层级。</p>
+<ul>
+<li>At most once: 最多一次。消息可能会丢失，但绝不会重复传输。</li>
+<li>At least once: 最少一次。消息绝不会丢失，但可能会重复传输。</li>
+<li>Exactly once: 恰好一次。每条消息肯定会被传输一次且仅传输一次。<br>  RabbitMQ 支持其中的”最多一次”和”最少一次”。其中”最少一次”投递实现需要考虑以下这个几个方面的内容:</li>
+</ul>
+<ol>
+<li>消息生产者需要开启事务机制或者publisher confirm 机制，以确保消息可以可靠地传输到RabbitMQ 中。</li>
+<li>消息生产者需要配合使用mandatory参数或者备份交换器来确保消息能够从交换器路由到队列中，进而能够保存下来而不会被丢弃。</li>
+<li>消息和队列都需要进行持久化处理，以确保RabbitMQ服务器在遇到异常情况时不会造成消息丢失。</li>
+<li>消费者在消费消息的同时需要将autoAck设置为false，然后通过手动确认的方式去确认己经正确消费的消息，以避免在消费端引起不必要的消息丢失。<br> “最多一次”的方式就无须考虑以上那些方面，生产者随意发送，消费者随意消费，不过这样很难确保消息不会重复消费。<br> “恰好一次”是RabbitMQ目前无法保障的(目前我也不知道哪个中间件能够保证)。消费者在消费完一条消息之后向RabbitMQ 发送确认BasicAck命令，此时由于网络断开或者其他原因造成RabbitMQ并没有收到这个确认命令，那么RabbitMQ不会将此条消息标记删除。在重新建立连接之后，消费者还是会消费到这一条消息，这就造成了重复消费。再考虑一种情况，生产者在使用publisher confirm机制的时候，发送完一条消息等待RabbitMQ 返回确认通知，此时网络断开，生产者捕获到异常情况，为了确保消息可靠性选择重新发送，这样RabbitMQ中就有两条同样的消息，在消费的时候，消费者就会重复消费。而解决重复消费可以通过消费者幂等等方式来解决。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/mac/brew%E4%BB%8E%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/mac/brew%E4%BB%8E%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">brew从国内源安装</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 18:15:08 / 修改时间：18:16:32" itemprop="dateCreated datePublished" datetime="2020-04-10T18:15:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mac/" itemprop="url" rel="index"><span itemprop="name">mac</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近按照默认方法安装brew特别慢，但是想切换从国内源安装，得到的都是老版本的切换方法：</p>
+<p><a href="https://segmentfault.com/a/1190000018360813" target="_blank" rel="noopener">https://segmentfault.com/a/1190000018360813</a></p>
+<p>因为安装brew的脚本现在不是ruby脚本，改成了shell脚本，而且脚本地址也改变了，所以也需要改变一下安装策略：</p>
+<p>首先把<a href="https://raw.githubusercontent.com/Homebrew/install/master/install.sh上的所有内容拷贝到~目录下的brew_install" target="_blank" rel="noopener">https://raw.githubusercontent.com/Homebrew/install/master/install.sh上的所有内容拷贝到~目录下的brew_install</a> 文件中（没有就新建）</p>
+<p>修改代码（修改为中科大源）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">else</span></span><br><span class="line">  HOMEBREW_PREFIX_DEFAULT=<span class="string">"/home/linuxbrew/.linuxbrew"</span></span><br><span class="line">  HOMEBREW_CACHE=<span class="string">"<span class="variable">$&#123;HOME&#125;</span>/.cache/Homebrew"</span></span><br><span class="line"> </span><br><span class="line">  STAT=<span class="string">"stat --printf"</span></span><br><span class="line">  CHOWN=<span class="string">"/bin/chown"</span></span><br><span class="line">  CHGRP=<span class="string">"/bin/chgrp"</span></span><br><span class="line">  GROUP=<span class="string">"<span class="variable">$(id -gn)</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># BREW_REPO="https://github.com/Homebrew/brew” 修改前</span></span><br><span class="line">BREW_REPO=<span class="string">"git://mirrors.ustc.edu.cn/brew.git”  #修改后</span></span><br><span class="line"><span class="string">CORE_TAP_REPO="</span>git://mirrors.ustc.edu.cn/homebrew-core.git”  <span class="comment">#新增</span></span><br></pre></td></tr></table></figure>
+
+<p>修改过后把brew_install文件变为可执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x brew_install</span><br></pre></td></tr></table></figure>
+<p>然后用执行脚本的方式执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash brew_install</span><br></pre></td></tr></table></figure>
+<p>速度简直和外网不是一个level！</p>
+<p>但是执行到brew-core还是会巨慢无比，此时可以ctrl-c 可以停掉,</p>
+<p>创建目录/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core</p>
+<p>并执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br></pre></td></tr></table></figure>
+<p>然后重新执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash brew_install</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%B7%B3%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%B7%B3%E8%A1%A8/" class="post-title-link" itemprop="url">跳表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 17:56:08 / 修改时间：18:00:17" itemprop="dateCreated datePublished" datetime="2020-04-10T17:56:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本文大部分内容借鉴自<a href="https://baijiahao.baidu.com/s?id=1633338040568845450&amp;wfr=spider&amp;for=pc，感谢大神的辛勤劳动！" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1633338040568845450&amp;wfr=spider&amp;for=pc，感谢大神的辛勤劳动！</a></p>
+<p>跳表就是跳跃的表，其实归根结底是好多层的链表，最底层是正常的数据链表，往上走是代表性的索引</p>
+<p>越往上走一个索引代表的节点就越多，其实跳表和B* 树有些类似，</p>
+<p>B* 树</p>
+<p><img src="https://img-blog.csdnimg.cn/20200312205851392.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="1"></p>
+<p>跳表：</p>
+<p>越往上走，一个值能代表的范围越广。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200312210012776.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt=""></p>
+<p>都是：如果在当前层大于本节点，小于下一个节点，则往下走，否则继续往前走</p>
+<p>跳表。跳表是redis的一个核心组件，也同时被广泛地运用到了各种缓存地实现当中，它的主要优点，就是可以跟红黑树、AVL等平衡树一样，做到比较稳定地插入、查询与删除。理论插入查询删除的算法时间复杂度为O(logN)。<br><img src="https://img-blog.csdnimg.cn/20200312205831229.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="3"></p>
+<p>什么是跳表</p>
+<p>链表，相信大家都不陌生，维护一个有序的链表是一件非常简单的事情，我们都知道，在一个有序的链表里面，查询跟插入的算法复杂度都是O(n)。<br><img src="https://img-blog.csdnimg.cn/20200312205831176.png" alt="4"></p>
+<p>我们能不能进行优化呢，比如我们一次比较两个呢？那样不就可以把时间缩小一半？<br><img src="https://img-blog.csdnimg.cn/20200312205831220.png" alt="5"></p>
+<p>同理，如果我们4个4个比，那不就更快了？<br><img src="https://img-blog.csdnimg.cn/20200312205831280.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="6"></p>
+<p>跳表就是这样的一种数据结构，结点是跳过一部分的，从而加快了查询的速度。跳表跟红黑树又有什么差别呢？既然两者的算法复杂度差不多，为什么Redis要使用跳表而不使用红黑树呢？跳表相对于红黑树，主要有这几个优点：1.代码相对简单，手写个跳表还有可能，手写个红黑树试试？</p>
+<p>2.如果我们要查询一个区间里面的值，用平衡树可能会麻烦。这里的麻烦指的是实现和理解上，平衡二叉树查询一段区间也是可以做到的。3.删除一段区间，这个如果是平衡二叉树，就会相当困难，毕竟设计到树的平衡问题，而跳表则没有这种烦恼。好了，相信你对跳表已经有一些认识了，我们来简单介绍平衡二叉树的几个基本操作。</p>
+<p><strong>查询</strong></p>
+<p>假如我们要查询11，那么我们从最上层出发，发现下一个是5，再下一个是13，已经大于11，所以进入下一层，下一层的一个是9，查找下一个，下一个又是13，再次进入下一层。最终找到11。<br><img src="https://img-blog.csdnimg.cn/20200312205831286.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="7"></p>
+<p>是不是非常的简单？我们可以把查找的过程总结为一条三目表达式（下一个是否大于结果？下一个：下一层）。理解跳表的查询过程非常重要，试试看查询其他数字，只要你理解了查询，后面两种都非常简单。</p>
+<p><strong>插入</strong></p>
+<p>插入的时候，首先要进行查询，然后从最底层开始，插入被插入的元素。然后看看从下而上，是否需要逐层插入。可是到底要不要插入上一层呢？我们都知道，我们想每层的跳跃都非常高效，越是平衡就越好（第一层1级跳，第二层2级跳，第3层4级跳，第4层8级跳）。但是用算法实现起来，确实非常地复杂的，并且要严格地按照2地指数次幂，我们还要对原有地结构进行调整。所以跳表的思路是抛硬币，听天由命，产生一个随机数，50%概率再向上扩展，否则就结束。这样子，每一个元素能够有X层的概率为0.5^(X-1)次方。反过来，第X层有多少个元素的数学期望大家也可以算一下。</p>
+<p><strong>删除</strong></p>
+<p>同插入一样，删除也是先查找，查找到了之后，再从下往上逐个删除。比较简单，就不再赘叙。</p>
+<p>跳表和二叉搜索树比较：<br><img src="https://img-blog.csdnimg.cn/20200313112143915.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="8"></p>
+<p><strong>总结</strong></p>
+<p>跳表，用了计算机中一场非常用的解决问题的思路，随机。随机在深度学习与人工智能领域运用得非常的广泛。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/mysql/mysql%20error1193/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/mysql/mysql%20error1193/" class="post-title-link" itemprop="url">ERROR 1193 (HY000)：Unknown system variable ‘tx_isolaton’</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 17:47:08 / 修改时间：20:27:46" itemprop="dateCreated datePublished" datetime="2020-04-10T17:47:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>mysql执行</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @@tx_isolaton;</span><br></pre></td></tr></table></figure>
+<p>保错：</p>
+<blockquote>
+<p>ERROR 1193 (HY000): Unknown system variable ‘tx_isolaton’</p>
+</blockquote>
+<p>解决方法：mysql8及以上tx_isolaton更名为transaction_isolation，执行</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @@transaction_isolation;</span><br></pre></td></tr></table></figure>
+<p>即可解决。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/Android/%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A11/" class="post-title-link" itemprop="url">音视频任务1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 15:48:42 / 修改时间：15:50:25" itemprop="dateCreated datePublished" datetime="2020-04-10T15:48:42+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>跟着大神的步骤一步一步做，加油！<br>任务列表：<a href="http://blog.51cto.com/ticktick/1956269" target="_blank" rel="noopener">http://blog.51cto.com/ticktick/1956269</a></p>
+<p>在 Android 平台绘制一张图片，使用至少 3 种不同的 API，ImageView，SurfaceView，自定义 View<br>imageView和surfaceView，为了方便都是直接在activity里面写的函数，直接在onCreateView里面调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.content.res.Resources;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Bitmap;</span><br><span class="line"><span class="keyword">import</span> android.graphics.BitmapFactory;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Canvas;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Matrix;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Rect;</span><br><span class="line"><span class="keyword">import</span> android.graphics.drawable.BitmapDrawable;</span><br><span class="line"><span class="keyword">import</span> android.graphics.drawable.Drawable;</span><br><span class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity;</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.view.SurfaceHolder;</span><br><span class="line"><span class="keyword">import</span> android.view.SurfaceView;</span><br><span class="line"><span class="keyword">import</span> android.widget.ImageView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        displaySurfaceView();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">displayImg</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">final</span> ImageView iv = findViewById(R.id.iv_lu);</span><br><span class="line">        <span class="comment">//1</span></span><br><span class="line"><span class="comment">//        iv.setImageResource(R.mipmap.wechatimg1);</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//2</span></span><br><span class="line"><span class="comment">//        Drawable drawable = getResources().getDrawable(R.mipmap.wechatimg1, null);</span></span><br><span class="line"><span class="comment">//        iv.setImageDrawable(drawable);</span></span><br><span class="line">        <span class="comment">//3</span></span><br><span class="line">        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.wechatimg1);</span><br><span class="line">        iv.setImageBitmap(bitmap);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">displaySurfaceView</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">final</span> SurfaceView sv = findViewById(com.example.lujianyun.va.R.id.sv_lu);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> SurfaceHolder holder = sv.getHolder();</span><br><span class="line">        <span class="keyword">final</span> Thread t = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                Canvas canvas = holder.lockCanvas();</span><br><span class="line">                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), com.example.lujianyun.va.R.mipmap.wechatimg1);</span><br><span class="line">                canvas.drawBitmap(bitmap, <span class="number">0</span>, <span class="number">0</span>, <span class="keyword">null</span>);</span><br><span class="line">                holder.unlockCanvasAndPost(canvas);</span><br><span class="line">                holder.lockCanvas(<span class="keyword">new</span> Rect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>));</span><br><span class="line">                holder.unlockCanvasAndPost(canvas);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        holder.addCallback(<span class="keyword">new</span> SurfaceHolder.Callback() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceCreated</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</span><br><span class="line">                t.start();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceChanged</span><span class="params">(SurfaceHolder holder, <span class="keyword">int</span> format, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceDestroyed</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>自定义view</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DrawView</span> <span class="keyword">extends</span> <span class="title">View</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    String TAG = <span class="string">"DrawView"</span>;</span><br><span class="line">    Bitmap bitmap;</span><br><span class="line">    Bitmap orginBitmap;</span><br><span class="line">    <span class="keyword">boolean</span> bitmapFinished = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DrawView</span><span class="params">(Context context, @Nullable AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs);</span><br><span class="line">        orginBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.wechatimg1);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!bitmapFinished) &#123; <span class="comment">//由于onmeasure要多次调用，所以创建对象的工作只做一次，防止耗时</span></span><br><span class="line">            <span class="keyword">int</span> w = MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">            <span class="keyword">int</span> h = MeasureSpec.getSize(heightMeasureSpec);</span><br><span class="line">            bitmap = Bitmap.createScaledBitmap(orginBitmap, w, h, <span class="keyword">false</span>); </span><br><span class="line">            bitmapFinished = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">super</span>.onMeasure(widthMeasureSpec,heightMeasureSpec);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line">        <span class="keyword">if</span> (bitmap != <span class="keyword">null</span>)</span><br><span class="line">            canvas.drawBitmap(bitmap, <span class="number">0</span>, <span class="number">0</span>, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>布局文件：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"300dp"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"300dp"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">".MainActivity"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:clipChildren</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/iv_lu"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:visibility</span>=<span class="string">"gone"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintLeft_toLeftOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintRight_toRightOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">SurfaceView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/sv_lu"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:visibility</span>=<span class="string">"gone"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">com.example.lll.va.DrawView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/%E7%90%86%E8%A7%A3YUV/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/Android/%E7%90%86%E8%A7%A3YUV/" class="post-title-link" itemprop="url">理解YUV</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 15:48:42 / 修改时间：16:07:32" itemprop="dateCreated datePublished" datetime="2020-04-10T15:48:42+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>先贴一个好贴：<a href="https://www.cnblogs.com/ALittleDust/p/5935983.html" target="_blank" rel="noopener">https://www.cnblogs.com/ALittleDust/p/5935983.html</a></p>
+<p>YUV</p>
+<p>YUV是一种颜色空间，基于YUV的颜色编码是流媒体的常用编码方式。Y表示流明，U、V表示色度、浓度，这种表达方式起初是为了彩色电视与黑白电视之间的信号兼容。 对于图像每一点，Y确定其亮度，UV确认其彩度。<br>Y’CbCr也称为YUV，是YUV的压缩版本，不同之处在于Y’CbCr用于数字图像领域，YUV用于模拟信号领域，MPEG、DVD、摄像机中常说的YUV其实是Y’CbCr，二者转换为RGBA的转换矩阵是不同的。Y’为亮度，Cb、Cr分量代表当前颜色对蓝色和红色的偏移程度。<br><img src="https://img-blog.csdnimg.cn/20181205185454660.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>Y’=0.5时，Cb、Cr构成的颜色平面<br>如果输出Y’CbCr三个分量的值，那么会是这样的。<br><img src="https://img-blog.csdnimg.cn/2018120518554167.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>由上到下依次为Y’、Cb、Cr<br>为了方便，以下文中YUV特指Y’CbCr。<br>YUV颜色编码的作用</p>
+<p>YUV编码是image/video pipeline的重要组成。比如常用的I420相对于RGB24（RGB三个分量各8个字节）的编码格式，只需要一半的存储容量。在流数据传输时降低了带宽压力。<br><img src="https://img-blog.csdnimg.cn/20181205185556564.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>YUV颜色编码在video pipeline中的运用<br>YUV颜色编码格式</p>
+<p>YUV色彩编码格式由其色度抽样方式和存储方式决定。<br>YUV 采样</p>
+<p>对光信号采样是把光由模拟信号变为数字信号，这不是我们要做的事，我们要做的是把射线透照产生的模拟图像变为数字图像，两者不是一码事。所以不应该对光信号谈采样定理。<br>对图像的采样，是把模拟图像变成数字图像，描述模拟图像的是连续的信息，但要把它变成离散的信息，<br>YUV采样<br>YUV的一个优点是色度通道可以具有比Y通道更低的采样率而不会显着降低感知质量。 称为A：B：C表示法的符号用于描述U和V相对于Y的采样频率：</p>
+<ul>
+<li>4：4：4表示没有色度通道的下采样。</li>
+<li>4：2：2表示2：1水平下采样，没有垂直下采样。 对于每两个U或V样本，每条扫描线包含四个Y样本。</li>
+<li>4：2：0表示2：1水平下采样，2：1垂直下采样。</li>
+<li>4：1：1表示4：1水平下采样，没有垂直下采样。 每个扫描线包含每个U或V样本的四个Y样本。 4：1：1采样不如其他格式常见，本文不再详细讨论。<br>图1显示了4：4：4图片中使用的采样网格。 Luma样本由十字表示，色度样本由圆表示。<br>Figure 1 展示了 4:4:4 格式的图片所用的采样网格. Luma samples are represented by a cross, and chroma samples are represented by a circle.（亮度信息是X，色度信息是O）<br><img src="https://img-blog.csdnimg.cn/20181205185613326.png" alt="在这里插入图片描述"><br>Figure 1. YUV 4:4:4 sample positions<br>4：2：2采样的主要形式在ITU-R建议书BT.601中定义。 Figure 2 shows the sampling grid defined by this standard.<br><img src="https://img-blog.csdnimg.cn/20181205185626707.png" alt="在这里插入图片描述"><br>Figure 2. YUV 4:2:2 sample positions<br>有两种常见的4：2：0采样变体。 其中一个用于MPEG-2视频，另一个用于MPEG-1和ITU-T建议H.261和H.263。 图3显示了MPEG-1方案中使用的采样网格，图4显示了MPEG-2方案中使用的采样网格。（视频使用的采样网格，就是视频中每一帧(一张图片)的采样网格）<br><img src="https://img-blog.csdnimg.cn/20181205185635494.png" alt="在这里插入图片描述"><br>Figure 3. YUV 4:2:0 sample positions (MPEG-1 scheme)<br><img src="https://img-blog.csdnimg.cn/20181205185646205.png" alt="在这里插入图片描述"><br>Figure 4. YUV 4:2:0 sample positions (MPEG-2 scheme)<br>与MPEG-1方案相比，在MPEG-2方案和为4：2：2和4：4：4格式定义的采样网格之间进行转换更为简单。 因此，MPEG-2方案在Windows中是首选，应被视为4：2：0格式的默认解释。<br>先记住下面这段话，以后提取每个像素的YUV分量会用到。<br>（每一个像素对应一个Y）</li>
+</ul>
+<ol>
+<li>YUV 4:4:4采样，每一个Y对应一组UV分量。（每个像素对应一组UV）</li>
+<li>YUV 4:2:2采样，每两个Y共用一组UV分量。 （两个像素共用一组UV）</li>
+<li>YUV 4:2:0采样，每四个Y共用一组UV分量(专指12bit/pixel的格式)。（四个像素共用一组UV）<br>4:2:0采样还有每四个Y共用2组UV分量（为16bit[pixel的格式）<br>YUV存储方式</li>
+</ol>
+<p>宏像素(macropixel)：一组包含了若干个亮度，色度（可能还有透明度）的数据组。有可能一个像素对应一个宏像素，也有可能几个像素共用一个宏像素</p>
+<p>YUV存储像素信息有两种格式：<br>packed：Y,U,V的信息存储在同一个存储平面中（或者其中的两个存储在同一数组中），像素被组织成一组宏像素，，布局取决于格式<br>planar：Y,U,V 被存储为3个不同平面里<br>简而言之：packed就是宏像素混合存储，planar就是每种宏像素分开存储</p>
+<p>存储平面（surface）：一个抽象的平面表示了像素存储的方式，其中的单位是一个宏像素<br>原点：屏幕左上角<br>步幅stride：存储平面的宽度，始终为正<br>对齐：surface字对齐<br>4:4:4 格式, 32 Bits per Pixel</p>
+<p>单个4：4：4格式，使用FOURCC代码AYUV。  这是一种打包格式，其中每个像素被编码为四个连续字节，按以下顺序排列。（每个像素对应一个宏像素，如像素p0对应宏像素 V0U0Y0A0）</p>
+<p><img src="https://img-blog.csdnimg.cn/20181205185702662.png" alt="在这里插入图片描述"><br>Figure 5. AYUV memory layout<br>标为A的字节代表透明度<br>4:2:2 Formats, 16 Bits per Pixel<br>两种 4:2:2 格式, 编码方式如下:</p>
+<ul>
+<li>YUY2</li>
+<li>UYVY<br>都是packed格式, 其中每个宏像素用于两个像素，编码为四个连续的字节。 这导致色度的水平下采样两倍。<br>YUY2</li>
+</ul>
+<p>在YUY2格式中，数据可以被视为无符号字符值的数组，其中第一个字节包含第一个Y样本，第二个字节包含第一个U（Cb）样本，第三个字节包含第二个Y样本，以及 第四个字节包含第一个V（Cr）样本，如图6（每两个像素对应一个宏像素，如像素p0，p1对应宏像素 Y0U0Y1V0, 第一个像素的显示信息为Y0U0V0，第二个像素的显示信息为Y1U0V0。相当于32个bit存储了2像素的信息，就叫做每个像素16bit，但实际上每个像素的完整信息仍需要12bit，只是其中8bit与另一个共用）</p>
+<p><img src="https://img-blog.csdnimg.cn/20181205185723582.png" alt="在这里插入图片描述">Figure 6. YUY2 memory layout<br>如果图像被放置为两个小端WORD值的数组，则第一个WORD在最低有效位（LSB）中包含Y0，在最高有效位（MSB）中包含U. 第二个WORD在LSB中包含Y1，在MSB中包含V.<br>YUY2是MicrosoftDirectX®视频加速（DirectX VA）的首选4：2：2像素格式。 预计这将是支持4：2：2视频的DirectX VA加速器的中期要求。<br>UYVY<br>这种格式与YUY2相同，只是字节顺序颠倒了 - 也就是说，色度和亮度字节被翻转（图7）。 如果图像被寻址为两个小端WORD值的数组，则第一个WORD在LSB中包含U，在MSB中包含Y0，第二个WORD在LSB中包含V，在MSB中包含Y1。（每两个像素对应一个宏像素，如像素p0，p1对应宏像素 Y0U0Y1V0, 第一个像素的显示信息为Y0U0V0，第二个像素的显示信息为Y1U0V0）<br><img src="https://img-blog.csdnimg.cn/20181205185734628.png" alt="在这里插入图片描述"><br>Figure 7. UYVY memory layout<br>4:2:0 Formats, 16 Bits per Pixel</p>
+<p>两种4：2：0 格式，16位/像素，编码方式如下：</p>
+<ul>
+<li>IMC1</li>
+<li>IMC3<br>这两种都是planar格式. 色度通道在水平和垂直维度上次采样系数为2<br>IMC1<br>所有的Y首先在内存中存储， 就像一个无符号 char 值类型的数组. 紧接着是 V (Cr) 样本, 然后是U (Cb) 样本.  V 和 U 平面的宽度和Y平面的宽度一样, 所以会导致一些没有用到的内存, 如图8. （4个像素对应一个宏像素,  p0,p1,p2,p3对应 Y0Y1Y2Y3V0V1U0U1，p0的显示信息为Y0V0U0，p1的显示信息为Y1V0U0，p2的显示信息为Y2V1U1，p3的显示信息为Y3V1U1，U,V可能不是这么安排的。每个像素对应一个Y，对应一种U,V的组合，4个像素分别用各自的亮度信息，共用4个色度信息，平均每个像素使用16bit）<br><img src="https://img-blog.csdnimg.cn/20181205185744370.png" alt="在这里插入图片描述"><br>Figure 8. IMC1 memory layout<br>IMC3</li>
+</ul>
+<p>此格式与IMC1相同，但U和V平面交换次序：<br><img src="https://img-blog.csdnimg.cn/20181205185751494.png" alt="在这里插入图片描述"><br>Figure 9. IMC3 memory layout<br>4:2:0 Formats, 12 Bits per Pixel</p>
+<p>4种 4:2:0 12bit/pixel 格式 ，存储方式如下（4个像素用4个Y，1个U,一个V）</p>
+<ul>
+<li>IMC2</li>
+<li>IMC4</li>
+<li>YV12</li>
+<li>NV12<br>在这些所有格式中，色度通道在水平和垂直维度上次采样系数为2</li>
+</ul>
+<p>IMC2<br>该格式与IMC1相同，除了V（Cr）和U（Cb）线在半步边界处交错。 换句话说，色度区域中的每个全步幅线以一行V样本开始，接着从下一个半步幅边界开始是一行U样本，（图10）。 这种布局比IMC1更有效地使用地址空间。 它将色度地址空间减半，因此总地址空间减少了25％。 在4：2：0格式中，IMC2是仅次于NV12的第二好的格式。<br><img src="https://img-blog.csdnimg.cn/20181205185802914.png" alt="在这里插入图片描述"><br>Figure 10. IMC2 memory layout<br>IMC4</p>
+<p>此格式与IMC2相同，但U（Cb）和V（Cr）行交换：<br><img src="https://img-blog.csdnimg.cn/20181205185821899.png" alt="在这里插入图片描述"><br>Figure 11. IMC4 memory layout<br>YV12</p>
+<p>所有Y样本首先在内存中显示为无符号char值的数组。 该阵列紧接着是所有V（Cr）样本。 V平面的步幅是Y平面的一半，V平面包含Y平面一半的行数。 紧接着V平面的所有U（Cb）样本，具有与V平面相同的步幅和行数（图12）。<br><img src="https://img-blog.csdnimg.cn/20181205185833455.png" alt="在这里插入图片描述"><br>Figure 12. YV12 memory layout<br>NV12</p>
+<p>所有Y样本首先在内存中存储，Y平面是无符号char值的数组，共有偶数行。 Y平面后面紧跟着一个无符号字符值数组，其中包含打包的U（Cb）和V（Cr）样本，如图13所示。当组合的UV数组作为小端WORD值的数组进行寻址时， LSB包含U值，MSB包含V值。 NV12是DirectX VA的首选4：2：0像素格式。 预计这将是支持4：2：0视频的DirectX VA加速器的中期要求。<br><img src="https://img-blog.csdnimg.cn/20181205185840535.png" alt="在这里插入图片描述"><br>Figure 13. NV12 memory layout<br>I420多用于传输</p>
+<p>摄像头采集得到的数据是NV12<br><img src="https://img-blog.csdnimg.cn/20181205185850444.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/Android%20%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A12/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/Android/Android%20%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A12/" class="post-title-link" itemprop="url">Android 音视频任务2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 15:44:11 / 修改时间：15:59:18" itemprop="dateCreated datePublished" datetime="2020-04-10T15:44:11+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>任务：2. 在 Android 平台使用 AudioRecord 和 AudioTrack API 完成音频 PCM 数据的采集和播放，并实现读写音频 wav 文件</p>
+<p>记得加权限：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.RECORD_AUDIO"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.READ_EXTERNAL_STORAGE"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.WRITE_EXTERNAL_STORAGE"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>AudioRecord使用流程：<br>确定好采样率，通道类型，编码方式，录制来源<br>由AudioRecord.getMinbufferSize获得能接受的最小buffer大小<br>new一个AudioRecord对象 audioRecord ，第一个参数表示的是音频录制来源。注意的是record和track都有通道(channel)参数，但一个是in一个是out，不要搞反了<br>开始录制：audioRecord.startRecord() 同时要开启一个线程，该线程所做的工作是打开一个output流创建一个文件。不断用audioRecord.read把录制的数据写到一个比特数组，然后把比特数组写到output流中<br>暂停录制：audioRecord.stop，但不release，而且output流也停止写入，但不释放<br>恢复录制，audioRecord.startRecord() ，继续读取audioRecord的数据并写入output流，<br>停止录制：audioRecord.stop，audioRecord.release释放资源，output流flush一下然后关闭<br>这样录制的音频是pcm格式的，也就是没有文件头的原始文件，要转成wav文件，只需要保持数据部分不变，然后再文件开始加入wav的文件头<br>AudioTrack使用流程：<br>确定好采样率，通道类型，编码方式<br>由AudioTrack.getMinbufferSize获得能接受的最小buffer大小<br>new一个AudioTrack对象 audioTrack ，第一个参数表示的是音频播放的类型，可选的有演讲、音乐、影视等(可能是针对每种不同的场景类型做一些优化) 。最后一个参数mode是表示创建的模式<br>MODE_STATIC 其中音频数据从Java传输到本地层仅一次，然后音频开始播放。<br>MODE_STREAM 当音频播放时，音频数据从Java流到本地层。(两个先后顺序不同)<br>开始播放：audioTrack.play() 同时要开启一个线程，该线程所做的工作是打开一个input流读取音频文件(audioTrack既可以读原始的pcm文件，也可以读加入文件头的wav文件), 不断把文件到一个比特数组，然后用audioTrack.write把比特数组写入.<br>暂停播放：audioTrack.stop，但不release，而且input流也停止读入，但不释放（文件指针还停留在此）<br>恢复播放，audioTrack.play，让input流在停止的地方继续入读，<br>停止播放：audioTrack.stop，audioTrack.release释放资源，关闭input流（这样input流保留的文件指针也就丢失了，下一次就会从头读）<br>AudioRecord的使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.app.Activity;</span><br><span class="line"><span class="keyword">import</span> android.media.AudioFormat;</span><br><span class="line"><span class="keyword">import</span> android.media.AudioRecord;</span><br><span class="line"><span class="keyword">import</span> android.media.MediaRecorder;</span><br><span class="line"><span class="keyword">import</span> android.os.Environment;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"><span class="keyword">import</span> android.widget.Button;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.lll.va.R;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AudioRecorder</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String tag = <span class="string">"AudioRecorder"</span>;</span><br><span class="line">    <span class="comment">//音频输入-麦克风</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> AUDIO_INPUT = MediaRecorder.AudioSource.MIC;</span><br><span class="line">    <span class="comment">//采用频率</span></span><br><span class="line">    <span class="comment">//44100是目前的标准，但是某些设备仍然支持22050，16000，11025</span></span><br><span class="line">    <span class="comment">//采样频率一般共分为22.05KHz、44.1KHz、48KHz三个等级</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> AUDIO_SAMPLE_RATE = <span class="number">16000</span>;</span><br><span class="line">    <span class="comment">//声道 单声道</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> AUDIO_CHANNEL = AudioFormat.CHANNEL_IN_MONO;</span><br><span class="line">    <span class="comment">//编码</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span> data[];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isRecording = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> AudioRecord audioRecord = <span class="keyword">null</span>;  <span class="comment">// 声明 AudioRecord 对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> recordBufSize = <span class="number">0</span>; <span class="comment">// 声明recoordBufffer的大小字段</span></span><br><span class="line">    <span class="keyword">private</span> Button btnStart;</span><br><span class="line">    <span class="keyword">private</span> Button btnStop;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">startTask2byAudioRecord</span><span class="params">(Activity activity)</span></span>&#123;</span><br><span class="line">        <span class="keyword">final</span> AudioRecorder audioRecorder = <span class="keyword">new</span> AudioRecorder();</span><br><span class="line">        audioRecorder.createAudioRecord();</span><br><span class="line">        audioRecorder.btnStart = activity.findViewById(R.id.btn_start_record_audio);</span><br><span class="line">        audioRecorder.btnStop = activity.findViewById(R.id.btn_stop_record_audio);</span><br><span class="line">        audioRecorder.btnStart.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                audioRecorder.startRecord();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        audioRecorder.btnStop.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                audioRecorder.stopRecord();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createAudioRecord</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        recordBufSize = AudioRecord.getMinBufferSize(AUDIO_SAMPLE_RATE,</span><br><span class="line">                AUDIO_CHANNEL, AUDIO_ENCODING);  <span class="comment">//audioRecord能接受的最小的buffer大小</span></span><br><span class="line">        audioRecord = <span class="keyword">new</span> AudioRecord(AUDIO_INPUT, AUDIO_SAMPLE_RATE, AUDIO_CHANNEL, AUDIO_ENCODING, recordBufSize);</span><br><span class="line">        data = <span class="keyword">new</span> <span class="keyword">byte</span>[recordBufSize];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startRecord</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        audioRecord.startRecording();</span><br><span class="line">        isRecording = <span class="keyword">true</span>;</span><br><span class="line">        thread_w.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String filename = Environment.getExternalStorageDirectory() + <span class="string">"/test"</span>;</span><br><span class="line">    Thread thread_w = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            FileOutputStream os = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                os = <span class="keyword">new</span> FileOutputStream(filename);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">null</span> != os) &#123;</span><br><span class="line">                Log.d(tag, <span class="string">"isRecording = "</span> + isRecording);</span><br><span class="line">                <span class="keyword">while</span> (isRecording) &#123;</span><br><span class="line">                    <span class="keyword">int</span> read = audioRecord.read(data, <span class="number">0</span>, recordBufSize);</span><br><span class="line">                    Log.d(tag, <span class="string">"read size = "</span> + read);</span><br><span class="line">                    <span class="comment">// 如果读取音频数据没有出现错误，就将数据写入到文件</span></span><br><span class="line">                    <span class="keyword">if</span> (AudioRecord.ERROR_INVALID_OPERATION != read) &#123;</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            os.write(data);</span><br><span class="line">                            Log.d(tag, <span class="string">"os writr = "</span> + data);</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                            e.printStackTrace();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    os.flush();</span><br><span class="line">                    os.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stopRecord</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        isRecording = <span class="keyword">false</span>;</span><br><span class="line">        audioRecord.stop();</span><br><span class="line">        audioRecord.release();</span><br><span class="line"><span class="comment">//        thread_w = null;</span></span><br><span class="line">        PcmToWavUtil util = <span class="keyword">new</span> PcmToWavUtil(AUDIO_SAMPLE_RATE, AUDIO_CHANNEL, AUDIO_ENCODING);</span><br><span class="line">        util.pcmToWav(filename, filename + <span class="string">".wav"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>给生成的pcm文件加入wav文件头的工具类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.media.AudioFormat;</span><br><span class="line"><span class="keyword">import</span> android.media.AudioRecord;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PcmToWavUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 缓存的音频大小</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mBufferSize;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 采样率</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mSampleRate;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 声道数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mChannel;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sampleRate sample rate、采样率</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> channel channel、声道</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> encoding Audio data format、音频格式</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    PcmToWavUtil(<span class="keyword">int</span> sampleRate, <span class="keyword">int</span> channel, <span class="keyword">int</span> encoding) &#123;</span><br><span class="line">        <span class="keyword">this</span>.mSampleRate = sampleRate;</span><br><span class="line">        <span class="keyword">this</span>.mChannel = channel;</span><br><span class="line">        <span class="keyword">this</span>.mBufferSize = AudioRecord.getMinBufferSize(mSampleRate, mChannel, encoding);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * pcm文件转wav文件</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> inFilename 源文件路径</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> outFilename 目标文件路径</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pcmToWav</span><span class="params">(String inFilename, String outFilename)</span> </span>&#123;</span><br><span class="line">        FileInputStream in;</span><br><span class="line">        FileOutputStream out;</span><br><span class="line">        <span class="keyword">long</span> totalAudioLen;</span><br><span class="line">        <span class="keyword">long</span> totalDataLen;</span><br><span class="line">        <span class="keyword">long</span> longSampleRate = mSampleRate;</span><br><span class="line">        <span class="keyword">int</span> channels = mChannel == AudioFormat.CHANNEL_IN_MONO ? <span class="number">1</span> : <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">long</span> byteRate = <span class="number">16</span> * mSampleRate * channels / <span class="number">8</span>;</span><br><span class="line">        <span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[mBufferSize];</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            in = <span class="keyword">new</span> FileInputStream(inFilename);</span><br><span class="line">            out = <span class="keyword">new</span> FileOutputStream(outFilename);</span><br><span class="line">            totalAudioLen = in.getChannel().size();</span><br><span class="line">            totalDataLen = totalAudioLen + <span class="number">36</span>;</span><br><span class="line"></span><br><span class="line">            writeWaveFileHeader(out, totalAudioLen, totalDataLen,</span><br><span class="line">                    longSampleRate, channels, byteRate);</span><br><span class="line">            <span class="keyword">while</span> (in.read(data) != -<span class="number">1</span>) &#123;</span><br><span class="line">                out.write(data);</span><br><span class="line">            &#125;</span><br><span class="line">            in.close();</span><br><span class="line">            out.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 加入wav文件头</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeWaveFileHeader</span><span class="params">(FileOutputStream out, <span class="keyword">long</span> totalAudioLen,</span></span></span><br><span class="line"><span class="function"><span class="params">                                     <span class="keyword">long</span> totalDataLen, <span class="keyword">long</span> longSampleRate, <span class="keyword">int</span> channels, <span class="keyword">long</span> byteRate)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">byte</span>[] header = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">44</span>];</span><br><span class="line">        <span class="comment">// RIFF/WAVE header</span></span><br><span class="line">        header[<span class="number">0</span>] = <span class="string">'R'</span>;</span><br><span class="line">        header[<span class="number">1</span>] = <span class="string">'I'</span>;</span><br><span class="line">        header[<span class="number">2</span>] = <span class="string">'F'</span>;</span><br><span class="line">        header[<span class="number">3</span>] = <span class="string">'F'</span>;</span><br><span class="line">        header[<span class="number">4</span>] = (<span class="keyword">byte</span>) (totalDataLen &amp; <span class="number">0xff</span>);</span><br><span class="line">        header[<span class="number">5</span>] = (<span class="keyword">byte</span>) ((totalDataLen &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xff</span>);</span><br><span class="line">        header[<span class="number">6</span>] = (<span class="keyword">byte</span>) ((totalDataLen &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xff</span>);</span><br><span class="line">        header[<span class="number">7</span>] = (<span class="keyword">byte</span>) ((totalDataLen &gt;&gt; <span class="number">24</span>) &amp; <span class="number">0xff</span>);</span><br><span class="line">        <span class="comment">//WAVE</span></span><br><span class="line">        header[<span class="number">8</span>] = <span class="string">'W'</span>;</span><br><span class="line">        header[<span class="number">9</span>] = <span class="string">'A'</span>;</span><br><span class="line">        header[<span class="number">10</span>] = <span class="string">'V'</span>;</span><br><span class="line">        header[<span class="number">11</span>] = <span class="string">'E'</span>;</span><br><span class="line">        <span class="comment">// 'fmt ' chunk</span></span><br><span class="line">        header[<span class="number">12</span>] = <span class="string">'f'</span>;</span><br><span class="line">        header[<span class="number">13</span>] = <span class="string">'m'</span>;</span><br><span class="line">        header[<span class="number">14</span>] = <span class="string">'t'</span>;</span><br><span class="line">        header[<span class="number">15</span>] = <span class="string">' '</span>;</span><br><span class="line">        <span class="comment">// 4 bytes: size of 'fmt ' chunk</span></span><br><span class="line">        header[<span class="number">16</span>] = <span class="number">16</span>;</span><br><span class="line">        header[<span class="number">17</span>] = <span class="number">0</span>;</span><br><span class="line">        header[<span class="number">18</span>] = <span class="number">0</span>;</span><br><span class="line">        header[<span class="number">19</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// format = 1</span></span><br><span class="line">        header[<span class="number">20</span>] = <span class="number">1</span>;</span><br><span class="line">        header[<span class="number">21</span>] = <span class="number">0</span>;</span><br><span class="line">        header[<span class="number">22</span>] = (<span class="keyword">byte</span>) channels;</span><br><span class="line">        header[<span class="number">23</span>] = <span class="number">0</span>;</span><br><span class="line">        header[<span class="number">24</span>] = (<span class="keyword">byte</span>) (longSampleRate &amp; <span class="number">0xff</span>);</span><br><span class="line">        header[<span class="number">25</span>] = (<span class="keyword">byte</span>) ((longSampleRate &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xff</span>);</span><br><span class="line">        header[<span class="number">26</span>] = (<span class="keyword">byte</span>) ((longSampleRate &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xff</span>);</span><br><span class="line">        header[<span class="number">27</span>] = (<span class="keyword">byte</span>) ((longSampleRate &gt;&gt; <span class="number">24</span>) &amp; <span class="number">0xff</span>);</span><br><span class="line">        header[<span class="number">28</span>] = (<span class="keyword">byte</span>) (byteRate &amp; <span class="number">0xff</span>);</span><br><span class="line">        header[<span class="number">29</span>] = (<span class="keyword">byte</span>) ((byteRate &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xff</span>);</span><br><span class="line">        header[<span class="number">30</span>] = (<span class="keyword">byte</span>) ((byteRate &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xff</span>);</span><br><span class="line">        header[<span class="number">31</span>] = (<span class="keyword">byte</span>) ((byteRate &gt;&gt; <span class="number">24</span>) &amp; <span class="number">0xff</span>);</span><br><span class="line">        <span class="comment">// block align</span></span><br><span class="line">        header[<span class="number">32</span>] = (<span class="keyword">byte</span>) (<span class="number">2</span> * <span class="number">16</span> / <span class="number">8</span>);</span><br><span class="line">        header[<span class="number">33</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// bits per sample</span></span><br><span class="line">        header[<span class="number">34</span>] = <span class="number">16</span>;</span><br><span class="line">        header[<span class="number">35</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//data</span></span><br><span class="line">        header[<span class="number">36</span>] = <span class="string">'d'</span>;</span><br><span class="line">        header[<span class="number">37</span>] = <span class="string">'a'</span>;</span><br><span class="line">        header[<span class="number">38</span>] = <span class="string">'t'</span>;</span><br><span class="line">        header[<span class="number">39</span>] = <span class="string">'a'</span>;</span><br><span class="line">        header[<span class="number">40</span>] = (<span class="keyword">byte</span>) (totalAudioLen &amp; <span class="number">0xff</span>);</span><br><span class="line">        header[<span class="number">41</span>] = (<span class="keyword">byte</span>) ((totalAudioLen &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xff</span>);</span><br><span class="line">        header[<span class="number">42</span>] = (<span class="keyword">byte</span>) ((totalAudioLen &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xff</span>);</span><br><span class="line">        header[<span class="number">43</span>] = (<span class="keyword">byte</span>) ((totalAudioLen &gt;&gt; <span class="number">24</span>) &amp; <span class="number">0xff</span>);</span><br><span class="line">        out.write(header, <span class="number">0</span>, <span class="number">44</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>AudioTrack的使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.app.Activity;</span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.media.AudioAttributes;</span><br><span class="line"><span class="keyword">import</span> android.media.AudioFormat;</span><br><span class="line"><span class="keyword">import</span> android.media.AudioManager;</span><br><span class="line"><span class="keyword">import</span> android.media.AudioRecord;</span><br><span class="line"><span class="keyword">import</span> android.media.AudioTrack;</span><br><span class="line"><span class="keyword">import</span> android.media.MediaRecorder;</span><br><span class="line"><span class="keyword">import</span> android.os.Environment;</span><br><span class="line"><span class="keyword">import</span> android.os.Handler;</span><br><span class="line"><span class="keyword">import</span> android.os.Message;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"><span class="keyword">import</span> android.widget.Button;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.lll.va.R;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AudioTracker</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String tag = <span class="string">"AudioTracker"</span>;</span><br><span class="line">    <span class="comment">//采用频率</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> AUDIO_SAMPLE_RATE = <span class="number">16000</span>;</span><br><span class="line">    <span class="comment">//声道 单声道</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> AUDIO_CHANNEL = AudioFormat.CHANNEL_OUT_MONO;</span><br><span class="line">    <span class="comment">//编码</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;</span><br><span class="line">    <span class="keyword">private</span> AudioTrack audioTrack;</span><br><span class="line">    <span class="keyword">private</span> Activity activity;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> buffersize;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] data;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isPlay = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isFirstPlay = <span class="keyword">true</span>; <span class="comment">//用firstPlay和isPlay组合，可以完成暂停和继续播放的功能</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">startTask2byAudioTrack</span><span class="params">(Activity activity)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> AudioTracker audioTracker = <span class="keyword">new</span> AudioTracker();</span><br><span class="line">        audioTracker.activity = activity;</span><br><span class="line">        Button btnPlay = activity.findViewById(R.id.btn_play_audio);</span><br><span class="line">        Button btnStop = activity.findViewById(R.id.btn_stop_audio);</span><br><span class="line">        Button btnPause = activity.findViewById(R.id.btn_pause_audio);</span><br><span class="line">        btnPlay.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                audioTracker.startPlay();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        btnStop.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                audioTracker.stopPlay();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        btnPause.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                audioTracker.pause();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//AudioAttributes取代了流类型的概念（例如参见AudioManager.STREAM_MUSIC或AudioManager.STREAM_ALARM），</span></span><br><span class="line">    <span class="comment">// 用于定义音频播放的行为。 通过允许应用程序定义，属性允许应用程序指定比在流类型中传达的信息更多的信息：</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initAudioTrack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isFirstPlay) &#123;</span><br><span class="line">            buffersize = AudioTrack.getMinBufferSize(AUDIO_SAMPLE_RATE,</span><br><span class="line">                    AUDIO_CHANNEL, AUDIO_ENCODING);  <span class="comment">//audioTracker能接受的最小的buffer大小</span></span><br><span class="line">            audioTrack = <span class="keyword">new</span> AudioTrack(AudioAttributes.CONTENT_TYPE_MUSIC, AUDIO_SAMPLE_RATE, AUDIO_CHANNEL</span><br><span class="line">                    , AudioFormat.ENCODING_PCM_16BIT, buffersize, AudioTrack.MODE_STREAM);</span><br><span class="line">            data = <span class="keyword">new</span> <span class="keyword">byte</span>[buffersize];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        initAudioTrack();</span><br><span class="line">        audioTrack.play();</span><br><span class="line">        isPlay = <span class="keyword">true</span>;</span><br><span class="line">        playThread.start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pause</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        audioTrack.stop();</span><br><span class="line">        isPlay = <span class="keyword">false</span>;</span><br><span class="line">        Log.d(tag, <span class="string">"pasue "</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stopPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        audioTrack.stop();</span><br><span class="line">        isPlay = <span class="keyword">false</span>;</span><br><span class="line">        isFirstPlay = <span class="keyword">true</span>;</span><br><span class="line">        audioTrack.release();</span><br><span class="line">        Log.d(tag, <span class="string">"stop "</span>);</span><br><span class="line">        is = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    FileInputStream is = <span class="keyword">null</span>;</span><br><span class="line">    String fileName = Environment.getExternalStorageDirectory() + <span class="string">"/test.wav"</span>;</span><br><span class="line">    Thread playThread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            File file = <span class="keyword">new</span> File(fileName);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (isFirstPlay) &#123; <span class="comment">//如果是首次播放（停止后再播放也算首次）则初始化流</span></span><br><span class="line">                    is = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">                    isFirstPlay = <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                Log.d(tag, <span class="string">"is = "</span> + is);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            writeData();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (is == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">while</span> (isPlay) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">int</span> read = is.read(data);</span><br><span class="line">                Log.d(tag, <span class="string">"read = "</span> + read);</span><br><span class="line">                <span class="keyword">if</span> (read != <span class="number">0</span> &amp;&amp; read != -<span class="number">1</span>) &#123;</span><br><span class="line">                    audioTrack.write(data, <span class="number">0</span>, read);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    stopPlay();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>布局就是很简单的layout和几个分别控制开始、暂停、结束的button，就不贴了</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/Android%20%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A14/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/Android/Android%20%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A14/" class="post-title-link" itemprop="url">Android 音视频任务4</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 15:44:11 / 修改时间：16:08:27" itemprop="dateCreated datePublished" datetime="2020-04-10T15:44:11+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>任务4. 学习 Android 平台的 MediaExtractor 和 MediaMuxer API，知道如何解析和封装 mp4 文件</p>
+<ul>
+<li>MediaMuxer和MediaCodec算是比较年轻的，它们是JB 4.1和JB 4.3才引入的。前者用于将音频和视频进行混合生成多媒体文件。缺点是目前只能支持一个audio track和一个video track，目前支持mp4,3gp,webm输出</li>
+<li>MediaCodec用于将音视频进行压缩编码，它有个比较牛X的地方是可以对Surface内容进行编码，如KK 4.4中屏幕录像功能就是用它实现的。</li>
+<li>MediaFormat用于描述多媒体数据的格式。</li>
+<li>MediaRecorder用于录像+压缩编码，生成编码好的文件如mp4, 3gpp，视频主要是用于录制Camera preview。</li>
+<li>MediaPlayer用于播放压缩编码后的音视频文件。</li>
+<li>AudioRecord用于录制PCM数据。</li>
+<li>AudioTrack用于播放PCM数据。PCM即原始音频采样数据，可以用如vlc播放器播放。</li>
+</ul>
+<p>MediaExtractor可以从数据源中提取解复用的，编码后的媒体数据。MediaExtractor用于音视频分路,比如从一个视频中分别提取音频(音轨)和视频(视频轨)<br>它既可以从视频里提取视频轨或音频轨，也可以单从音频里提取音频轨</p>
+<p>//如下使用`</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">MediaExtractor extractor = <span class="keyword">new</span> MediaExtractor();</span><br><span class="line"> extractor.setDataSource(…);</span><br><span class="line"><span class="keyword">int</span> </span><br><span class="line"> <span class="keyword">int</span> numTracks = extractor.getTrackCount(); <span class="comment">//当前视频中有几个轨道</span></span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numTracks; ++i) &#123;</span><br><span class="line">   MediaFormat format = extractor.getTrackFormat(i);</span><br><span class="line">   String mime = format.getString(MediaFormat.KEY_MIME);</span><br><span class="line">   <span class="keyword">boolean</span> isVideoTrack = mime.startsWith(<span class="string">"video/“); //当前是不是视频轨，视频轨的MIME以”video/“开头，音频轨的MIME以“audio/”开头</span></span><br><span class="line"><span class="string">   if (isVideoTrack) &#123;</span></span><br><span class="line"><span class="string">     extractor.selectTrack(i);   //选择视轨,当确定感兴趣的轨道时，一定要选取！</span></span><br><span class="line"><span class="string">     int index = mediaMuxer.addTrack(format) //如果要进行这个视轨的合成合成器除了需要数据，也需要mediaMuxer需要设置当前视轨的format，在写入的时候也需要视轨的index</span></span><br><span class="line"><span class="string">   &#125;</span></span><br><span class="line"><span class="string"> &#125;</span></span><br><span class="line"><span class="string"> ByteBuffer inputBuffer = ByteBuffer.allocate(…)  //这个容量必须大一点，否则下面readSampleData会崩，实测是1000*1024可以</span></span><br><span class="line"><span class="string">//下面readSampleData会自动更新buffer的limit和postion，就和read，write一样</span></span><br><span class="line"><span class="string"> while (extractor.readSampleData(inputBuffer, ...) &gt;= 0) &#123;</span></span><br><span class="line"><span class="string">   int trackIndex = extractor.getSampleTrackIndex();</span></span><br><span class="line"><span class="string">   long presentationTimeUs = extractor.getSampleTime();</span></span><br><span class="line"><span class="string">   ...</span></span><br><span class="line"><span class="string">   extractor.advance(); //前进到下一个样本(下一个视频帧或音频帧)；readSampleData看起来不会自动更新读过的数据所以需要这个</span></span><br><span class="line"><span class="string"> &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> extractor.release();</span></span><br><span class="line"><span class="string"> extractor = null;</span></span><br></pre></td></tr></table></figure>
+
+<p>MediaMuxer可以复用基本流。 目前MediaMuxer支持MP4，Webm和3GP文件作为输出。 它还支持自Android Nougat以来在MP4中复用B帧。是extractor的反作用类型，用于把视频轨和音频轨进行合成,和MediaExtractor正好是反过程。<br>不支持mp3，wav音频源（AAC支持）<br>只能支持一个audio track和一个video track，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//如下使用</span></span><br><span class="line">MediaMuxer muxer = <span class="keyword">new</span> MediaMuxer(<span class="string">"temp.mp4"</span>, OutputFormat.MUXER_OUTPUT_MPEG_4);</span><br><span class="line">mediaMuxer.setOrientationHint(<span class="number">90</span>); <span class="comment">//设置混合后视频的旋转角度</span></span><br><span class="line"> <span class="comment">// More often, the MediaFormat will be retrieved from MediaCodec.getOutputFormat()</span></span><br><span class="line"> <span class="comment">// or MediaExtractor.getTrackFormat().</span></span><br><span class="line"> MediaFormat audioFormat = <span class="keyword">new</span> MediaFormat(...);</span><br><span class="line"> MediaFormat videoFormat = <span class="keyword">new</span> MediaFormat(...);</span><br><span class="line"> <span class="keyword">int</span> audioTrackIndex = muxer.addTrack(audioFormat); <span class="comment">//返回的是混合器里的轨道号，也就是新文件里的轨道号</span></span><br><span class="line"> <span class="keyword">int</span> videoTrackIndex = muxer.addTrack(videoFormat);</span><br><span class="line"> ByteBuffer inputBuffer = ByteBuffer.allocate(bufferSize);</span><br><span class="line"> <span class="keyword">boolean</span> finished = <span class="keyword">false</span>;</span><br><span class="line"> BufferInfo bufferInfo = <span class="keyword">new</span> BufferInfo();</span><br><span class="line"></span><br><span class="line"> muxer.start(); <span class="comment">//开始混合</span></span><br><span class="line"> <span class="keyword">while</span>(!finished) &#123;</span><br><span class="line">   <span class="comment">// getInputBuffer() will fill the inputBuffer with one frame of encoded</span></span><br><span class="line">   <span class="comment">/* sample from either MediaCodec or MediaExtractor, set isAudioSample to true when the sample is audio data, set up all the fields of bufferInfo,and return true if there are no more samples.*/</span></span><br><span class="line">   finished = getInputBuffer(inputBuffer, isAudioSample, bufferInfo);</span><br><span class="line">   <span class="keyword">if</span> (!finished) &#123;</span><br><span class="line">     <span class="keyword">int</span> currentTrackIndex = isAudioSample ? audioTrackIndex : videoTrackIndex;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">bufferInfo.presentationTimeUs = extractor.getSampleTime(); //直接从extractor获取</span></span><br><span class="line"><span class="comment">bufferInfo.offset = 0;  //如果没有特殊需求一般是0</span></span><br><span class="line"><span class="comment">bufferInfo.flags = extractor.getSampleFlags();</span></span><br><span class="line"><span class="comment">bufferInfo.size = size;  //本次写入的数据量</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">     muxer.writeSampleData(currentTrackIndex, inputBuffer, bufferInfo); <span class="comment">//每次写入数据都要同时写入index和info，info要明确如上面几点，注意这里的index是新合成的视频的相应轨道，应该是由addTrack返回的值</span></span><br><span class="line">   &#125;</span><br><span class="line"> &#125;;</span><br><span class="line"> muxer.stop();</span><br><span class="line"> muxer.release();</span><br></pre></td></tr></table></figure>
+
+<p>元数据跟踪<br>每帧元数据用于携带与视频或音频相关的额外信息以便于离线处理，例如，来自传感器的陀螺仪信号可以在进行离线处理时帮助稳定视频。仅在MP4容器中支持元数据跟踪。添加新元数据轨道时，轨道的mime格式必须以前缀“application /”开头，例如“application/gyro”。元数据的格式/布局将由应用程序定义。写入元数据与编写视频/音频数据几乎相同，只是数据不会来自mediacodec。应用程序只需要将包含元数据的字节缓冲区以及相关的时间戳传递给writeSampleData（int，ByteBuffer，MediaCodec.BufferInfo）api。时间戳必须与视频和音频的时间基准相同。生成的MP4文件使用ISOBMFF的第12.3.3.2节中定义的TextMetaDataSampleEntry来表示元数据的mime格式。当使用MediaExtractor提取具有元数据轨道的文件时，元数据的mime格式将被提取到MediaFormat中。<br>//如下例，把陀螺仪信息也传给生成的MP4</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">MediaMuxer muxer = <span class="keyword">new</span> MediaMuxer(<span class="string">"temp.mp4"</span>, OutputFormat.MUXER_OUTPUT_MPEG_4);</span><br><span class="line"></span><br><span class="line">   <span class="comment">// SetUp Video/Audio Tracks.</span></span><br><span class="line"></span><br><span class="line">   MediaFormat audioFormat = <span class="keyword">new</span> MediaFormat(...);</span><br><span class="line"></span><br><span class="line">   MediaFormat videoFormat = <span class="keyword">new</span> MediaFormat(...);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> audioTrackIndex = muxer.addTrack(audioFormat);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> videoTrackIndex = muxer.addTrack(videoFormat);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="comment">// Setup Metadata Track</span></span><br><span class="line"></span><br><span class="line">   MediaFormat metadataFormat = <span class="keyword">new</span> MediaFormat(...);</span><br><span class="line"></span><br><span class="line">   metadataFormat.setString(KEY_MIME, <span class="string">"application/gyro"</span>);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> metadataTrackIndex = muxer.addTrack(metadataFormat);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   muxer.start();</span><br><span class="line"></span><br><span class="line">   <span class="keyword">while</span>(..) &#123;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// Allocate bytebuffer and write gyro data(x,y,z) into it.</span></span><br><span class="line"></span><br><span class="line">       ByteBuffer metaData = ByteBuffer.allocate(bufferSize);</span><br><span class="line"></span><br><span class="line">       metaData.putFloat(x);</span><br><span class="line"></span><br><span class="line">       metaData.putFloat(y);</span><br><span class="line"></span><br><span class="line">       metaData.putFloat(z);</span><br><span class="line"></span><br><span class="line">       BufferInfo metaInfo = <span class="keyword">new</span> BufferInfo();</span><br><span class="line"></span><br><span class="line">       <span class="comment">// Associate this metadata with the video frame by setting</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">// the same timestamp as the video frame.</span></span><br><span class="line"></span><br><span class="line">       metaInfo.presentationTimeUs = currentVideoTrackTimeUs;</span><br><span class="line"></span><br><span class="line">       metaInfo.offset = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">       metaInfo.flags = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">       metaInfo.size = bufferSize;</span><br><span class="line"></span><br><span class="line">       muxer.writeSampleData(metadataTrackIndex, metaData, metaInfo);</span><br><span class="line"></span><br><span class="line">   &#125;;</span><br><span class="line"></span><br><span class="line">   muxer.stop();</span><br><span class="line"></span><br><span class="line">   muxer.release();</span><br><span class="line"></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>MediaCodec类可用于访问低级媒体编解码器，即编码器/解码器组件。 它是Android低级多媒体支持基础架构的一部分（通常与MediaExtractor，MediaSync，MediaMuxer，MediaCrypto，MediaDrm，Image，Surface和AudioTrack一起使用。）</p>
+<p>从广义上讲，编解码器处理输入数据以生成输出数据。它异步处理数据并使用一组输入和输出缓冲区。在简单的级别，您请求（或接收）一个空的输入缓冲区，用数据填充它并将其发送到编解码器进行处理。编解码器使用数据并将其转换到它的空输出缓冲区之一。最后，您请求（或接收）到一个填充了数据的输出缓冲区，使用其内容并将其释放回编解码器。</p>
+<p>数据类型<br>编解码器对三种数据进行操作：压缩数据，原始音频数据和原始视频数据。可以使用ByteBuffers处理所有三种数据，但是您应该使用Surface for raw视频数据来提高编解码器性能。 Surface使用本机视频缓冲区而不映射或将它们复制到ByteBuffers;因此，效率更高。使用Surface时通常无法访问原始视频数据，但您可以使用ImageReader类访问不安全的解码（原始）视频帧。这可能仍然比使用ByteBuffers更有效，因为一些本机缓冲区可能会映射到直接ByteBuffers。使用ByteBuffer模式时，可以使用Image类和getInput / OutputImage（int）访问原始视频帧。</p>
+<p>原始音频缓冲区<br>原始音频缓冲区包含整个PCM音频数据帧，这是通道顺序中每个通道的一个样本。 每个样本都是本机字节顺序的16位有符号整数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">short</span>[] getSamplesForChannel(MediaCodec codec, <span class="keyword">int</span> bufferId, <span class="keyword">int</span> channelIx) &#123;</span><br><span class="line"></span><br><span class="line">  ByteBuffer outputBuffer = codec.getOutputBuffer(bufferId);</span><br><span class="line"></span><br><span class="line">  MediaFormat format = codec.getOutputFormat(bufferId);</span><br><span class="line"></span><br><span class="line">  ShortBuffer samples = outputBuffer.order(ByteOrder.nativeOrder()).asShortBuffer();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> numChannels = formet.getInteger(MediaFormat.KEY_CHANNEL_COUNT);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (channelIx &lt; <span class="number">0</span> || channelIx &gt;= numChannels) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">short</span>[] res = <span class="keyword">new</span> <span class="keyword">short</span>[samples.remaining() / numChannels];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; res.length; ++i) &#123;</span><br><span class="line"></span><br><span class="line">    res[i] = samples.get(i * numChannels + channelIx);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//音频抽取后的format信息</span></span><br><span class="line"><span class="number">0</span> = &#123;HashMap$HashMapEntry@4594&#125; <span class="string">"mime"</span> -&gt; <span class="string">"audio/mp4a-latm"</span></span><br><span class="line"><span class="number">1</span> = &#123;HashMap$HashMapEntry@4595&#125; <span class="string">"aac-profile"</span> -&gt; <span class="string">"2"</span></span><br><span class="line"><span class="number">2</span> = &#123;HashMap$HashMapEntry@4596&#125; <span class="string">"channel-count"</span> -&gt; <span class="string">"2"</span></span><br><span class="line"><span class="number">3</span> = &#123;HashMap$HashMapEntry@4597&#125; <span class="string">"track-id"</span> -&gt; <span class="string">"1"</span></span><br><span class="line"><span class="number">4</span> = &#123;HashMap$HashMapEntry@4598&#125; <span class="string">"durationUs"</span> -&gt; <span class="string">"192911760"</span></span><br><span class="line"><span class="number">5</span> = &#123;HashMap$HashMapEntry@4599&#125; <span class="string">"csd-0"</span> -&gt; <span class="string">"java.nio.HeapByteBuffer[pos=0 lim=2 cap=2]"</span></span><br><span class="line"><span class="number">6</span> = &#123;HashMap$HashMapEntry@4600&#125; <span class="string">"sample-rate"</span> -&gt; <span class="string">"44100"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//视频抽取后的format信息</span></span><br><span class="line"><span class="number">0</span> = &#123;HashMap$HashMapEntry@4620&#125; <span class="string">"csd-1"</span> -&gt; <span class="string">"java.nio.HeapByteBuffer[pos=0 lim=8 cap=8]"</span></span><br><span class="line"><span class="number">1</span> = &#123;HashMap$HashMapEntry@4621&#125; <span class="string">"rotation-degrees"</span> -&gt; <span class="string">"90"</span></span><br><span class="line"><span class="number">2</span> = &#123;HashMap$HashMapEntry@4622&#125; <span class="string">"track-id"</span> -&gt; <span class="string">"1"</span></span><br><span class="line"><span class="number">3</span> = &#123;HashMap$HashMapEntry@4623&#125; <span class="string">"height"</span> -&gt; <span class="string">"1200"</span></span><br><span class="line"><span class="number">4</span> = &#123;HashMap$HashMapEntry@4624&#125; <span class="string">"profile"</span> -&gt; <span class="string">"1"</span></span><br><span class="line"><span class="number">5</span> = &#123;HashMap$HashMapEntry@4625&#125; <span class="string">"color-standard"</span> -&gt; <span class="string">"1"</span></span><br><span class="line"><span class="number">6</span> = &#123;HashMap$HashMapEntry@4626&#125; <span class="string">"durationUs"</span> -&gt; <span class="string">"2157877"</span></span><br><span class="line"><span class="number">7</span> = &#123;HashMap$HashMapEntry@4627&#125; <span class="string">"color-transfer"</span> -&gt; <span class="string">"3"</span></span><br><span class="line"><span class="number">8</span> = &#123;HashMap$HashMapEntry@4628&#125; <span class="string">"mime"</span> -&gt; <span class="string">"video/avc"</span></span><br><span class="line"><span class="number">9</span> = &#123;HashMap$HashMapEntry@4629&#125; <span class="string">"frame-rate"</span> -&gt; <span class="string">"30"</span></span><br><span class="line"><span class="number">10</span> = &#123;HashMap$HashMapEntry@4630&#125; <span class="string">"width"</span> -&gt; <span class="string">"1600"</span></span><br><span class="line"><span class="number">11</span> = &#123;HashMap$HashMapEntry@4631&#125; <span class="string">"color-range"</span> -&gt; <span class="string">"2"</span></span><br><span class="line"><span class="number">12</span> = &#123;HashMap$HashMapEntry@4632&#125; <span class="string">"max-input-size"</span> -&gt; <span class="string">"123106"</span></span><br><span class="line"><span class="number">13</span> = &#123;HashMap$HashMapEntry@4633&#125; <span class="string">"csd-0"</span> -&gt; <span class="string">"java.nio.HeapByteBuffer[pos=0 lim=21 cap=21]"</span></span><br><span class="line"><span class="number">14</span> = &#123;HashMap$HashMapEntry@4634&#125; <span class="string">"level"</span> -&gt; <span class="string">"2048"</span></span><br></pre></td></tr></table></figure>
+<p>这里要注意的是，要分清楚原视频中的视/音轨号和新合成的视频中的视/音轨号，一般来说前者是为了让extractor选中相应的轨道，而后者是在合成视频写数据的时候需要。这里犯了一个错就是提取视频轨的时候，视频轨在视频中的轨道号是0，提取音频帧时，音轨在音频中的轨道号也是0，实际给muxer添加轨道的时候，视轨被添加到了新视频的轨道0，音轨被添加到了新视频的轨道1。但写音频数据的时候仍往0号轨道写，就崩掉了报错：stop muxer failed</p>
+<p>具体工程代码见 <a href="https://github.com/lujianyun06/VATask/tree/master/app/src/main/java/com/example/lll/va/task4" target="_blank" rel="noopener">https://github.com/lujianyun06/VATask/tree/master/app/src/main/java/com/example/lll/va/task4</a></p>
 
       
     </div>
@@ -350,6 +1103,9 @@
 
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
 
 
 
@@ -416,14 +1172,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>

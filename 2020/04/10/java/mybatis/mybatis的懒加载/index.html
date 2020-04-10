@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lujianyun06.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="MyBatis 是否支持延迟加载（懒加载）？延迟加载的原理是什么？延迟加载的原理的是调用的时候触发加载，而不是在初始化的时候就加载信息。比如调用 a. getB(). getName()，这个时候发现 a. getB() 的值为 null，此时会单独触发事先保存好的关联 B 对象的 SQL，先查询出来 B，然后再调用 a. setB(b)，而这时候再调用 a. getB(). getName()">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mybatis的懒加载">
+<meta property="og:url" content="https://lujianyun06.github.io/2020/04/10/java/mybatis/mybatis%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD/index.html">
+<meta property="og:site_name" content="RockMaster&#39;s Blog">
+<meta property="og:description" content="MyBatis 是否支持延迟加载（懒加载）？延迟加载的原理是什么？延迟加载的原理的是调用的时候触发加载，而不是在初始化的时候就加载信息。比如调用 a. getB(). getName()，这个时候发现 a. getB() 的值为 null，此时会单独触发事先保存好的关联 B 对象的 SQL，先查询出来 B，然后再调用 a. setB(b)，而这时候再调用 a. getB(). getName()">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-10T01:17:08.000Z">
+<meta property="article:modified_time" content="2020-04-10T10:21:19.633Z">
+<meta property="article:author" content="RockMaster~Lu">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="后台开发">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://lujianyun06.github.io/2020/04/10/java/mybatis/mybatis%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>mybatis的懒加载 | RockMaster's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">RockMaster's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">0</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">12</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">31</span></a>
+
+  </li>
+        
+            
+  <li class="menu-item menu-item-docs">
+
+    <a href="/docs/" rel="section"><i class="fa fa-book fa-fw"></i>Docs</a>
+
+  </li>
+
+
+      
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/mybatis/mybatis%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mybatis的懒加载
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:21:19" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/mybatis/" itemprop="url" rel="index"><span itemprop="name">mybatis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="MyBatis-是否支持延迟加载（懒加载）？延迟加载的原理是什么？"><a href="#MyBatis-是否支持延迟加载（懒加载）？延迟加载的原理是什么？" class="headerlink" title="MyBatis 是否支持延迟加载（懒加载）？延迟加载的原理是什么？"></a>MyBatis 是否支持延迟加载（懒加载）？延迟加载的原理是什么？</h1><p>延迟加载的原理的是调用的时候触发加载，而不是在初始化的时候就加载信息。比如调用 a. getB(). getName()，这个时候发现 a. getB() 的值为 null，此时会单独触发事先保存好的关联 B 对象的 SQL，先查询出来 B，然后再调用 a. setB(b)，而这时候再调用 a. getB(). getName() 就有值了，这就是延迟加载的基本原理。其本质是将整个查询的结果包装成一个代理，当要进行属性加载时，调用其被代理的一些方法，再从数据库中查<br>MyBatis 支持延迟加载，设置 lazyLoadingEnabled=true 即可（全局懒加载）。或者单独属性的懒加载(fetchType=lazy)</p>
+<p>如果使用了config文件<br>则设置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"lazyLoadingEnabled"</span> <span class="attr">value</span>=<span class="string">"true”/&gt;</span></span></span><br><span class="line"><span class="tag"><span class="string">    ...</span></span></span><br><span class="line"><span class="tag"><span class="string">&lt;/settings&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>如果是在application.properties中加载配置，则使用：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mybatis.configuration.lazy-loading-enabled</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意，二者只能有一个！</strong></p>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">注意！如果在application.properties中指定了配置文件，那就不能再在application.properties中设置任何mybatis的配置，</span><br><span class="line">也就是不能再设置任何以 “mybatis.<span class="keyword">configuration</span>.XXX” 开头的属性</span><br><span class="line">否则会报错：</span><br><span class="line"><span class="keyword">Property</span> <span class="symbol">'configuration</span>' <span class="keyword">and</span> <span class="symbol">'configLocation</span>' can <span class="keyword">not</span> specified <span class="keyword">with</span> together</span><br></pre></td></tr></table></figure>
+
+<p>可以在resultMap中具体的association或者collection中可以用fetchType=lazy/eager 来覆盖掉全局的懒加载属性</p>
+<p>对于fetchType的使用，可以不开启lazyLoadingEnabled的情况下单独使用，也是生效的，也可以在开启lazyLoadingEnabled的情况下使用，这样设置了fetchType的属性的加载策略会忽略全局的加载策略。</p>
+<p>对于级联查询，就可以单独使用fetchType=lazy的方式来解决N+1的问题</p>
+<p>如果设置了懒加载（不论是fetchtype还是lazyLoadingEnabled），那么实体类会产生了一个代理，代理中有一个handler属性，这个属性类没有实现序列化接口，无法被加到json中，所以需要在类上注解@JsonIgnoreProperties(value = {“handler”})来把它忽略掉<br>如果不加这个注解，会报如下错：</p>
+<blockquote>
+<p>Could not write JSON: No serializer found for class org.apache.ibatis.executor.loader.javassist.JavassistProxyFactory$EnhancedResultObjectProxyImpl and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS);</p>
+</blockquote>
+<p>有时候懒加载看起来没起作用，实际上是一些方法被暗地调用导致懒属性被加载<br>lazyLoadTriggerMethods属性可以设置当调用对象的某些方法可能会导致该对象属性的懒加载被触发，</p>
+<p>默认值：equals,clone,hashCode,toString（也就是说，当调用对象的这些方法时，对象的懒属性都会被加载）<br>配置文件中加入了这个设置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"lazyLoadTriggerMethods"</span> <span class="attr">value</span>=<span class="string">"”/&gt;  </span></span></span><br><span class="line"><span class="tag"><span class="string">&lt;!-- 表示调用任何方法都不会触发懒加载，除非直接调用该对象的被懒加载的属性及其方法（如A.b，或者A.b.getName() 这样） --&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p> 附上文档上的说明：<br>lazyLoadTriggerMethods：指定哪个对象的方法触发一次延迟加载。<br>比如，当我打印对象时，由于触发了 toString 方法，所以触发了一次懒加载，该对象的所有级联属性就会被加载</p>
+<p><strong>陷阱：</strong><br>有的时候这些方法可能会被框架在无意中自动触发而导致懒属性被加载(尤其是toString和hashCode，很多时候不知道在哪就被调用了，结果看起来好像是懒加载没起作用)，所以如果不是很明确地需要触发加载的方法时，最好把lazyLoadTriggerMethods这个属性设为空，或者设置为自己能控制调用的方法。</p>
+<p>关于对象转化成Json传输时懒加载不起作用的问题<br>在设置了懒加载后，在本地验证的时候，懒加载确实是起作用的，但是，当把对象转为json传输的时候，由于要调用相应属性来完成序列化，所以仍然是要对其属性进行加载的。比如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Class A&#123;</span><br><span class="line">    List&lt;B&gt; b;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">type</span> = <span class="string">A</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">collection</span> …<span class="attr">property</span>=<span class="string">b</span> <span class="attr">ofType</span>=<span class="string">B</span> <span class="attr">fetchType</span>=<span class="string">lazy</span> <span class="attr">...</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在本地跑单元测试时，可以发现a对象的b属性只要不调用，而且不去调用A对象可能会触发懒加载的方法，则b属性始终为空，除非像调用了类似a.b，即要用到相应的属性时，才会触发读数据库加载数据。但是呢，如果把对象a当做json去传输时，它的b对象也是会被加载的，因为在序列化时，会调用相应的属性及其方法，这时就会触发加载去数据库读b的数据。那么想让a对象传输时不加载且不传输b的话，解决办法如下：</p>
+<p>首先是要设置懒加载，即要么开启全局的懒加载lazyLoadingEnabled”设置，要么单独对A的属性b设置fetchType=lazy<br>    在A的类上标注@JsonIgnoreProperties(value = {“handler”, “b”}) 这个意思是json序列化时要忽略掉哪些属性，首先handler是必须要忽略的，因为懒加载后对象其实是一个代理，被自动加上了handler属性，它没有实现序列化接口，所以要排除；而且把b属性给排除掉，表明序列化时会忽略b属性，那么序列化时就不会调用任何关于b的方法了。这样的话，在客户端得到的A对象中是没有b属性的，而且查看sql的调用，发现也是没有去查找B表的。</p>
+<pre><code> 但要注意的是，如果不开启懒加载开关，只是设置了@JsonIgnoreProperties，那么其实相应的属性还是会被加载（即会去查相应属性的表），但查到属性后，不把它序列化到json中，所以客户端还是看不到这个属性，但事实上对于数据库来说是已经查了的。
+
+而如果不标注忽略属性，仅仅把想要不序列化的对象设置为transient，是不起作用的，还是会被序列化，这里猜测应该是序列化为json时和普遍意义上的序列化还是有所差别的，还是对调用对应属性的方法，这样就还是会触发懒加载</code></pre>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/10/java/spring/springMVC%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/" rel="prev" title="springMVC处理请求流程">
+      <i class="fa fa-chevron-left"></i> springMVC处理请求流程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/10/java/mybatis/Mybatis%E4%B8%AD%E5%AF%B9%E4%BA%8Eassociation%E7%9A%84%E7%90%86%E8%A7%A3/" rel="next" title="Mybatis中对于association的理解">
+      Mybatis中对于association的理解 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MyBatis-是否支持延迟加载（懒加载）？延迟加载的原理是什么？"><span class="nav-number">1.</span> <span class="nav-text">MyBatis 是否支持延迟加载（懒加载）？延迟加载的原理是什么？</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="RockMaster~Lu"
+      src="/images/lu.jpg">
+  <p class="site-author-name" itemprop="name">RockMaster~Lu</p>
+  <div class="site-description" itemprop="description">记录学习生活，力求每日进步</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fas fa-cloud"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RockMaster~Lu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
