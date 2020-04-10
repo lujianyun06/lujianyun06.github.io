@@ -350,84 +350,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/%E7%AE%97%E6%B3%95/220.%20Contains%20Duplicate%20III/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="RockMaster~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RockMaster's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/%E7%AE%97%E6%B3%95/220.%20Contains%20Duplicate%20III/" class="post-title-link" itemprop="url">220. Contains Duplicate III</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：16:13:55" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Medium</span><br><span class="line"></span><br><span class="line">Given an <span class="built_in">array</span> of <span class="built_in">int</span>egers, find <span class="keyword">out</span> whether there are two distinct indices i <span class="keyword">and</span> j <span class="keyword">in</span> the <span class="built_in">array</span> such that the absolute difference between nums[i] <span class="keyword">and</span> nums[j] <span class="keyword">is</span> at most t <span class="keyword">and</span> the absolute difference between i <span class="keyword">and</span> j <span class="keyword">is</span> at most k.</span><br><span class="line"></span><br><span class="line">Example <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">Input: nums = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>], k = <span class="number">3</span>, t = <span class="number">0</span></span><br><span class="line">Output: <span class="literal">true</span></span><br><span class="line">Example <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">Input: nums = [<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>], k = <span class="number">1</span>, t = <span class="number">2</span></span><br><span class="line">Output: <span class="literal">true</span></span><br><span class="line">Example <span class="number">3</span>:</span><br><span class="line"></span><br><span class="line">Input: nums = [<span class="number">1</span>,<span class="number">5</span>,<span class="number">9</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">9</span>], k = <span class="number">2</span>, t = <span class="number">3</span></span><br><span class="line">Output: <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">给定一个整数数组，找出数组中是否有两个不同的索引i和j，使得nums[i]和nums[j]之间的绝对值差最大为t, i和j之间的绝对值差最大为k。</span><br></pre></td></tr></table></figure>
-
-<p>笨办法就是双重循环，如果下标绝对值符合后再看数值是否符合，会超时</p>
-<p>网上找的中文解释都没看懂。</p>
-<p>使用TreeSet数据结构，可以借助TreeSet中有用的函数</p>
-<p>TreeSet.floor(x) 表示TreeSet中小于或等于x的最大元素<br>TreeSet.ceiling(x) 表示TreeSet中大于或等于x的最小元素</p>
-<p>对于数组中任意一个数nums[i], 与其绝对值差小于等于为t的区间为 [nums[i]-t，nums[i]+t],  数轴表示如下</p>
-<pre><code>    I__________I__________I
-nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceiling函数，可以得到是否有数字在上述区间内<br>即：f = floor(nums[i] + t) 且 f&gt;=nums[i]，说明f在[ nums[i], nums[i]+t]内<br>   c = ceiling(nums[i] - t) 且 c&lt;=nums[i]，说明c在[ nums[i]-t, nums[i]]内</p>
-<p>如果存在f或者c，然后要保证的是 它们的索引和i差距小于k，则只需维持TreeSet中始终只保留窗口大小为k的元素即可（在访问nums[i]时，TreeSet中始终只保留nums[i-k]到nums[i-1] ）。</p>
-<p>这样，只要存在f或者c，就存在满足条件的值，因为TreeSet中元素的坐标都满足和i的约束关系，直接返回。<br>若不存在，则把nums[i]加入TreeSet，删去nums[i-k]（因为下一个要访问的是nums[i+1]，nums[i-k]与nums[i+1]的坐标约束不满足），继续遍历。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">containsNearbyAlmostDuplicate</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k, <span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span> || k &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> TreeSet&lt;Integer&gt; values = <span class="keyword">new</span> TreeSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">final</span> Integer floor = values.floor(nums[i] + t); <span class="comment">//set中是否有满足 小于或等于 nums[i]+t 的数字</span></span><br><span class="line">            <span class="keyword">final</span> Integer ceil = values.ceiling(nums[i] - t); <span class="comment">//set中是否有满足 大于或等于 nums[i]-t 的数字</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//如果有这样的数字，且TreeSet中元素坐标都与i满足约束条件，那么就有满足题意的元素</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> ((floor != <span class="keyword">null</span> &amp;&amp; floor &gt;= nums[ind])</span><br><span class="line">                    || (ceil != <span class="keyword">null</span> &amp;&amp; ceil &lt;= nums[ind])) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            values.add(nums[i]);</span><br><span class="line">            <span class="comment">//保证TreeSet中的坐标和i的差都小于等于k</span></span><br><span class="line">            <span class="keyword">if</span> (i &gt;= k) &#123; </span><br><span class="line">                values.remove(nums[i - k]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/%E7%AE%97%E6%B3%95/%E5%8F%AA%E7%94%A8%E4%BD%8D%E8%BF%90%E7%AE%97%E4%B8%8D%E7%94%A8%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%95%B0%E7%9A%84%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -511,7 +433,7 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/mybatis/Mybatis%E8%A7%A3%E5%86%B3n+1%E9%97%AE%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/%E7%AE%97%E6%B3%95/220.%20Contains%20Duplicate%20III/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
@@ -525,7 +447,7 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/04/10/java/mybatis/Mybatis%E8%A7%A3%E5%86%B3n+1%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Mybatis解决n+1问题</a>
+            <a href="/2020/04/10/%E7%AE%97%E6%B3%95/220.%20Contains%20Duplicate%20III/" class="post-title-link" itemprop="url">220. Contains Duplicate III</a>
         </h2>
 
         <div class="post-meta">
@@ -536,7 +458,7 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:18:18" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：16:13:55" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -544,11 +466,7 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/mybatis/" itemprop="url" rel="index"><span itemprop="name">mybatis</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
                 </span>
             </span>
 
@@ -563,29 +481,18 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>简介<br>在orm框架中，比如hibernate和mybatis都可以设置关联对象，比如user对象关联dept<br>假如查询出n个user，那么需要做n次查询dept，查询user是一次select，查询user关联的<br>dept，是n次，所以是n+1问题，其实叫1+n更为合理一些。</p>
-<p>mybatis配置<br>UserMapper.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"BaseResultMap"</span> <span class="attr">type</span>=<span class="string">"testmaven.entity.User"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"name"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"age"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"age"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"deptId"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"eager"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Medium</span><br><span class="line"></span><br><span class="line">Given an <span class="built_in">array</span> of <span class="built_in">int</span>egers, find <span class="keyword">out</span> whether there are two distinct indices i <span class="keyword">and</span> j <span class="keyword">in</span> the <span class="built_in">array</span> such that the absolute difference between nums[i] <span class="keyword">and</span> nums[j] <span class="keyword">is</span> at most t <span class="keyword">and</span> the absolute difference between i <span class="keyword">and</span> j <span class="keyword">is</span> at most k.</span><br><span class="line"></span><br><span class="line">Example <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">Input: nums = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>], k = <span class="number">3</span>, t = <span class="number">0</span></span><br><span class="line">Output: <span class="literal">true</span></span><br><span class="line">Example <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">Input: nums = [<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>], k = <span class="number">1</span>, t = <span class="number">2</span></span><br><span class="line">Output: <span class="literal">true</span></span><br><span class="line">Example <span class="number">3</span>:</span><br><span class="line"></span><br><span class="line">Input: nums = [<span class="number">1</span>,<span class="number">5</span>,<span class="number">9</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">9</span>], k = <span class="number">2</span>, t = <span class="number">3</span></span><br><span class="line">Output: <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">给定一个整数数组，找出数组中是否有两个不同的索引i和j，使得nums[i]和nums[j]之间的绝对值差最大为t, i和j之间的绝对值差最大为k。</span><br></pre></td></tr></table></figure>
 
-<p>DeptMapper.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectByPrimaryKey"</span> <span class="attr">resultMap</span>=<span class="string">"BaseResultMap"</span> <span class="attr">parameterType</span>=<span class="string">"java.lang.Integer"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">select</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"Base_Column_List"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">from dept</span><br><span class="line"></span><br><span class="line">where id = #&#123;id,jdbcType=INTEGER&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>我们可以看到user通过association中的dept_id关联了dept，查询user后，比如查询到4个user，那么会执行4次查询dept；</p>
-<p>测试</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
-<p>打印jdbc log我们能看到，查询到4个user，然后执行了4次查询dept<br><img src="https://img-blog.csdn.net/20180321223842327?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L3cwNTk4MDU5OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="select1"></p>
-<p>1+n带来的问题<br>查询主数据，是1次查询，查询出n条记录；根据这n条主记录，查询从记录，共需要n次，所以叫数据库1+n问题；这样会带来性能问题，比如，查询到的n条记录，我可能只用到其中1条，但是也执行了n次从记录查询，这是不合理的。为了解决这个问题，出现了懒加载，懒加载就是用到的时候再查询；我们设置association元素中的fetchType fetchType=lazy</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"lazy"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">我们再做测试</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">User u = list.get(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(u.getClass());</span><br><span class="line"></span><br><span class="line">System.out.println(u.getName());</span><br></pre></td></tr></table></figure>
-<p>jdbc log<br><img src="https://img-blog.csdn.net/20160831220618291" alt="jdbc log" title="jdbc log"></p>
-<p>懒加载 减少了性能消耗，一定程度上缓解了1+n带来的性能问题</p>
-<blockquote>
-<p>总结<br>1+n问题是什么？应该怎样解决？</p>
-</blockquote>
-<blockquote>
-<p>1+n是执行一次查询获取n条主数据后，由于关联引起的执行n次查询从数据；它带来了性能问题；一般来说，通过懒加载 可以部分缓解1+n带来的性能问题</p>
-</blockquote>
-
+<p>笨办法就是双重循环，如果下标绝对值符合后再看数值是否符合，会超时</p>
+<p>网上找的中文解释都没看懂。</p>
+<p>使用TreeSet数据结构，可以借助TreeSet中有用的函数</p>
+<p>TreeSet.floor(x) 表示TreeSet中小于或等于x的最大元素<br>TreeSet.ceiling(x) 表示TreeSet中大于或等于x的最小元素</p>
+<p>对于数组中任意一个数nums[i], 与其绝对值差小于等于为t的区间为 [nums[i]-t，nums[i]+t],  数轴表示如下</p>
+<pre><code>    I__________I__________I
+nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceiling函数，可以得到是否有数字在上述区间内<br>即：f = floor(nums[i] + t) 且 f&gt;=nums[i]，说明f在[ nums[i], nums[i]+t]内<br>   c = ceiling(nums[i] - t) 且 c&lt;=nums[i]，说明c在[ nums[i]-t, nums[i]]内</p>
+<p>如果存在f或者c，然后要保证的是 它们的索引和i差距小于k，则只需维持TreeSet中始终只保留窗口大小为k的元素即可（在访问nums[i]时，TreeSet中始终只保留nums[i-k]到nums[i-1] ）。</p>
+<p>这样，只要存在f或者c，就存在满足条件的值，因为TreeSet中元素的坐标都满足和i的约束关系，直接返回。<br>若不存在，则把nums[i]加入TreeSet，删去nums[i-k]（因为下一个要访问的是nums[i+1]，nums[i-k]与nums[i+1]的坐标约束不满足），继续遍历。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">containsNearbyAlmostDuplicate</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k, <span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span> || k &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> TreeSet&lt;Integer&gt; values = <span class="keyword">new</span> TreeSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">final</span> Integer floor = values.floor(nums[i] + t); <span class="comment">//set中是否有满足 小于或等于 nums[i]+t 的数字</span></span><br><span class="line">            <span class="keyword">final</span> Integer ceil = values.ceiling(nums[i] - t); <span class="comment">//set中是否有满足 大于或等于 nums[i]-t 的数字</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//如果有这样的数字，且TreeSet中元素坐标都与i满足约束条件，那么就有满足题意的元素</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> ((floor != <span class="keyword">null</span> &amp;&amp; floor &gt;= nums[ind])</span><br><span class="line">                    || (ceil != <span class="keyword">null</span> &amp;&amp; ceil &lt;= nums[ind])) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            values.add(nums[i]);</span><br><span class="line">            <span class="comment">//保证TreeSet中的坐标和i的差都小于等于k</span></span><br><span class="line">            <span class="keyword">if</span> (i &gt;= k) &#123; </span><br><span class="line">                values.remove(nums[i - k]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -695,6 +602,99 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
 <p>所以对于association需要注意的点：</p>
 <p>1.如果使用了select属性，则本质上要进行两次查询，得到两张结果表，因为是从不同的表中查询（相同也无所谓）且每次只查询一个表，所以二者互不干涉，所以不存在字段歧义的问题，自动映射会开启。<br>2.如果使用resultMap属性，或者association本身当做一个resultMap，则本质是对多张表的<u>一次</u>联合查询，只产生一张结果表。然后对这张结果表一次进行映射。可能存在字段歧义问题，自动映射会关闭（如果没有指明映射关系的字段会得到空值）。此时要把产生歧义的字段起别名，并且把所有需要映射的字段都显式写出来。</p>
 <p>所有的mybatis的resultMap，不管其结构有多复杂，本质都是执行完sql后对结果表再进行映射（归根结底要很清晰执行完sql语句后结果表是什么样子），其中的column的名称是结果表的column名称而不是原表的colum名称（虽然不起别名的话二者相同）。只要明确这一点，很多问题就能迎刃而解。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/mybatis/Mybatis%E8%A7%A3%E5%86%B3n+1%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/java/mybatis/Mybatis%E8%A7%A3%E5%86%B3n+1%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Mybatis解决n+1问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:18:18" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/mybatis/" itemprop="url" rel="index"><span itemprop="name">mybatis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>简介<br>在orm框架中，比如hibernate和mybatis都可以设置关联对象，比如user对象关联dept<br>假如查询出n个user，那么需要做n次查询dept，查询user是一次select，查询user关联的<br>dept，是n次，所以是n+1问题，其实叫1+n更为合理一些。</p>
+<p>mybatis配置<br>UserMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"BaseResultMap"</span> <span class="attr">type</span>=<span class="string">"testmaven.entity.User"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"name"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"age"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"age"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"deptId"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"eager"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>DeptMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectByPrimaryKey"</span> <span class="attr">resultMap</span>=<span class="string">"BaseResultMap"</span> <span class="attr">parameterType</span>=<span class="string">"java.lang.Integer"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">select</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"Base_Column_List"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">from dept</span><br><span class="line"></span><br><span class="line">where id = #&#123;id,jdbcType=INTEGER&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们可以看到user通过association中的dept_id关联了dept，查询user后，比如查询到4个user，那么会执行4次查询dept；</p>
+<p>测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+<p>打印jdbc log我们能看到，查询到4个user，然后执行了4次查询dept<br><img src="https://img-blog.csdn.net/20180321223842327?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L3cwNTk4MDU5OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="select1"></p>
+<p>1+n带来的问题<br>查询主数据，是1次查询，查询出n条记录；根据这n条主记录，查询从记录，共需要n次，所以叫数据库1+n问题；这样会带来性能问题，比如，查询到的n条记录，我可能只用到其中1条，但是也执行了n次从记录查询，这是不合理的。为了解决这个问题，出现了懒加载，懒加载就是用到的时候再查询；我们设置association元素中的fetchType fetchType=lazy</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"lazy"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">我们再做测试</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">User u = list.get(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(u.getClass());</span><br><span class="line"></span><br><span class="line">System.out.println(u.getName());</span><br></pre></td></tr></table></figure>
+<p>jdbc log<br><img src="https://img-blog.csdn.net/20160831220618291" alt="jdbc log" title="jdbc log"></p>
+<p>懒加载 减少了性能消耗，一定程度上缓解了1+n带来的性能问题</p>
+<blockquote>
+<p>总结<br>1+n问题是什么？应该怎样解决？</p>
+</blockquote>
+<blockquote>
+<p>1+n是执行一次查询获取n条主数据后，由于关联引起的执行n次查询从数据；它带来了性能问题；一般来说，通过懒加载 可以部分缓解1+n带来的性能问题</p>
+</blockquote>
 
       
     </div>
