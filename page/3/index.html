@@ -890,6 +890,107 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/" class="post-title-link" itemprop="url">springboot 静态资源无法访问以及添加静态资源无法立即访问</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:08:18" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="springboot-静态资源无法访问"><a href="#springboot-静态资源无法访问" class="headerlink" title="springboot 静态资源无法访问"></a>springboot 静态资源无法访问</h2><blockquote>
+<p>在一个项目中WebMvcConfigurationSupport只能存在一个，多个的时候，只有一个会生效。（按名称排序后第一个的）</p>
+</blockquote>
+<p>1.SpringBoot 的 @EnableAutoConfiguration 会启用自动配置类 </p>
+<p>2.WebMvcAutoConfiguration，该类配置了一些默认的静态资源映射</p>
+<ul>
+<li>自动映射 localhost:8080/** 为以下路径<pre><code>classpath:/resources/
+classpath:/static/
+classpath:/public/
+classpath:/META-INF/resources/</code></pre><ol start="2">
+<li>自动映射 localhost:8080/webjars/** 为以下路径<br> classpath:/META-INF/resources/webjars/</li>
+</ol>
+</li>
+</ul>
+<p>此时，我们不需要多做什么，只要将静态资源放入 src/main/resources 目录下的 resources、static 或 public 文件夹下，即可通过 url 定位相关资源，例如 localhost:8080/index.html 可定位至 src/main/resources/static/index.html</p>
+<p><strong>但是！</strong><br>一旦使用继承了WebMvcConfigurationSupport或者WebMvcConfigurerAdapter的自定义配置类，即使没有重写addResourceHandlers方法，默认配置都会被不被采用。如果要采用原本默认的配置，则需要webmvc配置类中重写如下方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoWebMvcConfigurerAdapter</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//配置静态资源处理</span></span><br><span class="line">        registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"resources/"</span>, <span class="string">"static/"</span>, <span class="string">"public/"</span>, </span><br><span class="line">                <span class="string">"META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"classpath:resources/"</span>, <span class="string">"classpath:static/"</span>, </span><br><span class="line">                <span class="string">"classpath:public/"</span>, <span class="string">"classpath:META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"file:///tmp/webapps/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>经过试验得证：如果不使用WebMvcConfigurationSupport，则使用application.properties中的默认配置<br>如果重写了application.properties中的配置，则使用重写后的配置，如：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring.resources.<span class="keyword">static</span>-locations=resources<span class="regexp">/, static/</span>, <span class="keyword">public</span><span class="regexp">/, \ META-INF/</span>resources<span class="regexp">/, resources/</span>, <span class="keyword">classpath</span>:<span class="keyword">static</span><span class="regexp">/, public/</span>, <span class="keyword">classpath</span>:META-INF<span class="regexp">/resources/</span>, \<span class="keyword">file</span>:<span class="comment">///tmp/webapps/</span></span><br><span class="line"></span><br><span class="line">spring.mvc.<span class="keyword">static</span>-path-pattern=<span class="comment">/**</span></span><br></pre></td></tr></table></figure>
+
+<p>一旦使用了WebMvcConfigurationSupport（或WebMvcConfigurerAdapter）那么必须要重写addResourceHandlers来配置资源映射，此时application.properties中关于静态资源访问的配置将失效（除非对url写了响应的controller来处理，那是另一回事）</p>
+<h2 id="当添加了静态资源后，无法立即访问的问题"><a href="#当添加了静态资源后，无法立即访问的问题" class="headerlink" title="当添加了静态资源后，无法立即访问的问题"></a>当添加了静态资源后，无法立即访问的问题</h2><p>如果访问项目中的静态资源，访问的所有的东西其实都是target目录中的，这是经过编译的，如果对项目目录下的静态资源进行修改（增删改），由于target下的东西没有受影响，所以没法立即生效，比如往/resouces/static下增加一张图片，通过url无法立即访问到，必须重启项目。其实重启就是让资源文件经过编译（其实资源文件根本不编译）后，加到target中，那么这样就很麻烦，要是想对一个静态资源修改后能立即通过url访问到要如何做呢？<br>解决办法将静态资源放在非项目类路径下即可，例如 “file:///Users/mytest/inspector/independent_resources/“);，并且在资源处理器中加上路径即可。<br>file:// 后面跟的必须是文件系统的绝对路径</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**”)</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>resources/<span class="string">", "</span><span class="keyword">static</span>/<span class="string">", "</span><span class="keyword">public</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>classpath:resources/<span class="string">", "</span>classpath:<span class="keyword">static</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>classpath:<span class="keyword">public</span>/<span class="string">", "</span>classpath:META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        //如果要让添加的静态资源立即生效，则不能把它放到项目资源里面，应该放在外面，比如下面的目录</span></span><br><span class="line"><span class="string">        //这样一旦静态资源添加到这个目录，则直接从该位置获取，而不是从编译的target位置获取</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>file:<span class="comment">///Users/mytest/inspector/independent_resources/");</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**********之间的是项目类的路径，不用管，最下面的是非项目类的路径</span></span><br><span class="line"><span class="comment">这样的话，在项目运行时，往/Users/mytest/inspector/independent_resources/目录下添加一个111.png后，在浏览器中通过localhost:8080/111.png就可访问到这个图片了。</span></span><br><span class="line"><span class="comment">如果不添加这个，在项目运行时，往项目的src/main/resources 下添加一个111.png后，不能立即通过浏览器访问到这个图片，因为项目类的所有资源和文件必须编译为target版本后才对外服务，而添加资源后不重启项目无法重新编译，target中的东西没有更新。</span></span><br></pre></td></tr></table></figure>
+<p>见<a href="https://blog.csdn.net/rui18300072030/article/details/74923580" target="_blank" rel="noopener">https://blog.csdn.net/rui18300072030/article/details/74923580</a></p>
+<blockquote>
+<p>因此，需要修改后立即生效的文件，尤其是非代码文件（除去html，css这种）最好是放在项目类的外部，放在文件系统的绝对路径下。如果文件必须放在项目中，但又必须得立即生效，<br>那么对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
+</blockquote>
+<p>如果文件必须放在项目中，但又必须得立即生效，那么用下面的方法：<br>对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">        .addResourceLocations(<span class="string">"classpath:static/"</span>)</span><br><span class="line"> .addResourceLocations(<span class="string">"file:///Users/mytest/inspector/src/main/resources/static/"</span>);</span><br></pre></td></tr></table></figure>
+<p>上面两个路径其实是同一个，但通过上面相对路径访问的是target中的东西。在运行时添加一个文件后，target没有更新，通过相对路径就访问不到，但实际上文件系统是更新了，所以用下面的绝对路径直接访问文件系统中的文件就可。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8&%E4%BD%BF%E7%94%A8aop%E6%97%B6%E6%B3%A8%E5%85%A5%E5%B1%9E%E6%80%A7%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -976,107 +1077,6 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
 <p>可以进入堆栈中看：<br>在创建aop1util时，当执行完populateBean时，它的“aop2Util”属性就已经被填充了，此时它仍是正常的实例<br><img src="https://img-blog.csdnimg.cn/20200318114610355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="8"><br>在进入initialzeBean后，执行完前置处理后，可以看到这个bean仍然没有变化：（在initialzeBean中以wrappedBean为准）<br><img src="https://img-blog.csdnimg.cn/20200318114610342.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="9"></p>
 <p>但一经过后置处理，可以看到wrappedBean已经变成了代理对象，而且其aop2util属性是空<br><img src="https://img-blog.csdnimg.cn/20200318114610381.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="10"></p>
 <p><strong>结论：如果一个对象要被生成代理，那么不要对它的属性或方法进行注入，这些都会变成null（构造器注入是可以的,因为构造器注入时创建代理对象时必须要调用其父类（也就是被代理类）的构造函数，此时就会把要注入的对象注入了）</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="RockMaster~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RockMaster's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/" class="post-title-link" itemprop="url">springboot 静态资源无法访问以及添加静态资源无法立即访问</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:08:18" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="springboot-静态资源无法访问"><a href="#springboot-静态资源无法访问" class="headerlink" title="springboot 静态资源无法访问"></a>springboot 静态资源无法访问</h2><blockquote>
-<p>在一个项目中WebMvcConfigurationSupport只能存在一个，多个的时候，只有一个会生效。（按名称排序后第一个的）</p>
-</blockquote>
-<p>1.SpringBoot 的 @EnableAutoConfiguration 会启用自动配置类 </p>
-<p>2.WebMvcAutoConfiguration，该类配置了一些默认的静态资源映射</p>
-<ul>
-<li>自动映射 localhost:8080/** 为以下路径<pre><code>classpath:/resources/
-classpath:/static/
-classpath:/public/
-classpath:/META-INF/resources/</code></pre><ol start="2">
-<li>自动映射 localhost:8080/webjars/** 为以下路径<br> classpath:/META-INF/resources/webjars/</li>
-</ol>
-</li>
-</ul>
-<p>此时，我们不需要多做什么，只要将静态资源放入 src/main/resources 目录下的 resources、static 或 public 文件夹下，即可通过 url 定位相关资源，例如 localhost:8080/index.html 可定位至 src/main/resources/static/index.html</p>
-<p><strong>但是！</strong><br>一旦使用继承了WebMvcConfigurationSupport或者WebMvcConfigurerAdapter的自定义配置类，即使没有重写addResourceHandlers方法，默认配置都会被不被采用。如果要采用原本默认的配置，则需要webmvc配置类中重写如下方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoWebMvcConfigurerAdapter</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//配置静态资源处理</span></span><br><span class="line">        registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"resources/"</span>, <span class="string">"static/"</span>, <span class="string">"public/"</span>, </span><br><span class="line">                <span class="string">"META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"classpath:resources/"</span>, <span class="string">"classpath:static/"</span>, </span><br><span class="line">                <span class="string">"classpath:public/"</span>, <span class="string">"classpath:META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"file:///tmp/webapps/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>经过试验得证：如果不使用WebMvcConfigurationSupport，则使用application.properties中的默认配置<br>如果重写了application.properties中的配置，则使用重写后的配置，如：</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring.resources.<span class="keyword">static</span>-locations=resources<span class="regexp">/, static/</span>, <span class="keyword">public</span><span class="regexp">/, \ META-INF/</span>resources<span class="regexp">/, resources/</span>, <span class="keyword">classpath</span>:<span class="keyword">static</span><span class="regexp">/, public/</span>, <span class="keyword">classpath</span>:META-INF<span class="regexp">/resources/</span>, \<span class="keyword">file</span>:<span class="comment">///tmp/webapps/</span></span><br><span class="line"></span><br><span class="line">spring.mvc.<span class="keyword">static</span>-path-pattern=<span class="comment">/**</span></span><br></pre></td></tr></table></figure>
-
-<p>一旦使用了WebMvcConfigurationSupport（或WebMvcConfigurerAdapter）那么必须要重写addResourceHandlers来配置资源映射，此时application.properties中关于静态资源访问的配置将失效（除非对url写了响应的controller来处理，那是另一回事）</p>
-<h2 id="当添加了静态资源后，无法立即访问的问题"><a href="#当添加了静态资源后，无法立即访问的问题" class="headerlink" title="当添加了静态资源后，无法立即访问的问题"></a>当添加了静态资源后，无法立即访问的问题</h2><p>如果访问项目中的静态资源，访问的所有的东西其实都是target目录中的，这是经过编译的，如果对项目目录下的静态资源进行修改（增删改），由于target下的东西没有受影响，所以没法立即生效，比如往/resouces/static下增加一张图片，通过url无法立即访问到，必须重启项目。其实重启就是让资源文件经过编译（其实资源文件根本不编译）后，加到target中，那么这样就很麻烦，要是想对一个静态资源修改后能立即通过url访问到要如何做呢？<br>解决办法将静态资源放在非项目类路径下即可，例如 “file:///Users/mytest/inspector/independent_resources/“);，并且在资源处理器中加上路径即可。<br>file:// 后面跟的必须是文件系统的绝对路径</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**”)</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>resources/<span class="string">", "</span><span class="keyword">static</span>/<span class="string">", "</span><span class="keyword">public</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>classpath:resources/<span class="string">", "</span>classpath:<span class="keyword">static</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>classpath:<span class="keyword">public</span>/<span class="string">", "</span>classpath:META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        //如果要让添加的静态资源立即生效，则不能把它放到项目资源里面，应该放在外面，比如下面的目录</span></span><br><span class="line"><span class="string">        //这样一旦静态资源添加到这个目录，则直接从该位置获取，而不是从编译的target位置获取</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>file:<span class="comment">///Users/mytest/inspector/independent_resources/");</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**********之间的是项目类的路径，不用管，最下面的是非项目类的路径</span></span><br><span class="line"><span class="comment">这样的话，在项目运行时，往/Users/mytest/inspector/independent_resources/目录下添加一个111.png后，在浏览器中通过localhost:8080/111.png就可访问到这个图片了。</span></span><br><span class="line"><span class="comment">如果不添加这个，在项目运行时，往项目的src/main/resources 下添加一个111.png后，不能立即通过浏览器访问到这个图片，因为项目类的所有资源和文件必须编译为target版本后才对外服务，而添加资源后不重启项目无法重新编译，target中的东西没有更新。</span></span><br></pre></td></tr></table></figure>
-<p>见<a href="https://blog.csdn.net/rui18300072030/article/details/74923580" target="_blank" rel="noopener">https://blog.csdn.net/rui18300072030/article/details/74923580</a></p>
-<blockquote>
-<p>因此，需要修改后立即生效的文件，尤其是非代码文件（除去html，css这种）最好是放在项目类的外部，放在文件系统的绝对路径下。如果文件必须放在项目中，但又必须得立即生效，<br>那么对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
-</blockquote>
-<p>如果文件必须放在项目中，但又必须得立即生效，那么用下面的方法：<br>对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">        .addResourceLocations(<span class="string">"classpath:static/"</span>)</span><br><span class="line"> .addResourceLocations(<span class="string">"file:///Users/mytest/inspector/src/main/resources/static/"</span>);</span><br></pre></td></tr></table></figure>
-<p>上面两个路径其实是同一个，但通过上面相对路径访问的是target中的东西。在运行时添加一个文件后，target没有更新，通过相对路径就访问不到，但实际上文件系统是更新了，所以用下面的绝对路径直接访问文件系统中的文件就可。</p>
 
       
     </div>
