@@ -130,7 +130,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">31</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">32</span></a>
 
   </li>
         
@@ -193,6 +193,80 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/linux/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3linux%E6%8C%82%E8%BD%BD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/linux/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3linux%E6%8C%82%E8%BD%BD/" class="post-title-link" itemprop="url">如何理解linux挂载</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：16:00:26" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>根据树结构去理解整个文件系统的挂载和挂载点还是有点困难，所以自己做了些总结，有不对的地方还请指正</p>
+<p>df -h命令后</p>
+<p>Filesystem 这里的文件系统表示的是目录的层次结构，而不是所谓的像ext4，fat那种真正的文件系统类型<br>一个具体的设备文件(或分区) ，或许是一块硬盘上的一个分区，或许是u盘上的一个分区</p>
+<p>目录就相当于门<br>整个linux中的文件系统就像一个世界接着一个世界，不同的世界代表不同的被挂载的文件系统，挂载点就相当于任意门（特殊的门），各个被挂载的文件系统之间是独立的，但是要进入其中一个需要一个一个进入任意门去穿梭，整个世界的第一个门是 / ，它里面的世界是第一个文件系统，这个世界里又有很多个门，有的门背后的世界和这个世界是同一个，则他们是在同一个文件系统里，而当有其他的分区被挂载到一个目录的时候，例如<br>对一个目录 /home/lll，要到达这个门后的世界，要穿过 / 和 home/ （这个门在 / 后面的世界里） 和 lll/ （这个门在 home/ 后面的世界里），形象的描述为：</p>
+<p>/ —》 世界A （包含 home/ —-》 世界B （包含 lll/ —》 世界C ）如果不做任何其他挂载，世界A、B、C是同一个世界）当要把/dev/sda1这个id所指向的分区挂载到 /home/lll 则相当于把 /home/lll/ 这个门变成任意门，它通往的世界变成了sda1的世界空间，自然的，只要进了这个世界，如果再不挂载其他的，则所有对 /home/lll/… 的操作都在sda1的世界里，而对这个门前面的世界的操作，如对/home/aaa的操作，仍然在一开始的那个世界里<br>把挂载点想象成一个任意门，进入第一个任意门是世界A，里面还有一个任意门通往世界B，虽然只有进了第一个任意门才能进第二个任意门，但世界A和世界B是毫无关系彼此独立的（挂载的文件系统之间彼此独立）<br>挂载绑定：把一个目录挂载到另一个目录，比如 mount –bind dir1 dir2 则是相当于对dir2这个门做了特殊处理，让dir2和dir1通往同一个世界的同一个位置，而dir2原本通往的那个位置里面的东西会被遮盖掉，当解除挂载后，dir2会恢复它原本通往的世界和位置，且里面的东西还在</p>
+<p>当把目录A挂载到目录B，= mount –bind A B ; 其中B是新的挂载点 ，就是让门B通往的地方和门A通往的地方一毛一样<br>把设备A挂载到目录B = mount A B ; 其中B是新的挂载点，就是让门B通往的地方是A的世界空间。<br>挂载点必须是目录（门）</p>
+<p>可以对同一个目录多次挂载，最后生效的结果是最后一次挂载，此时卸载，则倒数第二次挂载生效，再卸载，则倒数第三次挂载生效</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -511,6 +585,99 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/mybatis/Mybatis%E8%A7%A3%E5%86%B3n+1%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/java/mybatis/Mybatis%E8%A7%A3%E5%86%B3n+1%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Mybatis解决n+1问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:18:18" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/mybatis/" itemprop="url" rel="index"><span itemprop="name">mybatis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>简介<br>在orm框架中，比如hibernate和mybatis都可以设置关联对象，比如user对象关联dept<br>假如查询出n个user，那么需要做n次查询dept，查询user是一次select，查询user关联的<br>dept，是n次，所以是n+1问题，其实叫1+n更为合理一些。</p>
+<p>mybatis配置<br>UserMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"BaseResultMap"</span> <span class="attr">type</span>=<span class="string">"testmaven.entity.User"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"name"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"age"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"age"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"deptId"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"eager"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>DeptMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectByPrimaryKey"</span> <span class="attr">resultMap</span>=<span class="string">"BaseResultMap"</span> <span class="attr">parameterType</span>=<span class="string">"java.lang.Integer"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">select</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"Base_Column_List"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">from dept</span><br><span class="line"></span><br><span class="line">where id = #&#123;id,jdbcType=INTEGER&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们可以看到user通过association中的dept_id关联了dept，查询user后，比如查询到4个user，那么会执行4次查询dept；</p>
+<p>测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+<p>打印jdbc log我们能看到，查询到4个user，然后执行了4次查询dept<br><img src="https://img-blog.csdn.net/20180321223842327?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L3cwNTk4MDU5OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="select1"></p>
+<p>1+n带来的问题<br>查询主数据，是1次查询，查询出n条记录；根据这n条主记录，查询从记录，共需要n次，所以叫数据库1+n问题；这样会带来性能问题，比如，查询到的n条记录，我可能只用到其中1条，但是也执行了n次从记录查询，这是不合理的。为了解决这个问题，出现了懒加载，懒加载就是用到的时候再查询；我们设置association元素中的fetchType fetchType=lazy</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"lazy"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">我们再做测试</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">User u = list.get(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(u.getClass());</span><br><span class="line"></span><br><span class="line">System.out.println(u.getName());</span><br></pre></td></tr></table></figure>
+<p>jdbc log<br><img src="https://img-blog.csdn.net/20160831220618291" alt="jdbc log" title="jdbc log"></p>
+<p>懒加载 减少了性能消耗，一定程度上缓解了1+n带来的性能问题</p>
+<blockquote>
+<p>总结<br>1+n问题是什么？应该怎样解决？</p>
+</blockquote>
+<blockquote>
+<p>1+n是执行一次查询获取n条主数据后，由于关联引起的执行n次查询从数据；它带来了性能问题；一般来说，通过懒加载 可以部分缓解1+n带来的性能问题</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/mybatis/Mybatis%E4%B8%AD%E5%AF%B9%E4%BA%8Eassociation%E7%9A%84%E7%90%86%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -602,99 +769,6 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
 <p>所以对于association需要注意的点：</p>
 <p>1.如果使用了select属性，则本质上要进行两次查询，得到两张结果表，因为是从不同的表中查询（相同也无所谓）且每次只查询一个表，所以二者互不干涉，所以不存在字段歧义的问题，自动映射会开启。<br>2.如果使用resultMap属性，或者association本身当做一个resultMap，则本质是对多张表的<u>一次</u>联合查询，只产生一张结果表。然后对这张结果表一次进行映射。可能存在字段歧义问题，自动映射会关闭（如果没有指明映射关系的字段会得到空值）。此时要把产生歧义的字段起别名，并且把所有需要映射的字段都显式写出来。</p>
 <p>所有的mybatis的resultMap，不管其结构有多复杂，本质都是执行完sql后对结果表再进行映射（归根结底要很清晰执行完sql语句后结果表是什么样子），其中的column的名称是结果表的column名称而不是原表的colum名称（虽然不起别名的话二者相同）。只要明确这一点，很多问题就能迎刃而解。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/mybatis/Mybatis%E8%A7%A3%E5%86%B3n+1%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="RockMaster~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RockMaster's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/java/mybatis/Mybatis%E8%A7%A3%E5%86%B3n+1%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Mybatis解决n+1问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:18:18" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/mybatis/" itemprop="url" rel="index"><span itemprop="name">mybatis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>简介<br>在orm框架中，比如hibernate和mybatis都可以设置关联对象，比如user对象关联dept<br>假如查询出n个user，那么需要做n次查询dept，查询user是一次select，查询user关联的<br>dept，是n次，所以是n+1问题，其实叫1+n更为合理一些。</p>
-<p>mybatis配置<br>UserMapper.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"BaseResultMap"</span> <span class="attr">type</span>=<span class="string">"testmaven.entity.User"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"name"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"age"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"age"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"deptId"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"eager"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>DeptMapper.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectByPrimaryKey"</span> <span class="attr">resultMap</span>=<span class="string">"BaseResultMap"</span> <span class="attr">parameterType</span>=<span class="string">"java.lang.Integer"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">select</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"Base_Column_List"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">from dept</span><br><span class="line"></span><br><span class="line">where id = #&#123;id,jdbcType=INTEGER&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>我们可以看到user通过association中的dept_id关联了dept，查询user后，比如查询到4个user，那么会执行4次查询dept；</p>
-<p>测试</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
-<p>打印jdbc log我们能看到，查询到4个user，然后执行了4次查询dept<br><img src="https://img-blog.csdn.net/20180321223842327?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L3cwNTk4MDU5OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="select1"></p>
-<p>1+n带来的问题<br>查询主数据，是1次查询，查询出n条记录；根据这n条主记录，查询从记录，共需要n次，所以叫数据库1+n问题；这样会带来性能问题，比如，查询到的n条记录，我可能只用到其中1条，但是也执行了n次从记录查询，这是不合理的。为了解决这个问题，出现了懒加载，懒加载就是用到的时候再查询；我们设置association元素中的fetchType fetchType=lazy</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"lazy"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">我们再做测试</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">User u = list.get(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(u.getClass());</span><br><span class="line"></span><br><span class="line">System.out.println(u.getName());</span><br></pre></td></tr></table></figure>
-<p>jdbc log<br><img src="https://img-blog.csdn.net/20160831220618291" alt="jdbc log" title="jdbc log"></p>
-<p>懒加载 减少了性能消耗，一定程度上缓解了1+n带来的性能问题</p>
-<blockquote>
-<p>总结<br>1+n问题是什么？应该怎样解决？</p>
-</blockquote>
-<blockquote>
-<p>1+n是执行一次查询获取n条主数据后，由于关联引起的执行n次查询从数据；它带来了性能问题；一般来说，通过懒加载 可以部分缓解1+n带来的性能问题</p>
-</blockquote>
 
       
     </div>
@@ -890,111 +964,6 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8&%E4%BD%BF%E7%94%A8aop%E6%97%B6%E6%B3%A8%E5%85%A5%E5%B1%9E%E6%80%A7%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="RockMaster~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RockMaster's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/java/spring/%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8&%E4%BD%BF%E7%94%A8aop%E6%97%B6%E6%B3%A8%E5%85%A5%E5%B1%9E%E6%80%A7%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">循环引用&使用aop时注入属性失效的问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:13:29" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>结论：如果一个对象要被生成代理，那么不要对它的属性或方法进行注入，这些都会变成null（构造器注入是可以的）</p>
-<p>首先第一个问题：</p>
-<blockquote>
-<p>如果循环引用的对象需要被拦截，即要创建代理怎么办？</p>
-</blockquote>
-<blockquote>
-<p>假如A依赖B，B依赖A，（A有一个属性B b，B有一个属性A a）且A需要被aop拦截，需要创建代理去替代本身：<br>假如首先创建A，先用构造方法创建了一个A的早期实例，把它放在singletonFactories中，然后调用populateBean去给它填充属性时，发现需要创建B，然后去进入创建B的流程,在创建完B实例后，须去填充B的a属性<br>applyPropertyValues<br>-&gt;resolveValueIfNecessary(BeanDefinitionValueResolver)尝试去获取a的实例，已经有实例了，但在去获取的过程中，会发现a是一个factorybean，此时要去检查是否需要对它生成代理，发现需要，则生成代理后放入二级缓存，并从三级缓存中删除原始实例，填充到B的属性中。接着去完成B的创建</p>
-</blockquote>
-<blockquote>
-<p>B创建完后，回到A的创建流程，把这个创建完成的B填充到A的属性b，然后会检查A是不是有早期引用（检查二级和三级缓存），发现有（即是那个代理对象），然后用代理对象把A给代替了放入容器中，但此时这个代理对象的属性是没有B的引用的!<br>在mvc中验证，此时调用A的b属性，得到的是空</p>
-</blockquote>
-<p>接下来是两个例子，分别是循环引用和非循环引用的场景；</p>
-<p>首先是两个bean类：<br><img src="https://img-blog.csdnimg.cn/20200318114609956.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="1"><br><img src="https://img-blog.csdnimg.cn/2020031811461055.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="2"></p>
-<p>测试代码：<br><img src="https://img-blog.csdnimg.cn/20200318114610164.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="3"></p>
-<p>在不使用代理时：<br>输出：</p>
-<blockquote>
-<p>aop1:com.ljy.inspector.aop.Aop1Util@1fe8f5e8<br>aop2:com.ljy.inspector.aop.Aop2Util@2e0ad709<br>1.2= com.ljy.inspector.aop.Aop2Util@2e0ad709<br>2.1= com.ljy.inspector.aop.Aop1Util@1fe8f5e8</p>
-</blockquote>
-<p>添加切面：（即会对aop1util 创建代理）<br><img src="https://img-blog.csdnimg.cn/20200318114610212.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="4"></p>
-<p>再执行测试代码：</p>
-<blockquote>
-<p>aop1:com.ljy.inspector.aop.Aop1Util@56b1e527<br>aop2:com.ljy.inspector.aop.Aop2Util@6b25ef1c<br>1.2= null<br>2.1= com.ljy.inspector.aop.Aop1Util@56b1e527</p>
-</blockquote>
-<blockquote>
-<p>如果出现了循环引用，原始对象并不会把自己已经创建好的属性赋给用来替代它的那个代理对象.</p>
-</blockquote>
-<p>那么如果不循环引用的话呢？我们知道，正常给一个对象创建代理是在<br>initializeBean()-&gt;applyBeanPostProcessorsAfterInitialization()中，也就是后置处理中。<br>经过验证，就算不循环引用，前期的创建的属性在创建了代理后仍会被清空。</p>
-<p>对于两个工具类：<br><img src="https://img-blog.csdnimg.cn/20200318114610111.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="5"><br><img src="https://img-blog.csdnimg.cn/202003181146107.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="6"><br>测试代码：<br><img src="https://img-blog.csdnimg.cn/20200318114610147.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="7"><br>结果：</p>
-<blockquote>
-<p>aop1:com.ljy.inspector.aop.Aop1Util@56b1e527<br>aop2:com.ljy.inspector.aop.Aop2Util@4e974b9e<br>1.2= null</p>
-</blockquote>
-<p>可以进入堆栈中看：<br>在创建aop1util时，当执行完populateBean时，它的“aop2Util”属性就已经被填充了，此时它仍是正常的实例<br><img src="https://img-blog.csdnimg.cn/20200318114610355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="8"><br>在进入initialzeBean后，执行完前置处理后，可以看到这个bean仍然没有变化：（在initialzeBean中以wrappedBean为准）<br><img src="https://img-blog.csdnimg.cn/20200318114610342.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="9"></p>
-<p>但一经过后置处理，可以看到wrappedBean已经变成了代理对象，而且其aop2util属性是空<br><img src="https://img-blog.csdnimg.cn/20200318114610381.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="10"></p>
-<p><strong>结论：如果一个对象要被生成代理，那么不要对它的属性或方法进行注入，这些都会变成null（构造器注入是可以的,因为构造器注入时创建代理对象时必须要调用其父类（也就是被代理类）的构造函数，此时就会把要注入的对象注入了）</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1163,7 +1132,7 @@ classpath:/META-INF/resources/</code></pre><ol start="2">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
