@@ -24,12 +24,12 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Concurrent mode failure和 promotion failed">
 <meta property="og:url" content="https://lujianyun06.github.io/2020/04/10/java/Concurrent%20mode%20failure%E5%92%8C%20promotion%20failed/index.html">
-<meta property="og:site_name" content="RockMaster&#39;s Blog">
+<meta property="og:site_name" content="CloudLander&#39;s Blog">
 <meta property="og:description" content="：（两种错误刚好就是三种进入老年代的方法引起的） 一.并发模式失败（concurrent mode failure）：产生的原因是老年代的可用空间不够了（因为正常晋升入老年代的对象太多太快，或者由于新生代不够而从创建就直接进入老年代的对象太多）原因有两种：    1.年轻代提升太快，老年代的处理速度跟不上新生代的提升速度；或者新生代空间太小，放不下新产生的对象而直接转入老年代，但老年代也空间不够">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-10T01:17:08.000Z">
 <meta property="article:modified_time" content="2020-04-10T09:54:47.170Z">
-<meta property="article:author" content="RockMaster~Lu">
+<meta property="article:author" content="CloudLander~Lu">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="后台开发">
 <meta name="twitter:card" content="summary">
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>Concurrent mode failure和 promotion failed | RockMaster's Blog</title>
+  <title>Concurrent mode failure和 promotion failed | CloudLander's Blog</title>
   
 
 
@@ -98,7 +98,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">RockMaster's Blog</h1>
+      <h1 class="site-title">CloudLander's Blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -204,12 +204,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="name" content="CloudLander~Lu">
       <meta itemprop="description" content="记录学习生活，力求每日进步">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RockMaster's Blog">
+      <meta itemprop="name" content="CloudLander's Blog">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -267,12 +267,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/04/10/java/IoC%E5%92%8CAOP%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/" rel="prev" title="IoC和AOP的简单总结">
-      <i class="fa fa-chevron-left"></i> IoC和AOP的简单总结
+    <a href="/2020/04/10/java/%E5%B9%B6%E5%8F%91%E6%9C%BA%E5%88%B6%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" rel="prev" title="并发机制底层实现原理">
+      <i class="fa fa-chevron-left"></i> 并发机制底层实现原理
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/04/10/Android/onMeasure()%E5%92%8ConLayout()%E6%80%BB%E7%BB%93/" rel="next" title="onMeasure()和onLayout()总结">
-      onMeasure()和onLayout()总结 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/04/10/java/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8GC%E4%B8%ADparallel%20scavenge%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BDCMS%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8%EF%BC%9F/" rel="next" title="垃圾收集器GC中parallel scavenge收集器为什么不能CMS配合使用？">
+      垃圾收集器GC中parallel scavenge收集器为什么不能CMS配合使用？ <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -338,9 +338,9 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="RockMaster~Lu"
+    <img class="site-author-image" itemprop="image" alt="CloudLander~Lu"
       src="/images/lu.jpg">
-  <p class="site-author-name" itemprop="name">RockMaster~Lu</p>
+  <p class="site-author-name" itemprop="name">CloudLander~Lu</p>
   <div class="site-description" itemprop="description">记录学习生活，力求每日进步</div>
 </div>
 <div class="site-state-wrap motion-element">
