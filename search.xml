@@ -165,24 +165,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Android如何替换原生应用</title>
-    <url>/2020/04/10/Android/Android%E5%A6%82%E4%BD%95%E6%9B%BF%E6%8D%A2%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/</url>
-    <content><![CDATA[<p>有个需求是把原生的日历app换成修改源码后编译生成的新app<br>尝试进入adb，须有root权限（完整的root权限）<br>用以下代码删除原生的calendar</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">adb shell</span><br><span class="line">su</span><br><span class="line">pm uninstall -k --user 0 com.android.calendar</span><br></pre></td></tr></table></figure>
-
-<p>然后要把/system挂载成可读写的（rw，一开始是只读的ro）<br>执行</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mount</span></span><br></pre></td></tr></table></figure>
-<p>可以发现/system是只读的 ro<br>然后执行</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo su</span><br><span class="line">mount -o rw,remount /system</span><br><span class="line">mount</span><br></pre></td></tr></table></figure>
-<p>可以看到/system 是可读写的：rw<br>此时退出adb shell，把已经编译好的新的日历apk push进手机</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">adb push ~/newapk/Calendar.apk /system/app/Calendar</span><br><span class="line">adb shell   </span><br><span class="line">reboot   //重启手机</span><br></pre></td></tr></table></figure>
-<p>此时就可以使用改后的calendar了<br>————————————————<br>版权声明：本文为CSDN博主「TheRockMaster」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/weixin_43752854/article/details/84647709" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43752854/article/details/84647709</a></p>
-]]></content>
-      <categories>
-        <category>Android</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Android 音视频任务7</title>
     <url>/2020/04/10/Android/Android%20%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A17/</url>
     <content><![CDATA[<p>先做任务7，是因为做完任务4感觉想要稍微深入了解一下MediaCodec，感觉这样更能把刚学到的知识连贯一下。</p>
@@ -207,6 +189,24 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onOutputBufferAvailable</span><span class="params">(@NonNull MediaCodec codec, <span class="keyword">int</span> index, @NonNull MediaCodec.BufferInfo info)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (fos == <span class="keyword">null</span>) <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"fos == null!"</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> outIndex = index;</span><br><span class="line">            MediaFormat format = codec.getOutputFormat(outIndex);</span><br><span class="line"></span><br><span class="line">            ByteBuffer outputBuffer = codec.getOutputBuffer(outIndex);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> size = outputBuffer.limit();</span><br><span class="line">            outputSize += size;</span><br><span class="line">            <span class="keyword">byte</span>[] packedData = <span class="keyword">new</span> <span class="keyword">byte</span>[size + <span class="number">7</span>];</span><br><span class="line">            addADTStoPacket(packedData, packedData.length);</span><br><span class="line">            outputBuffer.get(packedData, <span class="number">7</span>, size);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                fos.write(packedData);</span><br><span class="line">                fos.flush();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//用完后释放这个buffer，使其可以接着被使用，如果一直不释放，如果文件太大则会导致缓冲区不够用</span></span><br><span class="line">            outputBuffer.clear();</span><br><span class="line">            codec.releaseOutputBuffer(outIndex, <span class="keyword">false</span>);</span><br><span class="line">            <span class="keyword">if</span> (info.flags == MediaCodec.BUFFER_FLAG_END_OF_STREAM) &#123;</span><br><span class="line">                Log.d(tag, <span class="string">"BUFFER_FLAG_END_OF_STREAM"</span>);</span><br><span class="line">                stopAndrealseCodec();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//每一帧前面都要加上ADTS头，可以看做是每一个AAC帧的帧头</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">addADTStoPacket</span><span class="params">(<span class="keyword">byte</span>[] packet, <span class="keyword">int</span> packetLen)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> profile = <span class="number">2</span>;  <span class="comment">//AAC LC</span></span><br><span class="line">        <span class="comment">//39=MediaCodecInfo.CodecProfileLevel.AACObjectELD;</span></span><br><span class="line">        <span class="keyword">int</span> freqIdx = <span class="number">4</span>;  <span class="comment">//44.1KHz</span></span><br><span class="line">        <span class="keyword">int</span> chanCfg = <span class="number">2</span>;  <span class="comment">//CPE</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        byte[] packet1 = new byte[packetLen];</span></span><br><span class="line">        <span class="comment">// fill in ADTS data</span></span><br><span class="line">        packet[<span class="number">0</span>] = (<span class="keyword">byte</span>) <span class="number">0xFF</span>;</span><br><span class="line">        packet[<span class="number">1</span>] = (<span class="keyword">byte</span>) <span class="number">0xF9</span>;</span><br><span class="line">        packet[<span class="number">2</span>] = (<span class="keyword">byte</span>) (((profile - <span class="number">1</span>) &lt;&lt; <span class="number">6</span>) + (freqIdx &lt;&lt; <span class="number">2</span>) + (chanCfg &gt;&gt; <span class="number">2</span>));</span><br><span class="line">        packet[<span class="number">3</span>] = (<span class="keyword">byte</span>) (((chanCfg &amp; <span class="number">3</span>) &lt;&lt; <span class="number">6</span>) + (packetLen &gt;&gt; <span class="number">11</span>));</span><br><span class="line">        packet[<span class="number">4</span>] = (<span class="keyword">byte</span>) ((packetLen &amp; <span class="number">0x7FF</span>) &gt;&gt; <span class="number">3</span>);</span><br><span class="line">        packet[<span class="number">5</span>] = (<span class="keyword">byte</span>) (((packetLen &amp; <span class="number">7</span>) &lt;&lt; <span class="number">5</span>) + <span class="number">0x1F</span>);</span><br><span class="line">        packet[<span class="number">6</span>] = (<span class="keyword">byte</span>) <span class="number">0xFC</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//        //把这些清晰的放出来，但最好还是用上面的方式</span></span><br><span class="line"><span class="comment">//        //syncword</span></span><br><span class="line"><span class="comment">//        packet[0] = (byte) 0xFF;</span></span><br><span class="line"><span class="comment">//        packet[1] |= 0xF &lt;&lt; 4;</span></span><br><span class="line"><span class="comment">//        //id</span></span><br><span class="line"><span class="comment">//        packet[1] |= 0x1 &lt;&lt; 3;</span></span><br><span class="line"><span class="comment">//        //layer</span></span><br><span class="line"><span class="comment">//        packet[1] |= 0x00 &lt;&lt; 1;</span></span><br><span class="line"><span class="comment">//        //protection_abscent</span></span><br><span class="line"><span class="comment">//        packet[1] |= 0x1;</span></span><br><span class="line"><span class="comment">//        //profile</span></span><br><span class="line"><span class="comment">//        packet[2] |= (profile -1) &lt;&lt; 6;</span></span><br><span class="line"><span class="comment">//        //sampling_frequency_index</span></span><br><span class="line"><span class="comment">//        packet[2] |= freqIdx &lt;&lt; 2;</span></span><br><span class="line"><span class="comment">//        //private bit</span></span><br><span class="line"><span class="comment">//        packet[2] |= 0x0 &lt;&lt; 1;</span></span><br><span class="line"><span class="comment">//        //channel_config</span></span><br><span class="line"><span class="comment">//        packet[2] |= chanCfg &gt;&gt; 2;  //高1位</span></span><br><span class="line"><span class="comment">//        packet[3] |= chanCfg &lt;&lt; 6;   //低2位</span></span><br><span class="line"><span class="comment">//        //copy and home;</span></span><br><span class="line"><span class="comment">//        packet[3] |= 0x00 &lt;&lt; 4;</span></span><br><span class="line"><span class="comment">//        //cib and cis</span></span><br><span class="line"><span class="comment">//        packet[3] |= 0x00 &lt;&lt; 2;</span></span><br><span class="line"><span class="comment">//        //frame_length,单位是字节。不用管int是几个字节，把它当13位就行了,一帧的长度一般不可能超过13位能表达的最大值(8KB),</span></span><br><span class="line"><span class="comment">//        packet[3] |= packetLen &gt;&gt; 11;</span></span><br><span class="line"><span class="comment">//        packet[4] = (byte) (packetLen &gt;&gt; 3);</span></span><br><span class="line"><span class="comment">//        int x = packetLen &lt;&lt; 5;</span></span><br><span class="line"><span class="comment">//        packet[5] |= packetLen &lt;&lt; 5;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//        packet[5] |= 0x7FF &gt;&gt; 6;</span></span><br><span class="line"><span class="comment">//        packet[6] |= 0x7FF &lt;&lt; 2;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//释放资源</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">stopAndrealseCodec</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mECodec != <span class="keyword">null</span>) &#123;</span><br><span class="line">            mECodec.release();</span><br><span class="line">            mECodec = <span class="keyword">null</span>;</span><br><span class="line">            mExtractor.release();</span><br><span class="line">            mExtractor = <span class="keyword">null</span>;</span><br><span class="line">            Log.d(tag, <span class="string">"outputBuffer BUFFER_FLAG_END_OF_STREAM"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                fos.flush();</span><br><span class="line">                fos.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Log.d(tag, <span class="string">"stopAndrealseCodec"</span>);</span><br><span class="line">            Log.d(tag, <span class="string">"inputSize="</span> + inputSize);</span><br><span class="line">            Log.d(tag, <span class="string">"outputSize="</span> + outputSize);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <p>代码见 <a href="https://github.com/lujianyun06/VATask/tree/master/app/src/main/java/com/example/lll/va/Task7" target="_blank" rel="noopener">https://github.com/lujianyun06/VATask/tree/master/app/src/main/java/com/example/lll/va/Task7</a></p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Android如何替换原生应用</title>
+    <url>/2020/04/10/Android/Android%E5%A6%82%E4%BD%95%E6%9B%BF%E6%8D%A2%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/</url>
+    <content><![CDATA[<p>有个需求是把原生的日历app换成修改源码后编译生成的新app<br>尝试进入adb，须有root权限（完整的root权限）<br>用以下代码删除原生的calendar</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">adb shell</span><br><span class="line">su</span><br><span class="line">pm uninstall -k --user 0 com.android.calendar</span><br></pre></td></tr></table></figure>
+
+<p>然后要把/system挂载成可读写的（rw，一开始是只读的ro）<br>执行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mount</span></span><br></pre></td></tr></table></figure>
+<p>可以发现/system是只读的 ro<br>然后执行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo su</span><br><span class="line">mount -o rw,remount /system</span><br><span class="line">mount</span><br></pre></td></tr></table></figure>
+<p>可以看到/system 是可读写的：rw<br>此时退出adb shell，把已经编译好的新的日历apk push进手机</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">adb push ~/newapk/Calendar.apk /system/app/Calendar</span><br><span class="line">adb shell   </span><br><span class="line">reboot   //重启手机</span><br></pre></td></tr></table></figure>
+<p>此时就可以使用改后的calendar了<br>————————————————<br>版权声明：本文为CSDN博主「TheRockMaster」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/weixin_43752854/article/details/84647709" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43752854/article/details/84647709</a></p>
 ]]></content>
       <categories>
         <category>Android</category>
@@ -466,6 +466,24 @@ hexo generate</code></pre><p>生成的静态文件在 /xxx/public 目录下，�
       </categories>
   </entry>
   <entry>
+    <title>Ubuntu16下 pip安装，卸载、升级，报错</title>
+    <url>/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/</url>
+    <content><![CDATA[<p>新装的ubuntu16，自带的python2.7，使用pip升级后，报错，修改记录如下：</p>
+<h2 id="如何彻底卸载pip？"><a href="#如何彻底卸载pip？" class="headerlink" title="如何彻底卸载pip？"></a>如何彻底卸载pip？</h2><p>sudo python -m pip uninstall pip</p>
+<h2 id="如何安装pip"><a href="#如何安装pip" class="headerlink" title="如何安装pip"></a>如何安装pip</h2><p>sudo apt install python-pip</p>
+<h2 id="如何安装指定版本的pip"><a href="#如何安装指定版本的pip" class="headerlink" title="如何安装指定版本的pip"></a>如何安装指定版本的pip</h2><p>python -m pip install pip==18.1(换成你想要的版本编号)</p>
+<h2 id="pip安装软件过程中报错："><a href="#pip安装软件过程中报错：" class="headerlink" title="pip安装软件过程中报错："></a>pip安装软件过程中报错：</h2><p>Command “python setup.py egg_info” failed with error code 1 in /tmp/pip-build-BqMhb7/matplotlib/</p>
+<ol>
+<li>安装并升级setuptools<br>pip install –upgrade setuptools</li>
+<li>升级pip<br>pip install –upgrade pip</li>
+</ol>
+<h2 id="pip升级后报错"><a href="#pip升级后报错" class="headerlink" title="pip升级后报错"></a>pip升级后报错</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "/usr/bin/pip", line 9, in &lt;module&gt;</span><br><span class="line">    from pip import main</span><br><span class="line">ImportError: cannot import name 'main'</span><br><span class="line">修改/usr/bin/pip如下：</span><br><span class="line">//修改前</span><br><span class="line">from pip import main  </span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(main()) </span><br><span class="line">修改后</span><br><span class="line">from pip import __main__  //这行也要修改</span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(__main__._main())//增加__main__._  （注意最后main()前面有个_）</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+  </entry>
+  <entry>
     <title>垃圾收集器GC中parallel scavenge收集器为什么不能CMS配合使用？</title>
     <url>/2020/04/10/java/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8GC%E4%B8%ADparallel%20scavenge%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BDCMS%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8%EF%BC%9F/</url>
     <content><![CDATA[<p>首先看一下收集器的分布：</p>
@@ -496,39 +514,6 @@ hexo generate</code></pre><p>生成的静态文件在 /xxx/public 目录下，�
       </categories>
   </entry>
   <entry>
-    <title>Ubuntu16下 pip安装，卸载、升级，报错</title>
-    <url>/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/</url>
-    <content><![CDATA[<p>新装的ubuntu16，自带的python2.7，使用pip升级后，报错，修改记录如下：</p>
-<h2 id="如何彻底卸载pip？"><a href="#如何彻底卸载pip？" class="headerlink" title="如何彻底卸载pip？"></a>如何彻底卸载pip？</h2><p>sudo python -m pip uninstall pip</p>
-<h2 id="如何安装pip"><a href="#如何安装pip" class="headerlink" title="如何安装pip"></a>如何安装pip</h2><p>sudo apt install python-pip</p>
-<h2 id="如何安装指定版本的pip"><a href="#如何安装指定版本的pip" class="headerlink" title="如何安装指定版本的pip"></a>如何安装指定版本的pip</h2><p>python -m pip install pip==18.1(换成你想要的版本编号)</p>
-<h2 id="pip安装软件过程中报错："><a href="#pip安装软件过程中报错：" class="headerlink" title="pip安装软件过程中报错："></a>pip安装软件过程中报错：</h2><p>Command “python setup.py egg_info” failed with error code 1 in /tmp/pip-build-BqMhb7/matplotlib/</p>
-<ol>
-<li>安装并升级setuptools<br>pip install –upgrade setuptools</li>
-<li>升级pip<br>pip install –upgrade pip</li>
-</ol>
-<h2 id="pip升级后报错"><a href="#pip升级后报错" class="headerlink" title="pip升级后报错"></a>pip升级后报错</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "/usr/bin/pip", line 9, in &lt;module&gt;</span><br><span class="line">    from pip import main</span><br><span class="line">ImportError: cannot import name 'main'</span><br><span class="line">修改/usr/bin/pip如下：</span><br><span class="line">//修改前</span><br><span class="line">from pip import main  </span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(main()) </span><br><span class="line">修改后</span><br><span class="line">from pip import __main__  //这行也要修改</span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(__main__._main())//增加__main__._  （注意最后main()前面有个_）</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>如何理解linux挂载</title>
-    <url>/2020/04/10/linux/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3linux%E6%8C%82%E8%BD%BD/</url>
-    <content><![CDATA[<p>根据树结构去理解整个文件系统的挂载和挂载点还是有点困难，所以自己做了些总结，有不对的地方还请指正</p>
-<p>df -h命令后</p>
-<p>Filesystem 这里的文件系统表示的是目录的层次结构，而不是所谓的像ext4，fat那种真正的文件系统类型<br>一个具体的设备文件(或分区) ，或许是一块硬盘上的一个分区，或许是u盘上的一个分区</p>
-<p>目录就相当于门<br>整个linux中的文件系统就像一个世界接着一个世界，不同的世界代表不同的被挂载的文件系统，挂载点就相当于任意门（特殊的门），各个被挂载的文件系统之间是独立的，但是要进入其中一个需要一个一个进入任意门去穿梭，整个世界的第一个门是 / ，它里面的世界是第一个文件系统，这个世界里又有很多个门，有的门背后的世界和这个世界是同一个，则他们是在同一个文件系统里，而当有其他的分区被挂载到一个目录的时候，例如<br>对一个目录 /home/lll，要到达这个门后的世界，要穿过 / 和 home/ （这个门在 / 后面的世界里） 和 lll/ （这个门在 home/ 后面的世界里），形象的描述为：</p>
-<p>/ —》 世界A （包含 home/ —-》 世界B （包含 lll/ —》 世界C ）如果不做任何其他挂载，世界A、B、C是同一个世界）当要把/dev/sda1这个id所指向的分区挂载到 /home/lll 则相当于把 /home/lll/ 这个门变成任意门，它通往的世界变成了sda1的世界空间，自然的，只要进了这个世界，如果再不挂载其他的，则所有对 /home/lll/… 的操作都在sda1的世界里，而对这个门前面的世界的操作，如对/home/aaa的操作，仍然在一开始的那个世界里<br>把挂载点想象成一个任意门，进入第一个任意门是世界A，里面还有一个任意门通往世界B，虽然只有进了第一个任意门才能进第二个任意门，但世界A和世界B是毫无关系彼此独立的（挂载的文件系统之间彼此独立）<br>挂载绑定：把一个目录挂载到另一个目录，比如 mount –bind dir1 dir2 则是相当于对dir2这个门做了特殊处理，让dir2和dir1通往同一个世界的同一个位置，而dir2原本通往的那个位置里面的东西会被遮盖掉，当解除挂载后，dir2会恢复它原本通往的世界和位置，且里面的东西还在</p>
-<p>当把目录A挂载到目录B，= mount –bind A B ; 其中B是新的挂载点 ，就是让门B通往的地方和门A通往的地方一毛一样<br>把设备A挂载到目录B = mount A B ; 其中B是新的挂载点，就是让门B通往的地方是A的世界空间。<br>挂载点必须是目录（门）</p>
-<p>可以对同一个目录多次挂载，最后生效的结果是最后一次挂载，此时卸载，则倒数第二次挂载生效，再卸载，则倒数第三次挂载生效</p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-  </entry>
-  <entry>
     <title>brew从国内源安装</title>
     <url>/2020/04/10/mac/brew%E4%BB%8E%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<p>最近按照默认方法安装brew特别慢，但是想切换从国内源安装，得到的都是老版本的切换方法：</p>
@@ -555,20 +540,18 @@ hexo generate</code></pre><p>生成的静态文件在 /xxx/public 目录下，�
       </categories>
   </entry>
   <entry>
-    <title>ERROR 1193 (HY000)：Unknown system variable ‘tx_isolaton’</title>
-    <url>/2020/04/10/mysql/mysql%20error1193/</url>
-    <content><![CDATA[<p>mysql执行</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> @@tx_isolaton;</span><br></pre></td></tr></table></figure>
-<p>保错：</p>
-<blockquote>
-<p>ERROR 1193 (HY000): Unknown system variable ‘tx_isolaton’</p>
-</blockquote>
-<p>解决方法：mysql8及以上tx_isolaton更名为transaction_isolation，执行</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> @@transaction_isolation;</span><br></pre></td></tr></table></figure>
-<p>即可解决。</p>
+    <title>如何理解linux挂载</title>
+    <url>/2020/04/10/linux/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3linux%E6%8C%82%E8%BD%BD/</url>
+    <content><![CDATA[<p>根据树结构去理解整个文件系统的挂载和挂载点还是有点困难，所以自己做了些总结，有不对的地方还请指正</p>
+<p>df -h命令后</p>
+<p>Filesystem 这里的文件系统表示的是目录的层次结构，而不是所谓的像ext4，fat那种真正的文件系统类型<br>一个具体的设备文件(或分区) ，或许是一块硬盘上的一个分区，或许是u盘上的一个分区</p>
+<p>目录就相当于门<br>整个linux中的文件系统就像一个世界接着一个世界，不同的世界代表不同的被挂载的文件系统，挂载点就相当于任意门（特殊的门），各个被挂载的文件系统之间是独立的，但是要进入其中一个需要一个一个进入任意门去穿梭，整个世界的第一个门是 / ，它里面的世界是第一个文件系统，这个世界里又有很多个门，有的门背后的世界和这个世界是同一个，则他们是在同一个文件系统里，而当有其他的分区被挂载到一个目录的时候，例如<br>对一个目录 /home/lll，要到达这个门后的世界，要穿过 / 和 home/ （这个门在 / 后面的世界里） 和 lll/ （这个门在 home/ 后面的世界里），形象的描述为：</p>
+<p>/ —》 世界A （包含 home/ —-》 世界B （包含 lll/ —》 世界C ）如果不做任何其他挂载，世界A、B、C是同一个世界）当要把/dev/sda1这个id所指向的分区挂载到 /home/lll 则相当于把 /home/lll/ 这个门变成任意门，它通往的世界变成了sda1的世界空间，自然的，只要进了这个世界，如果再不挂载其他的，则所有对 /home/lll/… 的操作都在sda1的世界里，而对这个门前面的世界的操作，如对/home/aaa的操作，仍然在一开始的那个世界里<br>把挂载点想象成一个任意门，进入第一个任意门是世界A，里面还有一个任意门通往世界B，虽然只有进了第一个任意门才能进第二个任意门，但世界A和世界B是毫无关系彼此独立的（挂载的文件系统之间彼此独立）<br>挂载绑定：把一个目录挂载到另一个目录，比如 mount –bind dir1 dir2 则是相当于对dir2这个门做了特殊处理，让dir2和dir1通往同一个世界的同一个位置，而dir2原本通往的那个位置里面的东西会被遮盖掉，当解除挂载后，dir2会恢复它原本通往的世界和位置，且里面的东西还在</p>
+<p>当把目录A挂载到目录B，= mount –bind A B ; 其中B是新的挂载点 ，就是让门B通往的地方和门A通往的地方一毛一样<br>把设备A挂载到目录B = mount A B ; 其中B是新的挂载点，就是让门B通往的地方是A的世界空间。<br>挂载点必须是目录（门）</p>
+<p>可以对同一个目录多次挂载，最后生效的结果是最后一次挂载，此时卸载，则倒数第二次挂载生效，再卸载，则倒数第三次挂载生效</p>
 ]]></content>
       <categories>
-        <category>mysql</category>
+        <category>linux</category>
       </categories>
   </entry>
   <entry>
@@ -592,6 +575,23 @@ hexo generate</code></pre><p>生成的静态文件在 /xxx/public 目录下，�
 <p><img src="https://images.cnblogs.com/cnblogs_com/studyzy/201108/201108161530043450.png" alt="6"><br>生成的数据库表如图所示：</p>
 <p><img src="https://images.cnblogs.com/cnblogs_com/studyzy/201108/201108161530181026.png" alt="7"></p>
 <p>这里可以看到，Teacher的主键和Student的主键同时又是该表的外键，连接到Person表。</p>
+]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>ERROR 1193 (HY000)：Unknown system variable ‘tx_isolaton’</title>
+    <url>/2020/04/10/mysql/mysql%20error1193/</url>
+    <content><![CDATA[<p>mysql执行</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> @@tx_isolaton;</span><br></pre></td></tr></table></figure>
+<p>保错：</p>
+<blockquote>
+<p>ERROR 1193 (HY000): Unknown system variable ‘tx_isolaton’</p>
+</blockquote>
+<p>解决方法：mysql8及以上tx_isolaton更名为transaction_isolation，执行</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> @@transaction_isolation;</span><br></pre></td></tr></table></figure>
+<p>即可解决。</p>
 ]]></content>
       <categories>
         <category>mysql</category>
@@ -785,127 +785,6 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
       </categories>
   </entry>
   <entry>
-    <title>mybatis的懒加载</title>
-    <url>/2020/04/10/java/mybatis/mybatis%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD/</url>
-    <content><![CDATA[<h1 id="MyBatis-是否支持延迟加载（懒加载）？延迟加载的原理是什么？"><a href="#MyBatis-是否支持延迟加载（懒加载）？延迟加载的原理是什么？" class="headerlink" title="MyBatis 是否支持延迟加载（懒加载）？延迟加载的原理是什么？"></a>MyBatis 是否支持延迟加载（懒加载）？延迟加载的原理是什么？</h1><p>延迟加载的原理的是调用的时候触发加载，而不是在初始化的时候就加载信息。比如调用 a. getB(). getName()，这个时候发现 a. getB() 的值为 null，此时会单独触发事先保存好的关联 B 对象的 SQL，先查询出来 B，然后再调用 a. setB(b)，而这时候再调用 a. getB(). getName() 就有值了，这就是延迟加载的基本原理。其本质是将整个查询的结果包装成一个代理，当要进行属性加载时，调用其被代理的一些方法，再从数据库中查<br>MyBatis 支持延迟加载，设置 lazyLoadingEnabled=true 即可（全局懒加载）。或者单独属性的懒加载(fetchType=lazy)</p>
-<p>如果使用了config文件<br>则设置：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"lazyLoadingEnabled"</span> <span class="attr">value</span>=<span class="string">"true”/&gt;</span></span></span><br><span class="line"><span class="tag"><span class="string">    ...</span></span></span><br><span class="line"><span class="tag"><span class="string">&lt;/settings&gt;</span></span></span><br></pre></td></tr></table></figure>
-<p>如果是在application.properties中加载配置，则使用：</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">mybatis.configuration.lazy-loading-enabled</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>注意，二者只能有一个！</strong></p>
-<figure class="highlight vhdl"><table><tr><td class="code"><pre><span class="line">注意！如果在application.properties中指定了配置文件，那就不能再在application.properties中设置任何mybatis的配置，</span><br><span class="line">也就是不能再设置任何以 “mybatis.<span class="keyword">configuration</span>.XXX” 开头的属性</span><br><span class="line">否则会报错：</span><br><span class="line"><span class="keyword">Property</span> <span class="symbol">'configuration</span>' <span class="keyword">and</span> <span class="symbol">'configLocation</span>' can <span class="keyword">not</span> specified <span class="keyword">with</span> together</span><br></pre></td></tr></table></figure>
-
-<p>可以在resultMap中具体的association或者collection中可以用fetchType=lazy/eager 来覆盖掉全局的懒加载属性</p>
-<p>对于fetchType的使用，可以不开启lazyLoadingEnabled的情况下单独使用，也是生效的，也可以在开启lazyLoadingEnabled的情况下使用，这样设置了fetchType的属性的加载策略会忽略全局的加载策略。</p>
-<p>对于级联查询，就可以单独使用fetchType=lazy的方式来解决N+1的问题</p>
-<p>如果设置了懒加载（不论是fetchtype还是lazyLoadingEnabled），那么实体类会产生了一个代理，代理中有一个handler属性，这个属性类没有实现序列化接口，无法被加到json中，所以需要在类上注解@JsonIgnoreProperties(value = {“handler”})来把它忽略掉<br>如果不加这个注解，会报如下错：</p>
-<blockquote>
-<p>Could not write JSON: No serializer found for class org.apache.ibatis.executor.loader.javassist.JavassistProxyFactory$EnhancedResultObjectProxyImpl and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS);</p>
-</blockquote>
-<p>有时候懒加载看起来没起作用，实际上是一些方法被暗地调用导致懒属性被加载<br>lazyLoadTriggerMethods属性可以设置当调用对象的某些方法可能会导致该对象属性的懒加载被触发，</p>
-<p>默认值：equals,clone,hashCode,toString（也就是说，当调用对象的这些方法时，对象的懒属性都会被加载）<br>配置文件中加入了这个设置：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"lazyLoadTriggerMethods"</span> <span class="attr">value</span>=<span class="string">"”/&gt;  </span></span></span><br><span class="line"><span class="tag"><span class="string">&lt;!-- 表示调用任何方法都不会触发懒加载，除非直接调用该对象的被懒加载的属性及其方法（如A.b，或者A.b.getName() 这样） --&gt;</span></span></span><br></pre></td></tr></table></figure>
-
-<p> 附上文档上的说明：<br>lazyLoadTriggerMethods：指定哪个对象的方法触发一次延迟加载。<br>比如，当我打印对象时，由于触发了 toString 方法，所以触发了一次懒加载，该对象的所有级联属性就会被加载</p>
-<p><strong>陷阱：</strong><br>有的时候这些方法可能会被框架在无意中自动触发而导致懒属性被加载(尤其是toString和hashCode，很多时候不知道在哪就被调用了，结果看起来好像是懒加载没起作用)，所以如果不是很明确地需要触发加载的方法时，最好把lazyLoadTriggerMethods这个属性设为空，或者设置为自己能控制调用的方法。</p>
-<p>关于对象转化成Json传输时懒加载不起作用的问题<br>在设置了懒加载后，在本地验证的时候，懒加载确实是起作用的，但是，当把对象转为json传输的时候，由于要调用相应属性来完成序列化，所以仍然是要对其属性进行加载的。比如</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Class A&#123;</span><br><span class="line">    List&lt;B&gt; b;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">type</span> = <span class="string">A</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">collection</span> …<span class="attr">property</span>=<span class="string">b</span> <span class="attr">ofType</span>=<span class="string">B</span> <span class="attr">fetchType</span>=<span class="string">lazy</span> <span class="attr">...</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在本地跑单元测试时，可以发现a对象的b属性只要不调用，而且不去调用A对象可能会触发懒加载的方法，则b属性始终为空，除非像调用了类似a.b，即要用到相应的属性时，才会触发读数据库加载数据。但是呢，如果把对象a当做json去传输时，它的b对象也是会被加载的，因为在序列化时，会调用相应的属性及其方法，这时就会触发加载去数据库读b的数据。那么想让a对象传输时不加载且不传输b的话，解决办法如下：</p>
-<p>首先是要设置懒加载，即要么开启全局的懒加载lazyLoadingEnabled”设置，要么单独对A的属性b设置fetchType=lazy<br>    在A的类上标注@JsonIgnoreProperties(value = {“handler”, “b”}) 这个意思是json序列化时要忽略掉哪些属性，首先handler是必须要忽略的，因为懒加载后对象其实是一个代理，被自动加上了handler属性，它没有实现序列化接口，所以要排除；而且把b属性给排除掉，表明序列化时会忽略b属性，那么序列化时就不会调用任何关于b的方法了。这样的话，在客户端得到的A对象中是没有b属性的，而且查看sql的调用，发现也是没有去查找B表的。</p>
-<pre><code> 但要注意的是，如果不开启懒加载开关，只是设置了@JsonIgnoreProperties，那么其实相应的属性还是会被加载（即会去查相应属性的表），但查到属性后，不把它序列化到json中，所以客户端还是看不到这个属性，但事实上对于数据库来说是已经查了的。
-
-而如果不标注忽略属性，仅仅把想要不序列化的对象设置为transient，是不起作用的，还是会被序列化，这里猜测应该是序列化为json时和普遍意义上的序列化还是有所差别的，还是对调用对应属性的方法，这样就还是会触发懒加载</code></pre>]]></content>
-      <categories>
-        <category>java</category>
-        <category>mybatis</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>springboot 静态资源无法访问以及添加静态资源无法立即访问</title>
-    <url>/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/</url>
-    <content><![CDATA[<h2 id="springboot-静态资源无法访问"><a href="#springboot-静态资源无法访问" class="headerlink" title="springboot 静态资源无法访问"></a>springboot 静态资源无法访问</h2><blockquote>
-<p>在一个项目中WebMvcConfigurationSupport只能存在一个，多个的时候，只有一个会生效。（按名称排序后第一个的）</p>
-</blockquote>
-<p>1.SpringBoot 的 @EnableAutoConfiguration 会启用自动配置类 </p>
-<p>2.WebMvcAutoConfiguration，该类配置了一些默认的静态资源映射</p>
-<ul>
-<li>自动映射 localhost:8080/** 为以下路径<pre><code>classpath:/resources/
-classpath:/static/
-classpath:/public/
-classpath:/META-INF/resources/</code></pre><ol start="2">
-<li>自动映射 localhost:8080/webjars/** 为以下路径<br> classpath:/META-INF/resources/webjars/</li>
-</ol>
-</li>
-</ul>
-<p>此时，我们不需要多做什么，只要将静态资源放入 src/main/resources 目录下的 resources、static 或 public 文件夹下，即可通过 url 定位相关资源，例如 localhost:8080/index.html 可定位至 src/main/resources/static/index.html</p>
-<p><strong>但是！</strong><br>一旦使用继承了WebMvcConfigurationSupport或者WebMvcConfigurerAdapter的自定义配置类，即使没有重写addResourceHandlers方法，默认配置都会被不被采用。如果要采用原本默认的配置，则需要webmvc配置类中重写如下方法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoWebMvcConfigurerAdapter</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//配置静态资源处理</span></span><br><span class="line">        registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"resources/"</span>, <span class="string">"static/"</span>, <span class="string">"public/"</span>, </span><br><span class="line">                <span class="string">"META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"classpath:resources/"</span>, <span class="string">"classpath:static/"</span>, </span><br><span class="line">                <span class="string">"classpath:public/"</span>, <span class="string">"classpath:META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"file:///tmp/webapps/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>经过试验得证：如果不使用WebMvcConfigurationSupport，则使用application.properties中的默认配置<br>如果重写了application.properties中的配置，则使用重写后的配置，如：</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">spring.resources.<span class="keyword">static</span>-locations=resources<span class="regexp">/, static/</span>, <span class="keyword">public</span><span class="regexp">/, \ META-INF/</span>resources<span class="regexp">/, resources/</span>, <span class="keyword">classpath</span>:<span class="keyword">static</span><span class="regexp">/, public/</span>, <span class="keyword">classpath</span>:META-INF<span class="regexp">/resources/</span>, \<span class="keyword">file</span>:<span class="comment">///tmp/webapps/</span></span><br><span class="line"></span><br><span class="line">spring.mvc.<span class="keyword">static</span>-path-pattern=<span class="comment">/**</span></span><br></pre></td></tr></table></figure>
-
-<p>一旦使用了WebMvcConfigurationSupport（或WebMvcConfigurerAdapter）那么必须要重写addResourceHandlers来配置资源映射，此时application.properties中关于静态资源访问的配置将失效（除非对url写了响应的controller来处理，那是另一回事）</p>
-<h2 id="当添加了静态资源后，无法立即访问的问题"><a href="#当添加了静态资源后，无法立即访问的问题" class="headerlink" title="当添加了静态资源后，无法立即访问的问题"></a>当添加了静态资源后，无法立即访问的问题</h2><p>如果访问项目中的静态资源，访问的所有的东西其实都是target目录中的，这是经过编译的，如果对项目目录下的静态资源进行修改（增删改），由于target下的东西没有受影响，所以没法立即生效，比如往/resouces/static下增加一张图片，通过url无法立即访问到，必须重启项目。其实重启就是让资源文件经过编译（其实资源文件根本不编译）后，加到target中，那么这样就很麻烦，要是想对一个静态资源修改后能立即通过url访问到要如何做呢？<br>解决办法将静态资源放在非项目类路径下即可，例如 “file:///Users/mytest/inspector/independent_resources/“);，并且在资源处理器中加上路径即可。<br>file:// 后面跟的必须是文件系统的绝对路径</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**”)</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>resources/<span class="string">", "</span><span class="keyword">static</span>/<span class="string">", "</span><span class="keyword">public</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>classpath:resources/<span class="string">", "</span>classpath:<span class="keyword">static</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>classpath:<span class="keyword">public</span>/<span class="string">", "</span>classpath:META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        //如果要让添加的静态资源立即生效，则不能把它放到项目资源里面，应该放在外面，比如下面的目录</span></span><br><span class="line"><span class="string">        //这样一旦静态资源添加到这个目录，则直接从该位置获取，而不是从编译的target位置获取</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>file:<span class="comment">///Users/mytest/inspector/independent_resources/");</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**********之间的是项目类的路径，不用管，最下面的是非项目类的路径</span></span><br><span class="line"><span class="comment">这样的话，在项目运行时，往/Users/mytest/inspector/independent_resources/目录下添加一个111.png后，在浏览器中通过localhost:8080/111.png就可访问到这个图片了。</span></span><br><span class="line"><span class="comment">如果不添加这个，在项目运行时，往项目的src/main/resources 下添加一个111.png后，不能立即通过浏览器访问到这个图片，因为项目类的所有资源和文件必须编译为target版本后才对外服务，而添加资源后不重启项目无法重新编译，target中的东西没有更新。</span></span><br></pre></td></tr></table></figure>
-<p>见<a href="https://blog.csdn.net/rui18300072030/article/details/74923580" target="_blank" rel="noopener">https://blog.csdn.net/rui18300072030/article/details/74923580</a></p>
-<blockquote>
-<p>因此，需要修改后立即生效的文件，尤其是非代码文件（除去html，css这种）最好是放在项目类的外部，放在文件系统的绝对路径下。如果文件必须放在项目中，但又必须得立即生效，<br>那么对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
-</blockquote>
-<p>如果文件必须放在项目中，但又必须得立即生效，那么用下面的方法：<br>对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">        .addResourceLocations(<span class="string">"classpath:static/"</span>)</span><br><span class="line"> .addResourceLocations(<span class="string">"file:///Users/mytest/inspector/src/main/resources/static/"</span>);</span><br></pre></td></tr></table></figure>
-<p>上面两个路径其实是同一个，但通过上面相对路径访问的是target中的东西。在运行时添加一个文件后，target没有更新，通过相对路径就访问不到，但实际上文件系统是更新了，所以用下面的绝对路径直接访问文件系统中的文件就可。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>spring</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>循环引用&amp;使用aop时注入属性失效的问题</title>
-    <url>/2020/04/10/java/spring/%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8&amp;%E4%BD%BF%E7%94%A8aop%E6%97%B6%E6%B3%A8%E5%85%A5%E5%B1%9E%E6%80%A7%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>结论：如果一个对象要被生成代理，那么不要对它的属性或方法进行注入，这些都会变成null（构造器注入是可以的）</p>
-<p>首先第一个问题：</p>
-<blockquote>
-<p>如果循环引用的对象需要被拦截，即要创建代理怎么办？</p>
-</blockquote>
-<blockquote>
-<p>假如A依赖B，B依赖A，（A有一个属性B b，B有一个属性A a）且A需要被aop拦截，需要创建代理去替代本身：<br>假如首先创建A，先用构造方法创建了一个A的早期实例，把它放在singletonFactories中，然后调用populateBean去给它填充属性时，发现需要创建B，然后去进入创建B的流程,在创建完B实例后，须去填充B的a属性<br>applyPropertyValues<br>-&gt;resolveValueIfNecessary(BeanDefinitionValueResolver)尝试去获取a的实例，已经有实例了，但在去获取的过程中，会发现a是一个factorybean，此时要去检查是否需要对它生成代理，发现需要，则生成代理后放入二级缓存，并从三级缓存中删除原始实例，填充到B的属性中。接着去完成B的创建</p>
-</blockquote>
-<blockquote>
-<p>B创建完后，回到A的创建流程，把这个创建完成的B填充到A的属性b，然后会检查A是不是有早期引用（检查二级和三级缓存），发现有（即是那个代理对象），然后用代理对象把A给代替了放入容器中，但此时这个代理对象的属性是没有B的引用的!<br>在mvc中验证，此时调用A的b属性，得到的是空</p>
-</blockquote>
-<p>接下来是两个例子，分别是循环引用和非循环引用的场景；</p>
-<p>首先是两个bean类：<br><img src="https://img-blog.csdnimg.cn/20200318114609956.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="1"><br><img src="https://img-blog.csdnimg.cn/2020031811461055.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="2"></p>
-<p>测试代码：<br><img src="https://img-blog.csdnimg.cn/20200318114610164.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="3"></p>
-<p>在不使用代理时：<br>输出：</p>
-<blockquote>
-<p>aop1:com.ljy.inspector.aop.Aop1Util@1fe8f5e8<br>aop2:com.ljy.inspector.aop.Aop2Util@2e0ad709<br>1.2= com.ljy.inspector.aop.Aop2Util@2e0ad709<br>2.1= com.ljy.inspector.aop.Aop1Util@1fe8f5e8</p>
-</blockquote>
-<p>添加切面：（即会对aop1util 创建代理）<br><img src="https://img-blog.csdnimg.cn/20200318114610212.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="4"></p>
-<p>再执行测试代码：</p>
-<blockquote>
-<p>aop1:com.ljy.inspector.aop.Aop1Util@56b1e527<br>aop2:com.ljy.inspector.aop.Aop2Util@6b25ef1c<br>1.2= null<br>2.1= com.ljy.inspector.aop.Aop1Util@56b1e527</p>
-</blockquote>
-<blockquote>
-<p>如果出现了循环引用，原始对象并不会把自己已经创建好的属性赋给用来替代它的那个代理对象.</p>
-</blockquote>
-<p>那么如果不循环引用的话呢？我们知道，正常给一个对象创建代理是在<br>initializeBean()-&gt;applyBeanPostProcessorsAfterInitialization()中，也就是后置处理中。<br>经过验证，就算不循环引用，前期的创建的属性在创建了代理后仍会被清空。</p>
-<p>对于两个工具类：<br><img src="https://img-blog.csdnimg.cn/20200318114610111.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="5"><br><img src="https://img-blog.csdnimg.cn/202003181146107.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="6"><br>测试代码：<br><img src="https://img-blog.csdnimg.cn/20200318114610147.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="7"><br>结果：</p>
-<blockquote>
-<p>aop1:com.ljy.inspector.aop.Aop1Util@56b1e527<br>aop2:com.ljy.inspector.aop.Aop2Util@4e974b9e<br>1.2= null</p>
-</blockquote>
-<p>可以进入堆栈中看：<br>在创建aop1util时，当执行完populateBean时，它的“aop2Util”属性就已经被填充了，此时它仍是正常的实例<br><img src="https://img-blog.csdnimg.cn/20200318114610355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="8"><br>在进入initialzeBean后，执行完前置处理后，可以看到这个bean仍然没有变化：（在initialzeBean中以wrappedBean为准）<br><img src="https://img-blog.csdnimg.cn/20200318114610342.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="9"></p>
-<p>但一经过后置处理，可以看到wrappedBean已经变成了代理对象，而且其aop2util属性是空<br><img src="https://img-blog.csdnimg.cn/20200318114610381.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="10"></p>
-<p><strong>结论：如果一个对象要被生成代理，那么不要对它的属性或方法进行注入，这些都会变成null（构造器注入是可以的,因为构造器注入时创建代理对象时必须要调用其父类（也就是被代理类）的构造函数，此时就会把要注入的对象注入了）</strong></p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>spring</category>
-      </categories>
-  </entry>
-  <entry>
     <title>rabbitmq笔记</title>
     <url>/2020/04/10/java/rabbitmq/rabbitmq%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="》如果没有交换机，那么routekey就必须是队列名，否则通道不知道要把消息传到哪个队列中去"><a href="#》如果没有交换机，那么routekey就必须是队列名，否则通道不知道要把消息传到哪个队列中去" class="headerlink" title="》如果没有交换机，那么routekey就必须是队列名，否则通道不知道要把消息传到哪个队列中去"></a>》如果没有交换机，那么routekey就必须是队列名，否则通道不知道要把消息传到哪个队列中去</h2><h2 id="》RabbitMQ-默认将消息顺序发送给下一个消费者，这样，每个消费者会得到相同数量的消息。即轮询（round-robin）分发消息。"><a href="#》RabbitMQ-默认将消息顺序发送给下一个消费者，这样，每个消费者会得到相同数量的消息。即轮询（round-robin）分发消息。" class="headerlink" title="》RabbitMQ 默认将消息顺序发送给下一个消费者，这样，每个消费者会得到相同数量的消息。即轮询（round-robin）分发消息。"></a>》RabbitMQ 默认将消息顺序发送给下一个消费者，这样，每个消费者会得到相同数量的消息。即轮询（round-robin）分发消息。</h2><p>假如信息a已经被发送给了消费者1，那么一定会等到信息a的ack返回后，才会把信息b发送给消费者2(即下一个消费者)，不管消费者1空闲与否或者其他消费者空闲与否，这里应该叫“轮流，顺上来”的概念<br>即默认情况下，当一个信息被发送给一个消费者，那么下一个信息一定会被发送给下一个消费者，而不是其他消费者。<br>当然，只有1个消费者时，由于它自己就是下一个消费者，那就一直是它获得消息<br>怎样才能做到按照每个消费者的能力分配消息呢？联合使用 Qos 和 Acknowledge 就可以做到。<br>basicQos 方法设置了当前信道最大预获取（prefetch）消息数量为1。消息从队列异步推送给消费者，消费者的 ack 也是异步发送给队列，从队列的视角去看，总是会有一批消息已推送但尚未获得 ack 确认，Qos 的 prefetchCount 参数就是用来限制这批未确认消息数量的。设为1时，队列只有在收到消费者发回的上一条消息 ack 确认后，才会向该消费者发送下一条消息。prefetchCount 的默认值为0，即没有限制，队列会将所有消息尽快发给消费者。</p>
@@ -995,6 +874,127 @@ RabbitMQ针对这个问题，提供了两种解决方式:</code></pre><ul>
       <categories>
         <category>java</category>
         <category>rabbitmq</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>springboot 静态资源无法访问以及添加静态资源无法立即访问</title>
+    <url>/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/</url>
+    <content><![CDATA[<h2 id="springboot-静态资源无法访问"><a href="#springboot-静态资源无法访问" class="headerlink" title="springboot 静态资源无法访问"></a>springboot 静态资源无法访问</h2><blockquote>
+<p>在一个项目中WebMvcConfigurationSupport只能存在一个，多个的时候，只有一个会生效。（按名称排序后第一个的）</p>
+</blockquote>
+<p>1.SpringBoot 的 @EnableAutoConfiguration 会启用自动配置类 </p>
+<p>2.WebMvcAutoConfiguration，该类配置了一些默认的静态资源映射</p>
+<ul>
+<li>自动映射 localhost:8080/** 为以下路径<pre><code>classpath:/resources/
+classpath:/static/
+classpath:/public/
+classpath:/META-INF/resources/</code></pre><ol start="2">
+<li>自动映射 localhost:8080/webjars/** 为以下路径<br> classpath:/META-INF/resources/webjars/</li>
+</ol>
+</li>
+</ul>
+<p>此时，我们不需要多做什么，只要将静态资源放入 src/main/resources 目录下的 resources、static 或 public 文件夹下，即可通过 url 定位相关资源，例如 localhost:8080/index.html 可定位至 src/main/resources/static/index.html</p>
+<p><strong>但是！</strong><br>一旦使用继承了WebMvcConfigurationSupport或者WebMvcConfigurerAdapter的自定义配置类，即使没有重写addResourceHandlers方法，默认配置都会被不被采用。如果要采用原本默认的配置，则需要webmvc配置类中重写如下方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoWebMvcConfigurerAdapter</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//配置静态资源处理</span></span><br><span class="line">        registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"resources/"</span>, <span class="string">"static/"</span>, <span class="string">"public/"</span>, </span><br><span class="line">                <span class="string">"META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"classpath:resources/"</span>, <span class="string">"classpath:static/"</span>, </span><br><span class="line">                <span class="string">"classpath:public/"</span>, <span class="string">"classpath:META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"file:///tmp/webapps/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>经过试验得证：如果不使用WebMvcConfigurationSupport，则使用application.properties中的默认配置<br>如果重写了application.properties中的配置，则使用重写后的配置，如：</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">spring.resources.<span class="keyword">static</span>-locations=resources<span class="regexp">/, static/</span>, <span class="keyword">public</span><span class="regexp">/, \ META-INF/</span>resources<span class="regexp">/, resources/</span>, <span class="keyword">classpath</span>:<span class="keyword">static</span><span class="regexp">/, public/</span>, <span class="keyword">classpath</span>:META-INF<span class="regexp">/resources/</span>, \<span class="keyword">file</span>:<span class="comment">///tmp/webapps/</span></span><br><span class="line"></span><br><span class="line">spring.mvc.<span class="keyword">static</span>-path-pattern=<span class="comment">/**</span></span><br></pre></td></tr></table></figure>
+
+<p>一旦使用了WebMvcConfigurationSupport（或WebMvcConfigurerAdapter）那么必须要重写addResourceHandlers来配置资源映射，此时application.properties中关于静态资源访问的配置将失效（除非对url写了响应的controller来处理，那是另一回事）</p>
+<h2 id="当添加了静态资源后，无法立即访问的问题"><a href="#当添加了静态资源后，无法立即访问的问题" class="headerlink" title="当添加了静态资源后，无法立即访问的问题"></a>当添加了静态资源后，无法立即访问的问题</h2><p>如果访问项目中的静态资源，访问的所有的东西其实都是target目录中的，这是经过编译的，如果对项目目录下的静态资源进行修改（增删改），由于target下的东西没有受影响，所以没法立即生效，比如往/resouces/static下增加一张图片，通过url无法立即访问到，必须重启项目。其实重启就是让资源文件经过编译（其实资源文件根本不编译）后，加到target中，那么这样就很麻烦，要是想对一个静态资源修改后能立即通过url访问到要如何做呢？<br>解决办法将静态资源放在非项目类路径下即可，例如 “file:///Users/mytest/inspector/independent_resources/“);，并且在资源处理器中加上路径即可。<br>file:// 后面跟的必须是文件系统的绝对路径</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**”)</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>resources/<span class="string">", "</span><span class="keyword">static</span>/<span class="string">", "</span><span class="keyword">public</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>classpath:resources/<span class="string">", "</span>classpath:<span class="keyword">static</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>classpath:<span class="keyword">public</span>/<span class="string">", "</span>classpath:META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        //如果要让添加的静态资源立即生效，则不能把它放到项目资源里面，应该放在外面，比如下面的目录</span></span><br><span class="line"><span class="string">        //这样一旦静态资源添加到这个目录，则直接从该位置获取，而不是从编译的target位置获取</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>file:<span class="comment">///Users/mytest/inspector/independent_resources/");</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**********之间的是项目类的路径，不用管，最下面的是非项目类的路径</span></span><br><span class="line"><span class="comment">这样的话，在项目运行时，往/Users/mytest/inspector/independent_resources/目录下添加一个111.png后，在浏览器中通过localhost:8080/111.png就可访问到这个图片了。</span></span><br><span class="line"><span class="comment">如果不添加这个，在项目运行时，往项目的src/main/resources 下添加一个111.png后，不能立即通过浏览器访问到这个图片，因为项目类的所有资源和文件必须编译为target版本后才对外服务，而添加资源后不重启项目无法重新编译，target中的东西没有更新。</span></span><br></pre></td></tr></table></figure>
+<p>见<a href="https://blog.csdn.net/rui18300072030/article/details/74923580" target="_blank" rel="noopener">https://blog.csdn.net/rui18300072030/article/details/74923580</a></p>
+<blockquote>
+<p>因此，需要修改后立即生效的文件，尤其是非代码文件（除去html，css这种）最好是放在项目类的外部，放在文件系统的绝对路径下。如果文件必须放在项目中，但又必须得立即生效，<br>那么对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
+</blockquote>
+<p>如果文件必须放在项目中，但又必须得立即生效，那么用下面的方法：<br>对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">        .addResourceLocations(<span class="string">"classpath:static/"</span>)</span><br><span class="line"> .addResourceLocations(<span class="string">"file:///Users/mytest/inspector/src/main/resources/static/"</span>);</span><br></pre></td></tr></table></figure>
+<p>上面两个路径其实是同一个，但通过上面相对路径访问的是target中的东西。在运行时添加一个文件后，target没有更新，通过相对路径就访问不到，但实际上文件系统是更新了，所以用下面的绝对路径直接访问文件系统中的文件就可。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>spring</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>mybatis的懒加载</title>
+    <url>/2020/04/10/java/mybatis/mybatis%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD/</url>
+    <content><![CDATA[<h1 id="MyBatis-是否支持延迟加载（懒加载）？延迟加载的原理是什么？"><a href="#MyBatis-是否支持延迟加载（懒加载）？延迟加载的原理是什么？" class="headerlink" title="MyBatis 是否支持延迟加载（懒加载）？延迟加载的原理是什么？"></a>MyBatis 是否支持延迟加载（懒加载）？延迟加载的原理是什么？</h1><p>延迟加载的原理的是调用的时候触发加载，而不是在初始化的时候就加载信息。比如调用 a. getB(). getName()，这个时候发现 a. getB() 的值为 null，此时会单独触发事先保存好的关联 B 对象的 SQL，先查询出来 B，然后再调用 a. setB(b)，而这时候再调用 a. getB(). getName() 就有值了，这就是延迟加载的基本原理。其本质是将整个查询的结果包装成一个代理，当要进行属性加载时，调用其被代理的一些方法，再从数据库中查<br>MyBatis 支持延迟加载，设置 lazyLoadingEnabled=true 即可（全局懒加载）。或者单独属性的懒加载(fetchType=lazy)</p>
+<p>如果使用了config文件<br>则设置：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"lazyLoadingEnabled"</span> <span class="attr">value</span>=<span class="string">"true”/&gt;</span></span></span><br><span class="line"><span class="tag"><span class="string">    ...</span></span></span><br><span class="line"><span class="tag"><span class="string">&lt;/settings&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>如果是在application.properties中加载配置，则使用：</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">mybatis.configuration.lazy-loading-enabled</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意，二者只能有一个！</strong></p>
+<figure class="highlight vhdl"><table><tr><td class="code"><pre><span class="line">注意！如果在application.properties中指定了配置文件，那就不能再在application.properties中设置任何mybatis的配置，</span><br><span class="line">也就是不能再设置任何以 “mybatis.<span class="keyword">configuration</span>.XXX” 开头的属性</span><br><span class="line">否则会报错：</span><br><span class="line"><span class="keyword">Property</span> <span class="symbol">'configuration</span>' <span class="keyword">and</span> <span class="symbol">'configLocation</span>' can <span class="keyword">not</span> specified <span class="keyword">with</span> together</span><br></pre></td></tr></table></figure>
+
+<p>可以在resultMap中具体的association或者collection中可以用fetchType=lazy/eager 来覆盖掉全局的懒加载属性</p>
+<p>对于fetchType的使用，可以不开启lazyLoadingEnabled的情况下单独使用，也是生效的，也可以在开启lazyLoadingEnabled的情况下使用，这样设置了fetchType的属性的加载策略会忽略全局的加载策略。</p>
+<p>对于级联查询，就可以单独使用fetchType=lazy的方式来解决N+1的问题</p>
+<p>如果设置了懒加载（不论是fetchtype还是lazyLoadingEnabled），那么实体类会产生了一个代理，代理中有一个handler属性，这个属性类没有实现序列化接口，无法被加到json中，所以需要在类上注解@JsonIgnoreProperties(value = {“handler”})来把它忽略掉<br>如果不加这个注解，会报如下错：</p>
+<blockquote>
+<p>Could not write JSON: No serializer found for class org.apache.ibatis.executor.loader.javassist.JavassistProxyFactory$EnhancedResultObjectProxyImpl and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS);</p>
+</blockquote>
+<p>有时候懒加载看起来没起作用，实际上是一些方法被暗地调用导致懒属性被加载<br>lazyLoadTriggerMethods属性可以设置当调用对象的某些方法可能会导致该对象属性的懒加载被触发，</p>
+<p>默认值：equals,clone,hashCode,toString（也就是说，当调用对象的这些方法时，对象的懒属性都会被加载）<br>配置文件中加入了这个设置：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"lazyLoadTriggerMethods"</span> <span class="attr">value</span>=<span class="string">"”/&gt;  </span></span></span><br><span class="line"><span class="tag"><span class="string">&lt;!-- 表示调用任何方法都不会触发懒加载，除非直接调用该对象的被懒加载的属性及其方法（如A.b，或者A.b.getName() 这样） --&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p> 附上文档上的说明：<br>lazyLoadTriggerMethods：指定哪个对象的方法触发一次延迟加载。<br>比如，当我打印对象时，由于触发了 toString 方法，所以触发了一次懒加载，该对象的所有级联属性就会被加载</p>
+<p><strong>陷阱：</strong><br>有的时候这些方法可能会被框架在无意中自动触发而导致懒属性被加载(尤其是toString和hashCode，很多时候不知道在哪就被调用了，结果看起来好像是懒加载没起作用)，所以如果不是很明确地需要触发加载的方法时，最好把lazyLoadTriggerMethods这个属性设为空，或者设置为自己能控制调用的方法。</p>
+<p>关于对象转化成Json传输时懒加载不起作用的问题<br>在设置了懒加载后，在本地验证的时候，懒加载确实是起作用的，但是，当把对象转为json传输的时候，由于要调用相应属性来完成序列化，所以仍然是要对其属性进行加载的。比如</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Class A&#123;</span><br><span class="line">    List&lt;B&gt; b;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">type</span> = <span class="string">A</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">collection</span> …<span class="attr">property</span>=<span class="string">b</span> <span class="attr">ofType</span>=<span class="string">B</span> <span class="attr">fetchType</span>=<span class="string">lazy</span> <span class="attr">...</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在本地跑单元测试时，可以发现a对象的b属性只要不调用，而且不去调用A对象可能会触发懒加载的方法，则b属性始终为空，除非像调用了类似a.b，即要用到相应的属性时，才会触发读数据库加载数据。但是呢，如果把对象a当做json去传输时，它的b对象也是会被加载的，因为在序列化时，会调用相应的属性及其方法，这时就会触发加载去数据库读b的数据。那么想让a对象传输时不加载且不传输b的话，解决办法如下：</p>
+<p>首先是要设置懒加载，即要么开启全局的懒加载lazyLoadingEnabled”设置，要么单独对A的属性b设置fetchType=lazy<br>    在A的类上标注@JsonIgnoreProperties(value = {“handler”, “b”}) 这个意思是json序列化时要忽略掉哪些属性，首先handler是必须要忽略的，因为懒加载后对象其实是一个代理，被自动加上了handler属性，它没有实现序列化接口，所以要排除；而且把b属性给排除掉，表明序列化时会忽略b属性，那么序列化时就不会调用任何关于b的方法了。这样的话，在客户端得到的A对象中是没有b属性的，而且查看sql的调用，发现也是没有去查找B表的。</p>
+<pre><code> 但要注意的是，如果不开启懒加载开关，只是设置了@JsonIgnoreProperties，那么其实相应的属性还是会被加载（即会去查相应属性的表），但查到属性后，不把它序列化到json中，所以客户端还是看不到这个属性，但事实上对于数据库来说是已经查了的。
+
+而如果不标注忽略属性，仅仅把想要不序列化的对象设置为transient，是不起作用的，还是会被序列化，这里猜测应该是序列化为json时和普遍意义上的序列化还是有所差别的，还是对调用对应属性的方法，这样就还是会触发懒加载</code></pre>]]></content>
+      <categories>
+        <category>java</category>
+        <category>mybatis</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>循环引用&amp;使用aop时注入属性失效的问题</title>
+    <url>/2020/04/10/java/spring/%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8&amp;%E4%BD%BF%E7%94%A8aop%E6%97%B6%E6%B3%A8%E5%85%A5%E5%B1%9E%E6%80%A7%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>结论：如果一个对象要被生成代理，那么不要对它的属性或方法进行注入，这些都会变成null（构造器注入是可以的）</p>
+<p>首先第一个问题：</p>
+<blockquote>
+<p>如果循环引用的对象需要被拦截，即要创建代理怎么办？</p>
+</blockquote>
+<blockquote>
+<p>假如A依赖B，B依赖A，（A有一个属性B b，B有一个属性A a）且A需要被aop拦截，需要创建代理去替代本身：<br>假如首先创建A，先用构造方法创建了一个A的早期实例，把它放在singletonFactories中，然后调用populateBean去给它填充属性时，发现需要创建B，然后去进入创建B的流程,在创建完B实例后，须去填充B的a属性<br>applyPropertyValues<br>-&gt;resolveValueIfNecessary(BeanDefinitionValueResolver)尝试去获取a的实例，已经有实例了，但在去获取的过程中，会发现a是一个factorybean，此时要去检查是否需要对它生成代理，发现需要，则生成代理后放入二级缓存，并从三级缓存中删除原始实例，填充到B的属性中。接着去完成B的创建</p>
+</blockquote>
+<blockquote>
+<p>B创建完后，回到A的创建流程，把这个创建完成的B填充到A的属性b，然后会检查A是不是有早期引用（检查二级和三级缓存），发现有（即是那个代理对象），然后用代理对象把A给代替了放入容器中，但此时这个代理对象的属性是没有B的引用的!<br>在mvc中验证，此时调用A的b属性，得到的是空</p>
+</blockquote>
+<p>接下来是两个例子，分别是循环引用和非循环引用的场景；</p>
+<p>首先是两个bean类：<br><img src="https://img-blog.csdnimg.cn/20200318114609956.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="1"><br><img src="https://img-blog.csdnimg.cn/2020031811461055.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="2"></p>
+<p>测试代码：<br><img src="https://img-blog.csdnimg.cn/20200318114610164.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="3"></p>
+<p>在不使用代理时：<br>输出：</p>
+<blockquote>
+<p>aop1:com.ljy.inspector.aop.Aop1Util@1fe8f5e8<br>aop2:com.ljy.inspector.aop.Aop2Util@2e0ad709<br>1.2= com.ljy.inspector.aop.Aop2Util@2e0ad709<br>2.1= com.ljy.inspector.aop.Aop1Util@1fe8f5e8</p>
+</blockquote>
+<p>添加切面：（即会对aop1util 创建代理）<br><img src="https://img-blog.csdnimg.cn/20200318114610212.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="4"></p>
+<p>再执行测试代码：</p>
+<blockquote>
+<p>aop1:com.ljy.inspector.aop.Aop1Util@56b1e527<br>aop2:com.ljy.inspector.aop.Aop2Util@6b25ef1c<br>1.2= null<br>2.1= com.ljy.inspector.aop.Aop1Util@56b1e527</p>
+</blockquote>
+<blockquote>
+<p>如果出现了循环引用，原始对象并不会把自己已经创建好的属性赋给用来替代它的那个代理对象.</p>
+</blockquote>
+<p>那么如果不循环引用的话呢？我们知道，正常给一个对象创建代理是在<br>initializeBean()-&gt;applyBeanPostProcessorsAfterInitialization()中，也就是后置处理中。<br>经过验证，就算不循环引用，前期的创建的属性在创建了代理后仍会被清空。</p>
+<p>对于两个工具类：<br><img src="https://img-blog.csdnimg.cn/20200318114610111.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="5"><br><img src="https://img-blog.csdnimg.cn/202003181146107.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="6"><br>测试代码：<br><img src="https://img-blog.csdnimg.cn/20200318114610147.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="7"><br>结果：</p>
+<blockquote>
+<p>aop1:com.ljy.inspector.aop.Aop1Util@56b1e527<br>aop2:com.ljy.inspector.aop.Aop2Util@4e974b9e<br>1.2= null</p>
+</blockquote>
+<p>可以进入堆栈中看：<br>在创建aop1util时，当执行完populateBean时，它的“aop2Util”属性就已经被填充了，此时它仍是正常的实例<br><img src="https://img-blog.csdnimg.cn/20200318114610355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="8"><br>在进入initialzeBean后，执行完前置处理后，可以看到这个bean仍然没有变化：（在initialzeBean中以wrappedBean为准）<br><img src="https://img-blog.csdnimg.cn/20200318114610342.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="9"></p>
+<p>但一经过后置处理，可以看到wrappedBean已经变成了代理对象，而且其aop2util属性是空<br><img src="https://img-blog.csdnimg.cn/20200318114610381.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="10"></p>
+<p><strong>结论：如果一个对象要被生成代理，那么不要对它的属性或方法进行注入，这些都会变成null（构造器注入是可以的,因为构造器注入时创建代理对象时必须要调用其父类（也就是被代理类）的构造函数，此时就会把要注入的对象注入了）</strong></p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>spring</category>
       </categories>
   </entry>
 </search>
