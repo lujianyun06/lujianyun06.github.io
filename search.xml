@@ -326,19 +326,6 @@
       </categories>
   </entry>
   <entry>
-    <title>hexo如何引用本地图片</title>
-    <url>/2020/04/10/hexo/hexo%E5%A6%82%E4%BD%95%E5%BC%95%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87/</url>
-    <content><![CDATA[<h2 id="如何引用本地图片？"><a href="#如何引用本地图片？" class="headerlink" title="如何引用本地图片？"></a>如何引用本地图片？</h2><p>首先在source下创建images page文件夹，必须用以下命令创建，否则没有index.md, 图片会显示错误</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new page images</span><br></pre></td></tr></table></figure>
-<p>然后把图片img1.png放到 hexo_dir/source/images/ 中，然后可以直接在文章中用</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">![<span class="string">图片的alt</span>](<span class="link">/images/img1.png 'title'</span>)</span><br></pre></td></tr></table></figure>
-<p>来使用</p>
-]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
-  </entry>
-  <entry>
     <title>hexo+Next主题详细配置说明</title>
     <url>/2020/04/11/hexo/hexo-Next%E4%B8%BB%E9%A2%98%E8%AF%A6%E7%BB%86%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E/</url>
     <content><![CDATA[<p>前情<br>之前的文章已经说明了hexo这一框架的搭建过程，本文对该框架如何配置，以及Next主题的配置来一个说明，按着文章的说明慢慢走一遍，属于自己的博客就可以呈现出来啦。也欢迎到我的博客中观看哦~<br>配置说明<br>我个人选择的是Next这一主题，这一主题是由中国人开发，具有中文文档，并且我很喜欢它的设计风格。下面的配置也是围绕这个主题进行的，如果喜欢别的主题，可以到hexo的主题页选择，并根据文档说明尽心配置。</p>
@@ -351,6 +338,19 @@
 <p>收工部分<br>在配置过程中，可运行hexo服务器实时观看配置效果，hexo配置的修改需要重启hexo服务器才能生效，主题配置的修改保存后刷新页面即可生效。配置完成后，需要生成静态文件：</p>
 <pre><code>cd  xxx/  
 hexo generate</code></pre><p>生成的静态文件在 /xxx/public 目录下，如果是托管在github上的话，在网上查找相关教程即可，教程极其丰富。</p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>hexo如何引用本地图片</title>
+    <url>/2020/04/10/hexo/hexo%E5%A6%82%E4%BD%95%E5%BC%95%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87/</url>
+    <content><![CDATA[<h2 id="如何引用本地图片？"><a href="#如何引用本地图片？" class="headerlink" title="如何引用本地图片？"></a>如何引用本地图片？</h2><p>首先在source下创建images page文件夹，必须用以下命令创建，否则没有index.md, 图片会显示错误</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new page images</span><br></pre></td></tr></table></figure>
+<p>然后把图片img1.png放到 hexo_dir/source/images/ 中，然后可以直接在文章中用</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">![<span class="string">图片的alt</span>](<span class="link">/images/img1.png 'title'</span>)</span><br></pre></td></tr></table></figure>
+<p>来使用</p>
 ]]></content>
       <categories>
         <category>hexo</category>
@@ -693,37 +693,6 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
       </categories>
   </entry>
   <entry>
-    <title>Mybatis解决n+1问题</title>
-    <url>/2020/04/10/java/mybatis/Mybatis%E8%A7%A3%E5%86%B3n+1%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>简介<br>在orm框架中，比如hibernate和mybatis都可以设置关联对象，比如user对象关联dept<br>假如查询出n个user，那么需要做n次查询dept，查询user是一次select，查询user关联的<br>dept，是n次，所以是n+1问题，其实叫1+n更为合理一些。</p>
-<p>mybatis配置<br>UserMapper.xml</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"BaseResultMap"</span> <span class="attr">type</span>=<span class="string">"testmaven.entity.User"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"name"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"age"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"age"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"deptId"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"eager"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>DeptMapper.xml</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectByPrimaryKey"</span> <span class="attr">resultMap</span>=<span class="string">"BaseResultMap"</span> <span class="attr">parameterType</span>=<span class="string">"java.lang.Integer"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">select</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"Base_Column_List"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">from dept</span><br><span class="line"></span><br><span class="line">where id = #&#123;id,jdbcType=INTEGER&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>我们可以看到user通过association中的dept_id关联了dept，查询user后，比如查询到4个user，那么会执行4次查询dept；</p>
-<p>测试</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
-<p>打印jdbc log我们能看到，查询到4个user，然后执行了4次查询dept<br><img src="https://img-blog.csdn.net/20180321223842327?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L3cwNTk4MDU5OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="select1"></p>
-<p>1+n带来的问题<br>查询主数据，是1次查询，查询出n条记录；根据这n条主记录，查询从记录，共需要n次，所以叫数据库1+n问题；这样会带来性能问题，比如，查询到的n条记录，我可能只用到其中1条，但是也执行了n次从记录查询，这是不合理的。为了解决这个问题，出现了懒加载，懒加载就是用到的时候再查询；我们设置association元素中的fetchType fetchType=lazy</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"lazy"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">我们再做测试</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">User u = list.get(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(u.getClass());</span><br><span class="line"></span><br><span class="line">System.out.println(u.getName());</span><br></pre></td></tr></table></figure>
-<p>jdbc log<br><img src="https://img-blog.csdn.net/20160831220618291" alt="jdbc log" title="jdbc log"></p>
-<p>懒加载 减少了性能消耗，一定程度上缓解了1+n带来的性能问题</p>
-<blockquote>
-<p>总结<br>1+n问题是什么？应该怎样解决？</p>
-</blockquote>
-<blockquote>
-<p>1+n是执行一次查询获取n条主数据后，由于关联引起的执行n次查询从数据；它带来了性能问题；一般来说，通过懒加载 可以部分缓解1+n带来的性能问题</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>mybatis</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Mybatis中对于association的理解</title>
     <url>/2020/04/10/java/mybatis/Mybatis%E4%B8%AD%E5%AF%B9%E4%BA%8Eassociation%E7%9A%84%E7%90%86%E8%A7%A3/</url>
     <content><![CDATA[<p>mybatis是先处理sql，把sql执行完后把结果表映射到resultMap或者resultType上</p>
@@ -772,16 +741,34 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
       </categories>
   </entry>
   <entry>
-    <title>springMVC处理请求流程</title>
-    <url>/2020/04/10/java/spring/springMVC%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/</url>
-    <content><![CDATA[<p>Dispatcher接收到了客户的请求，遍历所有的HandlerMapping集合，找出被@Controller注解的bean和被@Request注解的类和方法，根据请求的路径，参数等一系列条件，找到符合条件的HandlerMapping，并得到Handler执行链，其中包括拦截器和controller方法，是一条拦截+处理链。</p>
-<p>dispatcherServlet让把请求放进入链中，先执行所有拦截器的preHandle方法，执行完后准备去真正的handle方法（即controller的对应方法）。首先使用解析类解析handle方法的参数，包括@RequestParam、@RequestBody、@PathVariable注解的参数，从请求中提取出这些参数的值，并把它们连同请求一起交给handle方法，在handle中执行真正的业务逻辑。在handle方法处理结束之后，再使用一些处理类处理handle方法的返回值，处理完后合并进响应，再去执行所有拦截器的postHandle方法。之后把返回值交给dispatcherServlet，如果返回的是一个ModelAndView，则把它交给视图解析器去解析，由它解析出相应的视图（即html、jsp、xml等）并写到响应中，此时还要执行所有拦截器的afterCompletion再做处理。</p>
-<p>然后，把最终处理完成的响应返回给客户。</p>
-<p>另：过滤器在dispatcherServlet的前面，如果有过滤器，则请求进来时先进过滤器链，再进dispatcherServlet。响应走时先通过dispatcherServlet，然后再通过过滤器链<br><img src="https://img-blog.csdnimg.cn/20200211165844244.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+    <title>Mybatis解决n+1问题</title>
+    <url>/2020/04/10/java/mybatis/Mybatis%E8%A7%A3%E5%86%B3n+1%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>简介<br>在orm框架中，比如hibernate和mybatis都可以设置关联对象，比如user对象关联dept<br>假如查询出n个user，那么需要做n次查询dept，查询user是一次select，查询user关联的<br>dept，是n次，所以是n+1问题，其实叫1+n更为合理一些。</p>
+<p>mybatis配置<br>UserMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"BaseResultMap"</span> <span class="attr">type</span>=<span class="string">"testmaven.entity.User"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"name"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"age"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"age"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"deptId"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"eager"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>DeptMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectByPrimaryKey"</span> <span class="attr">resultMap</span>=<span class="string">"BaseResultMap"</span> <span class="attr">parameterType</span>=<span class="string">"java.lang.Integer"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">select</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"Base_Column_List"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">from dept</span><br><span class="line"></span><br><span class="line">where id = #&#123;id,jdbcType=INTEGER&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们可以看到user通过association中的dept_id关联了dept，查询user后，比如查询到4个user，那么会执行4次查询dept；</p>
+<p>测试</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+<p>打印jdbc log我们能看到，查询到4个user，然后执行了4次查询dept<br><img src="https://img-blog.csdn.net/20180321223842327?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L3cwNTk4MDU5OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="select1"></p>
+<p>1+n带来的问题<br>查询主数据，是1次查询，查询出n条记录；根据这n条主记录，查询从记录，共需要n次，所以叫数据库1+n问题；这样会带来性能问题，比如，查询到的n条记录，我可能只用到其中1条，但是也执行了n次从记录查询，这是不合理的。为了解决这个问题，出现了懒加载，懒加载就是用到的时候再查询；我们设置association元素中的fetchType fetchType=lazy</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"lazy"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">我们再做测试</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">User u = list.get(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(u.getClass());</span><br><span class="line"></span><br><span class="line">System.out.println(u.getName());</span><br></pre></td></tr></table></figure>
+<p>jdbc log<br><img src="https://img-blog.csdn.net/20160831220618291" alt="jdbc log" title="jdbc log"></p>
+<p>懒加载 减少了性能消耗，一定程度上缓解了1+n带来的性能问题</p>
+<blockquote>
+<p>总结<br>1+n问题是什么？应该怎样解决？</p>
+</blockquote>
+<blockquote>
+<p>1+n是执行一次查询获取n条主数据后，由于关联引起的执行n次查询从数据；它带来了性能问题；一般来说，通过懒加载 可以部分缓解1+n带来的性能问题</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>java</category>
-        <category>spring</category>
+        <category>mybatis</category>
       </categories>
   </entry>
   <entry>
@@ -913,6 +900,19 @@ RabbitMQ针对这个问题，提供了两种解决方式:</code></pre><ul>
       <categories>
         <category>java</category>
         <category>mybatis</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>springMVC处理请求流程</title>
+    <url>/2020/04/10/java/spring/springMVC%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/</url>
+    <content><![CDATA[<p>Dispatcher接收到了客户的请求，遍历所有的HandlerMapping集合，找出被@Controller注解的bean和被@Request注解的类和方法，根据请求的路径，参数等一系列条件，找到符合条件的HandlerMapping，并得到Handler执行链，其中包括拦截器和controller方法，是一条拦截+处理链。</p>
+<p>dispatcherServlet让把请求放进入链中，先执行所有拦截器的preHandle方法，执行完后准备去真正的handle方法（即controller的对应方法）。首先使用解析类解析handle方法的参数，包括@RequestParam、@RequestBody、@PathVariable注解的参数，从请求中提取出这些参数的值，并把它们连同请求一起交给handle方法，在handle中执行真正的业务逻辑。在handle方法处理结束之后，再使用一些处理类处理handle方法的返回值，处理完后合并进响应，再去执行所有拦截器的postHandle方法。之后把返回值交给dispatcherServlet，如果返回的是一个ModelAndView，则把它交给视图解析器去解析，由它解析出相应的视图（即html、jsp、xml等）并写到响应中，此时还要执行所有拦截器的afterCompletion再做处理。</p>
+<p>然后，把最终处理完成的响应返回给客户。</p>
+<p>另：过滤器在dispatcherServlet的前面，如果有过滤器，则请求进来时先进过滤器链，再进dispatcherServlet。响应走时先通过dispatcherServlet，然后再通过过滤器链<br><img src="https://img-blog.csdnimg.cn/20200211165844244.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>spring</category>
       </categories>
   </entry>
   <entry>
