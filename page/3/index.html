@@ -130,7 +130,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">32</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">33</span></a>
 
   </li>
         
@@ -193,6 +193,83 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">Ubuntu16下 pip安装，卸载、升级，报错</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：16:48:11" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>新装的ubuntu16，自带的python2.7，使用pip升级后，报错，修改记录如下：</p>
+<h2 id="如何彻底卸载pip？"><a href="#如何彻底卸载pip？" class="headerlink" title="如何彻底卸载pip？"></a>如何彻底卸载pip？</h2><p>sudo python -m pip uninstall pip</p>
+<h2 id="如何安装pip"><a href="#如何安装pip" class="headerlink" title="如何安装pip"></a>如何安装pip</h2><p>sudo apt install python-pip</p>
+<h2 id="如何安装指定版本的pip"><a href="#如何安装指定版本的pip" class="headerlink" title="如何安装指定版本的pip"></a>如何安装指定版本的pip</h2><p>python -m pip install pip==18.1(换成你想要的版本编号)</p>
+<h2 id="pip安装软件过程中报错："><a href="#pip安装软件过程中报错：" class="headerlink" title="pip安装软件过程中报错："></a>pip安装软件过程中报错：</h2><p>Command “python setup.py egg_info” failed with error code 1 in /tmp/pip-build-BqMhb7/matplotlib/</p>
+<ol>
+<li>安装并升级setuptools<br>pip install –upgrade setuptools</li>
+<li>升级pip<br>pip install –upgrade pip</li>
+</ol>
+<h2 id="pip升级后报错"><a href="#pip升级后报错" class="headerlink" title="pip升级后报错"></a>pip升级后报错</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "/usr/bin/pip", line 9, in &lt;module&gt;</span><br><span class="line">    from pip import main</span><br><span class="line">ImportError: cannot import name 'main'</span><br><span class="line">修改/usr/bin/pip如下：</span><br><span class="line">//修改前</span><br><span class="line">from pip import main  </span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(main()) </span><br><span class="line">修改后</span><br><span class="line">from pip import __main__  //这行也要修改</span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(__main__._main())//增加__main__._  （注意最后main()前面有个_）</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -585,6 +662,99 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/mybatis/Mybatis%E8%A7%A3%E5%86%B3n+1%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="RockMaster~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RockMaster's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/java/mybatis/Mybatis%E8%A7%A3%E5%86%B3n+1%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Mybatis解决n+1问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:18:18" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/mybatis/" itemprop="url" rel="index"><span itemprop="name">mybatis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>简介<br>在orm框架中，比如hibernate和mybatis都可以设置关联对象，比如user对象关联dept<br>假如查询出n个user，那么需要做n次查询dept，查询user是一次select，查询user关联的<br>dept，是n次，所以是n+1问题，其实叫1+n更为合理一些。</p>
+<p>mybatis配置<br>UserMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"BaseResultMap"</span> <span class="attr">type</span>=<span class="string">"testmaven.entity.User"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"name"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"age"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"age"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"deptId"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"eager"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>DeptMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectByPrimaryKey"</span> <span class="attr">resultMap</span>=<span class="string">"BaseResultMap"</span> <span class="attr">parameterType</span>=<span class="string">"java.lang.Integer"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">select</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"Base_Column_List"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">from dept</span><br><span class="line"></span><br><span class="line">where id = #&#123;id,jdbcType=INTEGER&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们可以看到user通过association中的dept_id关联了dept，查询user后，比如查询到4个user，那么会执行4次查询dept；</p>
+<p>测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+<p>打印jdbc log我们能看到，查询到4个user，然后执行了4次查询dept<br><img src="https://img-blog.csdn.net/20180321223842327?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L3cwNTk4MDU5OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="select1"></p>
+<p>1+n带来的问题<br>查询主数据，是1次查询，查询出n条记录；根据这n条主记录，查询从记录，共需要n次，所以叫数据库1+n问题；这样会带来性能问题，比如，查询到的n条记录，我可能只用到其中1条，但是也执行了n次从记录查询，这是不合理的。为了解决这个问题，出现了懒加载，懒加载就是用到的时候再查询；我们设置association元素中的fetchType fetchType=lazy</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"lazy"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">我们再做测试</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">User u = list.get(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(u.getClass());</span><br><span class="line"></span><br><span class="line">System.out.println(u.getName());</span><br></pre></td></tr></table></figure>
+<p>jdbc log<br><img src="https://img-blog.csdn.net/20160831220618291" alt="jdbc log" title="jdbc log"></p>
+<p>懒加载 减少了性能消耗，一定程度上缓解了1+n带来的性能问题</p>
+<blockquote>
+<p>总结<br>1+n问题是什么？应该怎样解决？</p>
+</blockquote>
+<blockquote>
+<p>1+n是执行一次查询获取n条主数据后，由于关联引起的执行n次查询从数据；它带来了性能问题；一般来说，通过懒加载 可以部分缓解1+n带来的性能问题</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/mybatis/Mybatis%E4%B8%AD%E5%AF%B9%E4%BA%8Eassociation%E7%9A%84%E7%90%86%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -695,7 +865,7 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/mybatis/Mybatis%E8%A7%A3%E5%86%B3n+1%E9%97%AE%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/springMVC%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
@@ -709,7 +879,7 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/04/10/java/mybatis/Mybatis%E8%A7%A3%E5%86%B3n+1%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Mybatis解决n+1问题</a>
+            <a href="/2020/04/10/java/spring/springMVC%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">springMVC处理请求流程</a>
         </h2>
 
         <div class="post-meta">
@@ -720,7 +890,7 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:18:18" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:08:28" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -732,7 +902,7 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/mybatis/" itemprop="url" rel="index"><span itemprop="name">mybatis</span></a>
+                  <a href="/categories/java/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
                 </span>
             </span>
 
@@ -747,28 +917,10 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>简介<br>在orm框架中，比如hibernate和mybatis都可以设置关联对象，比如user对象关联dept<br>假如查询出n个user，那么需要做n次查询dept，查询user是一次select，查询user关联的<br>dept，是n次，所以是n+1问题，其实叫1+n更为合理一些。</p>
-<p>mybatis配置<br>UserMapper.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"BaseResultMap"</span> <span class="attr">type</span>=<span class="string">"testmaven.entity.User"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"name"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"age"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"age"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"deptId"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"eager"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>DeptMapper.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectByPrimaryKey"</span> <span class="attr">resultMap</span>=<span class="string">"BaseResultMap"</span> <span class="attr">parameterType</span>=<span class="string">"java.lang.Integer"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">select</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"Base_Column_List"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">from dept</span><br><span class="line"></span><br><span class="line">where id = #&#123;id,jdbcType=INTEGER&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>我们可以看到user通过association中的dept_id关联了dept，查询user后，比如查询到4个user，那么会执行4次查询dept；</p>
-<p>测试</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
-<p>打印jdbc log我们能看到，查询到4个user，然后执行了4次查询dept<br><img src="https://img-blog.csdn.net/20180321223842327?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L3cwNTk4MDU5OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="select1"></p>
-<p>1+n带来的问题<br>查询主数据，是1次查询，查询出n条记录；根据这n条主记录，查询从记录，共需要n次，所以叫数据库1+n问题；这样会带来性能问题，比如，查询到的n条记录，我可能只用到其中1条，但是也执行了n次从记录查询，这是不合理的。为了解决这个问题，出现了懒加载，懒加载就是用到的时候再查询；我们设置association元素中的fetchType fetchType=lazy</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"lazy"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">我们再做测试</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">User u = list.get(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(u.getClass());</span><br><span class="line"></span><br><span class="line">System.out.println(u.getName());</span><br></pre></td></tr></table></figure>
-<p>jdbc log<br><img src="https://img-blog.csdn.net/20160831220618291" alt="jdbc log" title="jdbc log"></p>
-<p>懒加载 减少了性能消耗，一定程度上缓解了1+n带来的性能问题</p>
-<blockquote>
-<p>总结<br>1+n问题是什么？应该怎样解决？</p>
-</blockquote>
-<blockquote>
-<p>1+n是执行一次查询获取n条主数据后，由于关联引起的执行n次查询从数据；它带来了性能问题；一般来说，通过懒加载 可以部分缓解1+n带来的性能问题</p>
-</blockquote>
+          <p>Dispatcher接收到了客户的请求，遍历所有的HandlerMapping集合，找出被@Controller注解的bean和被@Request注解的类和方法，根据请求的路径，参数等一系列条件，找到符合条件的HandlerMapping，并得到Handler执行链，其中包括拦截器和controller方法，是一条拦截+处理链。</p>
+<p>dispatcherServlet让把请求放进入链中，先执行所有拦截器的preHandle方法，执行完后准备去真正的handle方法（即controller的对应方法）。首先使用解析类解析handle方法的参数，包括@RequestParam、@RequestBody、@PathVariable注解的参数，从请求中提取出这些参数的值，并把它们连同请求一起交给handle方法，在handle中执行真正的业务逻辑。在handle方法处理结束之后，再使用一些处理类处理handle方法的返回值，处理完后合并进响应，再去执行所有拦截器的postHandle方法。之后把返回值交给dispatcherServlet，如果返回的是一个ModelAndView，则把它交给视图解析器去解析，由它解析出相应的视图（即html、jsp、xml等）并写到响应中，此时还要执行所有拦截器的afterCompletion再做处理。</p>
+<p>然后，把最终处理完成的响应返回给客户。</p>
+<p>另：过滤器在dispatcherServlet的前面，如果有过滤器，则请求进来时先进过滤器链，再进dispatcherServlet。响应走时先通过dispatcherServlet，然后再通过过滤器链<br><img src="https://img-blog.csdnimg.cn/20200211165844244.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
       
     </div>
@@ -885,182 +1037,6 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/springMVC%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="RockMaster~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RockMaster's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/java/spring/springMVC%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">springMVC处理请求流程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:08:28" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Dispatcher接收到了客户的请求，遍历所有的HandlerMapping集合，找出被@Controller注解的bean和被@Request注解的类和方法，根据请求的路径，参数等一系列条件，找到符合条件的HandlerMapping，并得到Handler执行链，其中包括拦截器和controller方法，是一条拦截+处理链。</p>
-<p>dispatcherServlet让把请求放进入链中，先执行所有拦截器的preHandle方法，执行完后准备去真正的handle方法（即controller的对应方法）。首先使用解析类解析handle方法的参数，包括@RequestParam、@RequestBody、@PathVariable注解的参数，从请求中提取出这些参数的值，并把它们连同请求一起交给handle方法，在handle中执行真正的业务逻辑。在handle方法处理结束之后，再使用一些处理类处理handle方法的返回值，处理完后合并进响应，再去执行所有拦截器的postHandle方法。之后把返回值交给dispatcherServlet，如果返回的是一个ModelAndView，则把它交给视图解析器去解析，由它解析出相应的视图（即html、jsp、xml等）并写到响应中，此时还要执行所有拦截器的afterCompletion再做处理。</p>
-<p>然后，把最终处理完成的响应返回给客户。</p>
-<p>另：过滤器在dispatcherServlet的前面，如果有过滤器，则请求进来时先进过滤器链，再进dispatcherServlet。响应走时先通过dispatcherServlet，然后再通过过滤器链<br><img src="https://img-blog.csdnimg.cn/20200211165844244.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="RockMaster~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RockMaster's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/" class="post-title-link" itemprop="url">springboot 静态资源无法访问以及添加静态资源无法立即访问</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:08:18" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="springboot-静态资源无法访问"><a href="#springboot-静态资源无法访问" class="headerlink" title="springboot 静态资源无法访问"></a>springboot 静态资源无法访问</h2><blockquote>
-<p>在一个项目中WebMvcConfigurationSupport只能存在一个，多个的时候，只有一个会生效。（按名称排序后第一个的）</p>
-</blockquote>
-<p>1.SpringBoot 的 @EnableAutoConfiguration 会启用自动配置类 </p>
-<p>2.WebMvcAutoConfiguration，该类配置了一些默认的静态资源映射</p>
-<ul>
-<li>自动映射 localhost:8080/** 为以下路径<pre><code>classpath:/resources/
-classpath:/static/
-classpath:/public/
-classpath:/META-INF/resources/</code></pre><ol start="2">
-<li>自动映射 localhost:8080/webjars/** 为以下路径<br> classpath:/META-INF/resources/webjars/</li>
-</ol>
-</li>
-</ul>
-<p>此时，我们不需要多做什么，只要将静态资源放入 src/main/resources 目录下的 resources、static 或 public 文件夹下，即可通过 url 定位相关资源，例如 localhost:8080/index.html 可定位至 src/main/resources/static/index.html</p>
-<p><strong>但是！</strong><br>一旦使用继承了WebMvcConfigurationSupport或者WebMvcConfigurerAdapter的自定义配置类，即使没有重写addResourceHandlers方法，默认配置都会被不被采用。如果要采用原本默认的配置，则需要webmvc配置类中重写如下方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoWebMvcConfigurerAdapter</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//配置静态资源处理</span></span><br><span class="line">        registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"resources/"</span>, <span class="string">"static/"</span>, <span class="string">"public/"</span>, </span><br><span class="line">                <span class="string">"META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"classpath:resources/"</span>, <span class="string">"classpath:static/"</span>, </span><br><span class="line">                <span class="string">"classpath:public/"</span>, <span class="string">"classpath:META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"file:///tmp/webapps/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>经过试验得证：如果不使用WebMvcConfigurationSupport，则使用application.properties中的默认配置<br>如果重写了application.properties中的配置，则使用重写后的配置，如：</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring.resources.<span class="keyword">static</span>-locations=resources<span class="regexp">/, static/</span>, <span class="keyword">public</span><span class="regexp">/, \ META-INF/</span>resources<span class="regexp">/, resources/</span>, <span class="keyword">classpath</span>:<span class="keyword">static</span><span class="regexp">/, public/</span>, <span class="keyword">classpath</span>:META-INF<span class="regexp">/resources/</span>, \<span class="keyword">file</span>:<span class="comment">///tmp/webapps/</span></span><br><span class="line"></span><br><span class="line">spring.mvc.<span class="keyword">static</span>-path-pattern=<span class="comment">/**</span></span><br></pre></td></tr></table></figure>
-
-<p>一旦使用了WebMvcConfigurationSupport（或WebMvcConfigurerAdapter）那么必须要重写addResourceHandlers来配置资源映射，此时application.properties中关于静态资源访问的配置将失效（除非对url写了响应的controller来处理，那是另一回事）</p>
-<h2 id="当添加了静态资源后，无法立即访问的问题"><a href="#当添加了静态资源后，无法立即访问的问题" class="headerlink" title="当添加了静态资源后，无法立即访问的问题"></a>当添加了静态资源后，无法立即访问的问题</h2><p>如果访问项目中的静态资源，访问的所有的东西其实都是target目录中的，这是经过编译的，如果对项目目录下的静态资源进行修改（增删改），由于target下的东西没有受影响，所以没法立即生效，比如往/resouces/static下增加一张图片，通过url无法立即访问到，必须重启项目。其实重启就是让资源文件经过编译（其实资源文件根本不编译）后，加到target中，那么这样就很麻烦，要是想对一个静态资源修改后能立即通过url访问到要如何做呢？<br>解决办法将静态资源放在非项目类路径下即可，例如 “file:///Users/mytest/inspector/independent_resources/“);，并且在资源处理器中加上路径即可。<br>file:// 后面跟的必须是文件系统的绝对路径</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**”)</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>resources/<span class="string">", "</span><span class="keyword">static</span>/<span class="string">", "</span><span class="keyword">public</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>classpath:resources/<span class="string">", "</span>classpath:<span class="keyword">static</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>classpath:<span class="keyword">public</span>/<span class="string">", "</span>classpath:META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        //如果要让添加的静态资源立即生效，则不能把它放到项目资源里面，应该放在外面，比如下面的目录</span></span><br><span class="line"><span class="string">        //这样一旦静态资源添加到这个目录，则直接从该位置获取，而不是从编译的target位置获取</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>file:<span class="comment">///Users/mytest/inspector/independent_resources/");</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**********之间的是项目类的路径，不用管，最下面的是非项目类的路径</span></span><br><span class="line"><span class="comment">这样的话，在项目运行时，往/Users/mytest/inspector/independent_resources/目录下添加一个111.png后，在浏览器中通过localhost:8080/111.png就可访问到这个图片了。</span></span><br><span class="line"><span class="comment">如果不添加这个，在项目运行时，往项目的src/main/resources 下添加一个111.png后，不能立即通过浏览器访问到这个图片，因为项目类的所有资源和文件必须编译为target版本后才对外服务，而添加资源后不重启项目无法重新编译，target中的东西没有更新。</span></span><br></pre></td></tr></table></figure>
-<p>见<a href="https://blog.csdn.net/rui18300072030/article/details/74923580" target="_blank" rel="noopener">https://blog.csdn.net/rui18300072030/article/details/74923580</a></p>
-<blockquote>
-<p>因此，需要修改后立即生效的文件，尤其是非代码文件（除去html，css这种）最好是放在项目类的外部，放在文件系统的绝对路径下。如果文件必须放在项目中，但又必须得立即生效，<br>那么对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
-</blockquote>
-<p>如果文件必须放在项目中，但又必须得立即生效，那么用下面的方法：<br>对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">        .addResourceLocations(<span class="string">"classpath:static/"</span>)</span><br><span class="line"> .addResourceLocations(<span class="string">"file:///Users/mytest/inspector/src/main/resources/static/"</span>);</span><br></pre></td></tr></table></figure>
-<p>上面两个路径其实是同一个，但通过上面相对路径访问的是target中的东西。在运行时添加一个文件后，target没有更新，通过相对路径就访问不到，但实际上文件系统是更新了，所以用下面的绝对路径直接访问文件系统中的文件就可。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1132,7 +1108,7 @@ classpath:/META-INF/resources/</code></pre><ol start="2">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
