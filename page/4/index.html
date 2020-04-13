@@ -130,7 +130,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">33</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">34</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -183,6 +183,81 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/springMVC%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/java/spring/springMVC%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">springMVC处理请求流程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:08:28" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Dispatcher接收到了客户的请求，遍历所有的HandlerMapping集合，找出被@Controller注解的bean和被@Request注解的类和方法，根据请求的路径，参数等一系列条件，找到符合条件的HandlerMapping，并得到Handler执行链，其中包括拦截器和controller方法，是一条拦截+处理链。</p>
+<p>dispatcherServlet让把请求放进入链中，先执行所有拦截器的preHandle方法，执行完后准备去真正的handle方法（即controller的对应方法）。首先使用解析类解析handle方法的参数，包括@RequestParam、@RequestBody、@PathVariable注解的参数，从请求中提取出这些参数的值，并把它们连同请求一起交给handle方法，在handle中执行真正的业务逻辑。在handle方法处理结束之后，再使用一些处理类处理handle方法的返回值，处理完后合并进响应，再去执行所有拦截器的postHandle方法。之后把返回值交给dispatcherServlet，如果返回的是一个ModelAndView，则把它交给视图解析器去解析，由它解析出相应的视图（即html、jsp、xml等）并写到响应中，此时还要执行所有拦截器的afterCompletion再做处理。</p>
+<p>然后，把最终处理完成的响应返回给客户。</p>
+<p>另：过滤器在dispatcherServlet的前面，如果有过滤器，则请求进来时先进过滤器链，再进dispatcherServlet。响应走时先通过dispatcherServlet，然后再通过过滤器链<br><img src="https://img-blog.csdnimg.cn/20200211165844244.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -537,7 +612,7 @@ classpath:/META-INF/resources/</code></pre><ol start="2">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -130,7 +130,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">33</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">34</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -183,6 +183,80 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/Android/%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A11/" class="post-title-link" itemprop="url">音视频任务1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 15:48:42 / 修改时间：15:50:25" itemprop="dateCreated datePublished" datetime="2020-04-10T15:48:42+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>跟着大神的步骤一步一步做，加油！<br>任务列表：<a href="http://blog.51cto.com/ticktick/1956269" target="_blank" rel="noopener">http://blog.51cto.com/ticktick/1956269</a></p>
+<p>在 Android 平台绘制一张图片，使用至少 3 种不同的 API，ImageView，SurfaceView，自定义 View<br>imageView和surfaceView，为了方便都是直接在activity里面写的函数，直接在onCreateView里面调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.content.res.Resources;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Bitmap;</span><br><span class="line"><span class="keyword">import</span> android.graphics.BitmapFactory;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Canvas;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Matrix;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Rect;</span><br><span class="line"><span class="keyword">import</span> android.graphics.drawable.BitmapDrawable;</span><br><span class="line"><span class="keyword">import</span> android.graphics.drawable.Drawable;</span><br><span class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity;</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.view.SurfaceHolder;</span><br><span class="line"><span class="keyword">import</span> android.view.SurfaceView;</span><br><span class="line"><span class="keyword">import</span> android.widget.ImageView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        displaySurfaceView();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">displayImg</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">final</span> ImageView iv = findViewById(R.id.iv_lu);</span><br><span class="line">        <span class="comment">//1</span></span><br><span class="line"><span class="comment">//        iv.setImageResource(R.mipmap.wechatimg1);</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//2</span></span><br><span class="line"><span class="comment">//        Drawable drawable = getResources().getDrawable(R.mipmap.wechatimg1, null);</span></span><br><span class="line"><span class="comment">//        iv.setImageDrawable(drawable);</span></span><br><span class="line">        <span class="comment">//3</span></span><br><span class="line">        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.wechatimg1);</span><br><span class="line">        iv.setImageBitmap(bitmap);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">displaySurfaceView</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">final</span> SurfaceView sv = findViewById(com.example.lujianyun.va.R.id.sv_lu);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> SurfaceHolder holder = sv.getHolder();</span><br><span class="line">        <span class="keyword">final</span> Thread t = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                Canvas canvas = holder.lockCanvas();</span><br><span class="line">                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), com.example.lujianyun.va.R.mipmap.wechatimg1);</span><br><span class="line">                canvas.drawBitmap(bitmap, <span class="number">0</span>, <span class="number">0</span>, <span class="keyword">null</span>);</span><br><span class="line">                holder.unlockCanvasAndPost(canvas);</span><br><span class="line">                holder.lockCanvas(<span class="keyword">new</span> Rect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>));</span><br><span class="line">                holder.unlockCanvasAndPost(canvas);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        holder.addCallback(<span class="keyword">new</span> SurfaceHolder.Callback() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceCreated</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</span><br><span class="line">                t.start();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceChanged</span><span class="params">(SurfaceHolder holder, <span class="keyword">int</span> format, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceDestroyed</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>自定义view</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DrawView</span> <span class="keyword">extends</span> <span class="title">View</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    String TAG = <span class="string">"DrawView"</span>;</span><br><span class="line">    Bitmap bitmap;</span><br><span class="line">    Bitmap orginBitmap;</span><br><span class="line">    <span class="keyword">boolean</span> bitmapFinished = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DrawView</span><span class="params">(Context context, @Nullable AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs);</span><br><span class="line">        orginBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.wechatimg1);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!bitmapFinished) &#123; <span class="comment">//由于onmeasure要多次调用，所以创建对象的工作只做一次，防止耗时</span></span><br><span class="line">            <span class="keyword">int</span> w = MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">            <span class="keyword">int</span> h = MeasureSpec.getSize(heightMeasureSpec);</span><br><span class="line">            bitmap = Bitmap.createScaledBitmap(orginBitmap, w, h, <span class="keyword">false</span>); </span><br><span class="line">            bitmapFinished = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">super</span>.onMeasure(widthMeasureSpec,heightMeasureSpec);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line">        <span class="keyword">if</span> (bitmap != <span class="keyword">null</span>)</span><br><span class="line">            canvas.drawBitmap(bitmap, <span class="number">0</span>, <span class="number">0</span>, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>布局文件：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"300dp"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"300dp"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">".MainActivity"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:clipChildren</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/iv_lu"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:visibility</span>=<span class="string">"gone"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintLeft_toLeftOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintRight_toRightOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">SurfaceView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/sv_lu"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:visibility</span>=<span class="string">"gone"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">com.example.lll.va.DrawView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -415,101 +489,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/Android%20%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A14/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="CloudLander~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CloudLander's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/Android/Android%20%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A14/" class="post-title-link" itemprop="url">Android 音视频任务4</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 15:44:11 / 修改时间：16:08:27" itemprop="dateCreated datePublished" datetime="2020-04-10T15:44:11+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>任务4. 学习 Android 平台的 MediaExtractor 和 MediaMuxer API，知道如何解析和封装 mp4 文件</p>
-<ul>
-<li>MediaMuxer和MediaCodec算是比较年轻的，它们是JB 4.1和JB 4.3才引入的。前者用于将音频和视频进行混合生成多媒体文件。缺点是目前只能支持一个audio track和一个video track，目前支持mp4,3gp,webm输出</li>
-<li>MediaCodec用于将音视频进行压缩编码，它有个比较牛X的地方是可以对Surface内容进行编码，如KK 4.4中屏幕录像功能就是用它实现的。</li>
-<li>MediaFormat用于描述多媒体数据的格式。</li>
-<li>MediaRecorder用于录像+压缩编码，生成编码好的文件如mp4, 3gpp，视频主要是用于录制Camera preview。</li>
-<li>MediaPlayer用于播放压缩编码后的音视频文件。</li>
-<li>AudioRecord用于录制PCM数据。</li>
-<li>AudioTrack用于播放PCM数据。PCM即原始音频采样数据，可以用如vlc播放器播放。</li>
-</ul>
-<p>MediaExtractor可以从数据源中提取解复用的，编码后的媒体数据。MediaExtractor用于音视频分路,比如从一个视频中分别提取音频(音轨)和视频(视频轨)<br>它既可以从视频里提取视频轨或音频轨，也可以单从音频里提取音频轨</p>
-<p>//如下使用`</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">MediaExtractor extractor = <span class="keyword">new</span> MediaExtractor();</span><br><span class="line"> extractor.setDataSource(…);</span><br><span class="line"><span class="keyword">int</span> </span><br><span class="line"> <span class="keyword">int</span> numTracks = extractor.getTrackCount(); <span class="comment">//当前视频中有几个轨道</span></span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numTracks; ++i) &#123;</span><br><span class="line">   MediaFormat format = extractor.getTrackFormat(i);</span><br><span class="line">   String mime = format.getString(MediaFormat.KEY_MIME);</span><br><span class="line">   <span class="keyword">boolean</span> isVideoTrack = mime.startsWith(<span class="string">"video/“); //当前是不是视频轨，视频轨的MIME以”video/“开头，音频轨的MIME以“audio/”开头</span></span><br><span class="line"><span class="string">   if (isVideoTrack) &#123;</span></span><br><span class="line"><span class="string">     extractor.selectTrack(i);   //选择视轨,当确定感兴趣的轨道时，一定要选取！</span></span><br><span class="line"><span class="string">     int index = mediaMuxer.addTrack(format) //如果要进行这个视轨的合成合成器除了需要数据，也需要mediaMuxer需要设置当前视轨的format，在写入的时候也需要视轨的index</span></span><br><span class="line"><span class="string">   &#125;</span></span><br><span class="line"><span class="string"> &#125;</span></span><br><span class="line"><span class="string"> ByteBuffer inputBuffer = ByteBuffer.allocate(…)  //这个容量必须大一点，否则下面readSampleData会崩，实测是1000*1024可以</span></span><br><span class="line"><span class="string">//下面readSampleData会自动更新buffer的limit和postion，就和read，write一样</span></span><br><span class="line"><span class="string"> while (extractor.readSampleData(inputBuffer, ...) &gt;= 0) &#123;</span></span><br><span class="line"><span class="string">   int trackIndex = extractor.getSampleTrackIndex();</span></span><br><span class="line"><span class="string">   long presentationTimeUs = extractor.getSampleTime();</span></span><br><span class="line"><span class="string">   ...</span></span><br><span class="line"><span class="string">   extractor.advance(); //前进到下一个样本(下一个视频帧或音频帧)；readSampleData看起来不会自动更新读过的数据所以需要这个</span></span><br><span class="line"><span class="string"> &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> extractor.release();</span></span><br><span class="line"><span class="string"> extractor = null;</span></span><br></pre></td></tr></table></figure>
-
-<p>MediaMuxer可以复用基本流。 目前MediaMuxer支持MP4，Webm和3GP文件作为输出。 它还支持自Android Nougat以来在MP4中复用B帧。是extractor的反作用类型，用于把视频轨和音频轨进行合成,和MediaExtractor正好是反过程。<br>不支持mp3，wav音频源（AAC支持）<br>只能支持一个audio track和一个video track，</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//如下使用</span></span><br><span class="line">MediaMuxer muxer = <span class="keyword">new</span> MediaMuxer(<span class="string">"temp.mp4"</span>, OutputFormat.MUXER_OUTPUT_MPEG_4);</span><br><span class="line">mediaMuxer.setOrientationHint(<span class="number">90</span>); <span class="comment">//设置混合后视频的旋转角度</span></span><br><span class="line"> <span class="comment">// More often, the MediaFormat will be retrieved from MediaCodec.getOutputFormat()</span></span><br><span class="line"> <span class="comment">// or MediaExtractor.getTrackFormat().</span></span><br><span class="line"> MediaFormat audioFormat = <span class="keyword">new</span> MediaFormat(...);</span><br><span class="line"> MediaFormat videoFormat = <span class="keyword">new</span> MediaFormat(...);</span><br><span class="line"> <span class="keyword">int</span> audioTrackIndex = muxer.addTrack(audioFormat); <span class="comment">//返回的是混合器里的轨道号，也就是新文件里的轨道号</span></span><br><span class="line"> <span class="keyword">int</span> videoTrackIndex = muxer.addTrack(videoFormat);</span><br><span class="line"> ByteBuffer inputBuffer = ByteBuffer.allocate(bufferSize);</span><br><span class="line"> <span class="keyword">boolean</span> finished = <span class="keyword">false</span>;</span><br><span class="line"> BufferInfo bufferInfo = <span class="keyword">new</span> BufferInfo();</span><br><span class="line"></span><br><span class="line"> muxer.start(); <span class="comment">//开始混合</span></span><br><span class="line"> <span class="keyword">while</span>(!finished) &#123;</span><br><span class="line">   <span class="comment">// getInputBuffer() will fill the inputBuffer with one frame of encoded</span></span><br><span class="line">   <span class="comment">/* sample from either MediaCodec or MediaExtractor, set isAudioSample to true when the sample is audio data, set up all the fields of bufferInfo,and return true if there are no more samples.*/</span></span><br><span class="line">   finished = getInputBuffer(inputBuffer, isAudioSample, bufferInfo);</span><br><span class="line">   <span class="keyword">if</span> (!finished) &#123;</span><br><span class="line">     <span class="keyword">int</span> currentTrackIndex = isAudioSample ? audioTrackIndex : videoTrackIndex;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">bufferInfo.presentationTimeUs = extractor.getSampleTime(); //直接从extractor获取</span></span><br><span class="line"><span class="comment">bufferInfo.offset = 0;  //如果没有特殊需求一般是0</span></span><br><span class="line"><span class="comment">bufferInfo.flags = extractor.getSampleFlags();</span></span><br><span class="line"><span class="comment">bufferInfo.size = size;  //本次写入的数据量</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">     muxer.writeSampleData(currentTrackIndex, inputBuffer, bufferInfo); <span class="comment">//每次写入数据都要同时写入index和info，info要明确如上面几点，注意这里的index是新合成的视频的相应轨道，应该是由addTrack返回的值</span></span><br><span class="line">   &#125;</span><br><span class="line"> &#125;;</span><br><span class="line"> muxer.stop();</span><br><span class="line"> muxer.release();</span><br></pre></td></tr></table></figure>
-
-<p>元数据跟踪<br>每帧元数据用于携带与视频或音频相关的额外信息以便于离线处理，例如，来自传感器的陀螺仪信号可以在进行离线处理时帮助稳定视频。仅在MP4容器中支持元数据跟踪。添加新元数据轨道时，轨道的mime格式必须以前缀“application /”开头，例如“application/gyro”。元数据的格式/布局将由应用程序定义。写入元数据与编写视频/音频数据几乎相同，只是数据不会来自mediacodec。应用程序只需要将包含元数据的字节缓冲区以及相关的时间戳传递给writeSampleData（int，ByteBuffer，MediaCodec.BufferInfo）api。时间戳必须与视频和音频的时间基准相同。生成的MP4文件使用ISOBMFF的第12.3.3.2节中定义的TextMetaDataSampleEntry来表示元数据的mime格式。当使用MediaExtractor提取具有元数据轨道的文件时，元数据的mime格式将被提取到MediaFormat中。<br>//如下例，把陀螺仪信息也传给生成的MP4</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">MediaMuxer muxer = <span class="keyword">new</span> MediaMuxer(<span class="string">"temp.mp4"</span>, OutputFormat.MUXER_OUTPUT_MPEG_4);</span><br><span class="line"></span><br><span class="line">   <span class="comment">// SetUp Video/Audio Tracks.</span></span><br><span class="line"></span><br><span class="line">   MediaFormat audioFormat = <span class="keyword">new</span> MediaFormat(...);</span><br><span class="line"></span><br><span class="line">   MediaFormat videoFormat = <span class="keyword">new</span> MediaFormat(...);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> audioTrackIndex = muxer.addTrack(audioFormat);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> videoTrackIndex = muxer.addTrack(videoFormat);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="comment">// Setup Metadata Track</span></span><br><span class="line"></span><br><span class="line">   MediaFormat metadataFormat = <span class="keyword">new</span> MediaFormat(...);</span><br><span class="line"></span><br><span class="line">   metadataFormat.setString(KEY_MIME, <span class="string">"application/gyro"</span>);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> metadataTrackIndex = muxer.addTrack(metadataFormat);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   muxer.start();</span><br><span class="line"></span><br><span class="line">   <span class="keyword">while</span>(..) &#123;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// Allocate bytebuffer and write gyro data(x,y,z) into it.</span></span><br><span class="line"></span><br><span class="line">       ByteBuffer metaData = ByteBuffer.allocate(bufferSize);</span><br><span class="line"></span><br><span class="line">       metaData.putFloat(x);</span><br><span class="line"></span><br><span class="line">       metaData.putFloat(y);</span><br><span class="line"></span><br><span class="line">       metaData.putFloat(z);</span><br><span class="line"></span><br><span class="line">       BufferInfo metaInfo = <span class="keyword">new</span> BufferInfo();</span><br><span class="line"></span><br><span class="line">       <span class="comment">// Associate this metadata with the video frame by setting</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">// the same timestamp as the video frame.</span></span><br><span class="line"></span><br><span class="line">       metaInfo.presentationTimeUs = currentVideoTrackTimeUs;</span><br><span class="line"></span><br><span class="line">       metaInfo.offset = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">       metaInfo.flags = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">       metaInfo.size = bufferSize;</span><br><span class="line"></span><br><span class="line">       muxer.writeSampleData(metadataTrackIndex, metaData, metaInfo);</span><br><span class="line"></span><br><span class="line">   &#125;;</span><br><span class="line"></span><br><span class="line">   muxer.stop();</span><br><span class="line"></span><br><span class="line">   muxer.release();</span><br><span class="line"></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<p>MediaCodec类可用于访问低级媒体编解码器，即编码器/解码器组件。 它是Android低级多媒体支持基础架构的一部分（通常与MediaExtractor，MediaSync，MediaMuxer，MediaCrypto，MediaDrm，Image，Surface和AudioTrack一起使用。）</p>
-<p>从广义上讲，编解码器处理输入数据以生成输出数据。它异步处理数据并使用一组输入和输出缓冲区。在简单的级别，您请求（或接收）一个空的输入缓冲区，用数据填充它并将其发送到编解码器进行处理。编解码器使用数据并将其转换到它的空输出缓冲区之一。最后，您请求（或接收）到一个填充了数据的输出缓冲区，使用其内容并将其释放回编解码器。</p>
-<p>数据类型<br>编解码器对三种数据进行操作：压缩数据，原始音频数据和原始视频数据。可以使用ByteBuffers处理所有三种数据，但是您应该使用Surface for raw视频数据来提高编解码器性能。 Surface使用本机视频缓冲区而不映射或将它们复制到ByteBuffers;因此，效率更高。使用Surface时通常无法访问原始视频数据，但您可以使用ImageReader类访问不安全的解码（原始）视频帧。这可能仍然比使用ByteBuffers更有效，因为一些本机缓冲区可能会映射到直接ByteBuffers。使用ByteBuffer模式时，可以使用Image类和getInput / OutputImage（int）访问原始视频帧。</p>
-<p>原始音频缓冲区<br>原始音频缓冲区包含整个PCM音频数据帧，这是通道顺序中每个通道的一个样本。 每个样本都是本机字节顺序的16位有符号整数。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">short</span>[] getSamplesForChannel(MediaCodec codec, <span class="keyword">int</span> bufferId, <span class="keyword">int</span> channelIx) &#123;</span><br><span class="line"></span><br><span class="line">  ByteBuffer outputBuffer = codec.getOutputBuffer(bufferId);</span><br><span class="line"></span><br><span class="line">  MediaFormat format = codec.getOutputFormat(bufferId);</span><br><span class="line"></span><br><span class="line">  ShortBuffer samples = outputBuffer.order(ByteOrder.nativeOrder()).asShortBuffer();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> numChannels = formet.getInteger(MediaFormat.KEY_CHANNEL_COUNT);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (channelIx &lt; <span class="number">0</span> || channelIx &gt;= numChannels) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">short</span>[] res = <span class="keyword">new</span> <span class="keyword">short</span>[samples.remaining() / numChannels];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; res.length; ++i) &#123;</span><br><span class="line"></span><br><span class="line">    res[i] = samples.get(i * numChannels + channelIx);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//音频抽取后的format信息</span></span><br><span class="line"><span class="number">0</span> = &#123;HashMap$HashMapEntry@4594&#125; <span class="string">"mime"</span> -&gt; <span class="string">"audio/mp4a-latm"</span></span><br><span class="line"><span class="number">1</span> = &#123;HashMap$HashMapEntry@4595&#125; <span class="string">"aac-profile"</span> -&gt; <span class="string">"2"</span></span><br><span class="line"><span class="number">2</span> = &#123;HashMap$HashMapEntry@4596&#125; <span class="string">"channel-count"</span> -&gt; <span class="string">"2"</span></span><br><span class="line"><span class="number">3</span> = &#123;HashMap$HashMapEntry@4597&#125; <span class="string">"track-id"</span> -&gt; <span class="string">"1"</span></span><br><span class="line"><span class="number">4</span> = &#123;HashMap$HashMapEntry@4598&#125; <span class="string">"durationUs"</span> -&gt; <span class="string">"192911760"</span></span><br><span class="line"><span class="number">5</span> = &#123;HashMap$HashMapEntry@4599&#125; <span class="string">"csd-0"</span> -&gt; <span class="string">"java.nio.HeapByteBuffer[pos=0 lim=2 cap=2]"</span></span><br><span class="line"><span class="number">6</span> = &#123;HashMap$HashMapEntry@4600&#125; <span class="string">"sample-rate"</span> -&gt; <span class="string">"44100"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//视频抽取后的format信息</span></span><br><span class="line"><span class="number">0</span> = &#123;HashMap$HashMapEntry@4620&#125; <span class="string">"csd-1"</span> -&gt; <span class="string">"java.nio.HeapByteBuffer[pos=0 lim=8 cap=8]"</span></span><br><span class="line"><span class="number">1</span> = &#123;HashMap$HashMapEntry@4621&#125; <span class="string">"rotation-degrees"</span> -&gt; <span class="string">"90"</span></span><br><span class="line"><span class="number">2</span> = &#123;HashMap$HashMapEntry@4622&#125; <span class="string">"track-id"</span> -&gt; <span class="string">"1"</span></span><br><span class="line"><span class="number">3</span> = &#123;HashMap$HashMapEntry@4623&#125; <span class="string">"height"</span> -&gt; <span class="string">"1200"</span></span><br><span class="line"><span class="number">4</span> = &#123;HashMap$HashMapEntry@4624&#125; <span class="string">"profile"</span> -&gt; <span class="string">"1"</span></span><br><span class="line"><span class="number">5</span> = &#123;HashMap$HashMapEntry@4625&#125; <span class="string">"color-standard"</span> -&gt; <span class="string">"1"</span></span><br><span class="line"><span class="number">6</span> = &#123;HashMap$HashMapEntry@4626&#125; <span class="string">"durationUs"</span> -&gt; <span class="string">"2157877"</span></span><br><span class="line"><span class="number">7</span> = &#123;HashMap$HashMapEntry@4627&#125; <span class="string">"color-transfer"</span> -&gt; <span class="string">"3"</span></span><br><span class="line"><span class="number">8</span> = &#123;HashMap$HashMapEntry@4628&#125; <span class="string">"mime"</span> -&gt; <span class="string">"video/avc"</span></span><br><span class="line"><span class="number">9</span> = &#123;HashMap$HashMapEntry@4629&#125; <span class="string">"frame-rate"</span> -&gt; <span class="string">"30"</span></span><br><span class="line"><span class="number">10</span> = &#123;HashMap$HashMapEntry@4630&#125; <span class="string">"width"</span> -&gt; <span class="string">"1600"</span></span><br><span class="line"><span class="number">11</span> = &#123;HashMap$HashMapEntry@4631&#125; <span class="string">"color-range"</span> -&gt; <span class="string">"2"</span></span><br><span class="line"><span class="number">12</span> = &#123;HashMap$HashMapEntry@4632&#125; <span class="string">"max-input-size"</span> -&gt; <span class="string">"123106"</span></span><br><span class="line"><span class="number">13</span> = &#123;HashMap$HashMapEntry@4633&#125; <span class="string">"csd-0"</span> -&gt; <span class="string">"java.nio.HeapByteBuffer[pos=0 lim=21 cap=21]"</span></span><br><span class="line"><span class="number">14</span> = &#123;HashMap$HashMapEntry@4634&#125; <span class="string">"level"</span> -&gt; <span class="string">"2048"</span></span><br></pre></td></tr></table></figure>
-<p>这里要注意的是，要分清楚原视频中的视/音轨号和新合成的视频中的视/音轨号，一般来说前者是为了让extractor选中相应的轨道，而后者是在合成视频写数据的时候需要。这里犯了一个错就是提取视频轨的时候，视频轨在视频中的轨道号是0，提取音频帧时，音轨在音频中的轨道号也是0，实际给muxer添加轨道的时候，视轨被添加到了新视频的轨道0，音轨被添加到了新视频的轨道1。但写音频数据的时候仍往0号轨道写，就崩掉了报错：stop muxer failed</p>
-<p>具体工程代码见 <a href="https://github.com/lujianyun06/VATask/tree/master/app/src/main/java/com/example/lll/va/task4" target="_blank" rel="noopener">https://github.com/lujianyun06/VATask/tree/master/app/src/main/java/com/example/lll/va/task4</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/Android%20%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A17/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -657,6 +636,101 @@
 <p>可以看到/system 是可读写的：rw<br>此时退出adb shell，把已经编译好的新的日历apk push进手机</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb push ~/newapk/Calendar.apk /system/app/Calendar</span><br><span class="line">adb shell   </span><br><span class="line">reboot   //重启手机</span><br></pre></td></tr></table></figure>
 <p>此时就可以使用改后的calendar了<br>————————————————<br>版权声明：本文为CSDN博主「TheRockMaster」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/weixin_43752854/article/details/84647709" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43752854/article/details/84647709</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/Android%20%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A14/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/Android/Android%20%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A14/" class="post-title-link" itemprop="url">Android 音视频任务4</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 15:44:11 / 修改时间：16:08:27" itemprop="dateCreated datePublished" datetime="2020-04-10T15:44:11+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>任务4. 学习 Android 平台的 MediaExtractor 和 MediaMuxer API，知道如何解析和封装 mp4 文件</p>
+<ul>
+<li>MediaMuxer和MediaCodec算是比较年轻的，它们是JB 4.1和JB 4.3才引入的。前者用于将音频和视频进行混合生成多媒体文件。缺点是目前只能支持一个audio track和一个video track，目前支持mp4,3gp,webm输出</li>
+<li>MediaCodec用于将音视频进行压缩编码，它有个比较牛X的地方是可以对Surface内容进行编码，如KK 4.4中屏幕录像功能就是用它实现的。</li>
+<li>MediaFormat用于描述多媒体数据的格式。</li>
+<li>MediaRecorder用于录像+压缩编码，生成编码好的文件如mp4, 3gpp，视频主要是用于录制Camera preview。</li>
+<li>MediaPlayer用于播放压缩编码后的音视频文件。</li>
+<li>AudioRecord用于录制PCM数据。</li>
+<li>AudioTrack用于播放PCM数据。PCM即原始音频采样数据，可以用如vlc播放器播放。</li>
+</ul>
+<p>MediaExtractor可以从数据源中提取解复用的，编码后的媒体数据。MediaExtractor用于音视频分路,比如从一个视频中分别提取音频(音轨)和视频(视频轨)<br>它既可以从视频里提取视频轨或音频轨，也可以单从音频里提取音频轨</p>
+<p>//如下使用`</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">MediaExtractor extractor = <span class="keyword">new</span> MediaExtractor();</span><br><span class="line"> extractor.setDataSource(…);</span><br><span class="line"><span class="keyword">int</span> </span><br><span class="line"> <span class="keyword">int</span> numTracks = extractor.getTrackCount(); <span class="comment">//当前视频中有几个轨道</span></span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numTracks; ++i) &#123;</span><br><span class="line">   MediaFormat format = extractor.getTrackFormat(i);</span><br><span class="line">   String mime = format.getString(MediaFormat.KEY_MIME);</span><br><span class="line">   <span class="keyword">boolean</span> isVideoTrack = mime.startsWith(<span class="string">"video/“); //当前是不是视频轨，视频轨的MIME以”video/“开头，音频轨的MIME以“audio/”开头</span></span><br><span class="line"><span class="string">   if (isVideoTrack) &#123;</span></span><br><span class="line"><span class="string">     extractor.selectTrack(i);   //选择视轨,当确定感兴趣的轨道时，一定要选取！</span></span><br><span class="line"><span class="string">     int index = mediaMuxer.addTrack(format) //如果要进行这个视轨的合成合成器除了需要数据，也需要mediaMuxer需要设置当前视轨的format，在写入的时候也需要视轨的index</span></span><br><span class="line"><span class="string">   &#125;</span></span><br><span class="line"><span class="string"> &#125;</span></span><br><span class="line"><span class="string"> ByteBuffer inputBuffer = ByteBuffer.allocate(…)  //这个容量必须大一点，否则下面readSampleData会崩，实测是1000*1024可以</span></span><br><span class="line"><span class="string">//下面readSampleData会自动更新buffer的limit和postion，就和read，write一样</span></span><br><span class="line"><span class="string"> while (extractor.readSampleData(inputBuffer, ...) &gt;= 0) &#123;</span></span><br><span class="line"><span class="string">   int trackIndex = extractor.getSampleTrackIndex();</span></span><br><span class="line"><span class="string">   long presentationTimeUs = extractor.getSampleTime();</span></span><br><span class="line"><span class="string">   ...</span></span><br><span class="line"><span class="string">   extractor.advance(); //前进到下一个样本(下一个视频帧或音频帧)；readSampleData看起来不会自动更新读过的数据所以需要这个</span></span><br><span class="line"><span class="string"> &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> extractor.release();</span></span><br><span class="line"><span class="string"> extractor = null;</span></span><br></pre></td></tr></table></figure>
+
+<p>MediaMuxer可以复用基本流。 目前MediaMuxer支持MP4，Webm和3GP文件作为输出。 它还支持自Android Nougat以来在MP4中复用B帧。是extractor的反作用类型，用于把视频轨和音频轨进行合成,和MediaExtractor正好是反过程。<br>不支持mp3，wav音频源（AAC支持）<br>只能支持一个audio track和一个video track，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//如下使用</span></span><br><span class="line">MediaMuxer muxer = <span class="keyword">new</span> MediaMuxer(<span class="string">"temp.mp4"</span>, OutputFormat.MUXER_OUTPUT_MPEG_4);</span><br><span class="line">mediaMuxer.setOrientationHint(<span class="number">90</span>); <span class="comment">//设置混合后视频的旋转角度</span></span><br><span class="line"> <span class="comment">// More often, the MediaFormat will be retrieved from MediaCodec.getOutputFormat()</span></span><br><span class="line"> <span class="comment">// or MediaExtractor.getTrackFormat().</span></span><br><span class="line"> MediaFormat audioFormat = <span class="keyword">new</span> MediaFormat(...);</span><br><span class="line"> MediaFormat videoFormat = <span class="keyword">new</span> MediaFormat(...);</span><br><span class="line"> <span class="keyword">int</span> audioTrackIndex = muxer.addTrack(audioFormat); <span class="comment">//返回的是混合器里的轨道号，也就是新文件里的轨道号</span></span><br><span class="line"> <span class="keyword">int</span> videoTrackIndex = muxer.addTrack(videoFormat);</span><br><span class="line"> ByteBuffer inputBuffer = ByteBuffer.allocate(bufferSize);</span><br><span class="line"> <span class="keyword">boolean</span> finished = <span class="keyword">false</span>;</span><br><span class="line"> BufferInfo bufferInfo = <span class="keyword">new</span> BufferInfo();</span><br><span class="line"></span><br><span class="line"> muxer.start(); <span class="comment">//开始混合</span></span><br><span class="line"> <span class="keyword">while</span>(!finished) &#123;</span><br><span class="line">   <span class="comment">// getInputBuffer() will fill the inputBuffer with one frame of encoded</span></span><br><span class="line">   <span class="comment">/* sample from either MediaCodec or MediaExtractor, set isAudioSample to true when the sample is audio data, set up all the fields of bufferInfo,and return true if there are no more samples.*/</span></span><br><span class="line">   finished = getInputBuffer(inputBuffer, isAudioSample, bufferInfo);</span><br><span class="line">   <span class="keyword">if</span> (!finished) &#123;</span><br><span class="line">     <span class="keyword">int</span> currentTrackIndex = isAudioSample ? audioTrackIndex : videoTrackIndex;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">bufferInfo.presentationTimeUs = extractor.getSampleTime(); //直接从extractor获取</span></span><br><span class="line"><span class="comment">bufferInfo.offset = 0;  //如果没有特殊需求一般是0</span></span><br><span class="line"><span class="comment">bufferInfo.flags = extractor.getSampleFlags();</span></span><br><span class="line"><span class="comment">bufferInfo.size = size;  //本次写入的数据量</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">     muxer.writeSampleData(currentTrackIndex, inputBuffer, bufferInfo); <span class="comment">//每次写入数据都要同时写入index和info，info要明确如上面几点，注意这里的index是新合成的视频的相应轨道，应该是由addTrack返回的值</span></span><br><span class="line">   &#125;</span><br><span class="line"> &#125;;</span><br><span class="line"> muxer.stop();</span><br><span class="line"> muxer.release();</span><br></pre></td></tr></table></figure>
+
+<p>元数据跟踪<br>每帧元数据用于携带与视频或音频相关的额外信息以便于离线处理，例如，来自传感器的陀螺仪信号可以在进行离线处理时帮助稳定视频。仅在MP4容器中支持元数据跟踪。添加新元数据轨道时，轨道的mime格式必须以前缀“application /”开头，例如“application/gyro”。元数据的格式/布局将由应用程序定义。写入元数据与编写视频/音频数据几乎相同，只是数据不会来自mediacodec。应用程序只需要将包含元数据的字节缓冲区以及相关的时间戳传递给writeSampleData（int，ByteBuffer，MediaCodec.BufferInfo）api。时间戳必须与视频和音频的时间基准相同。生成的MP4文件使用ISOBMFF的第12.3.3.2节中定义的TextMetaDataSampleEntry来表示元数据的mime格式。当使用MediaExtractor提取具有元数据轨道的文件时，元数据的mime格式将被提取到MediaFormat中。<br>//如下例，把陀螺仪信息也传给生成的MP4</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">MediaMuxer muxer = <span class="keyword">new</span> MediaMuxer(<span class="string">"temp.mp4"</span>, OutputFormat.MUXER_OUTPUT_MPEG_4);</span><br><span class="line"></span><br><span class="line">   <span class="comment">// SetUp Video/Audio Tracks.</span></span><br><span class="line"></span><br><span class="line">   MediaFormat audioFormat = <span class="keyword">new</span> MediaFormat(...);</span><br><span class="line"></span><br><span class="line">   MediaFormat videoFormat = <span class="keyword">new</span> MediaFormat(...);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> audioTrackIndex = muxer.addTrack(audioFormat);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> videoTrackIndex = muxer.addTrack(videoFormat);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="comment">// Setup Metadata Track</span></span><br><span class="line"></span><br><span class="line">   MediaFormat metadataFormat = <span class="keyword">new</span> MediaFormat(...);</span><br><span class="line"></span><br><span class="line">   metadataFormat.setString(KEY_MIME, <span class="string">"application/gyro"</span>);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> metadataTrackIndex = muxer.addTrack(metadataFormat);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   muxer.start();</span><br><span class="line"></span><br><span class="line">   <span class="keyword">while</span>(..) &#123;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// Allocate bytebuffer and write gyro data(x,y,z) into it.</span></span><br><span class="line"></span><br><span class="line">       ByteBuffer metaData = ByteBuffer.allocate(bufferSize);</span><br><span class="line"></span><br><span class="line">       metaData.putFloat(x);</span><br><span class="line"></span><br><span class="line">       metaData.putFloat(y);</span><br><span class="line"></span><br><span class="line">       metaData.putFloat(z);</span><br><span class="line"></span><br><span class="line">       BufferInfo metaInfo = <span class="keyword">new</span> BufferInfo();</span><br><span class="line"></span><br><span class="line">       <span class="comment">// Associate this metadata with the video frame by setting</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">// the same timestamp as the video frame.</span></span><br><span class="line"></span><br><span class="line">       metaInfo.presentationTimeUs = currentVideoTrackTimeUs;</span><br><span class="line"></span><br><span class="line">       metaInfo.offset = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">       metaInfo.flags = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">       metaInfo.size = bufferSize;</span><br><span class="line"></span><br><span class="line">       muxer.writeSampleData(metadataTrackIndex, metaData, metaInfo);</span><br><span class="line"></span><br><span class="line">   &#125;;</span><br><span class="line"></span><br><span class="line">   muxer.stop();</span><br><span class="line"></span><br><span class="line">   muxer.release();</span><br><span class="line"></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>MediaCodec类可用于访问低级媒体编解码器，即编码器/解码器组件。 它是Android低级多媒体支持基础架构的一部分（通常与MediaExtractor，MediaSync，MediaMuxer，MediaCrypto，MediaDrm，Image，Surface和AudioTrack一起使用。）</p>
+<p>从广义上讲，编解码器处理输入数据以生成输出数据。它异步处理数据并使用一组输入和输出缓冲区。在简单的级别，您请求（或接收）一个空的输入缓冲区，用数据填充它并将其发送到编解码器进行处理。编解码器使用数据并将其转换到它的空输出缓冲区之一。最后，您请求（或接收）到一个填充了数据的输出缓冲区，使用其内容并将其释放回编解码器。</p>
+<p>数据类型<br>编解码器对三种数据进行操作：压缩数据，原始音频数据和原始视频数据。可以使用ByteBuffers处理所有三种数据，但是您应该使用Surface for raw视频数据来提高编解码器性能。 Surface使用本机视频缓冲区而不映射或将它们复制到ByteBuffers;因此，效率更高。使用Surface时通常无法访问原始视频数据，但您可以使用ImageReader类访问不安全的解码（原始）视频帧。这可能仍然比使用ByteBuffers更有效，因为一些本机缓冲区可能会映射到直接ByteBuffers。使用ByteBuffer模式时，可以使用Image类和getInput / OutputImage（int）访问原始视频帧。</p>
+<p>原始音频缓冲区<br>原始音频缓冲区包含整个PCM音频数据帧，这是通道顺序中每个通道的一个样本。 每个样本都是本机字节顺序的16位有符号整数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">short</span>[] getSamplesForChannel(MediaCodec codec, <span class="keyword">int</span> bufferId, <span class="keyword">int</span> channelIx) &#123;</span><br><span class="line"></span><br><span class="line">  ByteBuffer outputBuffer = codec.getOutputBuffer(bufferId);</span><br><span class="line"></span><br><span class="line">  MediaFormat format = codec.getOutputFormat(bufferId);</span><br><span class="line"></span><br><span class="line">  ShortBuffer samples = outputBuffer.order(ByteOrder.nativeOrder()).asShortBuffer();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> numChannels = formet.getInteger(MediaFormat.KEY_CHANNEL_COUNT);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (channelIx &lt; <span class="number">0</span> || channelIx &gt;= numChannels) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">short</span>[] res = <span class="keyword">new</span> <span class="keyword">short</span>[samples.remaining() / numChannels];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; res.length; ++i) &#123;</span><br><span class="line"></span><br><span class="line">    res[i] = samples.get(i * numChannels + channelIx);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//音频抽取后的format信息</span></span><br><span class="line"><span class="number">0</span> = &#123;HashMap$HashMapEntry@4594&#125; <span class="string">"mime"</span> -&gt; <span class="string">"audio/mp4a-latm"</span></span><br><span class="line"><span class="number">1</span> = &#123;HashMap$HashMapEntry@4595&#125; <span class="string">"aac-profile"</span> -&gt; <span class="string">"2"</span></span><br><span class="line"><span class="number">2</span> = &#123;HashMap$HashMapEntry@4596&#125; <span class="string">"channel-count"</span> -&gt; <span class="string">"2"</span></span><br><span class="line"><span class="number">3</span> = &#123;HashMap$HashMapEntry@4597&#125; <span class="string">"track-id"</span> -&gt; <span class="string">"1"</span></span><br><span class="line"><span class="number">4</span> = &#123;HashMap$HashMapEntry@4598&#125; <span class="string">"durationUs"</span> -&gt; <span class="string">"192911760"</span></span><br><span class="line"><span class="number">5</span> = &#123;HashMap$HashMapEntry@4599&#125; <span class="string">"csd-0"</span> -&gt; <span class="string">"java.nio.HeapByteBuffer[pos=0 lim=2 cap=2]"</span></span><br><span class="line"><span class="number">6</span> = &#123;HashMap$HashMapEntry@4600&#125; <span class="string">"sample-rate"</span> -&gt; <span class="string">"44100"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//视频抽取后的format信息</span></span><br><span class="line"><span class="number">0</span> = &#123;HashMap$HashMapEntry@4620&#125; <span class="string">"csd-1"</span> -&gt; <span class="string">"java.nio.HeapByteBuffer[pos=0 lim=8 cap=8]"</span></span><br><span class="line"><span class="number">1</span> = &#123;HashMap$HashMapEntry@4621&#125; <span class="string">"rotation-degrees"</span> -&gt; <span class="string">"90"</span></span><br><span class="line"><span class="number">2</span> = &#123;HashMap$HashMapEntry@4622&#125; <span class="string">"track-id"</span> -&gt; <span class="string">"1"</span></span><br><span class="line"><span class="number">3</span> = &#123;HashMap$HashMapEntry@4623&#125; <span class="string">"height"</span> -&gt; <span class="string">"1200"</span></span><br><span class="line"><span class="number">4</span> = &#123;HashMap$HashMapEntry@4624&#125; <span class="string">"profile"</span> -&gt; <span class="string">"1"</span></span><br><span class="line"><span class="number">5</span> = &#123;HashMap$HashMapEntry@4625&#125; <span class="string">"color-standard"</span> -&gt; <span class="string">"1"</span></span><br><span class="line"><span class="number">6</span> = &#123;HashMap$HashMapEntry@4626&#125; <span class="string">"durationUs"</span> -&gt; <span class="string">"2157877"</span></span><br><span class="line"><span class="number">7</span> = &#123;HashMap$HashMapEntry@4627&#125; <span class="string">"color-transfer"</span> -&gt; <span class="string">"3"</span></span><br><span class="line"><span class="number">8</span> = &#123;HashMap$HashMapEntry@4628&#125; <span class="string">"mime"</span> -&gt; <span class="string">"video/avc"</span></span><br><span class="line"><span class="number">9</span> = &#123;HashMap$HashMapEntry@4629&#125; <span class="string">"frame-rate"</span> -&gt; <span class="string">"30"</span></span><br><span class="line"><span class="number">10</span> = &#123;HashMap$HashMapEntry@4630&#125; <span class="string">"width"</span> -&gt; <span class="string">"1600"</span></span><br><span class="line"><span class="number">11</span> = &#123;HashMap$HashMapEntry@4631&#125; <span class="string">"color-range"</span> -&gt; <span class="string">"2"</span></span><br><span class="line"><span class="number">12</span> = &#123;HashMap$HashMapEntry@4632&#125; <span class="string">"max-input-size"</span> -&gt; <span class="string">"123106"</span></span><br><span class="line"><span class="number">13</span> = &#123;HashMap$HashMapEntry@4633&#125; <span class="string">"csd-0"</span> -&gt; <span class="string">"java.nio.HeapByteBuffer[pos=0 lim=21 cap=21]"</span></span><br><span class="line"><span class="number">14</span> = &#123;HashMap$HashMapEntry@4634&#125; <span class="string">"level"</span> -&gt; <span class="string">"2048"</span></span><br></pre></td></tr></table></figure>
+<p>这里要注意的是，要分清楚原视频中的视/音轨号和新合成的视频中的视/音轨号，一般来说前者是为了让extractor选中相应的轨道，而后者是在合成视频写数据的时候需要。这里犯了一个错就是提取视频轨的时候，视频轨在视频中的轨道号是0，提取音频帧时，音轨在音频中的轨道号也是0，实际给muxer添加轨道的时候，视轨被添加到了新视频的轨道0，音轨被添加到了新视频的轨道1。但写音频数据的时候仍往0号轨道写，就崩掉了报错：stop muxer failed</p>
+<p>具体工程代码见 <a href="https://github.com/lujianyun06/VATask/tree/master/app/src/main/java/com/example/lll/va/task4" target="_blank" rel="noopener">https://github.com/lujianyun06/VATask/tree/master/app/src/main/java/com/example/lll/va/task4</a></p>
 
       
     </div>
@@ -1016,104 +1090,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/%E5%B9%B6%E5%8F%91%E6%9C%BA%E5%88%B6%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="CloudLander~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CloudLander's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/java/%E5%B9%B6%E5%8F%91%E6%9C%BA%E5%88%B6%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">并发机制底层实现原理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:02:33" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>1.volatile<br>    volatile是轻量级的synchronized，它在多处理器开发中保证了共享变量的“可见性”。可见性的意思是当一个线程修改一个共享变量时，另外一个线程能读到这个修改的值。如果volatile变量修饰符使用恰当的话，它比synchronized的使用和执行成本更低，因为它不会引起线程上下文的切换和调度。</p>
-<p>volatile两条实现原则：</p>
-<ol>
-<li>Lock前缀指令会引起处理器缓存回写到内存。</li>
-<li>一个处理器的缓存回写到内存会导致其他处理器的缓存无效。<br> 在JDK 7的并发包里新增一个队列集合类LinkedTransferQueue，它在使用volatile变量时，用一种追加字节的方式来优化队列出队和入队的性能。（补足64个字节，使得缓存中的头尾节点不会被读到一个缓存行中，也就不能相互锁定）<br>不应该追加字节的场景：</li>
-</ol>
-<ul>
-<li>缓存行非64字节宽的处理器。</li>
-<li>共享变量不会被频繁地写。</li>
-</ul>
-<p>1.synchronized<br>    用synchronized实现同步的基础：Java中的每一个对象都可以作为锁。具体表现为以下3种形式。</p>
-<ul>
-<li>·对于普通同步方法，锁是当前实例对象。</li>
-<li>·对于静态同步方法，锁是当前类的Class对象。</li>
-<li>·对于同步方法块，锁是Synchonized括号里配置的对象。<br>  当一个线程试图访问同步代码块时，它首先必须得到锁，退出或抛出异常时必须释放锁。<br>（synchronized本质上是去获取对象对应的monitor的所有权）<br>synchronized用的锁是存在Java对象头里的。如果对象是数组类型，则虚拟机用3个字宽（Word）存储对象头，如果对象是非数组类型，则用2字宽存储对象头。在32位虚拟机中，1字宽等于4字节，即32bit，<br>在Java SE 1.6中，锁一共有4种状态，级别从低到高依次是：无锁状态、偏向锁状态、轻量级锁状态和重量级锁状态，这几个状态会随着竞争情况逐渐升级。锁可以升级但不能降级，意味着偏向锁升级成轻量级锁后不能降级成偏向锁。<br>》偏向锁<br>  大多数情况下，锁不仅不存在多线程竞争，而且总是由同一线程多次获得，为了让线程获得锁的代价更低而引入了偏向锁。当一个线程访问同步块并获取锁时，会在对象头和栈帧中的锁记录里存储锁偏向的线程ID，以后该线程在进入和退出同步块时不需要进行CAS操作来加锁和解锁，只需简单地测试一下对象头的Mark Word里是否存储着指向当前线程的偏向锁。</li>
-</ul>
-<blockquote>
-<p>偏向锁使用了一种等到竞争出现才释放锁的机制，所以当其他线程尝试竞争偏向锁时，持有偏向锁的线程才会释放锁。<br>    简单说就算获得它的线程退出后先不释放锁，下一次如果还是这个线程进入的话就不用再获取锁了， 只是去比较一下是否是偏向锁且锁的markword中的线程ID是否是当前ID，<br>    如果是的话，都不用CAS，就直接进入同步块了。 如果有别的线程来竞争的话，就撤销偏向锁标志了。</p>
-</blockquote>
-<p>》轻量级锁</p>
-<blockquote>
-<p>如果当前不是偏向锁，且线程通过CAS修改锁的markword成功了，则就将其标志为轻量级锁<br>如果CAS没成功，则一直自旋CAS，如果失败到一定程度，则认为膨胀为重量级锁，修改其锁标志，这个自旋的线程再进入阻塞状态。<br>任何去竞争对象锁的线程都有权利按照规则修改其对象头的锁标志（不管是否获取到锁），但对象头的markword中的指向的锁记录的栈帧所属的线程才是该线程获得锁的标志<br>如果有线程去尝试获得锁，发现是重量级锁，就不会自旋CAS了，而是直接进入阻塞</p>
-</blockquote>
-<p>在Java中可以通过锁和循环CAS的方式来实现原子操作。<br>(只有AtomicXXX才能使用CAS)</p>
-<p>CAS实现原子操作的三大问题</p>
-<ul>
-<li>ABA问题，java中使用AtomicStampedReference解决，这个类的compareAndSet方法的作用是首先检查当前引用是否等于预期引用，并且检查当前标志是否等于预期标志，如果全部相等，则以原子方式将该引用和该标志的值设置为给定的更新值。</li>
-<li>循环时间长开销大。自旋CAS如果长时间不成功，会给CPU带来非常大的执行开销。</li>
-<li>只能保证一个共享变量的原子操作。这个时候就可以用锁</li>
-</ul>
-<p>》使用锁机制实现原子操作<br>    锁机制保证了只有获得锁的线程才能够操作锁定的内存区域。JVM内部实现了很多种锁机制，有偏向锁、轻量级锁和互斥锁。有意思的是除了偏向锁，JVM实现锁的方式都用了循环CAS，即当一个线程想进入同步块的时候使用循环CAS的方式来获取锁，当它退出同步块的时候使用循环CAS释放锁。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1185,7 +1161,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

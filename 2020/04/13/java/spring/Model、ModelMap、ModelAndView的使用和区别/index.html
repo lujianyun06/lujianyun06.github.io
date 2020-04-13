@@ -20,21 +20,21 @@
     var CONFIG = {"hostname":"lujianyun06.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="在学习SSM框架中的SpringMVC时常常看到在控制层Controller中有的使用ModelAndView进行数据模型的传输，有的使用Model进行数据模型传输，为何有两种不同度类型进行传输呢？ 一.ModelAndView若返回类型为ModelAndView类型，需要方法结束时，定义ModelAndView,将model和view分别进行设置，代码方法如下：-数据传递：ModelAndVie">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://lujianyun06.github.io/2020/04/09/hello-world/index.html">
+<meta property="og:title" content="Model、ModelMap、ModelAndView的使用和区别">
+<meta property="og:url" content="https://lujianyun06.github.io/2020/04/13/java/spring/Model%E3%80%81ModelMap%E3%80%81ModelAndView%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E5%8C%BA%E5%88%AB/index.html">
 <meta property="og:site_name" content="CloudLander&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="在学习SSM框架中的SpringMVC时常常看到在控制层Controller中有的使用ModelAndView进行数据模型的传输，有的使用Model进行数据模型传输，为何有两种不同度类型进行传输呢？ 一.ModelAndView若返回类型为ModelAndView类型，需要方法结束时，定义ModelAndView,将model和view分别进行设置，代码方法如下：-数据传递：ModelAndVie">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-04-09T14:17:00.276Z">
-<meta property="article:modified_time" content="2020-04-10T05:35:33.678Z">
+<meta property="article:published_time" content="2020-04-13T07:06:15.000Z">
+<meta property="article:modified_time" content="2020-04-13T07:07:42.913Z">
 <meta property="article:author" content="CloudLander~Lu">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="后台开发">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://lujianyun06.github.io/2020/04/09/hello-world/">
+<link rel="canonical" href="https://lujianyun06.github.io/2020/04/13/java/spring/Model%E3%80%81ModelMap%E3%80%81ModelAndView%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E5%8C%BA%E5%88%AB/">
 
 
 <script id="page-configurations">
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>Hello World | CloudLander's Blog</title>
+  <title>Model、ModelMap、ModelAndView的使用和区别 | CloudLander's Blog</title>
   
 
 
@@ -190,7 +190,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/09/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/13/java/spring/Model%E3%80%81ModelMap%E3%80%81ModelAndView%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E5%8C%BA%E5%88%AB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
@@ -203,7 +203,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hello World
+          Model、ModelMap、ModelAndView的使用和区别
         </h1>
 
         <div class="post-meta">
@@ -212,16 +212,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-04-09 22:17:00" itemprop="dateCreated datePublished" datetime="2020-04-09T22:17:00+08:00">2020-04-09</time>
+              <time title="创建时间：2020-04-13 15:06:15 / 修改时间：15:07:42" itemprop="dateCreated datePublished" datetime="2020-04-13T15:06:15+08:00">2020-04-13</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-10 13:35:33" itemprop="dateModified" datetime="2020-04-10T13:35:33+08:00">2020-04-10</time>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
               </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+                </span>
+            </span>
 
           
 
@@ -234,19 +241,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>在学习SSM框架中的SpringMVC时常常看到在控制层Controller中有的使用ModelAndView进行数据模型的传输，有的使用Model进行数据模型传输，为何有两种不同度类型进行传输呢？</p>
+<h2 id="一-ModelAndView"><a href="#一-ModelAndView" class="headerlink" title="一.ModelAndView"></a>一.ModelAndView</h2><p>若返回类型为ModelAndView类型，需要方法结束时，定义ModelAndView,将model和view分别进行设置，代码方法如下：<br>-数据传递：ModelAndView通过addObject方法向页面传递数据；<br>-数据获取：JSP页面可以通过el表达式或C标签库的方法获取数据（与Model的获取方式相同）；<br>-return：return返回的是ModelAndView对象；</p>
+<p>ModelAndView设置跳转地址有两个方式：<br>    第一种：在new ModelAndView时添加地址参数，如：<br>        ModelAndView mav = new ModelAndView(“test”);<br>    第二种：使用ModelAndView的setViewname(String)方法去设置，如：<br>　　　　　　mav.setViewName(“test”);</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/products"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">products</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Product&gt; ps = productService.listProducts();</span><br><span class="line">    ModelAndView mav = <span class="keyword">new</span> ModelAndView();</span><br><span class="line">	mav.addObject(<span class="string">"ps"</span>, ps);</span><br><span class="line">    mav.setViewName(<span class="string">"products"</span>); <span class="comment">//视图名称(视图的全名称为products.html 或 products.jsp)</span></span><br><span class="line">    <span class="keyword">return</span> mav;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>主要步骤：</p>
+<p>1.首先是创建ModelAndView对象，再调用addObject方法，参数一为该数据命名，参数二为传入实际数据列表</p>
+<p>2.再调用setViewName方法设置jsp页面的路径，这里的地址前缀和后缀一般是定义好的（就像thymeleaf，前缀是classpath:/templates,后缀是.html, 要是设置的话，如果是springboot可以在配置文件中设置，mvc可以在web.xml中设置），可直接简写如上。如未有定义可以使用上方以注释的路径进行传入</p>
+<p>3.最后返回modelAndView数据</p>
+<h2 id="二-Model"><a href="#二-Model" class="headerlink" title="二.Model"></a>二.Model</h2><p>若方法返回String类型，则要使用Model,表示返回逻辑视图名，真正视图（jsp或html路径）=前缀+逻辑视图名+后缀，代码如下：</p>
+<p>-数据传递：Model是通过addAttribute方法向页面传递数据的；<br>-数据获取：JSP页面可以通过el表达式或C标签库的方法获取数据，当然html页面也可以获取，具体就用thymeleaf的标签来做<br>-return：return返回的是指定的页面名称；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/products"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">products</span><span class="params">(Model m)</span> </span>&#123;</span><br><span class="line">	List&lt;Product&gt; ps = productService.listProducts();</span><br><span class="line">	m.addAttribute(<span class="string">"ps"</span>, ps);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"products"</span>;  <span class="comment">////视图名称(视图的全名称为products.html 或 products.jsp)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>主要步骤：</p>
+<p>1.在方法括号中定义Model类型</p>
+<p>2.调用addAttribute方法，参数一为给数据命名，参数二为传入上面获取到的数据</p>
+<p>3.最后返回jsp页面的路径</p>
+<h2 id="三-ModelMap的使用"><a href="#三-ModelMap的使用" class="headerlink" title="三.ModelMap的使用"></a>三.ModelMap的使用</h2><p>　　ModelMap的使用与Model相同，ModelMap是一种特殊的Model，一般来说，Model可以接收各种类型的数据，如果接收的数据是List，那么这个时候Model实际上是ModelMap。</p>
+<h2 id="Model与ModelAndView的区别"><a href="#Model与ModelAndView的区别" class="headerlink" title="Model与ModelAndView的区别"></a>Model与ModelAndView的区别</h2><p>　　第一点：Model只是用来传输数据的，并不会进行业务的寻址。ModelAndView 却是可以进行业务寻址的；所以Model的返回值是视图名称，而ModelAndView的返回值是ModelAndView对象；</p>
+<p>　　第二点：Model是每一次请求可以自动创建，但是ModelAndView 是需要我们自己去new的。所以使用Model时Controller方法的参数是Model。</p>
 
     </div>
 
@@ -261,11 +273,11 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/04/10/java/spring/%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8&%E4%BD%BF%E7%94%A8aop%E6%97%B6%E6%B3%A8%E5%85%A5%E5%B1%9E%E6%80%A7%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/" rel="next" title="循环引用&使用aop时注入属性失效的问题">
-      循环引用&使用aop时注入属性失效的问题 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/04/11/hexo/hexo-Next%E4%B8%BB%E9%A2%98%E8%AF%A6%E7%BB%86%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E/" rel="prev" title="hexo+Next主题详细配置说明">
+      <i class="fa fa-chevron-left"></i> hexo+Next主题详细配置说明
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -324,7 +336,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-ModelAndView"><span class="nav-number">1.</span> <span class="nav-text">一.ModelAndView</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-Model"><span class="nav-number">2.</span> <span class="nav-text">二.Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-ModelMap的使用"><span class="nav-number">3.</span> <span class="nav-text">三.ModelMap的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model与ModelAndView的区别"><span class="nav-number">4.</span> <span class="nav-text">Model与ModelAndView的区别</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
