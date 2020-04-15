@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lujianyun06.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="找到无序数组中最小的k个数：给定一个无序的整型数组arr，找到其中最小的k个数如果数组arr长度为N，排序后自然可以得到最小的k个数，此时时间复杂度与排序的时间复杂度相同，均为O(NlogN)。本题要求读者实现时间复杂度为O(Nlogk)和O(N)的方法 O(Nlogk):一直维护有k个数的大根堆，这个堆代表目前选出的k个最小的数，在堆里的k个元素中堆顶的元素是最小的k个数里最大的那个。接下来遍历">
+<meta property="og:type" content="article">
+<meta property="og:title" content="找到无序数组中最小的k个数">
+<meta property="og:url" content="https://lujianyun06.github.io/2020/04/15/%E7%AE%97%E6%B3%95/%E6%89%BE%E5%88%B0%E6%97%A0%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9C%80%E5%B0%8F%E7%9A%84k%E4%B8%AA%E6%95%B0/index.html">
+<meta property="og:site_name" content="CloudLander&#39;s Blog">
+<meta property="og:description" content="找到无序数组中最小的k个数：给定一个无序的整型数组arr，找到其中最小的k个数如果数组arr长度为N，排序后自然可以得到最小的k个数，此时时间复杂度与排序的时间复杂度相同，均为O(NlogN)。本题要求读者实现时间复杂度为O(Nlogk)和O(N)的方法 O(Nlogk):一直维护有k个数的大根堆，这个堆代表目前选出的k个最小的数，在堆里的k个元素中堆顶的元素是最小的k个数里最大的那个。接下来遍历">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-15T07:27:33.000Z">
+<meta property="article:modified_time" content="2020-04-15T07:28:40.436Z">
+<meta property="article:author" content="CloudLander~Lu">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="后台开发">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://lujianyun06.github.io/2020/04/15/%E7%AE%97%E6%B3%95/%E6%89%BE%E5%88%B0%E6%97%A0%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9C%80%E5%B0%8F%E7%9A%84k%E4%B8%AA%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>找到无序数组中最小的k个数 | CloudLander's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">CloudLander's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">0</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">12</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">35</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/15/%E7%AE%97%E6%B3%95/%E6%89%BE%E5%88%B0%E6%97%A0%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9C%80%E5%B0%8F%E7%9A%84k%E4%B8%AA%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          找到无序数组中最小的k个数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-15 15:27:33 / 修改时间：15:28:40" itemprop="dateCreated datePublished" datetime="2020-04-15T15:27:33+08:00">2020-04-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>找到无序数组中最小的k个数：<br>给定一个无序的整型数组arr，找到其中最小的k个数<br>如果数组arr长度为N，排序后自然可以得到最小的k个数，此时时间复杂度与排序的时间复杂度相同，均为O(NlogN)。本题要求读者实现时间复杂度为O(Nlogk)和O(N)的方法</p>
+<p>O(Nlogk):一直维护有k个数的大根堆，这个堆代表目前选出的k个最小的数，在堆里的k个元素中堆顶的元素是最小的k个数里最大的那个。接下来遍历整个数组，遍历的过程中看档期数是否比堆顶元素小，如果是，就把堆顶元素替换成档期的数，然后从堆顶的位置调整整个堆，让替换操作后堆的最大元素继续处在堆顶的位置；如果不是，则不进行任何操作，继续遍历下一个数；在遍历完成后，堆中的k个数就是所有数组中最小的k个数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] getMinKNumsByHeap(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> k)&#123;</span><br><span class="line">    <span class="keyword">if</span>(k&lt;<span class="number">1</span> || k&gt;arr.length)&#123;</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span>[] kHeap = <span class="keyword">new</span> <span class="keyword">int</span>[k];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i!=arr.length;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(arr[i]&lt;kHeap[<span class="number">0</span>])&#123;</span><br><span class="line">            kHeap[<span class="number">0</span>] = arr[i];</span><br><span class="line">            heapify(kHeap, <span class="number">0</span>, k);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> kHeap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">heapInsert</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> value, <span class="keyword">int</span> index)</span></span>&#123;</span><br><span class="line">    arr[index] = value;</span><br><span class="line">    <span class="keyword">while</span>(index!=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">int</span> parent = (index-<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(arr[parent] &lt; arr[index])&#123;</span><br><span class="line">            swap(arr, parent, index);</span><br><span class="line">            index = parent;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">heapify</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> index, <span class="keyword">int</span> heapSize)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> left = index * <span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> right = index * <span class="number">2</span>+<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> largest = index;</span><br><span class="line">    <span class="keyword">while</span>(left &lt; heapSize)&#123;</span><br><span class="line">        <span class="keyword">if</span>(arr[left] &gt; arr[index])&#123;</span><br><span class="line">            largest = left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(right &lt; heapSize &amp;&amp; arr[right] &gt; arr[largest])&#123;</span><br><span class="line">            largest = right;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(largest!=index)&#123;</span><br><span class="line">            swap(arr, largest, index);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        index = largest;</span><br><span class="line">        left = index * <span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line">        right = index * <span class="number">2</span>+<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> index1, <span class="keyword">int</span> index2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> tmp = arr[index1];</span><br><span class="line">    arr[index1] = arr[index2];</span><br><span class="line">    arr[index2] = tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>O(N)：BFPRT算法：在时间复杂度O(n)内，从无序的数组中找到第k小的数，显而易见的是，如果我们找到了第k小的数，那么想求arr中最小的k个数，就算再遍历一遍数组的而工作量而已。<br>假设BFPRT算法的函数是int select(int[] arr, k)，该函数的功能为在arr中找到第k小的数，然后返回该数，select(arr, k)过程如下：</p>
+<ol>
+<li>将arr中的n个元素划分成n/5组，每组5个元素，如果最后的组不够5个元素，那么最后剩下的元素为一组(n%5个元素)。</li>
+<li>对每个组进行插入排序，只针对每个组最多五个元素之间的组内排序，组与组之间并不排序，排序后找到每个组的中位数，如果组的元素个数为偶数，则规定找到下中位数</li>
+<li>步骤2中一共会找到n/5个中位数，让这些中位数组成一个新的数组，记为mArr，递归调用select(mArr, mArr.length/2),意义是找到mArr这个数组中的中位数，即mArr中第mArr.length/2小的数</li>
+<li>假设步骤3中递归调用select(mArr, mArr.length/2)后，返回的数为x，根据这个x划分整个arr数组（partition过程），划分的过程为：在arr中，比x小的数都在x的左边，大于x的数都在x的右边，x在中间。假设划分完成后，x在arr中的位置记为i：</li>
+<li>如果i==k，说明x为整个数组中第k小的数，直接返回<br>如果i&lt; k,说明x处在第k小的数的左边，则应该在x的右边寻找第k小的数，所以递归调用select函数， 在左半区寻找第k小的数。<br>如果i&gt;k,说明x处在第k小的数的右边，应该在x的左边寻找第k小的数，所以递归调用select函数，在右半区寻找第(i-k小的数)</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] getMinKNumsByBFPRT(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> k)&#123;</span><br><span class="line">    <span class="keyword">if</span>(k&lt;<span class="number">1</span> || k &gt; arr.length)&#123;</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//找到第k小的数</span></span><br><span class="line">    <span class="keyword">int</span> minKth = getMinKthByBFPRT(arr, k);</span><br><span class="line">    <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[k];</span><br><span class="line">    <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//把所有小于minKth的数放入res中</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i!=arr.length;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(arr[i]&lt;minKth)&#123;</span><br><span class="line">            res[index++] = arr[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果不够，则说明要填充这个数</span></span><br><span class="line">    <span class="keyword">for</span>(; index!=res.length;index++)&#123;</span><br><span class="line">        res[index] = minKth;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMinKthByBFPRT</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> K)</span></span>&#123;</span><br><span class="line">    <span class="comment">//为了不修改原数组，在拷贝数组上操作</span></span><br><span class="line">    <span class="keyword">int</span>[] copyArr = copyArray(arr);</span><br><span class="line">    <span class="keyword">return</span> select(copyArr, <span class="number">0</span>, copyArr.length-<span class="number">1</span>, K-<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//拷贝数组</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] copyArray(<span class="keyword">int</span>[] arr)&#123;</span><br><span class="line">    <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[arr.length];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i!=res.length;i++)&#123;</span><br><span class="line">        res[i] = arr[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//核心筛选函数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">select</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> begin, <span class="keyword">int</span> end, <span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(begin == end)&#123;</span><br><span class="line">        <span class="keyword">return</span> arr[begin];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//找到中间数字</span></span><br><span class="line">    <span class="keyword">int</span> pivot = medianOfMedians(arr, begin, end);</span><br><span class="line">    <span class="comment">//以这个数字为枢轴，对大于他和小于他的数进行左右分开，也就是说，枢轴会被放置到它应该在的位置上</span></span><br><span class="line">    <span class="keyword">int</span>[] pivotRange = partition(arr, begin, end ,pivot);</span><br><span class="line">    <span class="comment">//如果这个枢轴就是要找的数，直接返回</span></span><br><span class="line">    <span class="keyword">if</span>(i&gt;=pivotRange[<span class="number">0</span>] &amp;&amp; i&lt;=pivotRange[<span class="number">1</span>])&#123;</span><br><span class="line">        <span class="keyword">return</span> arr[i];</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(i&lt;pivotRange[<span class="number">0</span>])&#123; <span class="comment">//如果i小于这个枢轴索引，说明i对应的数应该在前面，则继续筛选</span></span><br><span class="line">        <span class="keyword">return</span> select(arr, begin, pivotRange[<span class="number">0</span>]-<span class="number">1</span>, i);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;  <span class="comment">//如果i大于这个枢轴索引，说明i对应的数应该在后面，则继续筛选</span></span><br><span class="line">        <span class="keyword">return</span> select(arr, pivotRange[<span class="number">1</span>]+<span class="number">1</span>, end, i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">medianOfMedians</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> begin, <span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">    <span class="comment">//把整个数组5个5个分为一组</span></span><br><span class="line">    <span class="keyword">int</span> num = end - begin + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> offset = num % <span class="number">5</span> ==<span class="number">0</span>?<span class="number">0</span>:<span class="number">1</span>;</span><br><span class="line">    <span class="comment">//mArr是所有小区间中中间数组成的新数组</span></span><br><span class="line">    <span class="keyword">int</span>[] mArr = <span class="keyword">new</span> <span class="keyword">int</span>[num/<span class="number">5</span>+offset];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;mArr.length;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> beginI = begin+i*<span class="number">5</span>;</span><br><span class="line">        <span class="keyword">int</span> endI = beginI + <span class="number">4</span>;</span><br><span class="line">        <span class="comment">//mArr[i]是这个小区间内排序后的中间数</span></span><br><span class="line">        mArr[i] = getMedian(arr, beginI, Math.min(end, endI));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//继续进行筛选，最终找出的是整个数组中最中间的数（但是却不用把整个数组进行排序）</span></span><br><span class="line">    <span class="keyword">return</span> select(mArr, <span class="number">0</span>, mArr.length-<span class="number">1</span>, mArr.length / <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//对数组进行划分，即找到枢轴值的位置，并且让该值左边都是小于他，右边都是大于他</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] partition(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> begin, <span class="keyword">int</span> end, <span class="keyword">int</span> pivotValue)&#123;</span><br><span class="line">    <span class="keyword">int</span> small = begin-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> cur = begin;</span><br><span class="line">    <span class="keyword">int</span> big = end +<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(cur!=big)&#123;</span><br><span class="line">        <span class="keyword">if</span>(arr[cur] &lt; pivotValue)&#123;</span><br><span class="line">            swap(arr, ++small, cur++);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(arr[cur] &gt; pivotValue)&#123;</span><br><span class="line">            swap(arr, cur, --big);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            cur++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span>[] range = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">    range[<span class="number">0</span>] = small + <span class="number">1</span>;</span><br><span class="line">    range[<span class="number">1</span>] = big - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> range;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//对arr进行插入排序，然后找到最中间的数，返回</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMedian</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> begin, <span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">    insertionSort(arr, begin, end);</span><br><span class="line">    <span class="keyword">int</span> sum = end + begin;</span><br><span class="line">    <span class="keyword">int</span> mid = (sum/<span class="number">2</span>) + (sum % <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">return</span> arr[mid];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertionSort</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> begin, <span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=begin+<span class="number">1</span>; i!=end+<span class="number">1</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j!=begin;j--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(arr[j-<span class="number">1</span>]&gt;arr[j])&#123;</span><br><span class="line">                swap(arr, j-<span class="number">1</span>, j);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> index1, <span class="keyword">int</span> index2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> tmp = arr[index1];</span><br><span class="line">    arr[index1] = arr[index2];</span><br><span class="line">    arr[index2] = tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/13/java/spring/Model%E3%80%81ModelMap%E3%80%81ModelAndView%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E5%8C%BA%E5%88%AB/" rel="prev" title="Model、ModelMap、ModelAndView的使用和区别">
+      <i class="fa fa-chevron-left"></i> Model、ModelMap、ModelAndView的使用和区别
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CloudLander~Lu"
+      src="/images/lu.jpg">
+  <p class="site-author-name" itemprop="name">CloudLander~Lu</p>
+  <div class="site-description" itemprop="description">记录学习生活，力求每日进步</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lujianyun06" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lujianyun06" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lujianyun66@163.com" title="E-Mail → mailto:lujianyun66@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fas fa-cloud"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CloudLander~Lu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
