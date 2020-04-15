@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/mybatis/mybatis%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD/">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/mybatis/Mybatis%E8%A7%A3%E5%86%B3n+1%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/04/10/java/mybatis/mybatis%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD/" class="post-title-link" itemprop="url">mybatis的懒加载</a>
+            <a href="/2020/04/10/java/mybatis/Mybatis%E8%A7%A3%E5%86%B3n+1%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Mybatis解决n+1问题</a>
         </h2>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:21:19" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:18:18" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -239,37 +239,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="MyBatis-是否支持延迟加载（懒加载）？延迟加载的原理是什么？"><a href="#MyBatis-是否支持延迟加载（懒加载）？延迟加载的原理是什么？" class="headerlink" title="MyBatis 是否支持延迟加载（懒加载）？延迟加载的原理是什么？"></a>MyBatis 是否支持延迟加载（懒加载）？延迟加载的原理是什么？</h1><p>延迟加载的原理的是调用的时候触发加载，而不是在初始化的时候就加载信息。比如调用 a. getB(). getName()，这个时候发现 a. getB() 的值为 null，此时会单独触发事先保存好的关联 B 对象的 SQL，先查询出来 B，然后再调用 a. setB(b)，而这时候再调用 a. getB(). getName() 就有值了，这就是延迟加载的基本原理。其本质是将整个查询的结果包装成一个代理，当要进行属性加载时，调用其被代理的一些方法，再从数据库中查<br>MyBatis 支持延迟加载，设置 lazyLoadingEnabled=true 即可（全局懒加载）。或者单独属性的懒加载(fetchType=lazy)</p>
-<p>如果使用了config文件<br>则设置：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"lazyLoadingEnabled"</span> <span class="attr">value</span>=<span class="string">"true”/&gt;</span></span></span><br><span class="line"><span class="tag"><span class="string">    ...</span></span></span><br><span class="line"><span class="tag"><span class="string">&lt;/settings&gt;</span></span></span><br></pre></td></tr></table></figure>
-<p>如果是在application.properties中加载配置，则使用：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mybatis.configuration.lazy-loading-enabled</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+          <p>简介<br>在orm框架中，比如hibernate和mybatis都可以设置关联对象，比如user对象关联dept<br>假如查询出n个user，那么需要做n次查询dept，查询user是一次select，查询user关联的<br>dept，是n次，所以是n+1问题，其实叫1+n更为合理一些。</p>
+<p>mybatis配置<br>UserMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"BaseResultMap"</span> <span class="attr">type</span>=<span class="string">"testmaven.entity.User"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"name"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"age"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"age"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"deptId"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"eager"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><strong>注意，二者只能有一个！</strong></p>
-<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">注意！如果在application.properties中指定了配置文件，那就不能再在application.properties中设置任何mybatis的配置，</span><br><span class="line">也就是不能再设置任何以 “mybatis.<span class="keyword">configuration</span>.XXX” 开头的属性</span><br><span class="line">否则会报错：</span><br><span class="line"><span class="keyword">Property</span> <span class="symbol">'configuration</span>' <span class="keyword">and</span> <span class="symbol">'configLocation</span>' can <span class="keyword">not</span> specified <span class="keyword">with</span> together</span><br></pre></td></tr></table></figure>
+<p>DeptMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectByPrimaryKey"</span> <span class="attr">resultMap</span>=<span class="string">"BaseResultMap"</span> <span class="attr">parameterType</span>=<span class="string">"java.lang.Integer"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">select</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"Base_Column_List"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">from dept</span><br><span class="line"></span><br><span class="line">where id = #&#123;id,jdbcType=INTEGER&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们可以看到user通过association中的dept_id关联了dept，查询user后，比如查询到4个user，那么会执行4次查询dept；</p>
+<p>测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+<p>打印jdbc log我们能看到，查询到4个user，然后执行了4次查询dept<br><img src="https://img-blog.csdn.net/20180321223842327?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L3cwNTk4MDU5OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="select1"></p>
+<p>1+n带来的问题<br>查询主数据，是1次查询，查询出n条记录；根据这n条主记录，查询从记录，共需要n次，所以叫数据库1+n问题；这样会带来性能问题，比如，查询到的n条记录，我可能只用到其中1条，但是也执行了n次从记录查询，这是不合理的。为了解决这个问题，出现了懒加载，懒加载就是用到的时候再查询；我们设置association元素中的fetchType fetchType=lazy</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">fetchType</span>=<span class="string">"lazy"</span> <span class="attr">select</span>=<span class="string">"testmaven.mapper.DeptMapper.selectByPrimaryKey"</span> &gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">我们再做测试</span><br></pre></td></tr></table></figure>
 
-<p>可以在resultMap中具体的association或者collection中可以用fetchType=lazy/eager 来覆盖掉全局的懒加载属性</p>
-<p>对于fetchType的使用，可以不开启lazyLoadingEnabled的情况下单独使用，也是生效的，也可以在开启lazyLoadingEnabled的情况下使用，这样设置了fetchType的属性的加载策略会忽略全局的加载策略。</p>
-<p>对于级联查询，就可以单独使用fetchType=lazy的方式来解决N+1的问题</p>
-<p>如果设置了懒加载（不论是fetchtype还是lazyLoadingEnabled），那么实体类会产生了一个代理，代理中有一个handler属性，这个属性类没有实现序列化接口，无法被加到json中，所以需要在类上注解@JsonIgnoreProperties(value = {“handler”})来把它忽略掉<br>如果不加这个注解，会报如下错：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; list = userMapper.selectByExample(<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">User u = list.get(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(u.getClass());</span><br><span class="line"></span><br><span class="line">System.out.println(u.getName());</span><br></pre></td></tr></table></figure>
+<p>jdbc log<br><img src="https://img-blog.csdn.net/20160831220618291" alt="jdbc log" title="jdbc log"></p>
+<p>懒加载 减少了性能消耗，一定程度上缓解了1+n带来的性能问题</p>
 <blockquote>
-<p>Could not write JSON: No serializer found for class org.apache.ibatis.executor.loader.javassist.JavassistProxyFactory$EnhancedResultObjectProxyImpl and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS);</p>
+<p>总结<br>1+n问题是什么？应该怎样解决？</p>
 </blockquote>
-<p>有时候懒加载看起来没起作用，实际上是一些方法被暗地调用导致懒属性被加载<br>lazyLoadTriggerMethods属性可以设置当调用对象的某些方法可能会导致该对象属性的懒加载被触发，</p>
-<p>默认值：equals,clone,hashCode,toString（也就是说，当调用对象的这些方法时，对象的懒属性都会被加载）<br>配置文件中加入了这个设置：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"lazyLoadTriggerMethods"</span> <span class="attr">value</span>=<span class="string">"”/&gt;  </span></span></span><br><span class="line"><span class="tag"><span class="string">&lt;!-- 表示调用任何方法都不会触发懒加载，除非直接调用该对象的被懒加载的属性及其方法（如A.b，或者A.b.getName() 这样） --&gt;</span></span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>1+n是执行一次查询获取n条主数据后，由于关联引起的执行n次查询从数据；它带来了性能问题；一般来说，通过懒加载 可以部分缓解1+n带来的性能问题</p>
+</blockquote>
 
-<p> 附上文档上的说明：<br>lazyLoadTriggerMethods：指定哪个对象的方法触发一次延迟加载。<br>比如，当我打印对象时，由于触发了 toString 方法，所以触发了一次懒加载，该对象的所有级联属性就会被加载</p>
-<p><strong>陷阱：</strong><br>有的时候这些方法可能会被框架在无意中自动触发而导致懒属性被加载(尤其是toString和hashCode，很多时候不知道在哪就被调用了，结果看起来好像是懒加载没起作用)，所以如果不是很明确地需要触发加载的方法时，最好把lazyLoadTriggerMethods这个属性设为空，或者设置为自己能控制调用的方法。</p>
-<p>关于对象转化成Json传输时懒加载不起作用的问题<br>在设置了懒加载后，在本地验证的时候，懒加载确实是起作用的，但是，当把对象转为json传输的时候，由于要调用相应属性来完成序列化，所以仍然是要对其属性进行加载的。比如</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Class A&#123;</span><br><span class="line">    List&lt;B&gt; b;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">type</span> = <span class="string">A</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">collection</span> …<span class="attr">property</span>=<span class="string">b</span> <span class="attr">ofType</span>=<span class="string">B</span> <span class="attr">fetchType</span>=<span class="string">lazy</span> <span class="attr">...</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在本地跑单元测试时，可以发现a对象的b属性只要不调用，而且不去调用A对象可能会触发懒加载的方法，则b属性始终为空，除非像调用了类似a.b，即要用到相应的属性时，才会触发读数据库加载数据。但是呢，如果把对象a当做json去传输时，它的b对象也是会被加载的，因为在序列化时，会调用相应的属性及其方法，这时就会触发加载去数据库读b的数据。那么想让a对象传输时不加载且不传输b的话，解决办法如下：</p>
-<p>首先是要设置懒加载，即要么开启全局的懒加载lazyLoadingEnabled”设置，要么单独对A的属性b设置fetchType=lazy<br>    在A的类上标注@JsonIgnoreProperties(value = {“handler”, “b”}) 这个意思是json序列化时要忽略掉哪些属性，首先handler是必须要忽略的，因为懒加载后对象其实是一个代理，被自动加上了handler属性，它没有实现序列化接口，所以要排除；而且把b属性给排除掉，表明序列化时会忽略b属性，那么序列化时就不会调用任何关于b的方法了。这样的话，在客户端得到的A对象中是没有b属性的，而且查看sql的调用，发现也是没有去查找B表的。</p>
-<pre><code> 但要注意的是，如果不开启懒加载开关，只是设置了@JsonIgnoreProperties，那么其实相应的属性还是会被加载（即会去查相应属性的表），但查到属性后，不把它序列化到json中，所以客户端还是看不到这个属性，但事实上对于数据库来说是已经查了的。
-
-而如果不标注忽略属性，仅仅把想要不序列化的对象设置为transient，是不起作用的，还是会被序列化，这里猜测应该是序列化为json时和普遍意义上的序列化还是有所差别的，还是对调用对应属性的方法，这样就还是会触发懒加载</code></pre>
       
     </div>
 
@@ -344,6 +336,107 @@
 <p>dispatcherServlet让把请求放进入链中，先执行所有拦截器的preHandle方法，执行完后准备去真正的handle方法（即controller的对应方法）。首先使用解析类解析handle方法的参数，包括@RequestParam、@RequestBody、@PathVariable注解的参数，从请求中提取出这些参数的值，并把它们连同请求一起交给handle方法，在handle中执行真正的业务逻辑。在handle方法处理结束之后，再使用一些处理类处理handle方法的返回值，处理完后合并进响应，再去执行所有拦截器的postHandle方法。之后把返回值交给dispatcherServlet，如果返回的是一个ModelAndView，则把它交给视图解析器去解析，由它解析出相应的视图（即html、jsp、xml等）并写到响应中，此时还要执行所有拦截器的afterCompletion再做处理。</p>
 <p>然后，把最终处理完成的响应返回给客户。</p>
 <p>另：过滤器在dispatcherServlet的前面，如果有过滤器，则请求进来时先进过滤器链，再进dispatcherServlet。响应走时先通过dispatcherServlet，然后再通过过滤器链<br><img src="https://img-blog.csdnimg.cn/20200211165844244.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/" class="post-title-link" itemprop="url">springboot 静态资源无法访问以及添加静态资源无法立即访问</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:08:18" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="springboot-静态资源无法访问"><a href="#springboot-静态资源无法访问" class="headerlink" title="springboot 静态资源无法访问"></a>springboot 静态资源无法访问</h2><blockquote>
+<p>在一个项目中WebMvcConfigurationSupport只能存在一个，多个的时候，只有一个会生效。（按名称排序后第一个的）</p>
+</blockquote>
+<p>1.SpringBoot 的 @EnableAutoConfiguration 会启用自动配置类 </p>
+<p>2.WebMvcAutoConfiguration，该类配置了一些默认的静态资源映射</p>
+<ul>
+<li>自动映射 localhost:8080/** 为以下路径<pre><code>classpath:/resources/
+classpath:/static/
+classpath:/public/
+classpath:/META-INF/resources/</code></pre><ol start="2">
+<li>自动映射 localhost:8080/webjars/** 为以下路径<br> classpath:/META-INF/resources/webjars/</li>
+</ol>
+</li>
+</ul>
+<p>此时，我们不需要多做什么，只要将静态资源放入 src/main/resources 目录下的 resources、static 或 public 文件夹下，即可通过 url 定位相关资源，例如 localhost:8080/index.html 可定位至 src/main/resources/static/index.html</p>
+<p><strong>但是！</strong><br>一旦使用继承了WebMvcConfigurationSupport或者WebMvcConfigurerAdapter的自定义配置类，即使没有重写addResourceHandlers方法，默认配置都会被不被采用。如果要采用原本默认的配置，则需要webmvc配置类中重写如下方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoWebMvcConfigurerAdapter</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//配置静态资源处理</span></span><br><span class="line">        registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"resources/"</span>, <span class="string">"static/"</span>, <span class="string">"public/"</span>, </span><br><span class="line">                <span class="string">"META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"classpath:resources/"</span>, <span class="string">"classpath:static/"</span>, </span><br><span class="line">                <span class="string">"classpath:public/"</span>, <span class="string">"classpath:META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"file:///tmp/webapps/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>经过试验得证：如果不使用WebMvcConfigurationSupport，则使用application.properties中的默认配置<br>如果重写了application.properties中的配置，则使用重写后的配置，如：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring.resources.<span class="keyword">static</span>-locations=resources<span class="regexp">/, static/</span>, <span class="keyword">public</span><span class="regexp">/, \ META-INF/</span>resources<span class="regexp">/, resources/</span>, <span class="keyword">classpath</span>:<span class="keyword">static</span><span class="regexp">/, public/</span>, <span class="keyword">classpath</span>:META-INF<span class="regexp">/resources/</span>, \<span class="keyword">file</span>:<span class="comment">///tmp/webapps/</span></span><br><span class="line"></span><br><span class="line">spring.mvc.<span class="keyword">static</span>-path-pattern=<span class="comment">/**</span></span><br></pre></td></tr></table></figure>
+
+<p>一旦使用了WebMvcConfigurationSupport（或WebMvcConfigurerAdapter）那么必须要重写addResourceHandlers来配置资源映射，此时application.properties中关于静态资源访问的配置将失效（除非对url写了响应的controller来处理，那是另一回事）</p>
+<h2 id="当添加了静态资源后，无法立即访问的问题"><a href="#当添加了静态资源后，无法立即访问的问题" class="headerlink" title="当添加了静态资源后，无法立即访问的问题"></a>当添加了静态资源后，无法立即访问的问题</h2><p>如果访问项目中的静态资源，访问的所有的东西其实都是target目录中的，这是经过编译的，如果对项目目录下的静态资源进行修改（增删改），由于target下的东西没有受影响，所以没法立即生效，比如往/resouces/static下增加一张图片，通过url无法立即访问到，必须重启项目。其实重启就是让资源文件经过编译（其实资源文件根本不编译）后，加到target中，那么这样就很麻烦，要是想对一个静态资源修改后能立即通过url访问到要如何做呢？<br>解决办法将静态资源放在非项目类路径下即可，例如 “file:///Users/mytest/inspector/independent_resources/“);，并且在资源处理器中加上路径即可。<br>file:// 后面跟的必须是文件系统的绝对路径</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**”)</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>resources/<span class="string">", "</span><span class="keyword">static</span>/<span class="string">", "</span><span class="keyword">public</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>classpath:resources/<span class="string">", "</span>classpath:<span class="keyword">static</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>classpath:<span class="keyword">public</span>/<span class="string">", "</span>classpath:META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        //如果要让添加的静态资源立即生效，则不能把它放到项目资源里面，应该放在外面，比如下面的目录</span></span><br><span class="line"><span class="string">        //这样一旦静态资源添加到这个目录，则直接从该位置获取，而不是从编译的target位置获取</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>file:<span class="comment">///Users/mytest/inspector/independent_resources/");</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**********之间的是项目类的路径，不用管，最下面的是非项目类的路径</span></span><br><span class="line"><span class="comment">这样的话，在项目运行时，往/Users/mytest/inspector/independent_resources/目录下添加一个111.png后，在浏览器中通过localhost:8080/111.png就可访问到这个图片了。</span></span><br><span class="line"><span class="comment">如果不添加这个，在项目运行时，往项目的src/main/resources 下添加一个111.png后，不能立即通过浏览器访问到这个图片，因为项目类的所有资源和文件必须编译为target版本后才对外服务，而添加资源后不重启项目无法重新编译，target中的东西没有更新。</span></span><br></pre></td></tr></table></figure>
+<p>见<a href="https://blog.csdn.net/rui18300072030/article/details/74923580" target="_blank" rel="noopener">https://blog.csdn.net/rui18300072030/article/details/74923580</a></p>
+<blockquote>
+<p>因此，需要修改后立即生效的文件，尤其是非代码文件（除去html，css这种）最好是放在项目类的外部，放在文件系统的绝对路径下。如果文件必须放在项目中，但又必须得立即生效，<br>那么对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
+</blockquote>
+<p>如果文件必须放在项目中，但又必须得立即生效，那么用下面的方法：<br>对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">        .addResourceLocations(<span class="string">"classpath:static/"</span>)</span><br><span class="line"> .addResourceLocations(<span class="string">"file:///Users/mytest/inspector/src/main/resources/static/"</span>);</span><br></pre></td></tr></table></figure>
+<p>上面两个路径其实是同一个，但通过上面相对路径访问的是target中的东西。在运行时添加一个文件后，target没有更新，通过相对路径就访问不到，但实际上文件系统是更新了，所以用下面的绝对路径直接访问文件系统中的文件就可。</p>
 
       
     </div>
@@ -449,107 +542,6 @@
 <p>可以进入堆栈中看：<br>在创建aop1util时，当执行完populateBean时，它的“aop2Util”属性就已经被填充了，此时它仍是正常的实例<br><img src="https://img-blog.csdnimg.cn/20200318114610355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="8"><br>在进入initialzeBean后，执行完前置处理后，可以看到这个bean仍然没有变化：（在initialzeBean中以wrappedBean为准）<br><img src="https://img-blog.csdnimg.cn/20200318114610342.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="9"></p>
 <p>但一经过后置处理，可以看到wrappedBean已经变成了代理对象，而且其aop2util属性是空<br><img src="https://img-blog.csdnimg.cn/20200318114610381.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="10"></p>
 <p><strong>结论：如果一个对象要被生成代理，那么不要对它的属性或方法进行注入，这些都会变成null（构造器注入是可以的,因为构造器注入时创建代理对象时必须要调用其父类（也就是被代理类）的构造函数，此时就会把要注入的对象注入了）</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="CloudLander~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CloudLander's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/" class="post-title-link" itemprop="url">springboot 静态资源无法访问以及添加静态资源无法立即访问</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:08:18" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="springboot-静态资源无法访问"><a href="#springboot-静态资源无法访问" class="headerlink" title="springboot 静态资源无法访问"></a>springboot 静态资源无法访问</h2><blockquote>
-<p>在一个项目中WebMvcConfigurationSupport只能存在一个，多个的时候，只有一个会生效。（按名称排序后第一个的）</p>
-</blockquote>
-<p>1.SpringBoot 的 @EnableAutoConfiguration 会启用自动配置类 </p>
-<p>2.WebMvcAutoConfiguration，该类配置了一些默认的静态资源映射</p>
-<ul>
-<li>自动映射 localhost:8080/** 为以下路径<pre><code>classpath:/resources/
-classpath:/static/
-classpath:/public/
-classpath:/META-INF/resources/</code></pre><ol start="2">
-<li>自动映射 localhost:8080/webjars/** 为以下路径<br> classpath:/META-INF/resources/webjars/</li>
-</ol>
-</li>
-</ul>
-<p>此时，我们不需要多做什么，只要将静态资源放入 src/main/resources 目录下的 resources、static 或 public 文件夹下，即可通过 url 定位相关资源，例如 localhost:8080/index.html 可定位至 src/main/resources/static/index.html</p>
-<p><strong>但是！</strong><br>一旦使用继承了WebMvcConfigurationSupport或者WebMvcConfigurerAdapter的自定义配置类，即使没有重写addResourceHandlers方法，默认配置都会被不被采用。如果要采用原本默认的配置，则需要webmvc配置类中重写如下方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoWebMvcConfigurerAdapter</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//配置静态资源处理</span></span><br><span class="line">        registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"resources/"</span>, <span class="string">"static/"</span>, <span class="string">"public/"</span>, </span><br><span class="line">                <span class="string">"META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"classpath:resources/"</span>, <span class="string">"classpath:static/"</span>, </span><br><span class="line">                <span class="string">"classpath:public/"</span>, <span class="string">"classpath:META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"file:///tmp/webapps/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>经过试验得证：如果不使用WebMvcConfigurationSupport，则使用application.properties中的默认配置<br>如果重写了application.properties中的配置，则使用重写后的配置，如：</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring.resources.<span class="keyword">static</span>-locations=resources<span class="regexp">/, static/</span>, <span class="keyword">public</span><span class="regexp">/, \ META-INF/</span>resources<span class="regexp">/, resources/</span>, <span class="keyword">classpath</span>:<span class="keyword">static</span><span class="regexp">/, public/</span>, <span class="keyword">classpath</span>:META-INF<span class="regexp">/resources/</span>, \<span class="keyword">file</span>:<span class="comment">///tmp/webapps/</span></span><br><span class="line"></span><br><span class="line">spring.mvc.<span class="keyword">static</span>-path-pattern=<span class="comment">/**</span></span><br></pre></td></tr></table></figure>
-
-<p>一旦使用了WebMvcConfigurationSupport（或WebMvcConfigurerAdapter）那么必须要重写addResourceHandlers来配置资源映射，此时application.properties中关于静态资源访问的配置将失效（除非对url写了响应的controller来处理，那是另一回事）</p>
-<h2 id="当添加了静态资源后，无法立即访问的问题"><a href="#当添加了静态资源后，无法立即访问的问题" class="headerlink" title="当添加了静态资源后，无法立即访问的问题"></a>当添加了静态资源后，无法立即访问的问题</h2><p>如果访问项目中的静态资源，访问的所有的东西其实都是target目录中的，这是经过编译的，如果对项目目录下的静态资源进行修改（增删改），由于target下的东西没有受影响，所以没法立即生效，比如往/resouces/static下增加一张图片，通过url无法立即访问到，必须重启项目。其实重启就是让资源文件经过编译（其实资源文件根本不编译）后，加到target中，那么这样就很麻烦，要是想对一个静态资源修改后能立即通过url访问到要如何做呢？<br>解决办法将静态资源放在非项目类路径下即可，例如 “file:///Users/mytest/inspector/independent_resources/“);，并且在资源处理器中加上路径即可。<br>file:// 后面跟的必须是文件系统的绝对路径</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**”)</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>resources/<span class="string">", "</span><span class="keyword">static</span>/<span class="string">", "</span><span class="keyword">public</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>classpath:resources/<span class="string">", "</span>classpath:<span class="keyword">static</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>classpath:<span class="keyword">public</span>/<span class="string">", "</span>classpath:META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        //如果要让添加的静态资源立即生效，则不能把它放到项目资源里面，应该放在外面，比如下面的目录</span></span><br><span class="line"><span class="string">        //这样一旦静态资源添加到这个目录，则直接从该位置获取，而不是从编译的target位置获取</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>file:<span class="comment">///Users/mytest/inspector/independent_resources/");</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**********之间的是项目类的路径，不用管，最下面的是非项目类的路径</span></span><br><span class="line"><span class="comment">这样的话，在项目运行时，往/Users/mytest/inspector/independent_resources/目录下添加一个111.png后，在浏览器中通过localhost:8080/111.png就可访问到这个图片了。</span></span><br><span class="line"><span class="comment">如果不添加这个，在项目运行时，往项目的src/main/resources 下添加一个111.png后，不能立即通过浏览器访问到这个图片，因为项目类的所有资源和文件必须编译为target版本后才对外服务，而添加资源后不重启项目无法重新编译，target中的东西没有更新。</span></span><br></pre></td></tr></table></figure>
-<p>见<a href="https://blog.csdn.net/rui18300072030/article/details/74923580" target="_blank" rel="noopener">https://blog.csdn.net/rui18300072030/article/details/74923580</a></p>
-<blockquote>
-<p>因此，需要修改后立即生效的文件，尤其是非代码文件（除去html，css这种）最好是放在项目类的外部，放在文件系统的绝对路径下。如果文件必须放在项目中，但又必须得立即生效，<br>那么对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
-</blockquote>
-<p>如果文件必须放在项目中，但又必须得立即生效，那么用下面的方法：<br>对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">        .addResourceLocations(<span class="string">"classpath:static/"</span>)</span><br><span class="line"> .addResourceLocations(<span class="string">"file:///Users/mytest/inspector/src/main/resources/static/"</span>);</span><br></pre></td></tr></table></figure>
-<p>上面两个路径其实是同一个，但通过上面相对路径访问的是target中的东西。在运行时添加一个文件后，target没有更新，通过相对路径就访问不到，但实际上文件系统是更新了，所以用下面的绝对路径直接访问文件系统中的文件就可。</p>
 
       
     </div>
