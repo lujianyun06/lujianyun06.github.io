@@ -187,86 +187,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/IoC%E5%92%8CAOP%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="CloudLander~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CloudLander's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/java/IoC%E5%92%8CAOP%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">IoC和AOP的简单总结</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:03:14" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <hr>
-<h2 id="IoC："><a href="#IoC：" class="headerlink" title="IoC："></a>IoC：</h2><hr>
-<p>context是总管家。总领全局<br>    context创建一个bean工厂，一个解析工具（如xmlReader）。先让解析工具去完成对xml或者注解中bean的解析，对于每个bean节点，提取出其中的名称，类型、属性来构建出一个beandefinition(bd)，并存放到解析工具的map中，之后创建这个map中的bd全部移到bean工厂的map中，然后扫描出所有类型为bean初始化前置/后置处理器的bean，此时就要把它们创建好，并把它们都加到bean工厂的前置/后置处理列表中。<br>此时bean工厂中有了所有的bean的bd（但bean本身还没创建，除了前置/后置处理器bean）<br>（tiny中是全部bean都在这里创建，而在spring中，bean创建可以等到用户第一次getbean时，再触发下面的动作）<br>之后进行bean的创建，进行context的onrefresh，在bean工厂中遍历map，创建bean的实例，并且对每个bean实例做如下工作：<br>    创建后把bean实例和它的bd绑定起来（把它赋给bd的一个属性），并且从bd中取出之前设定的一些属性，给bean赋上。然后对从bean工厂中取出之前加入到前置处理器列表中的bean，使用这些处理器bean对当前的这个bean做前置处理；然后进行这个bean的初始化方法（指定的init-method），然后取出之前加入到后置处理器列表中的bean，使用这些处理器bean对当前的这个bean做后置处理（比如aop就是在这一步发挥作用，检测这个bean的类型是不是符合要拦截处理的类型，如果是，则创建用一个该类代理类型的bean代替当前的这个bean返回）； 做完前置/后置处理后都会返回bean(这个bean可能已经被修改了)，再次把这个最终经过前后置处理的bean重新与bd绑定（之前绑定的就作废了）。（真正的spring中还有给每个bean设置关于容器感知，名称感知，context感知之类的功能）<br>（如果对于特定类型的bean要执行特定的前置/后置处理，只需在处理器中判断bean的类型，满足再处理，否则就把传入的bean原样返回即可）<br>此时，bean的初始化就完成了，获取bean的话，就通过context得到bean工厂，再从bean工厂中通过要获取的bean的类型或名称得到bd，再从bd得到与之绑定的bean。</p>
-<h2 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h2><p>有一个后置处理器叫AspectJAwareAdvisorAutoProxyCreator（简称apc），它的作用是在bean的后置处理时如果需要创建代理，则创建代理来代替原始bean返回<br>有一个类叫TargetSource，它可以封装一个其他类的实例对象，类型，以及它实现和继承的类型/接口集合，相当于是某个实例对象的信息组合。<br>一个类叫AdvisedSupport（具体实现是proxyFactory），它是一个aop的核心类型，它有targetsource的成员变量，有方法拦截器的成员变量，有方法匹配器的成员变量。<br>advisors实际上是包含所有需要代理的类的名单，需要拦截的方法的名单，以及所有的方法拦截器。<br>advisors由多个advisor组成，每个advisor包含一个pointcut成员，一个advice成员。<br>    pointcut定义了一组规则，包括符合条件的类型名规则，符合拦截的方法名规则。（术语是切点）<br>    advice就是一个方法拦截器.(其实就是执行额外的逻辑代码的工具) （术语是通知）<br>（这里advisor的术语就是aspect，即切面，实际上就是切点和通知的综合体）<br>每个advisor也是一个bean，它在spring中实际上就是注解了@AspectJ的类的实例，其pointcut和advice可能都是自己。（而且为了保证advisor必须在其他实例创建之前就创建好，每次有一个bean进入创建代理的后置处理器时，会从容器获得所有的advisor(利用getBeansForType)，如果有某个advisor还没创建，则优先创建它。因此会保证如果一个bean需要被代理，则其advisor一定在它用之前就创建好）</p>
-<p>当有一个bean要进行apc的后置处理的时候，遍历所有的advisor，如果不符合所有的advisor类型规则，则直接返回bean；如果发现符合其中一个advisor的类型规则，进入下一步：（真正的spring中使用拦截链，也就是说可以有多个advisor匹配当前的bean，调用方法的时候会一个挨一个调用）<br>创建一个advisedSupport<br>  ·根据这个bean去创建一个它的targetSource，并且把这个targetSource设置给advisedSupport的成员<br>  ·把当前的advisor的方法规则（方法匹配器）设置给advisedSupport<br>  ·把当前advisor的方法拦截规则（方法拦截器）设置给advisedSupport</p>
-<p>使用advisedSupport生成一个代理工厂，该代理工厂拥有advisedSupport的成员变量，并且这个代理工厂是一个调用处理器(InvocationHandler)。<br>    使用代理工厂去生成一个当前这个bean的代理对象。如果用jdk动态代理的话，使用<br>Proxy.newProxyInstance(当前类的类型加载器, bean的所有实现和继承的类型/接口集合, 调用处理器(也就是生成它的代理工厂)）来得到一个代理对象，这个代理对象拥有所有bean的同名方法，当调用代理对象的一个方法时，会调用它的调研处理器的invoke方法，并且会把bean的原本该名称的方法、bean对象，参数都传入invoke<br>，在调用处理器（即代理工厂）的invoke方法中，使用它的成员advisedSupport的方法匹配规则来判断当前调用的这个方法是不是需要拦截的，如果不是则直接调用bean的原来的方法；如果是需要拦截的，则使用advisedSupport的方法拦截器，去执行具体的拦截器的额外逻辑代码（这里还涉及到一个MethodInvocation，但它实际上就是对一个方法、对象、参数的包装，只是为了方便打包传递，从调用处理器传递到拦截器，没有额外的用途），当然这个额外的逻辑代码中也可以调用bean原来的方法，也可以去做一些额外的操作。<br>生成代理后返回，则此时代理对象就取代了原本的bean成为了bean容器中针对原来的bean类型的合法代言人了，别的地方不论是通过原本的类型，还是设置的名称，获得的都是这个代理，而原来的bean就只存在于代理对象的调用处理器中的advisedSupport中的targetSource中（层层包裹，外部是无法得到这个bean的）。</p>
-<p>另：<br>生成代理对象的方式有jdk动态代理，还有其他一些，如Cglib2等，但原理都是一样的。</p>
-<blockquote>
-<p>注意，jdk动态代理生成的对象只能转成实际类实现的接口类型的对象，而无法转成实在的类的对象（而cglib能）<br>例如，A implements I<br>jdk动态代理创建好的代理proxy只能强转成I类型的，而不能强转成A类型的。</p>
-</blockquote>
-<blockquote>
-<p>注意，InvocationHandler的invoke方法，传递过来的是proxy，而不是原始对象，所以如果要运行原本实例的方法(method.invoke)，需要在InvocationHandler中保存原本的实例</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8GC%E4%B8%ADparallel%20scavenge%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BDCMS%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8%EF%BC%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -356,7 +276,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/IoC%E5%92%8CAOP%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
@@ -370,7 +290,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">Ubuntu16下 pip安装，卸载、升级，报错</a>
+            <a href="/2020/04/10/java/IoC%E5%92%8CAOP%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">IoC和AOP的简单总结</a>
         </h2>
 
         <div class="post-meta">
@@ -381,7 +301,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：16:48:11" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:03:14" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -389,7 +309,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
                 </span>
             </span>
 
@@ -404,16 +324,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>新装的ubuntu16，自带的python2.7，使用pip升级后，报错，修改记录如下：</p>
-<h2 id="如何彻底卸载pip？"><a href="#如何彻底卸载pip？" class="headerlink" title="如何彻底卸载pip？"></a>如何彻底卸载pip？</h2><p>sudo python -m pip uninstall pip</p>
-<h2 id="如何安装pip"><a href="#如何安装pip" class="headerlink" title="如何安装pip"></a>如何安装pip</h2><p>sudo apt install python-pip</p>
-<h2 id="如何安装指定版本的pip"><a href="#如何安装指定版本的pip" class="headerlink" title="如何安装指定版本的pip"></a>如何安装指定版本的pip</h2><p>python -m pip install pip==18.1(换成你想要的版本编号)</p>
-<h2 id="pip安装软件过程中报错："><a href="#pip安装软件过程中报错：" class="headerlink" title="pip安装软件过程中报错："></a>pip安装软件过程中报错：</h2><p>Command “python setup.py egg_info” failed with error code 1 in /tmp/pip-build-BqMhb7/matplotlib/</p>
-<ol>
-<li>安装并升级setuptools<br>pip install –upgrade setuptools</li>
-<li>升级pip<br>pip install –upgrade pip</li>
-</ol>
-<h2 id="pip升级后报错"><a href="#pip升级后报错" class="headerlink" title="pip升级后报错"></a>pip升级后报错</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "/usr/bin/pip", line 9, in &lt;module&gt;</span><br><span class="line">    from pip import main</span><br><span class="line">ImportError: cannot import name 'main'</span><br><span class="line">修改/usr/bin/pip如下：</span><br><span class="line">//修改前</span><br><span class="line">from pip import main  </span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(main()) </span><br><span class="line">修改后</span><br><span class="line">from pip import __main__  //这行也要修改</span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(__main__._main())//增加__main__._  （注意最后main()前面有个_）</span><br></pre></td></tr></table></figure>
+          <hr>
+<h2 id="IoC："><a href="#IoC：" class="headerlink" title="IoC："></a>IoC：</h2><hr>
+<p>context是总管家。总领全局<br>    context创建一个bean工厂，一个解析工具（如xmlReader）。先让解析工具去完成对xml或者注解中bean的解析，对于每个bean节点，提取出其中的名称，类型、属性来构建出一个beandefinition(bd)，并存放到解析工具的map中，之后创建这个map中的bd全部移到bean工厂的map中，然后扫描出所有类型为bean初始化前置/后置处理器的bean，此时就要把它们创建好，并把它们都加到bean工厂的前置/后置处理列表中。<br>此时bean工厂中有了所有的bean的bd（但bean本身还没创建，除了前置/后置处理器bean）<br>（tiny中是全部bean都在这里创建，而在spring中，bean创建可以等到用户第一次getbean时，再触发下面的动作）<br>之后进行bean的创建，进行context的onrefresh，在bean工厂中遍历map，创建bean的实例，并且对每个bean实例做如下工作：<br>    创建后把bean实例和它的bd绑定起来（把它赋给bd的一个属性），并且从bd中取出之前设定的一些属性，给bean赋上。然后对从bean工厂中取出之前加入到前置处理器列表中的bean，使用这些处理器bean对当前的这个bean做前置处理；然后进行这个bean的初始化方法（指定的init-method），然后取出之前加入到后置处理器列表中的bean，使用这些处理器bean对当前的这个bean做后置处理（比如aop就是在这一步发挥作用，检测这个bean的类型是不是符合要拦截处理的类型，如果是，则创建用一个该类代理类型的bean代替当前的这个bean返回）； 做完前置/后置处理后都会返回bean(这个bean可能已经被修改了)，再次把这个最终经过前后置处理的bean重新与bd绑定（之前绑定的就作废了）。（真正的spring中还有给每个bean设置关于容器感知，名称感知，context感知之类的功能）<br>（如果对于特定类型的bean要执行特定的前置/后置处理，只需在处理器中判断bean的类型，满足再处理，否则就把传入的bean原样返回即可）<br>此时，bean的初始化就完成了，获取bean的话，就通过context得到bean工厂，再从bean工厂中通过要获取的bean的类型或名称得到bd，再从bd得到与之绑定的bean。</p>
+<h2 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h2><p>有一个后置处理器叫AspectJAwareAdvisorAutoProxyCreator（简称apc），它的作用是在bean的后置处理时如果需要创建代理，则创建代理来代替原始bean返回<br>有一个类叫TargetSource，它可以封装一个其他类的实例对象，类型，以及它实现和继承的类型/接口集合，相当于是某个实例对象的信息组合。<br>一个类叫AdvisedSupport（具体实现是proxyFactory），它是一个aop的核心类型，它有targetsource的成员变量，有方法拦截器的成员变量，有方法匹配器的成员变量。<br>advisors实际上是包含所有需要代理的类的名单，需要拦截的方法的名单，以及所有的方法拦截器。<br>advisors由多个advisor组成，每个advisor包含一个pointcut成员，一个advice成员。<br>    pointcut定义了一组规则，包括符合条件的类型名规则，符合拦截的方法名规则。（术语是切点）<br>    advice就是一个方法拦截器.(其实就是执行额外的逻辑代码的工具) （术语是通知）<br>（这里advisor的术语就是aspect，即切面，实际上就是切点和通知的综合体）<br>每个advisor也是一个bean，它在spring中实际上就是注解了@AspectJ的类的实例，其pointcut和advice可能都是自己。（而且为了保证advisor必须在其他实例创建之前就创建好，每次有一个bean进入创建代理的后置处理器时，会从容器获得所有的advisor(利用getBeansForType)，如果有某个advisor还没创建，则优先创建它。因此会保证如果一个bean需要被代理，则其advisor一定在它用之前就创建好）</p>
+<p>当有一个bean要进行apc的后置处理的时候，遍历所有的advisor，如果不符合所有的advisor类型规则，则直接返回bean；如果发现符合其中一个advisor的类型规则，进入下一步：（真正的spring中使用拦截链，也就是说可以有多个advisor匹配当前的bean，调用方法的时候会一个挨一个调用）<br>创建一个advisedSupport<br>  ·根据这个bean去创建一个它的targetSource，并且把这个targetSource设置给advisedSupport的成员<br>  ·把当前的advisor的方法规则（方法匹配器）设置给advisedSupport<br>  ·把当前advisor的方法拦截规则（方法拦截器）设置给advisedSupport</p>
+<p>使用advisedSupport生成一个代理工厂，该代理工厂拥有advisedSupport的成员变量，并且这个代理工厂是一个调用处理器(InvocationHandler)。<br>    使用代理工厂去生成一个当前这个bean的代理对象。如果用jdk动态代理的话，使用<br>Proxy.newProxyInstance(当前类的类型加载器, bean的所有实现和继承的类型/接口集合, 调用处理器(也就是生成它的代理工厂)）来得到一个代理对象，这个代理对象拥有所有bean的同名方法，当调用代理对象的一个方法时，会调用它的调研处理器的invoke方法，并且会把bean的原本该名称的方法、bean对象，参数都传入invoke<br>，在调用处理器（即代理工厂）的invoke方法中，使用它的成员advisedSupport的方法匹配规则来判断当前调用的这个方法是不是需要拦截的，如果不是则直接调用bean的原来的方法；如果是需要拦截的，则使用advisedSupport的方法拦截器，去执行具体的拦截器的额外逻辑代码（这里还涉及到一个MethodInvocation，但它实际上就是对一个方法、对象、参数的包装，只是为了方便打包传递，从调用处理器传递到拦截器，没有额外的用途），当然这个额外的逻辑代码中也可以调用bean原来的方法，也可以去做一些额外的操作。<br>生成代理后返回，则此时代理对象就取代了原本的bean成为了bean容器中针对原来的bean类型的合法代言人了，别的地方不论是通过原本的类型，还是设置的名称，获得的都是这个代理，而原来的bean就只存在于代理对象的调用处理器中的advisedSupport中的targetSource中（层层包裹，外部是无法得到这个bean的）。</p>
+<p>另：<br>生成代理对象的方式有jdk动态代理，还有其他一些，如Cglib2等，但原理都是一样的。</p>
+<blockquote>
+<p>注意，jdk动态代理生成的对象只能转成实际类实现的接口类型的对象，而无法转成实在的类的对象（而cglib能）<br>例如，A implements I<br>jdk动态代理创建好的代理proxy只能强转成I类型的，而不能强转成A类型的。</p>
+</blockquote>
+<blockquote>
+<p>注意，InvocationHandler的invoke方法，传递过来的是proxy，而不是原始对象，所以如果要运行原本实例的方法(method.invoke)，需要在InvocationHandler中保存原本的实例</p>
+</blockquote>
 
       
     </div>
@@ -512,6 +435,83 @@
 <li>只能保证一个共享变量的原子操作。这个时候就可以用锁</li>
 </ul>
 <p>》使用锁机制实现原子操作<br>    锁机制保证了只有获得锁的线程才能够操作锁定的内存区域。JVM内部实现了很多种锁机制，有偏向锁、轻量级锁和互斥锁。有意思的是除了偏向锁，JVM实现锁的方式都用了循环CAS，即当一个线程想进入同步块的时候使用循环CAS的方式来获取锁，当它退出同步块的时候使用循环CAS释放锁。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">Ubuntu16下 pip安装，卸载、升级，报错</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：16:48:11" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>新装的ubuntu16，自带的python2.7，使用pip升级后，报错，修改记录如下：</p>
+<h2 id="如何彻底卸载pip？"><a href="#如何彻底卸载pip？" class="headerlink" title="如何彻底卸载pip？"></a>如何彻底卸载pip？</h2><p>sudo python -m pip uninstall pip</p>
+<h2 id="如何安装pip"><a href="#如何安装pip" class="headerlink" title="如何安装pip"></a>如何安装pip</h2><p>sudo apt install python-pip</p>
+<h2 id="如何安装指定版本的pip"><a href="#如何安装指定版本的pip" class="headerlink" title="如何安装指定版本的pip"></a>如何安装指定版本的pip</h2><p>python -m pip install pip==18.1(换成你想要的版本编号)</p>
+<h2 id="pip安装软件过程中报错："><a href="#pip安装软件过程中报错：" class="headerlink" title="pip安装软件过程中报错："></a>pip安装软件过程中报错：</h2><p>Command “python setup.py egg_info” failed with error code 1 in /tmp/pip-build-BqMhb7/matplotlib/</p>
+<ol>
+<li>安装并升级setuptools<br>pip install –upgrade setuptools</li>
+<li>升级pip<br>pip install –upgrade pip</li>
+</ol>
+<h2 id="pip升级后报错"><a href="#pip升级后报错" class="headerlink" title="pip升级后报错"></a>pip升级后报错</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "/usr/bin/pip", line 9, in &lt;module&gt;</span><br><span class="line">    from pip import main</span><br><span class="line">ImportError: cannot import name 'main'</span><br><span class="line">修改/usr/bin/pip如下：</span><br><span class="line">//修改前</span><br><span class="line">from pip import main  </span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(main()) </span><br><span class="line">修改后</span><br><span class="line">from pip import __main__  //这行也要修改</span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(__main__._main())//增加__main__._  （注意最后main()前面有个_）</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -919,7 +919,7 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/mybatis/mybatis%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD/">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/mybatis/Mybatis%E4%B8%AD%E5%AF%B9%E4%BA%8Eassociation%E7%9A%84%E7%90%86%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
@@ -933,7 +933,7 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/04/10/java/mybatis/mybatis%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD/" class="post-title-link" itemprop="url">mybatis的懒加载</a>
+            <a href="/2020/04/10/java/mybatis/Mybatis%E4%B8%AD%E5%AF%B9%E4%BA%8Eassociation%E7%9A%84%E7%90%86%E8%A7%A3/" class="post-title-link" itemprop="url">Mybatis中对于association的理解</a>
         </h2>
 
         <div class="post-meta">
@@ -944,7 +944,7 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:21:19" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:20:37" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -971,37 +971,46 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="MyBatis-是否支持延迟加载（懒加载）？延迟加载的原理是什么？"><a href="#MyBatis-是否支持延迟加载（懒加载）？延迟加载的原理是什么？" class="headerlink" title="MyBatis 是否支持延迟加载（懒加载）？延迟加载的原理是什么？"></a>MyBatis 是否支持延迟加载（懒加载）？延迟加载的原理是什么？</h1><p>延迟加载的原理的是调用的时候触发加载，而不是在初始化的时候就加载信息。比如调用 a. getB(). getName()，这个时候发现 a. getB() 的值为 null，此时会单独触发事先保存好的关联 B 对象的 SQL，先查询出来 B，然后再调用 a. setB(b)，而这时候再调用 a. getB(). getName() 就有值了，这就是延迟加载的基本原理。其本质是将整个查询的结果包装成一个代理，当要进行属性加载时，调用其被代理的一些方法，再从数据库中查<br>MyBatis 支持延迟加载，设置 lazyLoadingEnabled=true 即可（全局懒加载）。或者单独属性的懒加载(fetchType=lazy)</p>
-<p>如果使用了config文件<br>则设置：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"lazyLoadingEnabled"</span> <span class="attr">value</span>=<span class="string">"true”/&gt;</span></span></span><br><span class="line"><span class="tag"><span class="string">    ...</span></span></span><br><span class="line"><span class="tag"><span class="string">&lt;/settings&gt;</span></span></span><br></pre></td></tr></table></figure>
-<p>如果是在application.properties中加载配置，则使用：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mybatis.configuration.lazy-loading-enabled</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+          <p>mybatis是先处理sql，把sql执行完后把结果表映射到resultMap或者resultType上</p>
+<p>如下面的：</p>
+<p>一个project对应一个user</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Project</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    String name;</span><br><span class="line">    User user;</span><br><span class="line">    ItemState state;</span><br><span class="line">    Set&lt;User&gt; signer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">public</span> String username;</span><br><span class="line">    <span class="keyword">public</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong>注意，二者只能有一个！</strong></p>
-<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">注意！如果在application.properties中指定了配置文件，那就不能再在application.properties中设置任何mybatis的配置，</span><br><span class="line">也就是不能再设置任何以 “mybatis.<span class="keyword">configuration</span>.XXX” 开头的属性</span><br><span class="line">否则会报错：</span><br><span class="line"><span class="keyword">Property</span> <span class="symbol">'configuration</span>' <span class="keyword">and</span> <span class="symbol">'configLocation</span>' can <span class="keyword">not</span> specified <span class="keyword">with</span> together</span><br></pre></td></tr></table></figure>
+<p>表为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">project</span>(</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">50</span>),</span><br><span class="line">    user_id <span class="built_in">int</span>,</span><br><span class="line">    state enum(<span class="string">'created'</span>, <span class="string">'planned'</span>, <span class="string">'started'</span>, <span class="string">'finished'</span>),</span><br><span class="line">)<span class="keyword">engine</span>=<span class="keyword">innoDB</span>, <span class="keyword">charset</span>=utf8;</span><br></pre></td></tr></table></figure>
 
-<p>可以在resultMap中具体的association或者collection中可以用fetchType=lazy/eager 来覆盖掉全局的懒加载属性</p>
-<p>对于fetchType的使用，可以不开启lazyLoadingEnabled的情况下单独使用，也是生效的，也可以在开启lazyLoadingEnabled的情况下使用，这样设置了fetchType的属性的加载策略会忽略全局的加载策略。</p>
-<p>对于级联查询，就可以单独使用fetchType=lazy的方式来解决N+1的问题</p>
-<p>如果设置了懒加载（不论是fetchtype还是lazyLoadingEnabled），那么实体类会产生了一个代理，代理中有一个handler属性，这个属性类没有实现序列化接口，无法被加到json中，所以需要在类上注解@JsonIgnoreProperties(value = {“handler”})来把它忽略掉<br>如果不加这个注解，会报如下错：</p>
+<p>user表：<br>+———-+————-+——+—–+———+—————-+<br>| Field    | Type        | Null | Key | Default | Extra          |<br>+———-+————-+——+—–+———+—————-+<br>| id       | int(11)     | NO   | PRI | NULL    | auto_increment |<br>| username | varchar(20) | NO   | MUL | NULL    |                |<br>| password | varchar(18) | NO   |     | NULL    |                |<br>+———-+————-+——+—–+———+—————-+</p>
+<p>当给定一个userid，要查询其对应的project及其对应的user。<br>首先如果结果集不是简单的POJO（POJO其属性不含其它bean的类型），就不能简单使用resultType，因为复杂映射映射不出来。要使用resultMap，且使用association和collection</p>
 <blockquote>
-<p>Could not write JSON: No serializer found for class org.apache.ibatis.executor.loader.javassist.JavassistProxyFactory$EnhancedResultObjectProxyImpl and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS);</p>
+<p>下面称association和collection为“复杂映射”</p>
 </blockquote>
-<p>有时候懒加载看起来没起作用，实际上是一些方法被暗地调用导致懒属性被加载<br>lazyLoadTriggerMethods属性可以设置当调用对象的某些方法可能会导致该对象属性的懒加载被触发，</p>
-<p>默认值：equals,clone,hashCode,toString（也就是说，当调用对象的这些方法时，对象的懒属性都会被加载）<br>配置文件中加入了这个设置：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"lazyLoadTriggerMethods"</span> <span class="attr">value</span>=<span class="string">"”/&gt;  </span></span></span><br><span class="line"><span class="tag"><span class="string">&lt;!-- 表示调用任何方法都不会触发懒加载，除非直接调用该对象的被懒加载的属性及其方法（如A.b，或者A.b.getName() 这样） --&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>所有的复杂映射都是根据结果表进行映射</p>
+<p>如要使用userid去查询project及其对应的user，有以下办法：</p>
+<h4 id="用法一："><a href="#用法一：" class="headerlink" title="用法一："></a>用法一：</h4><p>ProjectMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.ljy.inspector.dao.ProjectDao"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"projectMap"</span> <span class="attr">type</span>=<span class="string">"com.ljy.inspector.entity.Project"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"state"</span> <span class="attr">property</span>=<span class="string">"state"</span> <span class="attr">typeHandler</span>=<span class="string">"com.ljy.inspector.type_handler.ItemStateHandler"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">column</span>=<span class="string">"user_id"</span> <span class="attr">property</span>=<span class="string">"user"</span> <span class="attr">select</span>=<span class="string">"com.ljy.inspector.dao.UserDao.findById"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findByUserId"</span> <span class="attr">resultMap</span>=<span class="string">"projectMap"</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">        from project as p</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            p.user_id = #&#123;userId&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p> 附上文档上的说明：<br>lazyLoadTriggerMethods：指定哪个对象的方法触发一次延迟加载。<br>比如，当我打印对象时，由于触发了 toString 方法，所以触发了一次懒加载，该对象的所有级联属性就会被加载</p>
-<p><strong>陷阱：</strong><br>有的时候这些方法可能会被框架在无意中自动触发而导致懒属性被加载(尤其是toString和hashCode，很多时候不知道在哪就被调用了，结果看起来好像是懒加载没起作用)，所以如果不是很明确地需要触发加载的方法时，最好把lazyLoadTriggerMethods这个属性设为空，或者设置为自己能控制调用的方法。</p>
-<p>关于对象转化成Json传输时懒加载不起作用的问题<br>在设置了懒加载后，在本地验证的时候，懒加载确实是起作用的，但是，当把对象转为json传输的时候，由于要调用相应属性来完成序列化，所以仍然是要对其属性进行加载的。比如</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Class A&#123;</span><br><span class="line">    List&lt;B&gt; b;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>UserMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.ljy.inspector.dao.UserDao"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"UserMap"</span> <span class="attr">type</span>=<span class="string">"com.ljy.inspector.entity.User"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"username"</span> <span class="attr">property</span>=<span class="string">"username"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"password"</span> <span class="attr">property</span>=<span class="string">"password"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findById"</span> <span class="attr">resultType</span>=<span class="string">"com.ljy.inspector.entity.User"</span>&gt;</span></span><br><span class="line">        SELECT * FROM user AS u</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            u.id = #&#123;id&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>association中嵌套select语句，这样的执行顺序是：先执行上层select找出resultMap中除了复杂映射的其他部分，默认开启部分自动映射，因此其他部分会被自动映射，除了有的映射不到，需要使用类型处理器，如ItemState。接着执行association中的select语句，并且将user_id作为参数传入findById，user_id就会被当做findById中的 #{id} (即使名字不一样，但就是这么做的)<br>这样做的话，会得到正确的结果：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="number">10</span>,</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"czxczc"</span>,</span><br><span class="line">            <span class="attr">"state"</span>: <span class="string">"CREATED"</span>,</span><br><span class="line">            <span class="attr">"user"</span>: &#123;</span><br><span class="line">                <span class="attr">"id"</span>: <span class="number">2</span>,</span><br><span class="line">                <span class="attr">"username"</span>: <span class="string">"123"</span>,</span><br><span class="line">                <span class="attr">"password"</span>: <span class="string">"11111111"</span></span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">type</span> = <span class="string">A</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">collection</span> …<span class="attr">property</span>=<span class="string">b</span> <span class="attr">ofType</span>=<span class="string">B</span> <span class="attr">fetchType</span>=<span class="string">lazy</span> <span class="attr">...</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在本地跑单元测试时，可以发现a对象的b属性只要不调用，而且不去调用A对象可能会触发懒加载的方法，则b属性始终为空，除非像调用了类似a.b，即要用到相应的属性时，才会触发读数据库加载数据。但是呢，如果把对象a当做json去传输时，它的b对象也是会被加载的，因为在序列化时，会调用相应的属性及其方法，这时就会触发加载去数据库读b的数据。那么想让a对象传输时不加载且不传输b的话，解决办法如下：</p>
-<p>首先是要设置懒加载，即要么开启全局的懒加载lazyLoadingEnabled”设置，要么单独对A的属性b设置fetchType=lazy<br>    在A的类上标注@JsonIgnoreProperties(value = {“handler”, “b”}) 这个意思是json序列化时要忽略掉哪些属性，首先handler是必须要忽略的，因为懒加载后对象其实是一个代理，被自动加上了handler属性，它没有实现序列化接口，所以要排除；而且把b属性给排除掉，表明序列化时会忽略b属性，那么序列化时就不会调用任何关于b的方法了。这样的话，在客户端得到的A对象中是没有b属性的，而且查看sql的调用，发现也是没有去查找B表的。</p>
-<pre><code> 但要注意的是，如果不开启懒加载开关，只是设置了@JsonIgnoreProperties，那么其实相应的属性还是会被加载（即会去查相应属性的表），但查到属性后，不把它序列化到json中，所以客户端还是看不到这个属性，但事实上对于数据库来说是已经查了的。
+<p>这样做相当于把查询分了两步：<br>1.在project中先select查询user_id为给定值的所有元组（行），把能自动映射或者指定了类型处理器的属性先映射到Project对象上</p>
+<p>2.再根据上述元组中的user_id属性去select查询user表中id为userid中的行，并把查询结果集映射到User对象上，并且把这个User对象赋给上面的Project对象的user属性。</p>
+<p>整体就是两步select，根据第一步查询出的结果的某个字段去进行第二步查询。<br>先构建出第一步查询的结果对象obj1，然后把第二步查询的结果对象obj2赋给obj1对应的属性。</p>
+<p>（先得到结果表1，对其进行映射，再使用其中的某字段得到结果表2，再对结果表2进行映射，将映射结果2嵌入映射结果1的属性中。整个过程产生了两张结果表，因为有两个select）</p>
+<h4 id="用法二："><a href="#用法二：" class="headerlink" title="用法二："></a>用法二：</h4><p>ProjectMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.ljy.inspector.dao.ProjectDao"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"projectMap"</span> <span class="attr">type</span>=<span class="string">"com.ljy.inspector.entity.Project"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"state"</span> <span class="attr">property</span>=<span class="string">"state"</span> <span class="attr">typeHandler</span>=<span class="string">"com.ljy.inspector.type_handler.ItemStateHandler"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"user"</span> <span class="attr">javaType</span>=<span class="string">"com.ljy.inspector.entity.User"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"u_id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"username"</span> <span class="attr">property</span>=<span class="string">"username"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"base_user"</span>&gt;</span></span><br><span class="line">        p.*, u.id as u_id, u.username, u.password</span><br><span class="line">    <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findByUserId"</span> <span class="attr">resultMap</span>=<span class="string">"projectMap"</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"base_user"</span>/&gt;</span></span><br><span class="line">        from project as p,user as u</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            p.user_id = #&#123;userId&#125;</span><br><span class="line">            and</span><br><span class="line">            u.id = #&#123;userId&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-而如果不标注忽略属性，仅仅把想要不序列化的对象设置为transient，是不起作用的，还是会被序列化，这里猜测应该是序列化为json时和普遍意义上的序列化还是有所差别的，还是对调用对应属性的方法，这样就还是会触发懒加载</code></pre>
+<p>结果为：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="number">10</span>,</span><br><span class="line">            <span class="attr">"name"</span>: <span class="literal">null</span>,</span><br><span class="line">            <span class="attr">"state"</span>: <span class="string">"CREATED"</span>,</span><br><span class="line">            <span class="attr">"user"</span>: &#123;</span><br><span class="line">                <span class="attr">"id"</span>: <span class="number">2</span>,</span><br><span class="line">                <span class="attr">"username"</span>: <span class="string">"123"</span>,</span><br><span class="line">                <span class="attr">"password"</span>: <span class="literal">null</span></span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>   这种方法是执行一次select查询，一次查询两个表，然后再对这个联合结果表进行映射，这种方式完全是按照sql的思想理念去做的，只有最后才是对联合结果表进行一次映射。<br>   <u>这种方式的resultMap会自行关闭自动映射，原因在于结果表只有一张，</u>如果两张表中有名称相同的字段，会产生歧义（如project的叫id，user的也叫id）。在sql查询中，这种情况不会有问题，结果表可以有两个列都叫id，但是对于映射来说列名是唯一标签，所以会产生歧义。所以这种情况下，要对有歧义的列名起别名，如上面的sql标签，将user中的id别名为u_id，那么最终产生的结果表中，只有一列叫id，即project.id，而user.id的这一列叫u_id，所以在association中列名叫做u_id。<br>   这样得出一张结果表后，先整体映射为指定的对象类型，再把其中要映射为属性或者需要处理的列去映射成相应的属性。而把需要映射为association的列摘出来，根据提供的对象类型把它们映射成相应的对象，赋给上层的对象的属性</p>
+<p>方法二还有一种做法是指定association的resultMap属性，两者其实是一样的。本质上都是从一张结果表中取结果列取映射。</p>
+<p>所以对于association需要注意的点：</p>
+<p>1.如果使用了select属性，则本质上要进行两次查询，得到两张结果表，因为是从不同的表中查询（相同也无所谓）且每次只查询一个表，所以二者互不干涉，所以不存在字段歧义的问题，自动映射会开启。<br>2.如果使用resultMap属性，或者association本身当做一个resultMap，则本质是对多张表的<u>一次</u>联合查询，只产生一张结果表。然后对这张结果表一次进行映射。可能存在字段歧义问题，自动映射会关闭（如果没有指明映射关系的字段会得到空值）。此时要把产生歧义的字段起别名，并且把所有需要映射的字段都显式写出来。</p>
+<p>所有的mybatis的resultMap，不管其结构有多复杂，本质都是执行完sql后对结果表再进行映射（归根结底要很清晰执行完sql语句后结果表是什么样子），其中的column的名称是结果表的column名称而不是原表的colum名称（虽然不起别名的话二者相同）。只要明确这一点，很多问题就能迎刃而解。</p>
+
       
     </div>
 
@@ -1139,6 +1148,26 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
   </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
 
 
