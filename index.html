@@ -130,7 +130,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">36</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">37</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -183,6 +183,80 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/23/%E7%AE%97%E6%B3%95/%E4%B8%8D%E9%87%8D%E5%A4%8D%E6%89%93%E5%8D%B0%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9B%B8%E5%8A%A0%E5%92%8C%E4%B8%BA%E7%BB%99%E5%AE%9A%E5%80%BC%E7%9A%84%E6%89%80%E6%9C%89%E4%BA%8C%E5%85%83%E7%BB%84%E5%92%8C%E4%B8%89%E5%85%83%E7%BB%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/23/%E7%AE%97%E6%B3%95/%E4%B8%8D%E9%87%8D%E5%A4%8D%E6%89%93%E5%8D%B0%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9B%B8%E5%8A%A0%E5%92%8C%E4%B8%BA%E7%BB%99%E5%AE%9A%E5%80%BC%E7%9A%84%E6%89%80%E6%9C%89%E4%BA%8C%E5%85%83%E7%BB%84%E5%92%8C%E4%B8%89%E5%85%83%E7%BB%84/" class="post-title-link" itemprop="url">不重复打印排序数组中相加和为给定值的所有二元组和三元组</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-23 16:42:42 / 修改时间：16:47:26" itemprop="dateCreated datePublished" datetime="2020-04-23T16:42:42+08:00">2020-04-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="不重复打印排序数组中相加和为给定值的所有二元组和三元组"><a href="#不重复打印排序数组中相加和为给定值的所有二元组和三元组" class="headerlink" title="不重复打印排序数组中相加和为给定值的所有二元组和三元组"></a>不重复打印排序数组中相加和为给定值的所有二元组和三元组</h2><p>给定排序数组arr和整数k，不重复打印arr中所有相加和为k的不降序二元组。<br>例如，arr=[-8,-4,-3,0,1,2,4,5,8,9],k=10,打印结果为：<br>1,9<br>2,8</p>
+<p>1.利用双指针法，设置遍历left=0和right=length-1<br>2.比较arr[left]+arr[right]的值(sum)与k的大小<br>    如果sum等于k，打印arr[left],arr[right], left++,right–.<br>    如果sum大于k，right–<br>    如果sum小于k，left++<br>3.如果left&lt; right,则一直重复步骤2，否则过程结束<br>为了保证不重复打印，只需在打印前增加一个检查：arr[left]是否与它前一个值相等，如果相等就不打印<br>解释：因为整体过程是两头向中间压缩的过程，如果arr[left]+arr[right]=k,又有arr[left]==arr[left-1],那么之前一定打印过这个二元组，则不用再重复打印<br>时间复杂度O(N)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printUniquePair</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(arr==<span class="keyword">null</span> || arr.length&lt;<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> right = arr.length-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">        <span class="keyword">if</span>(arr[left]+arr[right]&lt;k)&#123;</span><br><span class="line">            left++;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(arr[left]+arr[right]&gt;k)&#123;</span><br><span class="line">            right--;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(left==<span class="number">0</span> || arr[left-<span class="number">1</span>]!=arr[left])&#123;</span><br><span class="line">                System.out.println(arr[left]+<span class="string">","</span>+arr[right]);</span><br><span class="line">            &#125;</span><br><span class="line">            left++;</span><br><span class="line">            right--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="三元组的问题类似于二元组的求解过程"><a href="#三元组的问题类似于二元组的求解过程" class="headerlink" title="三元组的问题类似于二元组的求解过程"></a>三元组的问题类似于二元组的求解过程</h2><p>例如 arr=[-8,-4,-3,0,1,2,4,5,8,9] k=10<br>当三元组的第一个值为-8时，寻找-8后面的子数组中所有相加为18的不重复二元组<br>当三元组的第一个值为-4时，寻找-4后面的子数组中所有相加为14的不重复二元组<br>当三元组的第一个值为-3时，寻找-3后面的子数组中所有相加为13的不重复二元组<br>依次类推：<br>如果不重复打印？首先保证每次寻找过程开始前，选定的三元组中第一个值不重复，其次就是原问题的打印检查一样，保证不重复打印二元组<br>时间复杂度为O(n^2)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printUniqueTriad</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(arr==<span class="keyword">null</span> || arr.length&lt;<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;arr.length-<span class="number">2</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i==<span class="number">0</span> || arr[i]!=arr[i-<span class="number">1</span>])&#123;</span><br><span class="line">            printRest(arr, i, i+<span class="number">1</span>, arr.length-<span class="number">1</span>, k-arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printRest</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> f, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(l&lt;r)&#123;</span><br><span class="line">        <span class="keyword">if</span>(arr[l]+arr[r]&lt;k)&#123;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(arr[l]+arr[r]&gt;k)&#123;</span><br><span class="line">            r--;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(l==f+<span class="number">1</span> || arr[l-<span class="number">1</span>]!=arr[l])&#123;</span><br><span class="line">                System.out.println(arr[f]+<span class="string">","</span>+arr[l]+<span class="string">","</span>+arr[r]);</span><br><span class="line">            &#125;</span><br><span class="line">            l++;</span><br><span class="line">            r--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -983,99 +1057,6 @@ RabbitMQ针对这个问题，提供了两种解决方式:</code></pre><ul>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%B7%B3%E8%A1%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="CloudLander~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CloudLander's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%B7%B3%E8%A1%A8/" class="post-title-link" itemprop="url">跳表</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 17:56:08 / 修改时间：18:00:17" itemprop="dateCreated datePublished" datetime="2020-04-10T17:56:08+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文大部分内容借鉴自<a href="https://baijiahao.baidu.com/s?id=1633338040568845450&amp;wfr=spider&amp;for=pc，感谢大神的辛勤劳动！" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1633338040568845450&amp;wfr=spider&amp;for=pc，感谢大神的辛勤劳动！</a></p>
-<p>跳表就是跳跃的表，其实归根结底是好多层的链表，最底层是正常的数据链表，往上走是代表性的索引</p>
-<p>越往上走一个索引代表的节点就越多，其实跳表和B* 树有些类似，</p>
-<p>B* 树</p>
-<p><img src="https://img-blog.csdnimg.cn/20200312205851392.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="1"></p>
-<p>跳表：</p>
-<p>越往上走，一个值能代表的范围越广。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200312210012776.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt=""></p>
-<p>都是：如果在当前层大于本节点，小于下一个节点，则往下走，否则继续往前走</p>
-<p>跳表。跳表是redis的一个核心组件，也同时被广泛地运用到了各种缓存地实现当中，它的主要优点，就是可以跟红黑树、AVL等平衡树一样，做到比较稳定地插入、查询与删除。理论插入查询删除的算法时间复杂度为O(logN)。<br><img src="https://img-blog.csdnimg.cn/20200312205831229.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="3"></p>
-<p>什么是跳表</p>
-<p>链表，相信大家都不陌生，维护一个有序的链表是一件非常简单的事情，我们都知道，在一个有序的链表里面，查询跟插入的算法复杂度都是O(n)。<br><img src="https://img-blog.csdnimg.cn/20200312205831176.png" alt="4"></p>
-<p>我们能不能进行优化呢，比如我们一次比较两个呢？那样不就可以把时间缩小一半？<br><img src="https://img-blog.csdnimg.cn/20200312205831220.png" alt="5"></p>
-<p>同理，如果我们4个4个比，那不就更快了？<br><img src="https://img-blog.csdnimg.cn/20200312205831280.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="6"></p>
-<p>跳表就是这样的一种数据结构，结点是跳过一部分的，从而加快了查询的速度。跳表跟红黑树又有什么差别呢？既然两者的算法复杂度差不多，为什么Redis要使用跳表而不使用红黑树呢？跳表相对于红黑树，主要有这几个优点：1.代码相对简单，手写个跳表还有可能，手写个红黑树试试？</p>
-<p>2.如果我们要查询一个区间里面的值，用平衡树可能会麻烦。这里的麻烦指的是实现和理解上，平衡二叉树查询一段区间也是可以做到的。3.删除一段区间，这个如果是平衡二叉树，就会相当困难，毕竟设计到树的平衡问题，而跳表则没有这种烦恼。好了，相信你对跳表已经有一些认识了，我们来简单介绍平衡二叉树的几个基本操作。</p>
-<p><strong>查询</strong></p>
-<p>假如我们要查询11，那么我们从最上层出发，发现下一个是5，再下一个是13，已经大于11，所以进入下一层，下一层的一个是9，查找下一个，下一个又是13，再次进入下一层。最终找到11。<br><img src="https://img-blog.csdnimg.cn/20200312205831286.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="7"></p>
-<p>是不是非常的简单？我们可以把查找的过程总结为一条三目表达式（下一个是否大于结果？下一个：下一层）。理解跳表的查询过程非常重要，试试看查询其他数字，只要你理解了查询，后面两种都非常简单。</p>
-<p><strong>插入</strong></p>
-<p>插入的时候，首先要进行查询，然后从最底层开始，插入被插入的元素。然后看看从下而上，是否需要逐层插入。可是到底要不要插入上一层呢？我们都知道，我们想每层的跳跃都非常高效，越是平衡就越好（第一层1级跳，第二层2级跳，第3层4级跳，第4层8级跳）。但是用算法实现起来，确实非常地复杂的，并且要严格地按照2地指数次幂，我们还要对原有地结构进行调整。所以跳表的思路是抛硬币，听天由命，产生一个随机数，50%概率再向上扩展，否则就结束。这样子，每一个元素能够有X层的概率为0.5^(X-1)次方。反过来，第X层有多少个元素的数学期望大家也可以算一下。</p>
-<p><strong>删除</strong></p>
-<p>同插入一样，删除也是先查找，查找到了之后，再从下往上逐个删除。比较简单，就不再赘叙。</p>
-<p>跳表和二叉搜索树比较：<br><img src="https://img-blog.csdnimg.cn/20200313112143915.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="8"></p>
-<p><strong>总结</strong></p>
-<p>跳表，用了计算机中一场非常用的解决问题的思路，随机。随机在深度学习与人工智能领域运用得非常的广泛。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1147,7 +1128,7 @@ RabbitMQ针对这个问题，提供了两种解决方式:</code></pre><ul>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

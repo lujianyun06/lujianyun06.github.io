@@ -20,21 +20,21 @@
     var CONFIG = {"hostname":"lujianyun06.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="最近按照默认方法安装brew特别慢，但是想切换从国内源安装，得到的都是老版本的切换方法： https:&#x2F;&#x2F;segmentfault.com&#x2F;a&#x2F;1190000018360813 因为安装brew的脚本现在不是ruby脚本，改成了shell脚本，而且脚本地址也改变了，所以也需要改变一下安装策略： 首先把https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;instal">
+  <meta name="description" content="不重复打印排序数组中相加和为给定值的所有二元组和三元组给定排序数组arr和整数k，不重复打印arr中所有相加和为k的不降序二元组。例如，arr&#x3D;[-8,-4,-3,0,1,2,4,5,8,9],k&#x3D;10,打印结果为：1,92,8 1.利用双指针法，设置遍历left&#x3D;0和right&#x3D;length-12.比较arr[left]+arr[right]的值(sum)与k的大小    如果sum等于k，打印">
 <meta property="og:type" content="article">
-<meta property="og:title" content="brew从国内源安装">
-<meta property="og:url" content="https://lujianyun06.github.io/2020/04/10/mac/brew%E4%BB%8E%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:title" content="不重复打印排序数组中相加和为给定值的所有二元组和三元组">
+<meta property="og:url" content="https://lujianyun06.github.io/2020/04/23/%E7%AE%97%E6%B3%95/%E4%B8%8D%E9%87%8D%E5%A4%8D%E6%89%93%E5%8D%B0%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9B%B8%E5%8A%A0%E5%92%8C%E4%B8%BA%E7%BB%99%E5%AE%9A%E5%80%BC%E7%9A%84%E6%89%80%E6%9C%89%E4%BA%8C%E5%85%83%E7%BB%84%E5%92%8C%E4%B8%89%E5%85%83%E7%BB%84/index.html">
 <meta property="og:site_name" content="CloudLander&#39;s Blog">
-<meta property="og:description" content="最近按照默认方法安装brew特别慢，但是想切换从国内源安装，得到的都是老版本的切换方法： https:&#x2F;&#x2F;segmentfault.com&#x2F;a&#x2F;1190000018360813 因为安装brew的脚本现在不是ruby脚本，改成了shell脚本，而且脚本地址也改变了，所以也需要改变一下安装策略： 首先把https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;instal">
+<meta property="og:description" content="不重复打印排序数组中相加和为给定值的所有二元组和三元组给定排序数组arr和整数k，不重复打印arr中所有相加和为k的不降序二元组。例如，arr&#x3D;[-8,-4,-3,0,1,2,4,5,8,9],k&#x3D;10,打印结果为：1,92,8 1.利用双指针法，设置遍历left&#x3D;0和right&#x3D;length-12.比较arr[left]+arr[right]的值(sum)与k的大小    如果sum等于k，打印">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-04-10T10:15:08.000Z">
-<meta property="article:modified_time" content="2020-04-10T10:16:32.602Z">
+<meta property="article:published_time" content="2020-04-23T08:42:42.000Z">
+<meta property="article:modified_time" content="2020-04-23T08:47:26.127Z">
 <meta property="article:author" content="CloudLander~Lu">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="后台开发">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://lujianyun06.github.io/2020/04/10/mac/brew%E4%BB%8E%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85/">
+<link rel="canonical" href="https://lujianyun06.github.io/2020/04/23/%E7%AE%97%E6%B3%95/%E4%B8%8D%E9%87%8D%E5%A4%8D%E6%89%93%E5%8D%B0%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9B%B8%E5%8A%A0%E5%92%8C%E4%B8%BA%E7%BB%99%E5%AE%9A%E5%80%BC%E7%9A%84%E6%89%80%E6%9C%89%E4%BA%8C%E5%85%83%E7%BB%84%E5%92%8C%E4%B8%89%E5%85%83%E7%BB%84/">
 
 
 <script id="page-configurations">
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>brew从国内源安装 | CloudLander's Blog</title>
+  <title>不重复打印排序数组中相加和为给定值的所有二元组和三元组 | CloudLander's Blog</title>
   
 
 
@@ -190,7 +190,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/mac/brew%E4%BB%8E%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85/">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/23/%E7%AE%97%E6%B3%95/%E4%B8%8D%E9%87%8D%E5%A4%8D%E6%89%93%E5%8D%B0%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9B%B8%E5%8A%A0%E5%92%8C%E4%B8%BA%E7%BB%99%E5%AE%9A%E5%80%BC%E7%9A%84%E6%89%80%E6%9C%89%E4%BA%8C%E5%85%83%E7%BB%84%E5%92%8C%E4%B8%89%E5%85%83%E7%BB%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
@@ -203,7 +203,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          brew从国内源安装
+          不重复打印排序数组中相加和为给定值的所有二元组和三元组
         </h1>
 
         <div class="post-meta">
@@ -214,7 +214,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-04-10 18:15:08 / 修改时间：18:16:32" itemprop="dateCreated datePublished" datetime="2020-04-10T18:15:08+08:00">2020-04-10</time>
+              <time title="创建时间：2020-04-23 16:42:42 / 修改时间：16:47:26" itemprop="dateCreated datePublished" datetime="2020-04-23T16:42:42+08:00">2020-04-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -222,7 +222,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mac/" itemprop="url" rel="index"><span itemprop="name">mac</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
                 </span>
             </span>
 
@@ -244,24 +244,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>最近按照默认方法安装brew特别慢，但是想切换从国内源安装，得到的都是老版本的切换方法：</p>
-<p><a href="https://segmentfault.com/a/1190000018360813" target="_blank" rel="noopener">https://segmentfault.com/a/1190000018360813</a></p>
-<p>因为安装brew的脚本现在不是ruby脚本，改成了shell脚本，而且脚本地址也改变了，所以也需要改变一下安装策略：</p>
-<p>首先把<a href="https://raw.githubusercontent.com/Homebrew/install/master/install.sh上的所有内容拷贝到~目录下的brew_install" target="_blank" rel="noopener">https://raw.githubusercontent.com/Homebrew/install/master/install.sh上的所有内容拷贝到~目录下的brew_install</a> 文件中（没有就新建）</p>
-<p>修改代码（修改为中科大源）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">else</span></span><br><span class="line">  HOMEBREW_PREFIX_DEFAULT=<span class="string">"/home/linuxbrew/.linuxbrew"</span></span><br><span class="line">  HOMEBREW_CACHE=<span class="string">"<span class="variable">$&#123;HOME&#125;</span>/.cache/Homebrew"</span></span><br><span class="line"> </span><br><span class="line">  STAT=<span class="string">"stat --printf"</span></span><br><span class="line">  CHOWN=<span class="string">"/bin/chown"</span></span><br><span class="line">  CHGRP=<span class="string">"/bin/chgrp"</span></span><br><span class="line">  GROUP=<span class="string">"<span class="variable">$(id -gn)</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># BREW_REPO="https://github.com/Homebrew/brew” 修改前</span></span><br><span class="line">BREW_REPO=<span class="string">"git://mirrors.ustc.edu.cn/brew.git”  #修改后</span></span><br><span class="line"><span class="string">CORE_TAP_REPO="</span>git://mirrors.ustc.edu.cn/homebrew-core.git”  <span class="comment">#新增</span></span><br></pre></td></tr></table></figure>
+        <h2 id="不重复打印排序数组中相加和为给定值的所有二元组和三元组"><a href="#不重复打印排序数组中相加和为给定值的所有二元组和三元组" class="headerlink" title="不重复打印排序数组中相加和为给定值的所有二元组和三元组"></a>不重复打印排序数组中相加和为给定值的所有二元组和三元组</h2><p>给定排序数组arr和整数k，不重复打印arr中所有相加和为k的不降序二元组。<br>例如，arr=[-8,-4,-3,0,1,2,4,5,8,9],k=10,打印结果为：<br>1,9<br>2,8</p>
+<p>1.利用双指针法，设置遍历left=0和right=length-1<br>2.比较arr[left]+arr[right]的值(sum)与k的大小<br>    如果sum等于k，打印arr[left],arr[right], left++,right–.<br>    如果sum大于k，right–<br>    如果sum小于k，left++<br>3.如果left&lt; right,则一直重复步骤2，否则过程结束<br>为了保证不重复打印，只需在打印前增加一个检查：arr[left]是否与它前一个值相等，如果相等就不打印<br>解释：因为整体过程是两头向中间压缩的过程，如果arr[left]+arr[right]=k,又有arr[left]==arr[left-1],那么之前一定打印过这个二元组，则不用再重复打印<br>时间复杂度O(N)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printUniquePair</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(arr==<span class="keyword">null</span> || arr.length&lt;<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> right = arr.length-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">        <span class="keyword">if</span>(arr[left]+arr[right]&lt;k)&#123;</span><br><span class="line">            left++;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(arr[left]+arr[right]&gt;k)&#123;</span><br><span class="line">            right--;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(left==<span class="number">0</span> || arr[left-<span class="number">1</span>]!=arr[left])&#123;</span><br><span class="line">                System.out.println(arr[left]+<span class="string">","</span>+arr[right]);</span><br><span class="line">            &#125;</span><br><span class="line">            left++;</span><br><span class="line">            right--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>修改过后把brew_install文件变为可执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x brew_install</span><br></pre></td></tr></table></figure>
-<p>然后用执行脚本的方式执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash brew_install</span><br></pre></td></tr></table></figure>
-<p>速度简直和外网不是一个level！</p>
-<p>但是执行到brew-core还是会巨慢无比，此时可以ctrl-c 可以停掉,</p>
-<p>创建目录/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core</p>
-<p>并执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br></pre></td></tr></table></figure>
-<p>然后重新执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash brew_install</span><br></pre></td></tr></table></figure>
+
+<h2 id="三元组的问题类似于二元组的求解过程"><a href="#三元组的问题类似于二元组的求解过程" class="headerlink" title="三元组的问题类似于二元组的求解过程"></a>三元组的问题类似于二元组的求解过程</h2><p>例如 arr=[-8,-4,-3,0,1,2,4,5,8,9] k=10<br>当三元组的第一个值为-8时，寻找-8后面的子数组中所有相加为18的不重复二元组<br>当三元组的第一个值为-4时，寻找-4后面的子数组中所有相加为14的不重复二元组<br>当三元组的第一个值为-3时，寻找-3后面的子数组中所有相加为13的不重复二元组<br>依次类推：<br>如果不重复打印？首先保证每次寻找过程开始前，选定的三元组中第一个值不重复，其次就是原问题的打印检查一样，保证不重复打印二元组<br>时间复杂度为O(n^2)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printUniqueTriad</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(arr==<span class="keyword">null</span> || arr.length&lt;<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;arr.length-<span class="number">2</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i==<span class="number">0</span> || arr[i]!=arr[i-<span class="number">1</span>])&#123;</span><br><span class="line">            printRest(arr, i, i+<span class="number">1</span>, arr.length-<span class="number">1</span>, k-arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printRest</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> f, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(l&lt;r)&#123;</span><br><span class="line">        <span class="keyword">if</span>(arr[l]+arr[r]&lt;k)&#123;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(arr[l]+arr[r]&gt;k)&#123;</span><br><span class="line">            r--;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(l==f+<span class="number">1</span> || arr[l-<span class="number">1</span>]!=arr[l])&#123;</span><br><span class="line">                System.out.println(arr[f]+<span class="string">","</span>+arr[l]+<span class="string">","</span>+arr[r]);</span><br><span class="line">            &#125;</span><br><span class="line">            l++;</span><br><span class="line">            r--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -277,13 +266,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/04/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%B7%B3%E8%A1%A8/" rel="prev" title="跳表">
-      <i class="fa fa-chevron-left"></i> 跳表
+    <a href="/2020/04/22/%E7%AE%97%E6%B3%95/%E6%89%BE%E4%BC%97%E6%95%B0/" rel="prev" title="找众数">
+      <i class="fa fa-chevron-left"></i> 找众数
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/04/10/java/rabbitmq/rabbitmq%E7%AC%94%E8%AE%B0/" rel="next" title="rabbitmq笔记">
-      rabbitmq笔记 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -342,6 +328,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#不重复打印排序数组中相加和为给定值的所有二元组和三元组"><span class="nav-number">1.</span> <span class="nav-text">不重复打印排序数组中相加和为给定值的所有二元组和三元组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三元组的问题类似于二元组的求解过程"><span class="nav-number">2.</span> <span class="nav-text">三元组的问题类似于二元组的求解过程</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -130,7 +130,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">36</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">37</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -183,6 +183,116 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/mybatis/Mybatis%E4%B8%AD%E5%AF%B9%E4%BA%8Eassociation%E7%9A%84%E7%90%86%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/java/mybatis/Mybatis%E4%B8%AD%E5%AF%B9%E4%BA%8Eassociation%E7%9A%84%E7%90%86%E8%A7%A3/" class="post-title-link" itemprop="url">Mybatis中对于association的理解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:20:37" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/mybatis/" itemprop="url" rel="index"><span itemprop="name">mybatis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>mybatis是先处理sql，把sql执行完后把结果表映射到resultMap或者resultType上</p>
+<p>如下面的：</p>
+<p>一个project对应一个user</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Project</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    String name;</span><br><span class="line">    User user;</span><br><span class="line">    ItemState state;</span><br><span class="line">    Set&lt;User&gt; signer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">public</span> String username;</span><br><span class="line">    <span class="keyword">public</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>表为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">project</span>(</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">50</span>),</span><br><span class="line">    user_id <span class="built_in">int</span>,</span><br><span class="line">    state enum(<span class="string">'created'</span>, <span class="string">'planned'</span>, <span class="string">'started'</span>, <span class="string">'finished'</span>),</span><br><span class="line">)<span class="keyword">engine</span>=<span class="keyword">innoDB</span>, <span class="keyword">charset</span>=utf8;</span><br></pre></td></tr></table></figure>
+
+<p>user表：<br>+———-+————-+——+—–+———+—————-+<br>| Field    | Type        | Null | Key | Default | Extra          |<br>+———-+————-+——+—–+———+—————-+<br>| id       | int(11)     | NO   | PRI | NULL    | auto_increment |<br>| username | varchar(20) | NO   | MUL | NULL    |                |<br>| password | varchar(18) | NO   |     | NULL    |                |<br>+———-+————-+——+—–+———+—————-+</p>
+<p>当给定一个userid，要查询其对应的project及其对应的user。<br>首先如果结果集不是简单的POJO（POJO其属性不含其它bean的类型），就不能简单使用resultType，因为复杂映射映射不出来。要使用resultMap，且使用association和collection</p>
+<blockquote>
+<p>下面称association和collection为“复杂映射”</p>
+</blockquote>
+<p>所有的复杂映射都是根据结果表进行映射</p>
+<p>如要使用userid去查询project及其对应的user，有以下办法：</p>
+<h4 id="用法一："><a href="#用法一：" class="headerlink" title="用法一："></a>用法一：</h4><p>ProjectMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.ljy.inspector.dao.ProjectDao"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"projectMap"</span> <span class="attr">type</span>=<span class="string">"com.ljy.inspector.entity.Project"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"state"</span> <span class="attr">property</span>=<span class="string">"state"</span> <span class="attr">typeHandler</span>=<span class="string">"com.ljy.inspector.type_handler.ItemStateHandler"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">column</span>=<span class="string">"user_id"</span> <span class="attr">property</span>=<span class="string">"user"</span> <span class="attr">select</span>=<span class="string">"com.ljy.inspector.dao.UserDao.findById"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findByUserId"</span> <span class="attr">resultMap</span>=<span class="string">"projectMap"</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">        from project as p</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            p.user_id = #&#123;userId&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>UserMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.ljy.inspector.dao.UserDao"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"UserMap"</span> <span class="attr">type</span>=<span class="string">"com.ljy.inspector.entity.User"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"username"</span> <span class="attr">property</span>=<span class="string">"username"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"password"</span> <span class="attr">property</span>=<span class="string">"password"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findById"</span> <span class="attr">resultType</span>=<span class="string">"com.ljy.inspector.entity.User"</span>&gt;</span></span><br><span class="line">        SELECT * FROM user AS u</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            u.id = #&#123;id&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>association中嵌套select语句，这样的执行顺序是：先执行上层select找出resultMap中除了复杂映射的其他部分，默认开启部分自动映射，因此其他部分会被自动映射，除了有的映射不到，需要使用类型处理器，如ItemState。接着执行association中的select语句，并且将user_id作为参数传入findById，user_id就会被当做findById中的 #{id} (即使名字不一样，但就是这么做的)<br>这样做的话，会得到正确的结果：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="number">10</span>,</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"czxczc"</span>,</span><br><span class="line">            <span class="attr">"state"</span>: <span class="string">"CREATED"</span>,</span><br><span class="line">            <span class="attr">"user"</span>: &#123;</span><br><span class="line">                <span class="attr">"id"</span>: <span class="number">2</span>,</span><br><span class="line">                <span class="attr">"username"</span>: <span class="string">"123"</span>,</span><br><span class="line">                <span class="attr">"password"</span>: <span class="string">"11111111"</span></span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样做相当于把查询分了两步：<br>1.在project中先select查询user_id为给定值的所有元组（行），把能自动映射或者指定了类型处理器的属性先映射到Project对象上</p>
+<p>2.再根据上述元组中的user_id属性去select查询user表中id为userid中的行，并把查询结果集映射到User对象上，并且把这个User对象赋给上面的Project对象的user属性。</p>
+<p>整体就是两步select，根据第一步查询出的结果的某个字段去进行第二步查询。<br>先构建出第一步查询的结果对象obj1，然后把第二步查询的结果对象obj2赋给obj1对应的属性。</p>
+<p>（先得到结果表1，对其进行映射，再使用其中的某字段得到结果表2，再对结果表2进行映射，将映射结果2嵌入映射结果1的属性中。整个过程产生了两张结果表，因为有两个select）</p>
+<h4 id="用法二："><a href="#用法二：" class="headerlink" title="用法二："></a>用法二：</h4><p>ProjectMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.ljy.inspector.dao.ProjectDao"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"projectMap"</span> <span class="attr">type</span>=<span class="string">"com.ljy.inspector.entity.Project"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"state"</span> <span class="attr">property</span>=<span class="string">"state"</span> <span class="attr">typeHandler</span>=<span class="string">"com.ljy.inspector.type_handler.ItemStateHandler"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"user"</span> <span class="attr">javaType</span>=<span class="string">"com.ljy.inspector.entity.User"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"u_id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"username"</span> <span class="attr">property</span>=<span class="string">"username"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"base_user"</span>&gt;</span></span><br><span class="line">        p.*, u.id as u_id, u.username, u.password</span><br><span class="line">    <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findByUserId"</span> <span class="attr">resultMap</span>=<span class="string">"projectMap"</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"base_user"</span>/&gt;</span></span><br><span class="line">        from project as p,user as u</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            p.user_id = #&#123;userId&#125;</span><br><span class="line">            and</span><br><span class="line">            u.id = #&#123;userId&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>结果为：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="number">10</span>,</span><br><span class="line">            <span class="attr">"name"</span>: <span class="literal">null</span>,</span><br><span class="line">            <span class="attr">"state"</span>: <span class="string">"CREATED"</span>,</span><br><span class="line">            <span class="attr">"user"</span>: &#123;</span><br><span class="line">                <span class="attr">"id"</span>: <span class="number">2</span>,</span><br><span class="line">                <span class="attr">"username"</span>: <span class="string">"123"</span>,</span><br><span class="line">                <span class="attr">"password"</span>: <span class="literal">null</span></span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>   这种方法是执行一次select查询，一次查询两个表，然后再对这个联合结果表进行映射，这种方式完全是按照sql的思想理念去做的，只有最后才是对联合结果表进行一次映射。<br>   <u>这种方式的resultMap会自行关闭自动映射，原因在于结果表只有一张，</u>如果两张表中有名称相同的字段，会产生歧义（如project的叫id，user的也叫id）。在sql查询中，这种情况不会有问题，结果表可以有两个列都叫id，但是对于映射来说列名是唯一标签，所以会产生歧义。所以这种情况下，要对有歧义的列名起别名，如上面的sql标签，将user中的id别名为u_id，那么最终产生的结果表中，只有一列叫id，即project.id，而user.id的这一列叫u_id，所以在association中列名叫做u_id。<br>   这样得出一张结果表后，先整体映射为指定的对象类型，再把其中要映射为属性或者需要处理的列去映射成相应的属性。而把需要映射为association的列摘出来，根据提供的对象类型把它们映射成相应的对象，赋给上层的对象的属性</p>
+<p>方法二还有一种做法是指定association的resultMap属性，两者其实是一样的。本质上都是从一张结果表中取结果列取映射。</p>
+<p>所以对于association需要注意的点：</p>
+<p>1.如果使用了select属性，则本质上要进行两次查询，得到两张结果表，因为是从不同的表中查询（相同也无所谓）且每次只查询一个表，所以二者互不干涉，所以不存在字段歧义的问题，自动映射会开启。<br>2.如果使用resultMap属性，或者association本身当做一个resultMap，则本质是对多张表的<u>一次</u>联合查询，只产生一张结果表。然后对这张结果表一次进行映射。可能存在字段歧义问题，自动映射会关闭（如果没有指明映射关系的字段会得到空值）。此时要把产生歧义的字段起别名，并且把所有需要映射的字段都显式写出来。</p>
+<p>所有的mybatis的resultMap，不管其结构有多复杂，本质都是执行完sql后对结果表再进行映射（归根结底要很清晰执行完sql语句后结果表是什么样子），其中的column的名称是结果表的column名称而不是原表的colum名称（虽然不起别名的话二者相同）。只要明确这一点，很多问题就能迎刃而解。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -456,6 +566,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/" class="post-title-link" itemprop="url">springboot 静态资源无法访问以及添加静态资源无法立即访问</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:08:18" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="springboot-静态资源无法访问"><a href="#springboot-静态资源无法访问" class="headerlink" title="springboot 静态资源无法访问"></a>springboot 静态资源无法访问</h2><blockquote>
+<p>在一个项目中WebMvcConfigurationSupport只能存在一个，多个的时候，只有一个会生效。（按名称排序后第一个的）</p>
+</blockquote>
+<p>1.SpringBoot 的 @EnableAutoConfiguration 会启用自动配置类 </p>
+<p>2.WebMvcAutoConfiguration，该类配置了一些默认的静态资源映射</p>
+<ul>
+<li>自动映射 localhost:8080/** 为以下路径<pre><code>classpath:/resources/
+classpath:/static/
+classpath:/public/
+classpath:/META-INF/resources/</code></pre><ol start="2">
+<li>自动映射 localhost:8080/webjars/** 为以下路径<br> classpath:/META-INF/resources/webjars/</li>
+</ol>
+</li>
+</ul>
+<p>此时，我们不需要多做什么，只要将静态资源放入 src/main/resources 目录下的 resources、static 或 public 文件夹下，即可通过 url 定位相关资源，例如 localhost:8080/index.html 可定位至 src/main/resources/static/index.html</p>
+<p><strong>但是！</strong><br>一旦使用继承了WebMvcConfigurationSupport或者WebMvcConfigurerAdapter的自定义配置类，即使没有重写addResourceHandlers方法，默认配置都会被不被采用。如果要采用原本默认的配置，则需要webmvc配置类中重写如下方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoWebMvcConfigurerAdapter</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//配置静态资源处理</span></span><br><span class="line">        registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"resources/"</span>, <span class="string">"static/"</span>, <span class="string">"public/"</span>, </span><br><span class="line">                <span class="string">"META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"classpath:resources/"</span>, <span class="string">"classpath:static/"</span>, </span><br><span class="line">                <span class="string">"classpath:public/"</span>, <span class="string">"classpath:META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"file:///tmp/webapps/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>经过试验得证：如果不使用WebMvcConfigurationSupport，则使用application.properties中的默认配置<br>如果重写了application.properties中的配置，则使用重写后的配置，如：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring.resources.<span class="keyword">static</span>-locations=resources<span class="regexp">/, static/</span>, <span class="keyword">public</span><span class="regexp">/, \ META-INF/</span>resources<span class="regexp">/, resources/</span>, <span class="keyword">classpath</span>:<span class="keyword">static</span><span class="regexp">/, public/</span>, <span class="keyword">classpath</span>:META-INF<span class="regexp">/resources/</span>, \<span class="keyword">file</span>:<span class="comment">///tmp/webapps/</span></span><br><span class="line"></span><br><span class="line">spring.mvc.<span class="keyword">static</span>-path-pattern=<span class="comment">/**</span></span><br></pre></td></tr></table></figure>
+
+<p>一旦使用了WebMvcConfigurationSupport（或WebMvcConfigurerAdapter）那么必须要重写addResourceHandlers来配置资源映射，此时application.properties中关于静态资源访问的配置将失效（除非对url写了响应的controller来处理，那是另一回事）</p>
+<h2 id="当添加了静态资源后，无法立即访问的问题"><a href="#当添加了静态资源后，无法立即访问的问题" class="headerlink" title="当添加了静态资源后，无法立即访问的问题"></a>当添加了静态资源后，无法立即访问的问题</h2><p>如果访问项目中的静态资源，访问的所有的东西其实都是target目录中的，这是经过编译的，如果对项目目录下的静态资源进行修改（增删改），由于target下的东西没有受影响，所以没法立即生效，比如往/resouces/static下增加一张图片，通过url无法立即访问到，必须重启项目。其实重启就是让资源文件经过编译（其实资源文件根本不编译）后，加到target中，那么这样就很麻烦，要是想对一个静态资源修改后能立即通过url访问到要如何做呢？<br>解决办法将静态资源放在非项目类路径下即可，例如 “file:///Users/mytest/inspector/independent_resources/“);，并且在资源处理器中加上路径即可。<br>file:// 后面跟的必须是文件系统的绝对路径</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**”)</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>resources/<span class="string">", "</span><span class="keyword">static</span>/<span class="string">", "</span><span class="keyword">public</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>classpath:resources/<span class="string">", "</span>classpath:<span class="keyword">static</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>classpath:<span class="keyword">public</span>/<span class="string">", "</span>classpath:META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        //如果要让添加的静态资源立即生效，则不能把它放到项目资源里面，应该放在外面，比如下面的目录</span></span><br><span class="line"><span class="string">        //这样一旦静态资源添加到这个目录，则直接从该位置获取，而不是从编译的target位置获取</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>file:<span class="comment">///Users/mytest/inspector/independent_resources/");</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**********之间的是项目类的路径，不用管，最下面的是非项目类的路径</span></span><br><span class="line"><span class="comment">这样的话，在项目运行时，往/Users/mytest/inspector/independent_resources/目录下添加一个111.png后，在浏览器中通过localhost:8080/111.png就可访问到这个图片了。</span></span><br><span class="line"><span class="comment">如果不添加这个，在项目运行时，往项目的src/main/resources 下添加一个111.png后，不能立即通过浏览器访问到这个图片，因为项目类的所有资源和文件必须编译为target版本后才对外服务，而添加资源后不重启项目无法重新编译，target中的东西没有更新。</span></span><br></pre></td></tr></table></figure>
+<p>见<a href="https://blog.csdn.net/rui18300072030/article/details/74923580" target="_blank" rel="noopener">https://blog.csdn.net/rui18300072030/article/details/74923580</a></p>
+<blockquote>
+<p>因此，需要修改后立即生效的文件，尤其是非代码文件（除去html，css这种）最好是放在项目类的外部，放在文件系统的绝对路径下。如果文件必须放在项目中，但又必须得立即生效，<br>那么对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
+</blockquote>
+<p>如果文件必须放在项目中，但又必须得立即生效，那么用下面的方法：<br>对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">        .addResourceLocations(<span class="string">"classpath:static/"</span>)</span><br><span class="line"> .addResourceLocations(<span class="string">"file:///Users/mytest/inspector/src/main/resources/static/"</span>);</span><br></pre></td></tr></table></figure>
+<p>上面两个路径其实是同一个，但通过上面相对路径访问的是target中的东西。在运行时添加一个文件后，target没有更新，通过相对路径就访问不到，但实际上文件系统是更新了，所以用下面的绝对路径直接访问文件系统中的文件就可。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8&%E4%BD%BF%E7%94%A8aop%E6%97%B6%E6%B3%A8%E5%85%A5%E5%B1%9E%E6%80%A7%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -542,107 +753,6 @@
 <p>可以进入堆栈中看：<br>在创建aop1util时，当执行完populateBean时，它的“aop2Util”属性就已经被填充了，此时它仍是正常的实例<br><img src="https://img-blog.csdnimg.cn/20200318114610355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="8"><br>在进入initialzeBean后，执行完前置处理后，可以看到这个bean仍然没有变化：（在initialzeBean中以wrappedBean为准）<br><img src="https://img-blog.csdnimg.cn/20200318114610342.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="9"></p>
 <p>但一经过后置处理，可以看到wrappedBean已经变成了代理对象，而且其aop2util属性是空<br><img src="https://img-blog.csdnimg.cn/20200318114610381.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="10"></p>
 <p><strong>结论：如果一个对象要被生成代理，那么不要对它的属性或方法进行注入，这些都会变成null（构造器注入是可以的,因为构造器注入时创建代理对象时必须要调用其父类（也就是被代理类）的构造函数，此时就会把要注入的对象注入了）</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="CloudLander~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CloudLander's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/" class="post-title-link" itemprop="url">springboot 静态资源无法访问以及添加静态资源无法立即访问</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:08:18" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="springboot-静态资源无法访问"><a href="#springboot-静态资源无法访问" class="headerlink" title="springboot 静态资源无法访问"></a>springboot 静态资源无法访问</h2><blockquote>
-<p>在一个项目中WebMvcConfigurationSupport只能存在一个，多个的时候，只有一个会生效。（按名称排序后第一个的）</p>
-</blockquote>
-<p>1.SpringBoot 的 @EnableAutoConfiguration 会启用自动配置类 </p>
-<p>2.WebMvcAutoConfiguration，该类配置了一些默认的静态资源映射</p>
-<ul>
-<li>自动映射 localhost:8080/** 为以下路径<pre><code>classpath:/resources/
-classpath:/static/
-classpath:/public/
-classpath:/META-INF/resources/</code></pre><ol start="2">
-<li>自动映射 localhost:8080/webjars/** 为以下路径<br> classpath:/META-INF/resources/webjars/</li>
-</ol>
-</li>
-</ul>
-<p>此时，我们不需要多做什么，只要将静态资源放入 src/main/resources 目录下的 resources、static 或 public 文件夹下，即可通过 url 定位相关资源，例如 localhost:8080/index.html 可定位至 src/main/resources/static/index.html</p>
-<p><strong>但是！</strong><br>一旦使用继承了WebMvcConfigurationSupport或者WebMvcConfigurerAdapter的自定义配置类，即使没有重写addResourceHandlers方法，默认配置都会被不被采用。如果要采用原本默认的配置，则需要webmvc配置类中重写如下方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoWebMvcConfigurerAdapter</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//配置静态资源处理</span></span><br><span class="line">        registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"resources/"</span>, <span class="string">"static/"</span>, <span class="string">"public/"</span>, </span><br><span class="line">                <span class="string">"META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"classpath:resources/"</span>, <span class="string">"classpath:static/"</span>, </span><br><span class="line">                <span class="string">"classpath:public/"</span>, <span class="string">"classpath:META-INF/resources/"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"file:///tmp/webapps/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>经过试验得证：如果不使用WebMvcConfigurationSupport，则使用application.properties中的默认配置<br>如果重写了application.properties中的配置，则使用重写后的配置，如：</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring.resources.<span class="keyword">static</span>-locations=resources<span class="regexp">/, static/</span>, <span class="keyword">public</span><span class="regexp">/, \ META-INF/</span>resources<span class="regexp">/, resources/</span>, <span class="keyword">classpath</span>:<span class="keyword">static</span><span class="regexp">/, public/</span>, <span class="keyword">classpath</span>:META-INF<span class="regexp">/resources/</span>, \<span class="keyword">file</span>:<span class="comment">///tmp/webapps/</span></span><br><span class="line"></span><br><span class="line">spring.mvc.<span class="keyword">static</span>-path-pattern=<span class="comment">/**</span></span><br></pre></td></tr></table></figure>
-
-<p>一旦使用了WebMvcConfigurationSupport（或WebMvcConfigurerAdapter）那么必须要重写addResourceHandlers来配置资源映射，此时application.properties中关于静态资源访问的配置将失效（除非对url写了响应的controller来处理，那是另一回事）</p>
-<h2 id="当添加了静态资源后，无法立即访问的问题"><a href="#当添加了静态资源后，无法立即访问的问题" class="headerlink" title="当添加了静态资源后，无法立即访问的问题"></a>当添加了静态资源后，无法立即访问的问题</h2><p>如果访问项目中的静态资源，访问的所有的东西其实都是target目录中的，这是经过编译的，如果对项目目录下的静态资源进行修改（增删改），由于target下的东西没有受影响，所以没法立即生效，比如往/resouces/static下增加一张图片，通过url无法立即访问到，必须重启项目。其实重启就是让资源文件经过编译（其实资源文件根本不编译）后，加到target中，那么这样就很麻烦，要是想对一个静态资源修改后能立即通过url访问到要如何做呢？<br>解决办法将静态资源放在非项目类路径下即可，例如 “file:///Users/mytest/inspector/independent_resources/“);，并且在资源处理器中加上路径即可。<br>file:// 后面跟的必须是文件系统的绝对路径</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**”)</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>resources/<span class="string">", "</span><span class="keyword">static</span>/<span class="string">", "</span><span class="keyword">public</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>classpath:resources/<span class="string">", "</span>classpath:<span class="keyword">static</span>/<span class="string">",</span></span><br><span class="line"><span class="string">                "</span>classpath:<span class="keyword">public</span>/<span class="string">", "</span>classpath:META-INF/resources/<span class="string">")</span></span><br><span class="line"><span class="string">//**********/</span></span><br><span class="line"><span class="string">        //如果要让添加的静态资源立即生效，则不能把它放到项目资源里面，应该放在外面，比如下面的目录</span></span><br><span class="line"><span class="string">        //这样一旦静态资源添加到这个目录，则直接从该位置获取，而不是从编译的target位置获取</span></span><br><span class="line"><span class="string">        .addResourceLocations("</span>file:<span class="comment">///Users/mytest/inspector/independent_resources/");</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**********之间的是项目类的路径，不用管，最下面的是非项目类的路径</span></span><br><span class="line"><span class="comment">这样的话，在项目运行时，往/Users/mytest/inspector/independent_resources/目录下添加一个111.png后，在浏览器中通过localhost:8080/111.png就可访问到这个图片了。</span></span><br><span class="line"><span class="comment">如果不添加这个，在项目运行时，往项目的src/main/resources 下添加一个111.png后，不能立即通过浏览器访问到这个图片，因为项目类的所有资源和文件必须编译为target版本后才对外服务，而添加资源后不重启项目无法重新编译，target中的东西没有更新。</span></span><br></pre></td></tr></table></figure>
-<p>见<a href="https://blog.csdn.net/rui18300072030/article/details/74923580" target="_blank" rel="noopener">https://blog.csdn.net/rui18300072030/article/details/74923580</a></p>
-<blockquote>
-<p>因此，需要修改后立即生效的文件，尤其是非代码文件（除去html，css这种）最好是放在项目类的外部，放在文件系统的绝对路径下。如果文件必须放在项目中，但又必须得立即生效，<br>那么对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
-</blockquote>
-<p>如果文件必须放在项目中，但又必须得立即生效，那么用下面的方法：<br>对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">        .addResourceLocations(<span class="string">"classpath:static/"</span>)</span><br><span class="line"> .addResourceLocations(<span class="string">"file:///Users/mytest/inspector/src/main/resources/static/"</span>);</span><br></pre></td></tr></table></figure>
-<p>上面两个路径其实是同一个，但通过上面相对路径访问的是target中的东西。在运行时添加一个文件后，target没有更新，通过相对路径就访问不到，但实际上文件系统是更新了，所以用下面的绝对路径直接访问文件系统中的文件就可。</p>
 
       
     </div>
@@ -806,7 +916,7 @@ classpath:/META-INF/resources/</code></pre><ol start="2">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -130,7 +130,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">36</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">37</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -183,6 +183,99 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%B7%B3%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%B7%B3%E8%A1%A8/" class="post-title-link" itemprop="url">跳表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 17:56:08 / 修改时间：18:00:17" itemprop="dateCreated datePublished" datetime="2020-04-10T17:56:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本文大部分内容借鉴自<a href="https://baijiahao.baidu.com/s?id=1633338040568845450&amp;wfr=spider&amp;for=pc，感谢大神的辛勤劳动！" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1633338040568845450&amp;wfr=spider&amp;for=pc，感谢大神的辛勤劳动！</a></p>
+<p>跳表就是跳跃的表，其实归根结底是好多层的链表，最底层是正常的数据链表，往上走是代表性的索引</p>
+<p>越往上走一个索引代表的节点就越多，其实跳表和B* 树有些类似，</p>
+<p>B* 树</p>
+<p><img src="https://img-blog.csdnimg.cn/20200312205851392.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="1"></p>
+<p>跳表：</p>
+<p>越往上走，一个值能代表的范围越广。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200312210012776.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt=""></p>
+<p>都是：如果在当前层大于本节点，小于下一个节点，则往下走，否则继续往前走</p>
+<p>跳表。跳表是redis的一个核心组件，也同时被广泛地运用到了各种缓存地实现当中，它的主要优点，就是可以跟红黑树、AVL等平衡树一样，做到比较稳定地插入、查询与删除。理论插入查询删除的算法时间复杂度为O(logN)。<br><img src="https://img-blog.csdnimg.cn/20200312205831229.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="3"></p>
+<p>什么是跳表</p>
+<p>链表，相信大家都不陌生，维护一个有序的链表是一件非常简单的事情，我们都知道，在一个有序的链表里面，查询跟插入的算法复杂度都是O(n)。<br><img src="https://img-blog.csdnimg.cn/20200312205831176.png" alt="4"></p>
+<p>我们能不能进行优化呢，比如我们一次比较两个呢？那样不就可以把时间缩小一半？<br><img src="https://img-blog.csdnimg.cn/20200312205831220.png" alt="5"></p>
+<p>同理，如果我们4个4个比，那不就更快了？<br><img src="https://img-blog.csdnimg.cn/20200312205831280.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="6"></p>
+<p>跳表就是这样的一种数据结构，结点是跳过一部分的，从而加快了查询的速度。跳表跟红黑树又有什么差别呢？既然两者的算法复杂度差不多，为什么Redis要使用跳表而不使用红黑树呢？跳表相对于红黑树，主要有这几个优点：1.代码相对简单，手写个跳表还有可能，手写个红黑树试试？</p>
+<p>2.如果我们要查询一个区间里面的值，用平衡树可能会麻烦。这里的麻烦指的是实现和理解上，平衡二叉树查询一段区间也是可以做到的。3.删除一段区间，这个如果是平衡二叉树，就会相当困难，毕竟设计到树的平衡问题，而跳表则没有这种烦恼。好了，相信你对跳表已经有一些认识了，我们来简单介绍平衡二叉树的几个基本操作。</p>
+<p><strong>查询</strong></p>
+<p>假如我们要查询11，那么我们从最上层出发，发现下一个是5，再下一个是13，已经大于11，所以进入下一层，下一层的一个是9，查找下一个，下一个又是13，再次进入下一层。最终找到11。<br><img src="https://img-blog.csdnimg.cn/20200312205831286.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="7"></p>
+<p>是不是非常的简单？我们可以把查找的过程总结为一条三目表达式（下一个是否大于结果？下一个：下一层）。理解跳表的查询过程非常重要，试试看查询其他数字，只要你理解了查询，后面两种都非常简单。</p>
+<p><strong>插入</strong></p>
+<p>插入的时候，首先要进行查询，然后从最底层开始，插入被插入的元素。然后看看从下而上，是否需要逐层插入。可是到底要不要插入上一层呢？我们都知道，我们想每层的跳跃都非常高效，越是平衡就越好（第一层1级跳，第二层2级跳，第3层4级跳，第4层8级跳）。但是用算法实现起来，确实非常地复杂的，并且要严格地按照2地指数次幂，我们还要对原有地结构进行调整。所以跳表的思路是抛硬币，听天由命，产生一个随机数，50%概率再向上扩展，否则就结束。这样子，每一个元素能够有X层的概率为0.5^(X-1)次方。反过来，第X层有多少个元素的数学期望大家也可以算一下。</p>
+<p><strong>删除</strong></p>
+<p>同插入一样，删除也是先查找，查找到了之后，再从下往上逐个删除。比较简单，就不再赘叙。</p>
+<p>跳表和二叉搜索树比较：<br><img src="https://img-blog.csdnimg.cn/20200313112143915.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="8"></p>
+<p><strong>总结</strong></p>
+<p>跳表，用了计算机中一场非常用的解决问题的思路，随机。随机在深度学习与人工智能领域运用得非常的广泛。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -245,80 +338,6 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @@transaction_isolation;</span><br></pre></td></tr></table></figure>
 <p>即可解决。</p>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A11/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="CloudLander~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CloudLander's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/Android/%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A11/" class="post-title-link" itemprop="url">音视频任务1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 15:48:42 / 修改时间：15:50:25" itemprop="dateCreated datePublished" datetime="2020-04-10T15:48:42+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>跟着大神的步骤一步一步做，加油！<br>任务列表：<a href="http://blog.51cto.com/ticktick/1956269" target="_blank" rel="noopener">http://blog.51cto.com/ticktick/1956269</a></p>
-<p>在 Android 平台绘制一张图片，使用至少 3 种不同的 API，ImageView，SurfaceView，自定义 View<br>imageView和surfaceView，为了方便都是直接在activity里面写的函数，直接在onCreateView里面调用</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.content.res.Resources;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Bitmap;</span><br><span class="line"><span class="keyword">import</span> android.graphics.BitmapFactory;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Canvas;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Matrix;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Rect;</span><br><span class="line"><span class="keyword">import</span> android.graphics.drawable.BitmapDrawable;</span><br><span class="line"><span class="keyword">import</span> android.graphics.drawable.Drawable;</span><br><span class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity;</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.view.SurfaceHolder;</span><br><span class="line"><span class="keyword">import</span> android.view.SurfaceView;</span><br><span class="line"><span class="keyword">import</span> android.widget.ImageView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        displaySurfaceView();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">displayImg</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">final</span> ImageView iv = findViewById(R.id.iv_lu);</span><br><span class="line">        <span class="comment">//1</span></span><br><span class="line"><span class="comment">//        iv.setImageResource(R.mipmap.wechatimg1);</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//2</span></span><br><span class="line"><span class="comment">//        Drawable drawable = getResources().getDrawable(R.mipmap.wechatimg1, null);</span></span><br><span class="line"><span class="comment">//        iv.setImageDrawable(drawable);</span></span><br><span class="line">        <span class="comment">//3</span></span><br><span class="line">        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.wechatimg1);</span><br><span class="line">        iv.setImageBitmap(bitmap);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">displaySurfaceView</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">final</span> SurfaceView sv = findViewById(com.example.lujianyun.va.R.id.sv_lu);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> SurfaceHolder holder = sv.getHolder();</span><br><span class="line">        <span class="keyword">final</span> Thread t = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                Canvas canvas = holder.lockCanvas();</span><br><span class="line">                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), com.example.lujianyun.va.R.mipmap.wechatimg1);</span><br><span class="line">                canvas.drawBitmap(bitmap, <span class="number">0</span>, <span class="number">0</span>, <span class="keyword">null</span>);</span><br><span class="line">                holder.unlockCanvasAndPost(canvas);</span><br><span class="line">                holder.lockCanvas(<span class="keyword">new</span> Rect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>));</span><br><span class="line">                holder.unlockCanvasAndPost(canvas);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        holder.addCallback(<span class="keyword">new</span> SurfaceHolder.Callback() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceCreated</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</span><br><span class="line">                t.start();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceChanged</span><span class="params">(SurfaceHolder holder, <span class="keyword">int</span> format, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceDestroyed</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>自定义view</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DrawView</span> <span class="keyword">extends</span> <span class="title">View</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    String TAG = <span class="string">"DrawView"</span>;</span><br><span class="line">    Bitmap bitmap;</span><br><span class="line">    Bitmap orginBitmap;</span><br><span class="line">    <span class="keyword">boolean</span> bitmapFinished = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DrawView</span><span class="params">(Context context, @Nullable AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs);</span><br><span class="line">        orginBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.wechatimg1);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!bitmapFinished) &#123; <span class="comment">//由于onmeasure要多次调用，所以创建对象的工作只做一次，防止耗时</span></span><br><span class="line">            <span class="keyword">int</span> w = MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">            <span class="keyword">int</span> h = MeasureSpec.getSize(heightMeasureSpec);</span><br><span class="line">            bitmap = Bitmap.createScaledBitmap(orginBitmap, w, h, <span class="keyword">false</span>); </span><br><span class="line">            bitmapFinished = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">super</span>.onMeasure(widthMeasureSpec,heightMeasureSpec);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line">        <span class="keyword">if</span> (bitmap != <span class="keyword">null</span>)</span><br><span class="line">            canvas.drawBitmap(bitmap, <span class="number">0</span>, <span class="number">0</span>, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>布局文件：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"300dp"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"300dp"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">".MainActivity"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:clipChildren</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/iv_lu"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:visibility</span>=<span class="string">"gone"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintLeft_toLeftOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintRight_toRightOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">SurfaceView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/sv_lu"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:visibility</span>=<span class="string">"gone"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">com.example.lll.va.DrawView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -432,6 +451,80 @@
 <p>所有Y样本首先在内存中存储，Y平面是无符号char值的数组，共有偶数行。 Y平面后面紧跟着一个无符号字符值数组，其中包含打包的U（Cb）和V（Cr）样本，如图13所示。当组合的UV数组作为小端WORD值的数组进行寻址时， LSB包含U值，MSB包含V值。 NV12是DirectX VA的首选4：2：0像素格式。 预计这将是支持4：2：0视频的DirectX VA加速器的中期要求。<br><img src="https://img-blog.csdnimg.cn/20181205185840535.png" alt="在这里插入图片描述"><br>Figure 13. NV12 memory layout<br>I420多用于传输</p>
 <p>摄像头采集得到的数据是NV12<br><img src="https://img-blog.csdnimg.cn/20181205185850444.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/Android/%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A11/" class="post-title-link" itemprop="url">音视频任务1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 15:48:42 / 修改时间：15:50:25" itemprop="dateCreated datePublished" datetime="2020-04-10T15:48:42+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>跟着大神的步骤一步一步做，加油！<br>任务列表：<a href="http://blog.51cto.com/ticktick/1956269" target="_blank" rel="noopener">http://blog.51cto.com/ticktick/1956269</a></p>
+<p>在 Android 平台绘制一张图片，使用至少 3 种不同的 API，ImageView，SurfaceView，自定义 View<br>imageView和surfaceView，为了方便都是直接在activity里面写的函数，直接在onCreateView里面调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.content.res.Resources;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Bitmap;</span><br><span class="line"><span class="keyword">import</span> android.graphics.BitmapFactory;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Canvas;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Matrix;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Rect;</span><br><span class="line"><span class="keyword">import</span> android.graphics.drawable.BitmapDrawable;</span><br><span class="line"><span class="keyword">import</span> android.graphics.drawable.Drawable;</span><br><span class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity;</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.view.SurfaceHolder;</span><br><span class="line"><span class="keyword">import</span> android.view.SurfaceView;</span><br><span class="line"><span class="keyword">import</span> android.widget.ImageView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        displaySurfaceView();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">displayImg</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">final</span> ImageView iv = findViewById(R.id.iv_lu);</span><br><span class="line">        <span class="comment">//1</span></span><br><span class="line"><span class="comment">//        iv.setImageResource(R.mipmap.wechatimg1);</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//2</span></span><br><span class="line"><span class="comment">//        Drawable drawable = getResources().getDrawable(R.mipmap.wechatimg1, null);</span></span><br><span class="line"><span class="comment">//        iv.setImageDrawable(drawable);</span></span><br><span class="line">        <span class="comment">//3</span></span><br><span class="line">        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.wechatimg1);</span><br><span class="line">        iv.setImageBitmap(bitmap);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">displaySurfaceView</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">final</span> SurfaceView sv = findViewById(com.example.lujianyun.va.R.id.sv_lu);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> SurfaceHolder holder = sv.getHolder();</span><br><span class="line">        <span class="keyword">final</span> Thread t = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                Canvas canvas = holder.lockCanvas();</span><br><span class="line">                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), com.example.lujianyun.va.R.mipmap.wechatimg1);</span><br><span class="line">                canvas.drawBitmap(bitmap, <span class="number">0</span>, <span class="number">0</span>, <span class="keyword">null</span>);</span><br><span class="line">                holder.unlockCanvasAndPost(canvas);</span><br><span class="line">                holder.lockCanvas(<span class="keyword">new</span> Rect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>));</span><br><span class="line">                holder.unlockCanvasAndPost(canvas);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        holder.addCallback(<span class="keyword">new</span> SurfaceHolder.Callback() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceCreated</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</span><br><span class="line">                t.start();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceChanged</span><span class="params">(SurfaceHolder holder, <span class="keyword">int</span> format, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceDestroyed</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>自定义view</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DrawView</span> <span class="keyword">extends</span> <span class="title">View</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    String TAG = <span class="string">"DrawView"</span>;</span><br><span class="line">    Bitmap bitmap;</span><br><span class="line">    Bitmap orginBitmap;</span><br><span class="line">    <span class="keyword">boolean</span> bitmapFinished = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DrawView</span><span class="params">(Context context, @Nullable AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs);</span><br><span class="line">        orginBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.wechatimg1);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!bitmapFinished) &#123; <span class="comment">//由于onmeasure要多次调用，所以创建对象的工作只做一次，防止耗时</span></span><br><span class="line">            <span class="keyword">int</span> w = MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">            <span class="keyword">int</span> h = MeasureSpec.getSize(heightMeasureSpec);</span><br><span class="line">            bitmap = Bitmap.createScaledBitmap(orginBitmap, w, h, <span class="keyword">false</span>); </span><br><span class="line">            bitmapFinished = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">super</span>.onMeasure(widthMeasureSpec,heightMeasureSpec);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line">        <span class="keyword">if</span> (bitmap != <span class="keyword">null</span>)</span><br><span class="line">            canvas.drawBitmap(bitmap, <span class="number">0</span>, <span class="number">0</span>, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>布局文件：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"300dp"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"300dp"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">".MainActivity"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:clipChildren</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/iv_lu"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:visibility</span>=<span class="string">"gone"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintLeft_toLeftOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintRight_toRightOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">SurfaceView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/sv_lu"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:visibility</span>=<span class="string">"gone"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">com.example.lll.va.DrawView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -773,83 +866,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/Android%E5%A6%82%E4%BD%95%E6%9B%BF%E6%8D%A2%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="CloudLander~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CloudLander's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/Android/Android%E5%A6%82%E4%BD%95%E6%9B%BF%E6%8D%A2%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" class="post-title-link" itemprop="url">Android如何替换原生应用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 15:44:11 / 修改时间：15:46:35" itemprop="dateCreated datePublished" datetime="2020-04-10T15:44:11+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>有个需求是把原生的日历app换成修改源码后编译生成的新app<br>尝试进入adb，须有root权限（完整的root权限）<br>用以下代码删除原生的calendar</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb shell</span><br><span class="line">su</span><br><span class="line">pm uninstall -k --user 0 com.android.calendar</span><br></pre></td></tr></table></figure>
-
-<p>然后要把/system挂载成可读写的（rw，一开始是只读的ro）<br>执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mount</span></span><br></pre></td></tr></table></figure>
-<p>可以发现/system是只读的 ro<br>然后执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo su</span><br><span class="line">mount -o rw,remount /system</span><br><span class="line">mount</span><br></pre></td></tr></table></figure>
-<p>可以看到/system 是可读写的：rw<br>此时退出adb shell，把已经编译好的新的日历apk push进手机</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb push ~/newapk/Calendar.apk /system/app/Calendar</span><br><span class="line">adb shell   </span><br><span class="line">reboot   //重启手机</span><br></pre></td></tr></table></figure>
-<p>此时就可以使用改后的calendar了<br>————————————————<br>版权声明：本文为CSDN博主「TheRockMaster」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/weixin_43752854/article/details/84647709" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43752854/article/details/84647709</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/Android%20%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A17/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -920,6 +936,83 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onOutputBufferAvailable</span><span class="params">(@NonNull MediaCodec codec, <span class="keyword">int</span> index, @NonNull MediaCodec.BufferInfo info)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (fos == <span class="keyword">null</span>) <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"fos == null!"</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> outIndex = index;</span><br><span class="line">            MediaFormat format = codec.getOutputFormat(outIndex);</span><br><span class="line"></span><br><span class="line">            ByteBuffer outputBuffer = codec.getOutputBuffer(outIndex);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> size = outputBuffer.limit();</span><br><span class="line">            outputSize += size;</span><br><span class="line">            <span class="keyword">byte</span>[] packedData = <span class="keyword">new</span> <span class="keyword">byte</span>[size + <span class="number">7</span>];</span><br><span class="line">            addADTStoPacket(packedData, packedData.length);</span><br><span class="line">            outputBuffer.get(packedData, <span class="number">7</span>, size);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                fos.write(packedData);</span><br><span class="line">                fos.flush();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//用完后释放这个buffer，使其可以接着被使用，如果一直不释放，如果文件太大则会导致缓冲区不够用</span></span><br><span class="line">            outputBuffer.clear();</span><br><span class="line">            codec.releaseOutputBuffer(outIndex, <span class="keyword">false</span>);</span><br><span class="line">            <span class="keyword">if</span> (info.flags == MediaCodec.BUFFER_FLAG_END_OF_STREAM) &#123;</span><br><span class="line">                Log.d(tag, <span class="string">"BUFFER_FLAG_END_OF_STREAM"</span>);</span><br><span class="line">                stopAndrealseCodec();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//每一帧前面都要加上ADTS头，可以看做是每一个AAC帧的帧头</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">addADTStoPacket</span><span class="params">(<span class="keyword">byte</span>[] packet, <span class="keyword">int</span> packetLen)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> profile = <span class="number">2</span>;  <span class="comment">//AAC LC</span></span><br><span class="line">        <span class="comment">//39=MediaCodecInfo.CodecProfileLevel.AACObjectELD;</span></span><br><span class="line">        <span class="keyword">int</span> freqIdx = <span class="number">4</span>;  <span class="comment">//44.1KHz</span></span><br><span class="line">        <span class="keyword">int</span> chanCfg = <span class="number">2</span>;  <span class="comment">//CPE</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        byte[] packet1 = new byte[packetLen];</span></span><br><span class="line">        <span class="comment">// fill in ADTS data</span></span><br><span class="line">        packet[<span class="number">0</span>] = (<span class="keyword">byte</span>) <span class="number">0xFF</span>;</span><br><span class="line">        packet[<span class="number">1</span>] = (<span class="keyword">byte</span>) <span class="number">0xF9</span>;</span><br><span class="line">        packet[<span class="number">2</span>] = (<span class="keyword">byte</span>) (((profile - <span class="number">1</span>) &lt;&lt; <span class="number">6</span>) + (freqIdx &lt;&lt; <span class="number">2</span>) + (chanCfg &gt;&gt; <span class="number">2</span>));</span><br><span class="line">        packet[<span class="number">3</span>] = (<span class="keyword">byte</span>) (((chanCfg &amp; <span class="number">3</span>) &lt;&lt; <span class="number">6</span>) + (packetLen &gt;&gt; <span class="number">11</span>));</span><br><span class="line">        packet[<span class="number">4</span>] = (<span class="keyword">byte</span>) ((packetLen &amp; <span class="number">0x7FF</span>) &gt;&gt; <span class="number">3</span>);</span><br><span class="line">        packet[<span class="number">5</span>] = (<span class="keyword">byte</span>) (((packetLen &amp; <span class="number">7</span>) &lt;&lt; <span class="number">5</span>) + <span class="number">0x1F</span>);</span><br><span class="line">        packet[<span class="number">6</span>] = (<span class="keyword">byte</span>) <span class="number">0xFC</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//        //把这些清晰的放出来，但最好还是用上面的方式</span></span><br><span class="line"><span class="comment">//        //syncword</span></span><br><span class="line"><span class="comment">//        packet[0] = (byte) 0xFF;</span></span><br><span class="line"><span class="comment">//        packet[1] |= 0xF &lt;&lt; 4;</span></span><br><span class="line"><span class="comment">//        //id</span></span><br><span class="line"><span class="comment">//        packet[1] |= 0x1 &lt;&lt; 3;</span></span><br><span class="line"><span class="comment">//        //layer</span></span><br><span class="line"><span class="comment">//        packet[1] |= 0x00 &lt;&lt; 1;</span></span><br><span class="line"><span class="comment">//        //protection_abscent</span></span><br><span class="line"><span class="comment">//        packet[1] |= 0x1;</span></span><br><span class="line"><span class="comment">//        //profile</span></span><br><span class="line"><span class="comment">//        packet[2] |= (profile -1) &lt;&lt; 6;</span></span><br><span class="line"><span class="comment">//        //sampling_frequency_index</span></span><br><span class="line"><span class="comment">//        packet[2] |= freqIdx &lt;&lt; 2;</span></span><br><span class="line"><span class="comment">//        //private bit</span></span><br><span class="line"><span class="comment">//        packet[2] |= 0x0 &lt;&lt; 1;</span></span><br><span class="line"><span class="comment">//        //channel_config</span></span><br><span class="line"><span class="comment">//        packet[2] |= chanCfg &gt;&gt; 2;  //高1位</span></span><br><span class="line"><span class="comment">//        packet[3] |= chanCfg &lt;&lt; 6;   //低2位</span></span><br><span class="line"><span class="comment">//        //copy and home;</span></span><br><span class="line"><span class="comment">//        packet[3] |= 0x00 &lt;&lt; 4;</span></span><br><span class="line"><span class="comment">//        //cib and cis</span></span><br><span class="line"><span class="comment">//        packet[3] |= 0x00 &lt;&lt; 2;</span></span><br><span class="line"><span class="comment">//        //frame_length,单位是字节。不用管int是几个字节，把它当13位就行了,一帧的长度一般不可能超过13位能表达的最大值(8KB),</span></span><br><span class="line"><span class="comment">//        packet[3] |= packetLen &gt;&gt; 11;</span></span><br><span class="line"><span class="comment">//        packet[4] = (byte) (packetLen &gt;&gt; 3);</span></span><br><span class="line"><span class="comment">//        int x = packetLen &lt;&lt; 5;</span></span><br><span class="line"><span class="comment">//        packet[5] |= packetLen &lt;&lt; 5;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//        packet[5] |= 0x7FF &gt;&gt; 6;</span></span><br><span class="line"><span class="comment">//        packet[6] |= 0x7FF &lt;&lt; 2;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//释放资源</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">stopAndrealseCodec</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mECodec != <span class="keyword">null</span>) &#123;</span><br><span class="line">            mECodec.release();</span><br><span class="line">            mECodec = <span class="keyword">null</span>;</span><br><span class="line">            mExtractor.release();</span><br><span class="line">            mExtractor = <span class="keyword">null</span>;</span><br><span class="line">            Log.d(tag, <span class="string">"outputBuffer BUFFER_FLAG_END_OF_STREAM"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                fos.flush();</span><br><span class="line">                fos.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Log.d(tag, <span class="string">"stopAndrealseCodec"</span>);</span><br><span class="line">            Log.d(tag, <span class="string">"inputSize="</span> + inputSize);</span><br><span class="line">            Log.d(tag, <span class="string">"outputSize="</span> + outputSize);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <p>代码见 <a href="https://github.com/lujianyun06/VATask/tree/master/app/src/main/java/com/example/lll/va/Task7" target="_blank" rel="noopener">https://github.com/lujianyun06/VATask/tree/master/app/src/main/java/com/example/lll/va/Task7</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/Android%E5%A6%82%E4%BD%95%E6%9B%BF%E6%8D%A2%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/Android/Android%E5%A6%82%E4%BD%95%E6%9B%BF%E6%8D%A2%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" class="post-title-link" itemprop="url">Android如何替换原生应用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 15:44:11 / 修改时间：15:46:35" itemprop="dateCreated datePublished" datetime="2020-04-10T15:44:11+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>有个需求是把原生的日历app换成修改源码后编译生成的新app<br>尝试进入adb，须有root权限（完整的root权限）<br>用以下代码删除原生的calendar</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb shell</span><br><span class="line">su</span><br><span class="line">pm uninstall -k --user 0 com.android.calendar</span><br></pre></td></tr></table></figure>
+
+<p>然后要把/system挂载成可读写的（rw，一开始是只读的ro）<br>执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mount</span></span><br></pre></td></tr></table></figure>
+<p>可以发现/system是只读的 ro<br>然后执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo su</span><br><span class="line">mount -o rw,remount /system</span><br><span class="line">mount</span><br></pre></td></tr></table></figure>
+<p>可以看到/system 是可读写的：rw<br>此时退出adb shell，把已经编译好的新的日历apk push进手机</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb push ~/newapk/Calendar.apk /system/app/Calendar</span><br><span class="line">adb shell   </span><br><span class="line">reboot   //重启手机</span><br></pre></td></tr></table></figure>
+<p>此时就可以使用改后的calendar了<br>————————————————<br>版权声明：本文为CSDN博主「TheRockMaster」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/weixin_43752854/article/details/84647709" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43752854/article/details/84647709</a></p>
 
       
     </div>
@@ -1038,78 +1131,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/Concurrent%20mode%20failure%E5%92%8C%20promotion%20failed/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="CloudLander~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CloudLander's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/java/Concurrent%20mode%20failure%E5%92%8C%20promotion%20failed/" class="post-title-link" itemprop="url">Concurrent mode failure和 promotion failed</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:54:47" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>：（两种错误刚好就是三种进入老年代的方法引起的）</p>
-<h2 id="一-并发模式失败（concurrent-mode-failure）：产生的原因是老年代的可用空间不够了（因为正常晋升入老年代的对象太多太快，或者由于新生代不够而从创建就直接进入老年代的对象太多）"><a href="#一-并发模式失败（concurrent-mode-failure）：产生的原因是老年代的可用空间不够了（因为正常晋升入老年代的对象太多太快，或者由于新生代不够而从创建就直接进入老年代的对象太多）" class="headerlink" title="一.并发模式失败（concurrent mode failure）：产生的原因是老年代的可用空间不够了（因为正常晋升入老年代的对象太多太快，或者由于新生代不够而从创建就直接进入老年代的对象太多）"></a>一.并发模式失败（concurrent mode failure）：产生的原因是老年代的可用空间不够了（因为正常晋升入老年代的对象太多太快，或者由于新生代不够而从创建就直接进入老年代的对象太多）</h2><p>原因有两种：<br>    1.年轻代提升太快，老年代的处理速度跟不上新生代的提升速度；或者新生代空间太小，放不下新产生的对象而直接转入老年代，但老年代也空间不够<br>        解决办法：<br>        ①.调大新生代空间 -Xmn<br>        ②.加大新生代晋升的阈值 -XX:MaxTenuringThreshold<br>    2.老年代碎片过多<br>        解决办法：<br>        ①.调大老年代的比例  –XX:NewRatio<br>        ②.降低老年代进行垃圾回收的阈值，<br>        -XX:CMSInitiatingOccupancyFraction=60（默认是 68）<br>        -XX:+UseCMSInitiatingOccupancyOnly<br>当老年代碎片过多时，这个过程注意cms的性能会比较差，退化成只有一个线程来收集垃圾，耗时可能有几秒或十几秒。</p>
-<h2 id="二-提升失败（promotion-failed）：新生代太小，放不下要复制的存活对象，转而要往老年代放，但这样老年代就有大量短命对象，而很快内存不够就报错（因为MinorGC时的survivor放不下eden和另一个survivor中没回收的对象，转而进入老年代）"><a href="#二-提升失败（promotion-failed）：新生代太小，放不下要复制的存活对象，转而要往老年代放，但这样老年代就有大量短命对象，而很快内存不够就报错（因为MinorGC时的survivor放不下eden和另一个survivor中没回收的对象，转而进入老年代）" class="headerlink" title="二. 提升失败（promotion failed）：新生代太小，放不下要复制的存活对象，转而要往老年代放，但这样老年代就有大量短命对象，而很快内存不够就报错（因为MinorGC时的survivor放不下eden和另一个survivor中没回收的对象，转而进入老年代）"></a>二. 提升失败（promotion failed）：新生代太小，放不下要复制的存活对象，转而要往老年代放，但这样老年代就有大量短命对象，而很快内存不够就报错（因为MinorGC时的survivor放不下eden和另一个survivor中没回收的对象，转而进入老年代）</h2><p>一个Survivor 区不能容纳eden和另外一个survivor里面的存活对象，多余的对象进入老年代，这样就会导致老年代里面的存放大量的短暂存活的对象，<br>而我们知道，如果老年代里面没有可用空间就会发生full gc，这样就造成扫描整个堆，造成提升失败（promotion failed）。</p>
-<pre><code>解决办法：增加survivor
-    ①.增加年轻代的大小 -Xmn
-    ②.调整survivor和eden的比例  -XX:SurvivorRatio 默认是8 ， 各占比 s0：s1 ：eden =1：1：8 ， 减小这个值也就加大了survivor。</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1181,7 +1202,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
