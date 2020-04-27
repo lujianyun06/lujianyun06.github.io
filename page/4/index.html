@@ -130,7 +130,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">37</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/mybatis/Mybatis%E4%B8%AD%E5%AF%B9%E4%BA%8Eassociation%E7%9A%84%E7%90%86%E8%A7%A3/">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/%E7%AE%97%E6%B3%95/%E5%8F%AA%E7%94%A8%E4%BD%8D%E8%BF%90%E7%AE%97%E4%B8%8D%E7%94%A8%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%95%B0%E7%9A%84%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/04/10/java/mybatis/Mybatis%E4%B8%AD%E5%AF%B9%E4%BA%8Eassociation%E7%9A%84%E7%90%86%E8%A7%A3/" class="post-title-link" itemprop="url">Mybatis中对于association的理解</a>
+            <a href="/2020/04/10/%E7%AE%97%E6%B3%95/%E5%8F%AA%E7%94%A8%E4%BD%8D%E8%BF%90%E7%AE%97%E4%B8%8D%E7%94%A8%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%95%B0%E7%9A%84%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4%E8%BF%90%E7%AE%97/" class="post-title-link" itemprop="url">只用位运算不用算术运算实现整数的加减乘除运算</a>
         </h2>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:20:37" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:35:51" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -220,11 +220,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/mybatis/" itemprop="url" rel="index"><span itemprop="name">mybatis</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
                 </span>
             </span>
 
@@ -239,46 +235,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>mybatis是先处理sql，把sql执行完后把结果表映射到resultMap或者resultType上</p>
-<p>如下面的：</p>
-<p>一个project对应一个user</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Project</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    String name;</span><br><span class="line">    User user;</span><br><span class="line">    ItemState state;</span><br><span class="line">    Set&lt;User&gt; signer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">public</span> String username;</span><br><span class="line">    <span class="keyword">public</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <h1 id="只用位运算不用算术运算实现整数的加减乘除运算"><a href="#只用位运算不用算术运算实现整数的加减乘除运算" class="headerlink" title="只用位运算不用算术运算实现整数的加减乘除运算"></a>只用位运算不用算术运算实现整数的加减乘除运算</h1><p>给定两个32位整数a和b，可正，可负，可0，不能使用算术运算符，分别实现a和b的加减乘除运算<br>不考虑溢出</p>
+<h2 id="用位运算实现加法"><a href="#用位运算实现加法" class="headerlink" title="用位运算实现加法"></a>用位运算实现加法</h2><p>如果不考虑进位，a^b就是正确结果。<br>在只算进位的情况下，也就是只考虑a加b的过程中进位产生的值是什么，结果就是(a&amp;b)&lt;&lt;1，因为在第i位只有1与1相加才会产生进位。</p>
+<p>把完全不考虑进位的相加值与只考虑进位的产生值再相加，就是最终的结果，也就是说，一直重复这样的过程，直到进位产生的值完全消失，说明所有的过程都加完了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum=a;</span><br><span class="line">    <span class="keyword">while</span>(b!=<span class="number">0</span>)&#123;</span><br><span class="line">        sum = a^b;</span><br><span class="line">        b = (a&amp;b)&lt;&lt;<span class="number">1</span>;</span><br><span class="line">        a = sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>表为：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">project</span>(</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">50</span>),</span><br><span class="line">    user_id <span class="built_in">int</span>,</span><br><span class="line">    state enum(<span class="string">'created'</span>, <span class="string">'planned'</span>, <span class="string">'started'</span>, <span class="string">'finished'</span>),</span><br><span class="line">)<span class="keyword">engine</span>=<span class="keyword">innoDB</span>, <span class="keyword">charset</span>=utf8;</span><br></pre></td></tr></table></figure>
 
-<p>user表：<br>+———-+————-+——+—–+———+—————-+<br>| Field    | Type        | Null | Key | Default | Extra          |<br>+———-+————-+——+—–+———+—————-+<br>| id       | int(11)     | NO   | PRI | NULL    | auto_increment |<br>| username | varchar(20) | NO   | MUL | NULL    |                |<br>| password | varchar(18) | NO   |     | NULL    |                |<br>+———-+————-+——+—–+———+—————-+</p>
-<p>当给定一个userid，要查询其对应的project及其对应的user。<br>首先如果结果集不是简单的POJO（POJO其属性不含其它bean的类型），就不能简单使用resultType，因为复杂映射映射不出来。要使用resultMap，且使用association和collection</p>
-<blockquote>
-<p>下面称association和collection为“复杂映射”</p>
-</blockquote>
-<p>所有的复杂映射都是根据结果表进行映射</p>
-<p>如要使用userid去查询project及其对应的user，有以下办法：</p>
-<h4 id="用法一："><a href="#用法一：" class="headerlink" title="用法一："></a>用法一：</h4><p>ProjectMapper.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.ljy.inspector.dao.ProjectDao"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"projectMap"</span> <span class="attr">type</span>=<span class="string">"com.ljy.inspector.entity.Project"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"state"</span> <span class="attr">property</span>=<span class="string">"state"</span> <span class="attr">typeHandler</span>=<span class="string">"com.ljy.inspector.type_handler.ItemStateHandler"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">column</span>=<span class="string">"user_id"</span> <span class="attr">property</span>=<span class="string">"user"</span> <span class="attr">select</span>=<span class="string">"com.ljy.inspector.dao.UserDao.findById"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findByUserId"</span> <span class="attr">resultMap</span>=<span class="string">"projectMap"</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">        from project as p</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            p.user_id = #&#123;userId&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="用位运算实现减法运算"><a href="#用位运算实现减法运算" class="headerlink" title="用位运算实现减法运算"></a>用位运算实现减法运算</h2><p>实现a-b只要实现a+(-b)即可，根据二进制数在机器中表达的规则，得到一个数的相反数，就是这个数的二进制数表达取反加1的结果，，得到b的相反数-b后，再与a进行加法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">negNum</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> add(~n, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minus</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> add(a, negNum(b));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>UserMapper.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.ljy.inspector.dao.UserDao"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"UserMap"</span> <span class="attr">type</span>=<span class="string">"com.ljy.inspector.entity.User"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"username"</span> <span class="attr">property</span>=<span class="string">"username"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"password"</span> <span class="attr">property</span>=<span class="string">"password"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findById"</span> <span class="attr">resultType</span>=<span class="string">"com.ljy.inspector.entity.User"</span>&gt;</span></span><br><span class="line">        SELECT * FROM user AS u</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            u.id = #&#123;id&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>association中嵌套select语句，这样的执行顺序是：先执行上层select找出resultMap中除了复杂映射的其他部分，默认开启部分自动映射，因此其他部分会被自动映射，除了有的映射不到，需要使用类型处理器，如ItemState。接着执行association中的select语句，并且将user_id作为参数传入findById，user_id就会被当做findById中的 #{id} (即使名字不一样，但就是这么做的)<br>这样做的话，会得到正确的结果：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="number">10</span>,</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"czxczc"</span>,</span><br><span class="line">            <span class="attr">"state"</span>: <span class="string">"CREATED"</span>,</span><br><span class="line">            <span class="attr">"user"</span>: &#123;</span><br><span class="line">                <span class="attr">"id"</span>: <span class="number">2</span>,</span><br><span class="line">                <span class="attr">"username"</span>: <span class="string">"123"</span>,</span><br><span class="line">                <span class="attr">"password"</span>: <span class="string">"11111111"</span></span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="用位运算实现乘法运算"><a href="#用位运算实现乘法运算" class="headerlink" title="用位运算实现乘法运算"></a>用位运算实现乘法运算</h2><p>a&times;b的结果可以写成：a&times;2^0&times;b0+a&times;2^1&times;b1+…+a&times;2^31&times;b31<br>其中，bi为0或1代表整数b的二进制数表达中第i位的值，</p>
+<p>举例：a=22=000010110，b=13=000001101，res=0<br>b的最右侧为1，所以res=res+a，同时b右移一位，a左移一位(左移一位即乘2)<br>a=000101100, b=000000110<br>b最右侧为0，所以res不变，b右移一位，a左移一位<br>a=001011000，b=000000011<br>b最右侧为1，res=res+a，同时b右移一位，a左移一位。<br>a=010110000，b=000000001<br>b最右侧为1，res=res+a，同时b右移一位，a左移一位。<br>a=101100000，b=000000000<br>此时b为0，过程停止，返回res=100011110，即286<br>不管a和b是正，负，还是0，上述过程都是对的，因为都满足a&times;2^0&times;b0+a&times;2^1&times;b1+…+a&times;2^31&times;b31</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">multi</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(b!=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>((b&amp;<span class="number">1</span>)!=<span class="number">0</span>)&#123;</span><br><span class="line">            res = add(res,a);</span><br><span class="line">        &#125;</span><br><span class="line">        a &lt;&lt; =<span class="number">1</span>;</span><br><span class="line">        b &gt;&gt;&gt; = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这样做相当于把查询分了两步：<br>1.在project中先select查询user_id为给定值的所有元组（行），把能自动映射或者指定了类型处理器的属性先映射到Project对象上</p>
-<p>2.再根据上述元组中的user_id属性去select查询user表中id为userid中的行，并把查询结果集映射到User对象上，并且把这个User对象赋给上面的Project对象的user属性。</p>
-<p>整体就是两步select，根据第一步查询出的结果的某个字段去进行第二步查询。<br>先构建出第一步查询的结果对象obj1，然后把第二步查询的结果对象obj2赋给obj1对应的属性。</p>
-<p>（先得到结果表1，对其进行映射，再使用其中的某字段得到结果表2，再对结果表2进行映射，将映射结果2嵌入映射结果1的属性中。整个过程产生了两张结果表，因为有两个select）</p>
-<h4 id="用法二："><a href="#用法二：" class="headerlink" title="用法二："></a>用法二：</h4><p>ProjectMapper.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.ljy.inspector.dao.ProjectDao"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"projectMap"</span> <span class="attr">type</span>=<span class="string">"com.ljy.inspector.entity.Project"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"state"</span> <span class="attr">property</span>=<span class="string">"state"</span> <span class="attr">typeHandler</span>=<span class="string">"com.ljy.inspector.type_handler.ItemStateHandler"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"user"</span> <span class="attr">javaType</span>=<span class="string">"com.ljy.inspector.entity.User"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"u_id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"username"</span> <span class="attr">property</span>=<span class="string">"username"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"base_user"</span>&gt;</span></span><br><span class="line">        p.*, u.id as u_id, u.username, u.password</span><br><span class="line">    <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findByUserId"</span> <span class="attr">resultMap</span>=<span class="string">"projectMap"</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"base_user"</span>/&gt;</span></span><br><span class="line">        from project as p,user as u</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            p.user_id = #&#123;userId&#125;</span><br><span class="line">            and</span><br><span class="line">            u.id = #&#123;userId&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>结果为：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="number">10</span>,</span><br><span class="line">            <span class="attr">"name"</span>: <span class="literal">null</span>,</span><br><span class="line">            <span class="attr">"state"</span>: <span class="string">"CREATED"</span>,</span><br><span class="line">            <span class="attr">"user"</span>: &#123;</span><br><span class="line">                <span class="attr">"id"</span>: <span class="number">2</span>,</span><br><span class="line">                <span class="attr">"username"</span>: <span class="string">"123"</span>,</span><br><span class="line">                <span class="attr">"password"</span>: <span class="literal">null</span></span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-
-<p>   这种方法是执行一次select查询，一次查询两个表，然后再对这个联合结果表进行映射，这种方式完全是按照sql的思想理念去做的，只有最后才是对联合结果表进行一次映射。<br>   <u>这种方式的resultMap会自行关闭自动映射，原因在于结果表只有一张，</u>如果两张表中有名称相同的字段，会产生歧义（如project的叫id，user的也叫id）。在sql查询中，这种情况不会有问题，结果表可以有两个列都叫id，但是对于映射来说列名是唯一标签，所以会产生歧义。所以这种情况下，要对有歧义的列名起别名，如上面的sql标签，将user中的id别名为u_id，那么最终产生的结果表中，只有一列叫id，即project.id，而user.id的这一列叫u_id，所以在association中列名叫做u_id。<br>   这样得出一张结果表后，先整体映射为指定的对象类型，再把其中要映射为属性或者需要处理的列去映射成相应的属性。而把需要映射为association的列摘出来，根据提供的对象类型把它们映射成相应的对象，赋给上层的对象的属性</p>
-<p>方法二还有一种做法是指定association的resultMap属性，两者其实是一样的。本质上都是从一张结果表中取结果列取映射。</p>
-<p>所以对于association需要注意的点：</p>
-<p>1.如果使用了select属性，则本质上要进行两次查询，得到两张结果表，因为是从不同的表中查询（相同也无所谓）且每次只查询一个表，所以二者互不干涉，所以不存在字段歧义的问题，自动映射会开启。<br>2.如果使用resultMap属性，或者association本身当做一个resultMap，则本质是对多张表的<u>一次</u>联合查询，只产生一张结果表。然后对这张结果表一次进行映射。可能存在字段歧义问题，自动映射会关闭（如果没有指明映射关系的字段会得到空值）。此时要把产生歧义的字段起别名，并且把所有需要映射的字段都显式写出来。</p>
-<p>所有的mybatis的resultMap，不管其结构有多复杂，本质都是执行完sql后对结果表再进行映射（归根结底要很清晰执行完sql语句后结果表是什么样子），其中的column的名称是结果表的column名称而不是原表的colum名称（虽然不起别名的话二者相同）。只要明确这一点，很多问题就能迎刃而解。</p>
-
+<h2 id="用位运算实现除法运算，其实就是乘法的逆运算。"><a href="#用位运算实现除法运算，其实就是乘法的逆运算。" class="headerlink" title="用位运算实现除法运算，其实就是乘法的逆运算。"></a>用位运算实现除法运算，其实就是乘法的逆运算。</h2><p>其实就是找到a能包含的最大部分（指b* 2^x ）然后让a减去这个最大部分，再让剩下的a找到次大部分，并依次找下去。以上过程只适用于a和b都不是负数的时候，所以，如果a和b中有一个为负数或都为负数时，可以先把a和b转成正数，计算完后再看res的真实符号是什么就可以。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">div</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x = isNeg(a)?negNum(a):a;</span><br><span class="line">    <span class="keyword">int</span> y = isNeg(b)?negNum(b):b;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">31</span>; i &gt; -<span class="number">1</span>; i= minus(i, <span class="number">1</span>))&#123;</span><br><span class="line">        <span class="keyword">if</span>((x&gt;&gt;i)&gt;=y)&#123;</span><br><span class="line">            res |= (<span class="number">1</span>&lt;&lt;i);</span><br><span class="line">            x = minus(x, y&lt;&lt;i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> isNeg(a) ^ isNeg(b)?negNum(res):res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述方法可以计算绝大多数情况，但32位整数最小值为-2147483648，最小值的绝对值比最大值的绝对值大1，所以，如果a或b等于最小值，是转不成相应正数的，总结如下：<br>1.如果a和b都不为最小值，直接使用上述过程，返回div(a,b)<br>2.如果a和b都为最小值，a/b的结果为1，直接返回1<br>3.如果a不为最小值，b为最小值，a/b结果为0，直接 返回0<br>4.如果a为最小值，b不为最小值，只能把最小值增加一点，计算出一个结果，然后根据这个结果修正一下，得到最终结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">divide</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (b==<span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"divisor is 0"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(a==Integer.MIN_VALUE &amp;&amp; b==Integer.MIN_VALUE)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(b==Integer.MIN_VALUE)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a==Integer.MIN_VALUE)&#123;</span><br><span class="line">        <span class="keyword">int</span> res = div(add(a, <span class="number">1</span>), b);</span><br><span class="line">        <span class="keyword">return</span> add(res, div(minus(a, multi(res, b)), b));</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> div(a, b);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -491,81 +464,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/springMVC%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="CloudLander~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CloudLander's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/java/spring/springMVC%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">springMVC处理请求流程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:08:28" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Dispatcher接收到了客户的请求，遍历所有的HandlerMapping集合，找出被@Controller注解的bean和被@Request注解的类和方法，根据请求的路径，参数等一系列条件，找到符合条件的HandlerMapping，并得到Handler执行链，其中包括拦截器和controller方法，是一条拦截+处理链。</p>
-<p>dispatcherServlet让把请求放进入链中，先执行所有拦截器的preHandle方法，执行完后准备去真正的handle方法（即controller的对应方法）。首先使用解析类解析handle方法的参数，包括@RequestParam、@RequestBody、@PathVariable注解的参数，从请求中提取出这些参数的值，并把它们连同请求一起交给handle方法，在handle中执行真正的业务逻辑。在handle方法处理结束之后，再使用一些处理类处理handle方法的返回值，处理完后合并进响应，再去执行所有拦截器的postHandle方法。之后把返回值交给dispatcherServlet，如果返回的是一个ModelAndView，则把它交给视图解析器去解析，由它解析出相应的视图（即html、jsp、xml等）并写到响应中，此时还要执行所有拦截器的afterCompletion再做处理。</p>
-<p>然后，把最终处理完成的响应返回给客户。</p>
-<p>另：过滤器在dispatcherServlet的前面，如果有过滤器，则请求进来时先进过滤器链，再进dispatcherServlet。响应走时先通过dispatcherServlet，然后再通过过滤器链<br><img src="https://img-blog.csdnimg.cn/20200211165844244.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/springboot%20%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BB%A5%E5%8F%8A%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%97%A0%E6%B3%95%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -648,6 +546,81 @@ classpath:/META-INF/resources/</code></pre><ol start="2">
 <p>如果文件必须放在项目中，但又必须得立即生效，那么用下面的方法：<br>对项目中的同一个资源目录，即添加其相对路径，又添加其绝对路径：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">        .addResourceLocations(<span class="string">"classpath:static/"</span>)</span><br><span class="line"> .addResourceLocations(<span class="string">"file:///Users/mytest/inspector/src/main/resources/static/"</span>);</span><br></pre></td></tr></table></figure>
 <p>上面两个路径其实是同一个，但通过上面相对路径访问的是target中的东西。在运行时添加一个文件后，target没有更新，通过相对路径就访问不到，但实际上文件系统是更新了，所以用下面的绝对路径直接访问文件系统中的文件就可。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/springMVC%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/java/spring/springMVC%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">springMVC处理请求流程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:08:28" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Dispatcher接收到了客户的请求，遍历所有的HandlerMapping集合，找出被@Controller注解的bean和被@Request注解的类和方法，根据请求的路径，参数等一系列条件，找到符合条件的HandlerMapping，并得到Handler执行链，其中包括拦截器和controller方法，是一条拦截+处理链。</p>
+<p>dispatcherServlet让把请求放进入链中，先执行所有拦截器的preHandle方法，执行完后准备去真正的handle方法（即controller的对应方法）。首先使用解析类解析handle方法的参数，包括@RequestParam、@RequestBody、@PathVariable注解的参数，从请求中提取出这些参数的值，并把它们连同请求一起交给handle方法，在handle中执行真正的业务逻辑。在handle方法处理结束之后，再使用一些处理类处理handle方法的返回值，处理完后合并进响应，再去执行所有拦截器的postHandle方法。之后把返回值交给dispatcherServlet，如果返回的是一个ModelAndView，则把它交给视图解析器去解析，由它解析出相应的视图（即html、jsp、xml等）并写到响应中，此时还要执行所有拦截器的afterCompletion再做处理。</p>
+<p>然后，把最终处理完成的响应返回给客户。</p>
+<p>另：过滤器在dispatcherServlet的前面，如果有过滤器，则请求进来时先进过滤器链，再进dispatcherServlet。响应走时先通过dispatcherServlet，然后再通过过滤器链<br><img src="https://img-blog.csdnimg.cn/20200211165844244.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
       
     </div>
@@ -753,6 +726,116 @@ classpath:/META-INF/resources/</code></pre><ol start="2">
 <p>可以进入堆栈中看：<br>在创建aop1util时，当执行完populateBean时，它的“aop2Util”属性就已经被填充了，此时它仍是正常的实例<br><img src="https://img-blog.csdnimg.cn/20200318114610355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="8"><br>在进入initialzeBean后，执行完前置处理后，可以看到这个bean仍然没有变化：（在initialzeBean中以wrappedBean为准）<br><img src="https://img-blog.csdnimg.cn/20200318114610342.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="9"></p>
 <p>但一经过后置处理，可以看到wrappedBean已经变成了代理对象，而且其aop2util属性是空<br><img src="https://img-blog.csdnimg.cn/20200318114610381.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="10"></p>
 <p><strong>结论：如果一个对象要被生成代理，那么不要对它的属性或方法进行注入，这些都会变成null（构造器注入是可以的,因为构造器注入时创建代理对象时必须要调用其父类（也就是被代理类）的构造函数，此时就会把要注入的对象注入了）</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/mybatis/Mybatis%E4%B8%AD%E5%AF%B9%E4%BA%8Eassociation%E7%9A%84%E7%90%86%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/java/mybatis/Mybatis%E4%B8%AD%E5%AF%B9%E4%BA%8Eassociation%E7%9A%84%E7%90%86%E8%A7%A3/" class="post-title-link" itemprop="url">Mybatis中对于association的理解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:20:37" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/mybatis/" itemprop="url" rel="index"><span itemprop="name">mybatis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>mybatis是先处理sql，把sql执行完后把结果表映射到resultMap或者resultType上</p>
+<p>如下面的：</p>
+<p>一个project对应一个user</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Project</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    String name;</span><br><span class="line">    User user;</span><br><span class="line">    ItemState state;</span><br><span class="line">    Set&lt;User&gt; signer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">public</span> String username;</span><br><span class="line">    <span class="keyword">public</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>表为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">project</span>(</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">50</span>),</span><br><span class="line">    user_id <span class="built_in">int</span>,</span><br><span class="line">    state enum(<span class="string">'created'</span>, <span class="string">'planned'</span>, <span class="string">'started'</span>, <span class="string">'finished'</span>),</span><br><span class="line">)<span class="keyword">engine</span>=<span class="keyword">innoDB</span>, <span class="keyword">charset</span>=utf8;</span><br></pre></td></tr></table></figure>
+
+<p>user表：<br>+———-+————-+——+—–+———+—————-+<br>| Field    | Type        | Null | Key | Default | Extra          |<br>+———-+————-+——+—–+———+—————-+<br>| id       | int(11)     | NO   | PRI | NULL    | auto_increment |<br>| username | varchar(20) | NO   | MUL | NULL    |                |<br>| password | varchar(18) | NO   |     | NULL    |                |<br>+———-+————-+——+—–+———+—————-+</p>
+<p>当给定一个userid，要查询其对应的project及其对应的user。<br>首先如果结果集不是简单的POJO（POJO其属性不含其它bean的类型），就不能简单使用resultType，因为复杂映射映射不出来。要使用resultMap，且使用association和collection</p>
+<blockquote>
+<p>下面称association和collection为“复杂映射”</p>
+</blockquote>
+<p>所有的复杂映射都是根据结果表进行映射</p>
+<p>如要使用userid去查询project及其对应的user，有以下办法：</p>
+<h4 id="用法一："><a href="#用法一：" class="headerlink" title="用法一："></a>用法一：</h4><p>ProjectMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.ljy.inspector.dao.ProjectDao"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"projectMap"</span> <span class="attr">type</span>=<span class="string">"com.ljy.inspector.entity.Project"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"state"</span> <span class="attr">property</span>=<span class="string">"state"</span> <span class="attr">typeHandler</span>=<span class="string">"com.ljy.inspector.type_handler.ItemStateHandler"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">column</span>=<span class="string">"user_id"</span> <span class="attr">property</span>=<span class="string">"user"</span> <span class="attr">select</span>=<span class="string">"com.ljy.inspector.dao.UserDao.findById"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findByUserId"</span> <span class="attr">resultMap</span>=<span class="string">"projectMap"</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">        from project as p</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            p.user_id = #&#123;userId&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>UserMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.ljy.inspector.dao.UserDao"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"UserMap"</span> <span class="attr">type</span>=<span class="string">"com.ljy.inspector.entity.User"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"username"</span> <span class="attr">property</span>=<span class="string">"username"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"password"</span> <span class="attr">property</span>=<span class="string">"password"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findById"</span> <span class="attr">resultType</span>=<span class="string">"com.ljy.inspector.entity.User"</span>&gt;</span></span><br><span class="line">        SELECT * FROM user AS u</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            u.id = #&#123;id&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>association中嵌套select语句，这样的执行顺序是：先执行上层select找出resultMap中除了复杂映射的其他部分，默认开启部分自动映射，因此其他部分会被自动映射，除了有的映射不到，需要使用类型处理器，如ItemState。接着执行association中的select语句，并且将user_id作为参数传入findById，user_id就会被当做findById中的 #{id} (即使名字不一样，但就是这么做的)<br>这样做的话，会得到正确的结果：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="number">10</span>,</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"czxczc"</span>,</span><br><span class="line">            <span class="attr">"state"</span>: <span class="string">"CREATED"</span>,</span><br><span class="line">            <span class="attr">"user"</span>: &#123;</span><br><span class="line">                <span class="attr">"id"</span>: <span class="number">2</span>,</span><br><span class="line">                <span class="attr">"username"</span>: <span class="string">"123"</span>,</span><br><span class="line">                <span class="attr">"password"</span>: <span class="string">"11111111"</span></span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样做相当于把查询分了两步：<br>1.在project中先select查询user_id为给定值的所有元组（行），把能自动映射或者指定了类型处理器的属性先映射到Project对象上</p>
+<p>2.再根据上述元组中的user_id属性去select查询user表中id为userid中的行，并把查询结果集映射到User对象上，并且把这个User对象赋给上面的Project对象的user属性。</p>
+<p>整体就是两步select，根据第一步查询出的结果的某个字段去进行第二步查询。<br>先构建出第一步查询的结果对象obj1，然后把第二步查询的结果对象obj2赋给obj1对应的属性。</p>
+<p>（先得到结果表1，对其进行映射，再使用其中的某字段得到结果表2，再对结果表2进行映射，将映射结果2嵌入映射结果1的属性中。整个过程产生了两张结果表，因为有两个select）</p>
+<h4 id="用法二："><a href="#用法二：" class="headerlink" title="用法二："></a>用法二：</h4><p>ProjectMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.ljy.inspector.dao.ProjectDao"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"projectMap"</span> <span class="attr">type</span>=<span class="string">"com.ljy.inspector.entity.Project"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"state"</span> <span class="attr">property</span>=<span class="string">"state"</span> <span class="attr">typeHandler</span>=<span class="string">"com.ljy.inspector.type_handler.ItemStateHandler"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"user"</span> <span class="attr">javaType</span>=<span class="string">"com.ljy.inspector.entity.User"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"u_id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"username"</span> <span class="attr">property</span>=<span class="string">"username"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"base_user"</span>&gt;</span></span><br><span class="line">        p.*, u.id as u_id, u.username, u.password</span><br><span class="line">    <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findByUserId"</span> <span class="attr">resultMap</span>=<span class="string">"projectMap"</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"base_user"</span>/&gt;</span></span><br><span class="line">        from project as p,user as u</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            p.user_id = #&#123;userId&#125;</span><br><span class="line">            and</span><br><span class="line">            u.id = #&#123;userId&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>结果为：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="number">10</span>,</span><br><span class="line">            <span class="attr">"name"</span>: <span class="literal">null</span>,</span><br><span class="line">            <span class="attr">"state"</span>: <span class="string">"CREATED"</span>,</span><br><span class="line">            <span class="attr">"user"</span>: &#123;</span><br><span class="line">                <span class="attr">"id"</span>: <span class="number">2</span>,</span><br><span class="line">                <span class="attr">"username"</span>: <span class="string">"123"</span>,</span><br><span class="line">                <span class="attr">"password"</span>: <span class="literal">null</span></span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>   这种方法是执行一次select查询，一次查询两个表，然后再对这个联合结果表进行映射，这种方式完全是按照sql的思想理念去做的，只有最后才是对联合结果表进行一次映射。<br>   <u>这种方式的resultMap会自行关闭自动映射，原因在于结果表只有一张，</u>如果两张表中有名称相同的字段，会产生歧义（如project的叫id，user的也叫id）。在sql查询中，这种情况不会有问题，结果表可以有两个列都叫id，但是对于映射来说列名是唯一标签，所以会产生歧义。所以这种情况下，要对有歧义的列名起别名，如上面的sql标签，将user中的id别名为u_id，那么最终产生的结果表中，只有一列叫id，即project.id，而user.id的这一列叫u_id，所以在association中列名叫做u_id。<br>   这样得出一张结果表后，先整体映射为指定的对象类型，再把其中要映射为属性或者需要处理的列去映射成相应的属性。而把需要映射为association的列摘出来，根据提供的对象类型把它们映射成相应的对象，赋给上层的对象的属性</p>
+<p>方法二还有一种做法是指定association的resultMap属性，两者其实是一样的。本质上都是从一张结果表中取结果列取映射。</p>
+<p>所以对于association需要注意的点：</p>
+<p>1.如果使用了select属性，则本质上要进行两次查询，得到两张结果表，因为是从不同的表中查询（相同也无所谓）且每次只查询一个表，所以二者互不干涉，所以不存在字段歧义的问题，自动映射会开启。<br>2.如果使用resultMap属性，或者association本身当做一个resultMap，则本质是对多张表的<u>一次</u>联合查询，只产生一张结果表。然后对这张结果表一次进行映射。可能存在字段歧义问题，自动映射会关闭（如果没有指明映射关系的字段会得到空值）。此时要把产生歧义的字段起别名，并且把所有需要映射的字段都显式写出来。</p>
+<p>所有的mybatis的resultMap，不管其结构有多复杂，本质都是执行完sql后对结果表再进行映射（归根结底要很清晰执行完sql语句后结果表是什么样子），其中的column的名称是结果表的column名称而不是原表的colum名称（虽然不起别名的话二者相同）。只要明确这一点，很多问题就能迎刃而解。</p>
 
       
     </div>
@@ -916,7 +999,7 @@ classpath:/META-INF/resources/</code></pre><ol start="2">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

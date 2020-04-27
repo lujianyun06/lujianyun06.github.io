@@ -130,7 +130,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">37</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -183,6 +183,91 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/mac/brew%E4%BB%8E%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/mac/brew%E4%BB%8E%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">brew从国内源安装</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 18:15:08 / 修改时间：18:16:32" itemprop="dateCreated datePublished" datetime="2020-04-10T18:15:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mac/" itemprop="url" rel="index"><span itemprop="name">mac</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近按照默认方法安装brew特别慢，但是想切换从国内源安装，得到的都是老版本的切换方法：</p>
+<p><a href="https://segmentfault.com/a/1190000018360813" target="_blank" rel="noopener">https://segmentfault.com/a/1190000018360813</a></p>
+<p>因为安装brew的脚本现在不是ruby脚本，改成了shell脚本，而且脚本地址也改变了，所以也需要改变一下安装策略：</p>
+<p>首先把<a href="https://raw.githubusercontent.com/Homebrew/install/master/install.sh上的所有内容拷贝到~目录下的brew_install" target="_blank" rel="noopener">https://raw.githubusercontent.com/Homebrew/install/master/install.sh上的所有内容拷贝到~目录下的brew_install</a> 文件中（没有就新建）</p>
+<p>修改代码（修改为中科大源）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">else</span></span><br><span class="line">  HOMEBREW_PREFIX_DEFAULT=<span class="string">"/home/linuxbrew/.linuxbrew"</span></span><br><span class="line">  HOMEBREW_CACHE=<span class="string">"<span class="variable">$&#123;HOME&#125;</span>/.cache/Homebrew"</span></span><br><span class="line"> </span><br><span class="line">  STAT=<span class="string">"stat --printf"</span></span><br><span class="line">  CHOWN=<span class="string">"/bin/chown"</span></span><br><span class="line">  CHGRP=<span class="string">"/bin/chgrp"</span></span><br><span class="line">  GROUP=<span class="string">"<span class="variable">$(id -gn)</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># BREW_REPO="https://github.com/Homebrew/brew” 修改前</span></span><br><span class="line">BREW_REPO=<span class="string">"git://mirrors.ustc.edu.cn/brew.git”  #修改后</span></span><br><span class="line"><span class="string">CORE_TAP_REPO="</span>git://mirrors.ustc.edu.cn/homebrew-core.git”  <span class="comment">#新增</span></span><br></pre></td></tr></table></figure>
+
+<p>修改过后把brew_install文件变为可执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x brew_install</span><br></pre></td></tr></table></figure>
+<p>然后用执行脚本的方式执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash brew_install</span><br></pre></td></tr></table></figure>
+<p>速度简直和外网不是一个level！</p>
+<p>但是执行到brew-core还是会巨慢无比，此时可以ctrl-c 可以停掉,</p>
+<p>创建目录/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core</p>
+<p>并执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br></pre></td></tr></table></figure>
+<p>然后重新执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash brew_install</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -623,6 +708,83 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/Android%E5%A6%82%E4%BD%95%E6%9B%BF%E6%8D%A2%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/Android/Android%E5%A6%82%E4%BD%95%E6%9B%BF%E6%8D%A2%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" class="post-title-link" itemprop="url">Android如何替换原生应用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 15:44:11 / 修改时间：15:46:35" itemprop="dateCreated datePublished" datetime="2020-04-10T15:44:11+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>有个需求是把原生的日历app换成修改源码后编译生成的新app<br>尝试进入adb，须有root权限（完整的root权限）<br>用以下代码删除原生的calendar</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb shell</span><br><span class="line">su</span><br><span class="line">pm uninstall -k --user 0 com.android.calendar</span><br></pre></td></tr></table></figure>
+
+<p>然后要把/system挂载成可读写的（rw，一开始是只读的ro）<br>执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mount</span></span><br></pre></td></tr></table></figure>
+<p>可以发现/system是只读的 ro<br>然后执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo su</span><br><span class="line">mount -o rw,remount /system</span><br><span class="line">mount</span><br></pre></td></tr></table></figure>
+<p>可以看到/system 是可读写的：rw<br>此时退出adb shell，把已经编译好的新的日历apk push进手机</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb push ~/newapk/Calendar.apk /system/app/Calendar</span><br><span class="line">adb shell   </span><br><span class="line">reboot   //重启手机</span><br></pre></td></tr></table></figure>
+<p>此时就可以使用改后的calendar了<br>————————————————<br>版权声明：本文为CSDN博主「TheRockMaster」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/weixin_43752854/article/details/84647709" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43752854/article/details/84647709</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/Android%20%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A13/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -866,172 +1028,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/Android%20%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A17/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="CloudLander~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CloudLander's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/Android/Android%20%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A17/" class="post-title-link" itemprop="url">Android 音视频任务7</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 15:44:11 / 修改时间：16:09:45" itemprop="dateCreated datePublished" datetime="2020-04-10T15:44:11+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>先做任务7，是因为做完任务4感觉想要稍微深入了解一下MediaCodec，感觉这样更能把刚学到的知识连贯一下。</p>
-<p>任务7. 学习 MediaCodec API，完成音频 AAC 硬编、硬解</p>
-<p>MediaCodec的作用是转换编码或解码文件，支持已编码的特定格式转成原始raw数据，<br>原始raw数据转成特定编码的格式<br>解码时，mediaCodec设定的格式是输入文件的格式，输出原始raw数据<br>编码时，mediaCodec设定的格式是输出文件的格式，输入为原始raw数据</p>
-<p>解码时文件的格式和解码器设置的格式一定要一样，否则报错</p>
-<h2 id="音频编解码："><a href="#音频编解码：" class="headerlink" title="音频编解码："></a>音频编解码：</h2><h3 id="解码："><a href="#解码：" class="headerlink" title="解码："></a>解码：</h3><ul>
-<li>解码是吧audio/XXX给变成audio/raw，即pcm文件，最原始的未经压缩编码处理的文件。所以解码后的文件一般会比被压缩文件大得多<br>流程：</li>
-<li>首先要使用MediaExtractor把音轨从文件中提取出来，把format也提取出来，根据要解码的mime创建codec：<br>mDCodec = MediaCodec.createDecoderByType(srcMIMTType);</li>
-<li>把format设置到codec：mDCodec.configure(mFormat, null, null, 0); //视频文件如果要播放解码出的数据，则第二个参数选择要用于播放的surface</li>
-<li>数据回调监听：mDCodec.setCallback(mDecodeCallback); （异步处理，感觉异步的好一点）</li>
-<li>开始解码：mDCodec.start();<br>callback中：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输入</span></span><br><span class="line"><span class="comment">//onInputBufferAvailable：当有可用的缓冲区时，会转到这里，在该函数中往可用的缓冲区写入要解码的数据，然后把缓冲区加入待处理队列</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onInputBufferAvailable</span><span class="params">(@NonNull MediaCodec codec, <span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line"><span class="comment">//获得可用的缓冲</span></span><br><span class="line">            ByteBuffer inputBuffer = codec.getInputBuffer(index);</span><br><span class="line"></span><br><span class="line">            MediaCodec.BufferInfo info = <span class="keyword">new</span> MediaCodec.BufferInfo();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> size = mExtractor.readSampleData(inputBuffer, <span class="number">0</span>);</span><br><span class="line">            <span class="keyword">int</span> flag = mExtractor.getSampleFlags();</span><br><span class="line">            <span class="keyword">long</span> presentation = mExtractor.getSampleTime();</span><br><span class="line">            <span class="keyword">int</span> offset = <span class="number">0</span>;</span><br><span class="line">            Log.d(tag, <span class="string">"size= "</span> + size + <span class="string">" flag="</span> + flag + <span class="string">" presentation="</span> + presentation);</span><br><span class="line"><span class="comment">//要对文件是否读到末尾单独处理，若读到末尾了，size,presentation都要置为0，flag要标注为 MediaCodec.BUFFER_FLAG_END_OF_STREAM</span></span><br><span class="line">            <span class="keyword">if</span> (size != -<span class="number">1</span>) &#123;</span><br><span class="line">                inputSize += size;</span><br><span class="line">                codec.queueInputBuffer(index, offset, size, presentation, flag);</span><br><span class="line">                mExtractor.advance();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">//当文件达到末尾时，用flag</span></span><br><span class="line">                size = <span class="number">0</span>;</span><br><span class="line">                presentation = <span class="number">0</span>;</span><br><span class="line">                flag = MediaCodec.BUFFER_FLAG_END_OF_STREAM;</span><br><span class="line">                codec.queueInputBuffer(index, offset, size, presentation, flag);</span><br><span class="line">            &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line"><span class="comment">//onOutputBufferAvailable：当有待处理数据完成解码时，会放入输出缓冲区，并转到这里，在该函数中获得解码后的raw数据，并且每次读出数据后要release当前缓冲，让它能够继续被使用，否则就那么一点缓冲区，不释放的话几下就没了</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onOutputBufferAvailable</span><span class="params">(@NonNull MediaCodec codec, <span class="keyword">int</span> index, @NonNull MediaCodec.BufferInfo info)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (fos == <span class="keyword">null</span>) <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"fos == null!"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        MediaFormat format = codec.getOutputFormat(index);</span><br><span class="line">        Log.d(tag, <span class="string">"out format="</span> + format.getString(MediaFormat.KEY_MIME));</span><br><span class="line"></span><br><span class="line"><span class="comment">//获得可用的输出缓冲区（也就是解码好的数据）</span></span><br><span class="line">        ByteBuffer outputBuffer = codec.getOutputBuffer(index);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//如果直接定义 data =  new byte[100 * 1024]; 然后调用outputBuffer.get(data),</span></span><br><span class="line">        <span class="comment">// 则会使用data的长度去操作buffer，但buffer没这么大，导致BufferUnderflowException</span></span><br><span class="line">        <span class="comment">//所以下面两种方式选一种</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[outputBuffer.limit()];</span><br><span class="line">        outputBuffer.get(data);</span><br><span class="line"></span><br><span class="line"><span class="comment">//        byte[] data = new byte[100 * 1024];</span></span><br><span class="line"><span class="comment">//        outputBuffer.get(data,0, outputBuffer.limit());</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">        outputSize += data.length;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            fos.write(data); <span class="comment">//写入流中</span></span><br><span class="line">            fos.flush();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        Log.d(tag, <span class="string">"flag="</span> + info.flags);</span><br><span class="line">        Log.d(tag, <span class="string">"outputSize= "</span> + outputSize);</span><br><span class="line">        <span class="comment">//用完后释放这个buffer，使其可以接着被使用</span></span><br><span class="line">        codec.releaseOutputBuffer(index, <span class="keyword">false</span>);</span><br><span class="line"><span class="comment">//当到达末尾时，释放资源</span></span><br><span class="line">        <span class="keyword">if</span> (info.flags == MediaCodec.BUFFER_FLAG_END_OF_STREAM) &#123;</span><br><span class="line">            Log.d(tag, <span class="string">"BUFFER_FLAG_END_OF_STREAM"</span>);</span><br><span class="line">            stopAndrealseCodec();</span><br><span class="line">            exPCM2WAV();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//释放资源</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">stopAndrealseCodec</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (mDCodec != <span class="keyword">null</span>) &#123;</span><br><span class="line">        mDCodec.release();</span><br><span class="line">        mDCodec = <span class="keyword">null</span>;</span><br><span class="line">        mExtractor.release();</span><br><span class="line">        mExtractor = <span class="keyword">null</span>;</span><br><span class="line">        Log.d(tag, <span class="string">"outputBuffer BUFFER_FLAG_END_OF_STREAM"</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            fos.flush();</span><br><span class="line">            fos.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Log.d(tag, <span class="string">"stopAndrealseCodec"</span>);</span><br><span class="line">        Log.d(tag, <span class="string">"inputSize="</span> + inputSize);</span><br><span class="line">        Log.d(tag, <span class="string">"outputSize="</span> + outputSize);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//把pcm文件加入wav头变成wav文件，wav文件会被识别成audio/raw，而原始的pcm文件会被识别错误</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">exPCM2WAV</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//为什么从视频里(只试了mp4和3gp)剥离出来的要 原本的sampleRate/2才是正常速度？</span></span><br><span class="line">    <span class="keyword">int</span> sampleRate = mFormat.getInteger(MediaFormat.KEY_SAMPLE_RATE);</span><br><span class="line">    PcmToWavUtil util = <span class="keyword">new</span> PcmToWavUtil(sampleRate, mFormat.getInteger(MediaFormat.KEY_CHANNEL_COUNT),</span><br><span class="line">            AudioFormat.ENCODING_PCM_16BIT);</span><br><span class="line">    Log.d(tag, <span class="string">"sampleRate="</span> + sampleRate);</span><br><span class="line">    util.pcmToWav(outputFileName, outputFileName + <span class="string">".wav"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="编码："><a href="#编码：" class="headerlink" title="编码："></a>编码：</h3><p>编码是吧audio/raw给变成audio/XXX，是对原始数据压缩编码，但这个有一个问题要注意的是硬件是否支持这种编码方式，比如nexus6p，由于mp3格式编码是不开源的，所以不能编码成mp3文件。下面以把wav的原生格式编码成aac<br>流程：<br><em>编码要比解码多一个步骤，就是设置要编码的格式的各项数据，比如</em></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">outFormat = MediaFormat.createAudioFormat(desMIMEType, SAMPLE_RATE, CHANNEL_COUNT); <span class="comment">//根据编码格式，采样率，声道数创建format</span></span><br><span class="line">outFormat.setInteger(MediaFormat.KEY_BIT_RATE, <span class="number">96000</span>); <span class="comment">//比特率</span></span><br><span class="line">outFormat.setInteger(MediaFormat.KEY_AAC_PROFILE,  MediaCodecInfo.CodecProfileLevel.AACObjectLC);  <span class="comment">//aac特有的profile</span></span><br><span class="line">outFormat.setInteger(MediaFormat.KEY_MAX_INPUT_SIZE, <span class="number">100</span> * <span class="number">1024</span>);<span class="comment">//输入缓存的最大值，设置这个防止一帧的数据量太大而超过默认的buffer大小</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//添加aac的csd-0，如果是视频，则csd-0和csd-1都要有（这个是干什么的还不清楚）</span></span><br><span class="line">ByteBuffer csd = ByteBuffer.allocate(<span class="number">2</span>);</span><br><span class="line">csd.put((<span class="keyword">byte</span>) ((aacObjLC &lt;&lt; <span class="number">3</span>) | (sampleIndex &gt;&gt; <span class="number">1</span>)));</span><br><span class="line">csd.position(<span class="number">1</span>);</span><br><span class="line">csd.put((<span class="keyword">byte</span>) ((<span class="keyword">byte</span>) ((sampleIndex &lt;&lt; <span class="number">7</span>) &amp; <span class="number">0x80</span>) | (channelCount &lt;&lt; <span class="number">3</span>)));</span><br><span class="line">csd.flip();</span><br><span class="line">outFormat.setByteBuffer(<span class="string">"csd-0"</span>, csd); <span class="comment">// add csd-0</span></span><br><span class="line">System.out.println(Arrays.toString(csd.array()) + <span class="string">"===++”);</span></span><br><span class="line"><span class="string">查看设备支持的编码和解码器：</span></span><br><span class="line"><span class="string">MediaCodecList list = new MediaCodecList(MediaCodecList.ALL_CODECS);</span></span><br><span class="line"><span class="string">MediaCodecInfo[] infos = list.getCodecInfos();</span></span><br><span class="line"><span class="string">for (int i = 0; i &lt; infos.length; i++) &#123;</span></span><br><span class="line"><span class="string">    String name = infos[i].getName();</span></span><br><span class="line"><span class="string">    Log.d(tag, "</span>i=<span class="string">" + i + "</span> name=<span class="string">" + name);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">根据format创建相应的编码器</span></span><br><span class="line"><span class="string">//根据相应的格式找到是否有合适的编码器，如果有则返回其名称，然后创建相应的编码器</span></span><br><span class="line"><span class="string">String encodeName = list.findEncoderForFormat(outFormat);</span></span><br><span class="line"><span class="string">    Log.d(tag, "</span>encodeName=<span class="string">" + encodeName);</span></span><br><span class="line"><span class="string">    mECodec = MediaCodec.createByCodecName(encodeName);</span></span><br><span class="line"><span class="string">&#125; catch (IOException e) &#123;</span></span><br><span class="line"><span class="string">    e.printStackTrace();</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">mECodec.setCallback(mEncodeCallback); //设置回调</span></span><br><span class="line"><span class="string">mECodec.configure(outFormat, null, null, MediaCodec.CONFIGURE_FLAG_ENCODE);  //编码配置，编码时要设置最后一个参数</span></span><br><span class="line"><span class="string">mECodec.start();  //开始编码</span></span><br></pre></td></tr></table></figure>
-<p>callback中：</p>
-<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">on</span>InputBufferAvailable和解码器的并无不同，都是由MediaExtractor读出数据放到缓存队列里等待处理</span><br></pre></td></tr></table></figure>
-
-<p>onOutputBufferAvailable和默认流程和解码器类似，都是从缓冲队列中取出已经处理好的数据（每次取一帧），但编码器不同的一点是，这个数据只是真实数据流的编码，仅仅有这些没办法封装成可读的格式，还必须要加上可识别的部分，比如wav文件是在所有数据头部加上wav头，aac文件是在每一帧数据前面加上adts头，<br>adts见 <a href="https://www.cnblogs.com/lihaiping/p/5284547.html" target="_blank" rel="noopener">https://www.cnblogs.com/lihaiping/p/5284547.html</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onOutputBufferAvailable</span><span class="params">(@NonNull MediaCodec codec, <span class="keyword">int</span> index, @NonNull MediaCodec.BufferInfo info)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (fos == <span class="keyword">null</span>) <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"fos == null!"</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> outIndex = index;</span><br><span class="line">            MediaFormat format = codec.getOutputFormat(outIndex);</span><br><span class="line"></span><br><span class="line">            ByteBuffer outputBuffer = codec.getOutputBuffer(outIndex);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> size = outputBuffer.limit();</span><br><span class="line">            outputSize += size;</span><br><span class="line">            <span class="keyword">byte</span>[] packedData = <span class="keyword">new</span> <span class="keyword">byte</span>[size + <span class="number">7</span>];</span><br><span class="line">            addADTStoPacket(packedData, packedData.length);</span><br><span class="line">            outputBuffer.get(packedData, <span class="number">7</span>, size);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                fos.write(packedData);</span><br><span class="line">                fos.flush();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//用完后释放这个buffer，使其可以接着被使用，如果一直不释放，如果文件太大则会导致缓冲区不够用</span></span><br><span class="line">            outputBuffer.clear();</span><br><span class="line">            codec.releaseOutputBuffer(outIndex, <span class="keyword">false</span>);</span><br><span class="line">            <span class="keyword">if</span> (info.flags == MediaCodec.BUFFER_FLAG_END_OF_STREAM) &#123;</span><br><span class="line">                Log.d(tag, <span class="string">"BUFFER_FLAG_END_OF_STREAM"</span>);</span><br><span class="line">                stopAndrealseCodec();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//每一帧前面都要加上ADTS头，可以看做是每一个AAC帧的帧头</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">addADTStoPacket</span><span class="params">(<span class="keyword">byte</span>[] packet, <span class="keyword">int</span> packetLen)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> profile = <span class="number">2</span>;  <span class="comment">//AAC LC</span></span><br><span class="line">        <span class="comment">//39=MediaCodecInfo.CodecProfileLevel.AACObjectELD;</span></span><br><span class="line">        <span class="keyword">int</span> freqIdx = <span class="number">4</span>;  <span class="comment">//44.1KHz</span></span><br><span class="line">        <span class="keyword">int</span> chanCfg = <span class="number">2</span>;  <span class="comment">//CPE</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        byte[] packet1 = new byte[packetLen];</span></span><br><span class="line">        <span class="comment">// fill in ADTS data</span></span><br><span class="line">        packet[<span class="number">0</span>] = (<span class="keyword">byte</span>) <span class="number">0xFF</span>;</span><br><span class="line">        packet[<span class="number">1</span>] = (<span class="keyword">byte</span>) <span class="number">0xF9</span>;</span><br><span class="line">        packet[<span class="number">2</span>] = (<span class="keyword">byte</span>) (((profile - <span class="number">1</span>) &lt;&lt; <span class="number">6</span>) + (freqIdx &lt;&lt; <span class="number">2</span>) + (chanCfg &gt;&gt; <span class="number">2</span>));</span><br><span class="line">        packet[<span class="number">3</span>] = (<span class="keyword">byte</span>) (((chanCfg &amp; <span class="number">3</span>) &lt;&lt; <span class="number">6</span>) + (packetLen &gt;&gt; <span class="number">11</span>));</span><br><span class="line">        packet[<span class="number">4</span>] = (<span class="keyword">byte</span>) ((packetLen &amp; <span class="number">0x7FF</span>) &gt;&gt; <span class="number">3</span>);</span><br><span class="line">        packet[<span class="number">5</span>] = (<span class="keyword">byte</span>) (((packetLen &amp; <span class="number">7</span>) &lt;&lt; <span class="number">5</span>) + <span class="number">0x1F</span>);</span><br><span class="line">        packet[<span class="number">6</span>] = (<span class="keyword">byte</span>) <span class="number">0xFC</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//        //把这些清晰的放出来，但最好还是用上面的方式</span></span><br><span class="line"><span class="comment">//        //syncword</span></span><br><span class="line"><span class="comment">//        packet[0] = (byte) 0xFF;</span></span><br><span class="line"><span class="comment">//        packet[1] |= 0xF &lt;&lt; 4;</span></span><br><span class="line"><span class="comment">//        //id</span></span><br><span class="line"><span class="comment">//        packet[1] |= 0x1 &lt;&lt; 3;</span></span><br><span class="line"><span class="comment">//        //layer</span></span><br><span class="line"><span class="comment">//        packet[1] |= 0x00 &lt;&lt; 1;</span></span><br><span class="line"><span class="comment">//        //protection_abscent</span></span><br><span class="line"><span class="comment">//        packet[1] |= 0x1;</span></span><br><span class="line"><span class="comment">//        //profile</span></span><br><span class="line"><span class="comment">//        packet[2] |= (profile -1) &lt;&lt; 6;</span></span><br><span class="line"><span class="comment">//        //sampling_frequency_index</span></span><br><span class="line"><span class="comment">//        packet[2] |= freqIdx &lt;&lt; 2;</span></span><br><span class="line"><span class="comment">//        //private bit</span></span><br><span class="line"><span class="comment">//        packet[2] |= 0x0 &lt;&lt; 1;</span></span><br><span class="line"><span class="comment">//        //channel_config</span></span><br><span class="line"><span class="comment">//        packet[2] |= chanCfg &gt;&gt; 2;  //高1位</span></span><br><span class="line"><span class="comment">//        packet[3] |= chanCfg &lt;&lt; 6;   //低2位</span></span><br><span class="line"><span class="comment">//        //copy and home;</span></span><br><span class="line"><span class="comment">//        packet[3] |= 0x00 &lt;&lt; 4;</span></span><br><span class="line"><span class="comment">//        //cib and cis</span></span><br><span class="line"><span class="comment">//        packet[3] |= 0x00 &lt;&lt; 2;</span></span><br><span class="line"><span class="comment">//        //frame_length,单位是字节。不用管int是几个字节，把它当13位就行了,一帧的长度一般不可能超过13位能表达的最大值(8KB),</span></span><br><span class="line"><span class="comment">//        packet[3] |= packetLen &gt;&gt; 11;</span></span><br><span class="line"><span class="comment">//        packet[4] = (byte) (packetLen &gt;&gt; 3);</span></span><br><span class="line"><span class="comment">//        int x = packetLen &lt;&lt; 5;</span></span><br><span class="line"><span class="comment">//        packet[5] |= packetLen &lt;&lt; 5;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//        packet[5] |= 0x7FF &gt;&gt; 6;</span></span><br><span class="line"><span class="comment">//        packet[6] |= 0x7FF &lt;&lt; 2;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//释放资源</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">stopAndrealseCodec</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mECodec != <span class="keyword">null</span>) &#123;</span><br><span class="line">            mECodec.release();</span><br><span class="line">            mECodec = <span class="keyword">null</span>;</span><br><span class="line">            mExtractor.release();</span><br><span class="line">            mExtractor = <span class="keyword">null</span>;</span><br><span class="line">            Log.d(tag, <span class="string">"outputBuffer BUFFER_FLAG_END_OF_STREAM"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                fos.flush();</span><br><span class="line">                fos.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Log.d(tag, <span class="string">"stopAndrealseCodec"</span>);</span><br><span class="line">            Log.d(tag, <span class="string">"inputSize="</span> + inputSize);</span><br><span class="line">            Log.d(tag, <span class="string">"outputSize="</span> + outputSize);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>代码见 <a href="https://github.com/lujianyun06/VATask/tree/master/app/src/main/java/com/example/lll/va/Task7" target="_blank" rel="noopener">https://github.com/lujianyun06/VATask/tree/master/app/src/main/java/com/example/lll/va/Task7</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/Android%E5%A6%82%E4%BD%95%E6%9B%BF%E6%8D%A2%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="CloudLander~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CloudLander's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/Android/Android%E5%A6%82%E4%BD%95%E6%9B%BF%E6%8D%A2%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" class="post-title-link" itemprop="url">Android如何替换原生应用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 15:44:11 / 修改时间：15:46:35" itemprop="dateCreated datePublished" datetime="2020-04-10T15:44:11+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>有个需求是把原生的日历app换成修改源码后编译生成的新app<br>尝试进入adb，须有root权限（完整的root权限）<br>用以下代码删除原生的calendar</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb shell</span><br><span class="line">su</span><br><span class="line">pm uninstall -k --user 0 com.android.calendar</span><br></pre></td></tr></table></figure>
-
-<p>然后要把/system挂载成可读写的（rw，一开始是只读的ro）<br>执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mount</span></span><br></pre></td></tr></table></figure>
-<p>可以发现/system是只读的 ro<br>然后执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo su</span><br><span class="line">mount -o rw,remount /system</span><br><span class="line">mount</span><br></pre></td></tr></table></figure>
-<p>可以看到/system 是可读写的：rw<br>此时退出adb shell，把已经编译好的新的日历apk push进手机</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb push ~/newapk/Calendar.apk /system/app/Calendar</span><br><span class="line">adb shell   </span><br><span class="line">reboot   //重启手机</span><br></pre></td></tr></table></figure>
-<p>此时就可以使用改后的calendar了<br>————————————————<br>版权声明：本文为CSDN博主「TheRockMaster」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/weixin_43752854/article/details/84647709" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43752854/article/details/84647709</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/onMeasure()%E5%92%8ConLayout()%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1202,7 +1198,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
