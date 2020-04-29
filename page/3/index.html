@@ -130,7 +130,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">39</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/Android%20%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A17/">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/Android%E5%A6%82%E4%BD%95%E6%9B%BF%E6%8D%A2%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/04/10/Android/Android%20%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BB%BB%E5%8A%A17/" class="post-title-link" itemprop="url">Android 音视频任务7</a>
+            <a href="/2020/04/10/Android/Android%E5%A6%82%E4%BD%95%E6%9B%BF%E6%8D%A2%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" class="post-title-link" itemprop="url">Android如何替换原生应用</a>
         </h2>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-04-10 15:44:11 / 修改时间：16:09:45" itemprop="dateCreated datePublished" datetime="2020-04-10T15:44:11+08:00">2020-04-10</time>
+              <time title="创建时间：2020-04-10 15:44:11 / 修改时间：15:46:35" itemprop="dateCreated datePublished" datetime="2020-04-10T15:44:11+08:00">2020-04-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -235,28 +235,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>先做任务7，是因为做完任务4感觉想要稍微深入了解一下MediaCodec，感觉这样更能把刚学到的知识连贯一下。</p>
-<p>任务7. 学习 MediaCodec API，完成音频 AAC 硬编、硬解</p>
-<p>MediaCodec的作用是转换编码或解码文件，支持已编码的特定格式转成原始raw数据，<br>原始raw数据转成特定编码的格式<br>解码时，mediaCodec设定的格式是输入文件的格式，输出原始raw数据<br>编码时，mediaCodec设定的格式是输出文件的格式，输入为原始raw数据</p>
-<p>解码时文件的格式和解码器设置的格式一定要一样，否则报错</p>
-<h2 id="音频编解码："><a href="#音频编解码：" class="headerlink" title="音频编解码："></a>音频编解码：</h2><h3 id="解码："><a href="#解码：" class="headerlink" title="解码："></a>解码：</h3><ul>
-<li>解码是吧audio/XXX给变成audio/raw，即pcm文件，最原始的未经压缩编码处理的文件。所以解码后的文件一般会比被压缩文件大得多<br>流程：</li>
-<li>首先要使用MediaExtractor把音轨从文件中提取出来，把format也提取出来，根据要解码的mime创建codec：<br>mDCodec = MediaCodec.createDecoderByType(srcMIMTType);</li>
-<li>把format设置到codec：mDCodec.configure(mFormat, null, null, 0); //视频文件如果要播放解码出的数据，则第二个参数选择要用于播放的surface</li>
-<li>数据回调监听：mDCodec.setCallback(mDecodeCallback); （异步处理，感觉异步的好一点）</li>
-<li>开始解码：mDCodec.start();<br>callback中：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输入</span></span><br><span class="line"><span class="comment">//onInputBufferAvailable：当有可用的缓冲区时，会转到这里，在该函数中往可用的缓冲区写入要解码的数据，然后把缓冲区加入待处理队列</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onInputBufferAvailable</span><span class="params">(@NonNull MediaCodec codec, <span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line"><span class="comment">//获得可用的缓冲</span></span><br><span class="line">            ByteBuffer inputBuffer = codec.getInputBuffer(index);</span><br><span class="line"></span><br><span class="line">            MediaCodec.BufferInfo info = <span class="keyword">new</span> MediaCodec.BufferInfo();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> size = mExtractor.readSampleData(inputBuffer, <span class="number">0</span>);</span><br><span class="line">            <span class="keyword">int</span> flag = mExtractor.getSampleFlags();</span><br><span class="line">            <span class="keyword">long</span> presentation = mExtractor.getSampleTime();</span><br><span class="line">            <span class="keyword">int</span> offset = <span class="number">0</span>;</span><br><span class="line">            Log.d(tag, <span class="string">"size= "</span> + size + <span class="string">" flag="</span> + flag + <span class="string">" presentation="</span> + presentation);</span><br><span class="line"><span class="comment">//要对文件是否读到末尾单独处理，若读到末尾了，size,presentation都要置为0，flag要标注为 MediaCodec.BUFFER_FLAG_END_OF_STREAM</span></span><br><span class="line">            <span class="keyword">if</span> (size != -<span class="number">1</span>) &#123;</span><br><span class="line">                inputSize += size;</span><br><span class="line">                codec.queueInputBuffer(index, offset, size, presentation, flag);</span><br><span class="line">                mExtractor.advance();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">//当文件达到末尾时，用flag</span></span><br><span class="line">                size = <span class="number">0</span>;</span><br><span class="line">                presentation = <span class="number">0</span>;</span><br><span class="line">                flag = MediaCodec.BUFFER_FLAG_END_OF_STREAM;</span><br><span class="line">                codec.queueInputBuffer(index, offset, size, presentation, flag);</span><br><span class="line">            &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line"><span class="comment">//onOutputBufferAvailable：当有待处理数据完成解码时，会放入输出缓冲区，并转到这里，在该函数中获得解码后的raw数据，并且每次读出数据后要release当前缓冲，让它能够继续被使用，否则就那么一点缓冲区，不释放的话几下就没了</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onOutputBufferAvailable</span><span class="params">(@NonNull MediaCodec codec, <span class="keyword">int</span> index, @NonNull MediaCodec.BufferInfo info)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (fos == <span class="keyword">null</span>) <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"fos == null!"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        MediaFormat format = codec.getOutputFormat(index);</span><br><span class="line">        Log.d(tag, <span class="string">"out format="</span> + format.getString(MediaFormat.KEY_MIME));</span><br><span class="line"></span><br><span class="line"><span class="comment">//获得可用的输出缓冲区（也就是解码好的数据）</span></span><br><span class="line">        ByteBuffer outputBuffer = codec.getOutputBuffer(index);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//如果直接定义 data =  new byte[100 * 1024]; 然后调用outputBuffer.get(data),</span></span><br><span class="line">        <span class="comment">// 则会使用data的长度去操作buffer，但buffer没这么大，导致BufferUnderflowException</span></span><br><span class="line">        <span class="comment">//所以下面两种方式选一种</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[outputBuffer.limit()];</span><br><span class="line">        outputBuffer.get(data);</span><br><span class="line"></span><br><span class="line"><span class="comment">//        byte[] data = new byte[100 * 1024];</span></span><br><span class="line"><span class="comment">//        outputBuffer.get(data,0, outputBuffer.limit());</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">        outputSize += data.length;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            fos.write(data); <span class="comment">//写入流中</span></span><br><span class="line">            fos.flush();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        Log.d(tag, <span class="string">"flag="</span> + info.flags);</span><br><span class="line">        Log.d(tag, <span class="string">"outputSize= "</span> + outputSize);</span><br><span class="line">        <span class="comment">//用完后释放这个buffer，使其可以接着被使用</span></span><br><span class="line">        codec.releaseOutputBuffer(index, <span class="keyword">false</span>);</span><br><span class="line"><span class="comment">//当到达末尾时，释放资源</span></span><br><span class="line">        <span class="keyword">if</span> (info.flags == MediaCodec.BUFFER_FLAG_END_OF_STREAM) &#123;</span><br><span class="line">            Log.d(tag, <span class="string">"BUFFER_FLAG_END_OF_STREAM"</span>);</span><br><span class="line">            stopAndrealseCodec();</span><br><span class="line">            exPCM2WAV();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//释放资源</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">stopAndrealseCodec</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (mDCodec != <span class="keyword">null</span>) &#123;</span><br><span class="line">        mDCodec.release();</span><br><span class="line">        mDCodec = <span class="keyword">null</span>;</span><br><span class="line">        mExtractor.release();</span><br><span class="line">        mExtractor = <span class="keyword">null</span>;</span><br><span class="line">        Log.d(tag, <span class="string">"outputBuffer BUFFER_FLAG_END_OF_STREAM"</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            fos.flush();</span><br><span class="line">            fos.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Log.d(tag, <span class="string">"stopAndrealseCodec"</span>);</span><br><span class="line">        Log.d(tag, <span class="string">"inputSize="</span> + inputSize);</span><br><span class="line">        Log.d(tag, <span class="string">"outputSize="</span> + outputSize);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//把pcm文件加入wav头变成wav文件，wav文件会被识别成audio/raw，而原始的pcm文件会被识别错误</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">exPCM2WAV</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//为什么从视频里(只试了mp4和3gp)剥离出来的要 原本的sampleRate/2才是正常速度？</span></span><br><span class="line">    <span class="keyword">int</span> sampleRate = mFormat.getInteger(MediaFormat.KEY_SAMPLE_RATE);</span><br><span class="line">    PcmToWavUtil util = <span class="keyword">new</span> PcmToWavUtil(sampleRate, mFormat.getInteger(MediaFormat.KEY_CHANNEL_COUNT),</span><br><span class="line">            AudioFormat.ENCODING_PCM_16BIT);</span><br><span class="line">    Log.d(tag, <span class="string">"sampleRate="</span> + sampleRate);</span><br><span class="line">    util.pcmToWav(outputFileName, outputFileName + <span class="string">".wav"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>有个需求是把原生的日历app换成修改源码后编译生成的新app<br>尝试进入adb，须有root权限（完整的root权限）<br>用以下代码删除原生的calendar</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb shell</span><br><span class="line">su</span><br><span class="line">pm uninstall -k --user 0 com.android.calendar</span><br></pre></td></tr></table></figure>
 
-</li>
-</ul>
-<h3 id="编码："><a href="#编码：" class="headerlink" title="编码："></a>编码：</h3><p>编码是吧audio/raw给变成audio/XXX，是对原始数据压缩编码，但这个有一个问题要注意的是硬件是否支持这种编码方式，比如nexus6p，由于mp3格式编码是不开源的，所以不能编码成mp3文件。下面以把wav的原生格式编码成aac<br>流程：<br><em>编码要比解码多一个步骤，就是设置要编码的格式的各项数据，比如</em></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">outFormat = MediaFormat.createAudioFormat(desMIMEType, SAMPLE_RATE, CHANNEL_COUNT); <span class="comment">//根据编码格式，采样率，声道数创建format</span></span><br><span class="line">outFormat.setInteger(MediaFormat.KEY_BIT_RATE, <span class="number">96000</span>); <span class="comment">//比特率</span></span><br><span class="line">outFormat.setInteger(MediaFormat.KEY_AAC_PROFILE,  MediaCodecInfo.CodecProfileLevel.AACObjectLC);  <span class="comment">//aac特有的profile</span></span><br><span class="line">outFormat.setInteger(MediaFormat.KEY_MAX_INPUT_SIZE, <span class="number">100</span> * <span class="number">1024</span>);<span class="comment">//输入缓存的最大值，设置这个防止一帧的数据量太大而超过默认的buffer大小</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//添加aac的csd-0，如果是视频，则csd-0和csd-1都要有（这个是干什么的还不清楚）</span></span><br><span class="line">ByteBuffer csd = ByteBuffer.allocate(<span class="number">2</span>);</span><br><span class="line">csd.put((<span class="keyword">byte</span>) ((aacObjLC &lt;&lt; <span class="number">3</span>) | (sampleIndex &gt;&gt; <span class="number">1</span>)));</span><br><span class="line">csd.position(<span class="number">1</span>);</span><br><span class="line">csd.put((<span class="keyword">byte</span>) ((<span class="keyword">byte</span>) ((sampleIndex &lt;&lt; <span class="number">7</span>) &amp; <span class="number">0x80</span>) | (channelCount &lt;&lt; <span class="number">3</span>)));</span><br><span class="line">csd.flip();</span><br><span class="line">outFormat.setByteBuffer(<span class="string">"csd-0"</span>, csd); <span class="comment">// add csd-0</span></span><br><span class="line">System.out.println(Arrays.toString(csd.array()) + <span class="string">"===++”);</span></span><br><span class="line"><span class="string">查看设备支持的编码和解码器：</span></span><br><span class="line"><span class="string">MediaCodecList list = new MediaCodecList(MediaCodecList.ALL_CODECS);</span></span><br><span class="line"><span class="string">MediaCodecInfo[] infos = list.getCodecInfos();</span></span><br><span class="line"><span class="string">for (int i = 0; i &lt; infos.length; i++) &#123;</span></span><br><span class="line"><span class="string">    String name = infos[i].getName();</span></span><br><span class="line"><span class="string">    Log.d(tag, "</span>i=<span class="string">" + i + "</span> name=<span class="string">" + name);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">根据format创建相应的编码器</span></span><br><span class="line"><span class="string">//根据相应的格式找到是否有合适的编码器，如果有则返回其名称，然后创建相应的编码器</span></span><br><span class="line"><span class="string">String encodeName = list.findEncoderForFormat(outFormat);</span></span><br><span class="line"><span class="string">    Log.d(tag, "</span>encodeName=<span class="string">" + encodeName);</span></span><br><span class="line"><span class="string">    mECodec = MediaCodec.createByCodecName(encodeName);</span></span><br><span class="line"><span class="string">&#125; catch (IOException e) &#123;</span></span><br><span class="line"><span class="string">    e.printStackTrace();</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">mECodec.setCallback(mEncodeCallback); //设置回调</span></span><br><span class="line"><span class="string">mECodec.configure(outFormat, null, null, MediaCodec.CONFIGURE_FLAG_ENCODE);  //编码配置，编码时要设置最后一个参数</span></span><br><span class="line"><span class="string">mECodec.start();  //开始编码</span></span><br></pre></td></tr></table></figure>
-<p>callback中：</p>
-<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">on</span>InputBufferAvailable和解码器的并无不同，都是由MediaExtractor读出数据放到缓存队列里等待处理</span><br></pre></td></tr></table></figure>
-
-<p>onOutputBufferAvailable和默认流程和解码器类似，都是从缓冲队列中取出已经处理好的数据（每次取一帧），但编码器不同的一点是，这个数据只是真实数据流的编码，仅仅有这些没办法封装成可读的格式，还必须要加上可识别的部分，比如wav文件是在所有数据头部加上wav头，aac文件是在每一帧数据前面加上adts头，<br>adts见 <a href="https://www.cnblogs.com/lihaiping/p/5284547.html" target="_blank" rel="noopener">https://www.cnblogs.com/lihaiping/p/5284547.html</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onOutputBufferAvailable</span><span class="params">(@NonNull MediaCodec codec, <span class="keyword">int</span> index, @NonNull MediaCodec.BufferInfo info)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (fos == <span class="keyword">null</span>) <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"fos == null!"</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> outIndex = index;</span><br><span class="line">            MediaFormat format = codec.getOutputFormat(outIndex);</span><br><span class="line"></span><br><span class="line">            ByteBuffer outputBuffer = codec.getOutputBuffer(outIndex);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> size = outputBuffer.limit();</span><br><span class="line">            outputSize += size;</span><br><span class="line">            <span class="keyword">byte</span>[] packedData = <span class="keyword">new</span> <span class="keyword">byte</span>[size + <span class="number">7</span>];</span><br><span class="line">            addADTStoPacket(packedData, packedData.length);</span><br><span class="line">            outputBuffer.get(packedData, <span class="number">7</span>, size);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                fos.write(packedData);</span><br><span class="line">                fos.flush();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//用完后释放这个buffer，使其可以接着被使用，如果一直不释放，如果文件太大则会导致缓冲区不够用</span></span><br><span class="line">            outputBuffer.clear();</span><br><span class="line">            codec.releaseOutputBuffer(outIndex, <span class="keyword">false</span>);</span><br><span class="line">            <span class="keyword">if</span> (info.flags == MediaCodec.BUFFER_FLAG_END_OF_STREAM) &#123;</span><br><span class="line">                Log.d(tag, <span class="string">"BUFFER_FLAG_END_OF_STREAM"</span>);</span><br><span class="line">                stopAndrealseCodec();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//每一帧前面都要加上ADTS头，可以看做是每一个AAC帧的帧头</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">addADTStoPacket</span><span class="params">(<span class="keyword">byte</span>[] packet, <span class="keyword">int</span> packetLen)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> profile = <span class="number">2</span>;  <span class="comment">//AAC LC</span></span><br><span class="line">        <span class="comment">//39=MediaCodecInfo.CodecProfileLevel.AACObjectELD;</span></span><br><span class="line">        <span class="keyword">int</span> freqIdx = <span class="number">4</span>;  <span class="comment">//44.1KHz</span></span><br><span class="line">        <span class="keyword">int</span> chanCfg = <span class="number">2</span>;  <span class="comment">//CPE</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        byte[] packet1 = new byte[packetLen];</span></span><br><span class="line">        <span class="comment">// fill in ADTS data</span></span><br><span class="line">        packet[<span class="number">0</span>] = (<span class="keyword">byte</span>) <span class="number">0xFF</span>;</span><br><span class="line">        packet[<span class="number">1</span>] = (<span class="keyword">byte</span>) <span class="number">0xF9</span>;</span><br><span class="line">        packet[<span class="number">2</span>] = (<span class="keyword">byte</span>) (((profile - <span class="number">1</span>) &lt;&lt; <span class="number">6</span>) + (freqIdx &lt;&lt; <span class="number">2</span>) + (chanCfg &gt;&gt; <span class="number">2</span>));</span><br><span class="line">        packet[<span class="number">3</span>] = (<span class="keyword">byte</span>) (((chanCfg &amp; <span class="number">3</span>) &lt;&lt; <span class="number">6</span>) + (packetLen &gt;&gt; <span class="number">11</span>));</span><br><span class="line">        packet[<span class="number">4</span>] = (<span class="keyword">byte</span>) ((packetLen &amp; <span class="number">0x7FF</span>) &gt;&gt; <span class="number">3</span>);</span><br><span class="line">        packet[<span class="number">5</span>] = (<span class="keyword">byte</span>) (((packetLen &amp; <span class="number">7</span>) &lt;&lt; <span class="number">5</span>) + <span class="number">0x1F</span>);</span><br><span class="line">        packet[<span class="number">6</span>] = (<span class="keyword">byte</span>) <span class="number">0xFC</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//        //把这些清晰的放出来，但最好还是用上面的方式</span></span><br><span class="line"><span class="comment">//        //syncword</span></span><br><span class="line"><span class="comment">//        packet[0] = (byte) 0xFF;</span></span><br><span class="line"><span class="comment">//        packet[1] |= 0xF &lt;&lt; 4;</span></span><br><span class="line"><span class="comment">//        //id</span></span><br><span class="line"><span class="comment">//        packet[1] |= 0x1 &lt;&lt; 3;</span></span><br><span class="line"><span class="comment">//        //layer</span></span><br><span class="line"><span class="comment">//        packet[1] |= 0x00 &lt;&lt; 1;</span></span><br><span class="line"><span class="comment">//        //protection_abscent</span></span><br><span class="line"><span class="comment">//        packet[1] |= 0x1;</span></span><br><span class="line"><span class="comment">//        //profile</span></span><br><span class="line"><span class="comment">//        packet[2] |= (profile -1) &lt;&lt; 6;</span></span><br><span class="line"><span class="comment">//        //sampling_frequency_index</span></span><br><span class="line"><span class="comment">//        packet[2] |= freqIdx &lt;&lt; 2;</span></span><br><span class="line"><span class="comment">//        //private bit</span></span><br><span class="line"><span class="comment">//        packet[2] |= 0x0 &lt;&lt; 1;</span></span><br><span class="line"><span class="comment">//        //channel_config</span></span><br><span class="line"><span class="comment">//        packet[2] |= chanCfg &gt;&gt; 2;  //高1位</span></span><br><span class="line"><span class="comment">//        packet[3] |= chanCfg &lt;&lt; 6;   //低2位</span></span><br><span class="line"><span class="comment">//        //copy and home;</span></span><br><span class="line"><span class="comment">//        packet[3] |= 0x00 &lt;&lt; 4;</span></span><br><span class="line"><span class="comment">//        //cib and cis</span></span><br><span class="line"><span class="comment">//        packet[3] |= 0x00 &lt;&lt; 2;</span></span><br><span class="line"><span class="comment">//        //frame_length,单位是字节。不用管int是几个字节，把它当13位就行了,一帧的长度一般不可能超过13位能表达的最大值(8KB),</span></span><br><span class="line"><span class="comment">//        packet[3] |= packetLen &gt;&gt; 11;</span></span><br><span class="line"><span class="comment">//        packet[4] = (byte) (packetLen &gt;&gt; 3);</span></span><br><span class="line"><span class="comment">//        int x = packetLen &lt;&lt; 5;</span></span><br><span class="line"><span class="comment">//        packet[5] |= packetLen &lt;&lt; 5;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//        packet[5] |= 0x7FF &gt;&gt; 6;</span></span><br><span class="line"><span class="comment">//        packet[6] |= 0x7FF &lt;&lt; 2;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//释放资源</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">stopAndrealseCodec</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mECodec != <span class="keyword">null</span>) &#123;</span><br><span class="line">            mECodec.release();</span><br><span class="line">            mECodec = <span class="keyword">null</span>;</span><br><span class="line">            mExtractor.release();</span><br><span class="line">            mExtractor = <span class="keyword">null</span>;</span><br><span class="line">            Log.d(tag, <span class="string">"outputBuffer BUFFER_FLAG_END_OF_STREAM"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                fos.flush();</span><br><span class="line">                fos.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Log.d(tag, <span class="string">"stopAndrealseCodec"</span>);</span><br><span class="line">            Log.d(tag, <span class="string">"inputSize="</span> + inputSize);</span><br><span class="line">            Log.d(tag, <span class="string">"outputSize="</span> + outputSize);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>代码见 <a href="https://github.com/lujianyun06/VATask/tree/master/app/src/main/java/com/example/lll/va/Task7" target="_blank" rel="noopener">https://github.com/lujianyun06/VATask/tree/master/app/src/main/java/com/example/lll/va/Task7</a></p>
+<p>然后要把/system挂载成可读写的（rw，一开始是只读的ro）<br>执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mount</span></span><br></pre></td></tr></table></figure>
+<p>可以发现/system是只读的 ro<br>然后执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo su</span><br><span class="line">mount -o rw,remount /system</span><br><span class="line">mount</span><br></pre></td></tr></table></figure>
+<p>可以看到/system 是可读写的：rw<br>此时退出adb shell，把已经编译好的新的日历apk push进手机</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb push ~/newapk/Calendar.apk /system/app/Calendar</span><br><span class="line">adb shell   </span><br><span class="line">reboot   //重启手机</span><br></pre></td></tr></table></figure>
+<p>此时就可以使用改后的calendar了<br>————————————————<br>版权声明：本文为CSDN博主「TheRockMaster」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/weixin_43752854/article/details/84647709" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43752854/article/details/84647709</a></p>
 
       
     </div>
@@ -276,7 +264,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/Concurrent%20mode%20failure%E5%92%8C%20promotion%20failed/">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/Android/onMeasure()%E5%92%8ConLayout()%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
@@ -290,7 +278,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/04/10/java/Concurrent%20mode%20failure%E5%92%8C%20promotion%20failed/" class="post-title-link" itemprop="url">Concurrent mode failure和 promotion failed</a>
+            <a href="/2020/04/10/Android/onMeasure()%E5%92%8ConLayout()%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">onMeasure()和onLayout()总结</a>
         </h2>
 
         <div class="post-meta">
@@ -301,7 +289,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:54:47" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+              <time title="创建时间：2020-04-10 15:44:11 / 修改时间：15:56:56" itemprop="dateCreated datePublished" datetime="2020-04-10T15:44:11+08:00">2020-04-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -309,7 +297,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
                 </span>
             </span>
 
@@ -324,91 +312,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>：（两种错误刚好就是三种进入老年代的方法引起的）</p>
-<h2 id="一-并发模式失败（concurrent-mode-failure）：产生的原因是老年代的可用空间不够了（因为正常晋升入老年代的对象太多太快，或者由于新生代不够而从创建就直接进入老年代的对象太多）"><a href="#一-并发模式失败（concurrent-mode-failure）：产生的原因是老年代的可用空间不够了（因为正常晋升入老年代的对象太多太快，或者由于新生代不够而从创建就直接进入老年代的对象太多）" class="headerlink" title="一.并发模式失败（concurrent mode failure）：产生的原因是老年代的可用空间不够了（因为正常晋升入老年代的对象太多太快，或者由于新生代不够而从创建就直接进入老年代的对象太多）"></a>一.并发模式失败（concurrent mode failure）：产生的原因是老年代的可用空间不够了（因为正常晋升入老年代的对象太多太快，或者由于新生代不够而从创建就直接进入老年代的对象太多）</h2><p>原因有两种：<br>    1.年轻代提升太快，老年代的处理速度跟不上新生代的提升速度；或者新生代空间太小，放不下新产生的对象而直接转入老年代，但老年代也空间不够<br>        解决办法：<br>        ①.调大新生代空间 -Xmn<br>        ②.加大新生代晋升的阈值 -XX:MaxTenuringThreshold<br>    2.老年代碎片过多<br>        解决办法：<br>        ①.调大老年代的比例  –XX:NewRatio<br>        ②.降低老年代进行垃圾回收的阈值，<br>        -XX:CMSInitiatingOccupancyFraction=60（默认是 68）<br>        -XX:+UseCMSInitiatingOccupancyOnly<br>当老年代碎片过多时，这个过程注意cms的性能会比较差，退化成只有一个线程来收集垃圾，耗时可能有几秒或十几秒。</p>
-<h2 id="二-提升失败（promotion-failed）：新生代太小，放不下要复制的存活对象，转而要往老年代放，但这样老年代就有大量短命对象，而很快内存不够就报错（因为MinorGC时的survivor放不下eden和另一个survivor中没回收的对象，转而进入老年代）"><a href="#二-提升失败（promotion-failed）：新生代太小，放不下要复制的存活对象，转而要往老年代放，但这样老年代就有大量短命对象，而很快内存不够就报错（因为MinorGC时的survivor放不下eden和另一个survivor中没回收的对象，转而进入老年代）" class="headerlink" title="二. 提升失败（promotion failed）：新生代太小，放不下要复制的存活对象，转而要往老年代放，但这样老年代就有大量短命对象，而很快内存不够就报错（因为MinorGC时的survivor放不下eden和另一个survivor中没回收的对象，转而进入老年代）"></a>二. 提升失败（promotion failed）：新生代太小，放不下要复制的存活对象，转而要往老年代放，但这样老年代就有大量短命对象，而很快内存不够就报错（因为MinorGC时的survivor放不下eden和另一个survivor中没回收的对象，转而进入老年代）</h2><p>一个Survivor 区不能容纳eden和另外一个survivor里面的存活对象，多余的对象进入老年代，这样就会导致老年代里面的存放大量的短暂存活的对象，<br>而我们知道，如果老年代里面没有可用空间就会发生full gc，这样就造成扫描整个堆，造成提升失败（promotion failed）。</p>
-<pre><code>解决办法：增加survivor
-    ①.增加年轻代的大小 -Xmn
-    ②.调整survivor和eden的比例  -XX:SurvivorRatio 默认是8 ， 各占比 s0：s1 ：eden =1：1：8 ， 减小这个值也就加大了survivor。</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/IoC%E5%92%8CAOP%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="CloudLander~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CloudLander's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/java/IoC%E5%92%8CAOP%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">IoC和AOP的简单总结</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:03:14" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <hr>
-<h2 id="IoC："><a href="#IoC：" class="headerlink" title="IoC："></a>IoC：</h2><hr>
-<p>context是总管家。总领全局<br>    context创建一个bean工厂，一个解析工具（如xmlReader）。先让解析工具去完成对xml或者注解中bean的解析，对于每个bean节点，提取出其中的名称，类型、属性来构建出一个beandefinition(bd)，并存放到解析工具的map中，之后创建这个map中的bd全部移到bean工厂的map中，然后扫描出所有类型为bean初始化前置/后置处理器的bean，此时就要把它们创建好，并把它们都加到bean工厂的前置/后置处理列表中。<br>此时bean工厂中有了所有的bean的bd（但bean本身还没创建，除了前置/后置处理器bean）<br>（tiny中是全部bean都在这里创建，而在spring中，bean创建可以等到用户第一次getbean时，再触发下面的动作）<br>之后进行bean的创建，进行context的onrefresh，在bean工厂中遍历map，创建bean的实例，并且对每个bean实例做如下工作：<br>    创建后把bean实例和它的bd绑定起来（把它赋给bd的一个属性），并且从bd中取出之前设定的一些属性，给bean赋上。然后对从bean工厂中取出之前加入到前置处理器列表中的bean，使用这些处理器bean对当前的这个bean做前置处理；然后进行这个bean的初始化方法（指定的init-method），然后取出之前加入到后置处理器列表中的bean，使用这些处理器bean对当前的这个bean做后置处理（比如aop就是在这一步发挥作用，检测这个bean的类型是不是符合要拦截处理的类型，如果是，则创建用一个该类代理类型的bean代替当前的这个bean返回）； 做完前置/后置处理后都会返回bean(这个bean可能已经被修改了)，再次把这个最终经过前后置处理的bean重新与bd绑定（之前绑定的就作废了）。（真正的spring中还有给每个bean设置关于容器感知，名称感知，context感知之类的功能）<br>（如果对于特定类型的bean要执行特定的前置/后置处理，只需在处理器中判断bean的类型，满足再处理，否则就把传入的bean原样返回即可）<br>此时，bean的初始化就完成了，获取bean的话，就通过context得到bean工厂，再从bean工厂中通过要获取的bean的类型或名称得到bd，再从bd得到与之绑定的bean。</p>
-<h2 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h2><p>有一个后置处理器叫AspectJAwareAdvisorAutoProxyCreator（简称apc），它的作用是在bean的后置处理时如果需要创建代理，则创建代理来代替原始bean返回<br>有一个类叫TargetSource，它可以封装一个其他类的实例对象，类型，以及它实现和继承的类型/接口集合，相当于是某个实例对象的信息组合。<br>一个类叫AdvisedSupport（具体实现是proxyFactory），它是一个aop的核心类型，它有targetsource的成员变量，有方法拦截器的成员变量，有方法匹配器的成员变量。<br>advisors实际上是包含所有需要代理的类的名单，需要拦截的方法的名单，以及所有的方法拦截器。<br>advisors由多个advisor组成，每个advisor包含一个pointcut成员，一个advice成员。<br>    pointcut定义了一组规则，包括符合条件的类型名规则，符合拦截的方法名规则。（术语是切点）<br>    advice就是一个方法拦截器.(其实就是执行额外的逻辑代码的工具) （术语是通知）<br>（这里advisor的术语就是aspect，即切面，实际上就是切点和通知的综合体）<br>每个advisor也是一个bean，它在spring中实际上就是注解了@AspectJ的类的实例，其pointcut和advice可能都是自己。（而且为了保证advisor必须在其他实例创建之前就创建好，每次有一个bean进入创建代理的后置处理器时，会从容器获得所有的advisor(利用getBeansForType)，如果有某个advisor还没创建，则优先创建它。因此会保证如果一个bean需要被代理，则其advisor一定在它用之前就创建好）</p>
-<p>当有一个bean要进行apc的后置处理的时候，遍历所有的advisor，如果不符合所有的advisor类型规则，则直接返回bean；如果发现符合其中一个advisor的类型规则，进入下一步：（真正的spring中使用拦截链，也就是说可以有多个advisor匹配当前的bean，调用方法的时候会一个挨一个调用）<br>创建一个advisedSupport<br>  ·根据这个bean去创建一个它的targetSource，并且把这个targetSource设置给advisedSupport的成员<br>  ·把当前的advisor的方法规则（方法匹配器）设置给advisedSupport<br>  ·把当前advisor的方法拦截规则（方法拦截器）设置给advisedSupport</p>
-<p>使用advisedSupport生成一个代理工厂，该代理工厂拥有advisedSupport的成员变量，并且这个代理工厂是一个调用处理器(InvocationHandler)。<br>    使用代理工厂去生成一个当前这个bean的代理对象。如果用jdk动态代理的话，使用<br>Proxy.newProxyInstance(当前类的类型加载器, bean的所有实现和继承的类型/接口集合, 调用处理器(也就是生成它的代理工厂)）来得到一个代理对象，这个代理对象拥有所有bean的同名方法，当调用代理对象的一个方法时，会调用它的调研处理器的invoke方法，并且会把bean的原本该名称的方法、bean对象，参数都传入invoke<br>，在调用处理器（即代理工厂）的invoke方法中，使用它的成员advisedSupport的方法匹配规则来判断当前调用的这个方法是不是需要拦截的，如果不是则直接调用bean的原来的方法；如果是需要拦截的，则使用advisedSupport的方法拦截器，去执行具体的拦截器的额外逻辑代码（这里还涉及到一个MethodInvocation，但它实际上就是对一个方法、对象、参数的包装，只是为了方便打包传递，从调用处理器传递到拦截器，没有额外的用途），当然这个额外的逻辑代码中也可以调用bean原来的方法，也可以去做一些额外的操作。<br>生成代理后返回，则此时代理对象就取代了原本的bean成为了bean容器中针对原来的bean类型的合法代言人了，别的地方不论是通过原本的类型，还是设置的名称，获得的都是这个代理，而原来的bean就只存在于代理对象的调用处理器中的advisedSupport中的targetSource中（层层包裹，外部是无法得到这个bean的）。</p>
-<p>另：<br>生成代理对象的方式有jdk动态代理，还有其他一些，如Cglib2等，但原理都是一样的。</p>
+          <p>转载自 <a href="https://www.cnblogs.com/xqxacm/p/6673469.html" target="_blank" rel="noopener">https://www.cnblogs.com/xqxacm/p/6673469.html</a><br>和 <a href="https://blog.csdn.net/superxukai88/article/details/78675686" target="_blank" rel="noopener">https://blog.csdn.net/superxukai88/article/details/78675686</a></p>
+<p>并写了一些自己的总结<br>前言：<br>　　自定义控件的三大方法：</p>
+<ol>
+<li>测量： onMeasure()：  测量自己的大小，为正式布局提供建议 </li>
+<li>布局： onLayout():   使用layout()函数对所有子控件布局</li>
+<li>绘制： onDraw():     根据布局的位置绘图 </li>
+</ol>
+<p>onDraw() 里面是绘制的操作，可以看下其他的文章，下面来了解 onMeasure()和onLayout()方法。</p>
+<h1 id="一、onMeasure-、测量"><a href="#一、onMeasure-、测量" class="headerlink" title="一、onMeasure()、测量"></a>一、onMeasure()、测量</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span></span></span><br></pre></td></tr></table></figure>
+<p>参数即父类传过来的两个宽高的”建议值”，即把当前view的高设置为：heightMeasureSpec ;宽设置为：widthMeasureSpec<br>这个参数不是简单的整数类型，而是2位整数(模式类型)和30位整数(实际数值) 的组合</p>
+<p>其中模式分为三种:</p>
+<p>①、UNSPECIFIED(未指定)，父元素不对自元素施加任何束缚，子元素可以得到任意想要的大小；UNSPECIFIED=00000000000000000000000000000000</p>
+<p>②、EXACTLY(完全)，父元素决定自元素的确切大小，子元素将被限定在给定的边界里而忽略它本身大小；EXACTLY =01000000000000000000000000000000<br>③、AT_MOST(至多)，子元素至多达到指定大小的值。 他们对应的二进制值分别是： AT_MOST =10000000000000000000000000000000 </p>
+<p>最前面两位代表模式，分别对应十进制的0，1，2；</p>
+<p>获取模式int值 和 获取数值int值的方法：</p>
 <blockquote>
-<p>注意，jdk动态代理生成的对象只能转成实际类实现的接口类型的对象，而无法转成实在的类的对象（而cglib能）<br>例如，A implements I<br>jdk动态代理创建好的代理proxy只能强转成I类型的，而不能强转成A类型的。</p>
+<ol>
+<li>int measureWidth = MeasureSpec.getSize(widthMeasureSpec);  </li>
+<li>int measureHeight = MeasureSpec.getSize(heightMeasureSpec);  </li>
+<li>int measureWidthMode = MeasureSpec.getMode(widthMeasureSpec);  </li>
+<li>int measureHeightMode = MeasureSpec.getMode(heightMeasureSpec);<br>模式的值有：<br>MeasureSpec.AT_MOST       = 2<br>MeasureSpec.EXACTLY       = 1<br>MeasureSpec.UNSPECIFIED   = 0</li>
+</ol>
 </blockquote>
-<blockquote>
-<p>注意，InvocationHandler的invoke方法，传递过来的是proxy，而不是原始对象，所以如果要运行原本实例的方法(method.invoke)，需要在InvocationHandler中保存原本的实例</p>
-</blockquote>
+<p>上面我们知道了 onMeasure(int widthMeasureSpec, int heightMeasureSpec) 方法参数的意义<br>下面了解参数对应的三个模式分别对应的意义：<br>每一个模式都对应的xml布局中的一个值<br>wrap_content — MeasureSpec.AT_MOST<br>match_parent — MeasureSpec.EXACTLY<br>具体值 — MeasureSpec.UNSPECIFIED</p>
+<p>注意：<br>—当模式是MeasureSpec.AT_MOST时，即wrap_content时，此时传入的int widthMeasureSpec, int heightMeasureSpec的数值部分(后30位)实际上就是父亲建议的尺寸数值,（如果父亲只有一个子view，数值就是父亲自己的尺寸，多个子view的LinearLayout传递的值是安置完之前的子view剩下的空间尺寸），因此在onMeasure里不做其他操作，view仍然会符合父亲的建议.</p>
+<p>PS: 但需要注意的是，如果直接自定义一个View，宽高为wrap_content, 则最后绘制的时候view是占满整个父View的(假设父view只有这一个儿子)，这是因为上面说的，传过来的是父亲的尺寸，但如果自定义View继承了像TextView之类的，最后还调用了super.onMeasure，则显示的时候大小是根据其内容显示的，这是因为这些TextView在自己的onMeasure里又做了处理，使得其根据内容的大小而变化。</p>
+<p>—当模式是MeasureSpec.EXACTLY时，即match_parent时，此时传入的int widthMeasureSpec, int heightMeasureSpec的数值部分(后30位)实际上也是父亲建议的尺寸数值（如果父亲只有一个子view，数值就是父亲自己的尺寸，多个子view的LinearLayout传递的值是安置完之前的子view剩下的空间尺寸），因此在onMeasure里不做其他操作，view仍然会符合父亲的建议</p>
+<p>PS:（AT_MOST与EXACTLY：如果在onMeasure中不做任何处理而调用setMeasureDimension(MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.getSize(heightMeasureSpec))）来设置尺寸，，或者在基类的onMeasure中不做任何额外处理而调用super.onMeasure().那么这两个模式没有任何区别（都是用父亲建议的大小设置自己的大小，而且两个模式父亲建议的大小都一样）。因此若使用AT_MOST一般都要在onMeasure中根据mode不同而设置view尺寸为不同的大小（如同TextView做的那样）</p>
+<p>—当模式是MeasureSpec.UNSPECIFIED时，即具体数值时，此时传入的int widthMeasureSpec, int heightMeasureSpec的数值部分(后30位)实际是具体指定的数字，因此在onMeasure里不做其他操作，子view会符合父亲的建议，即变成它自己设定的尺寸，尽管这里的数字大小是不做限制的，但当绘制的时候，父亲会clip掉自己尺寸之外的子view的部分。要避免的话，需设置子view的顶级祖先ViewGroup的clipChildren属性为false，而且它的父亲必须不是RelativeLayout（即不clip有两个条件，1.顶级祖先view设置clipChildren=false。2.父view必须不是RelativeLayout，PS：父view设置不设置clipChildren无所谓，顶级祖先必须设置）</p>
+<h1 id="二、onLayout-、-布局"><a href="#二、onLayout-、-布局" class="headerlink" title="二、onLayout() 、 布局"></a>二、onLayout() 、 布局</h1><p>onLayout方法是ViewGroup中子View的布局方法，用于放置子View的位置。放置子View很简单，只需在重写onLayout方法，然后获取子View的实例，调用子View的layout方法实现布局。在实际开发中，一般要配合onMeasure测量方法一起使用。</p>
+<h2 id="onLayout方法："><a href="#onLayout方法：" class="headerlink" title="onLayout方法："></a>onLayout方法：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span></span><br><span class="line"><span class="function"><span class="keyword">abstract</span>  <span class="keyword">void</span>  <span class="title">onLayout</span><span class="params">(<span class="keyword">boolean</span> changed, <span class="keyword">int</span> l, <span class="keyword">int</span> t, <span class="keyword">int</span> r, <span class="keyword">int</span> b)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>该方法在ViewGroup中定义是抽象函数，继承该类必须实现onLayout方法，而ViewGroup的onMeasure并非必须重写的。View的放置都是根据一个矩形空间放置的，onLayout传下来的l,t,r,b分别是放置父控件的矩形可用空间（除去margin和padding的空间）的左上角的left、top以及右下角right、bottom值。</p>
+<h2 id="layout方法："><a href="#layout方法：" class="headerlink" title="layout方法："></a>layout方法：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span></span><br><span class="line"><span class="function"><span class="keyword">void</span>  <span class="title">layout</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> t, <span class="keyword">int</span> r, <span class="keyword">int</span> b)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>该方法是View的放置方法，在View类实现。调用该方法需要传入放置View的矩形空间左上角left、top值和右下角right、bottom值。这四个值是相对于父控件而言的。例如传入的是（10, 10, 100, 100），则该View在距离父控件的左上角位置(10, 10)处显示，显示的大小是宽高是90(参数r,b是相对左上角的)，这有点像绝对布局。</p>
+<p>平常开发所用到RelativeLayout、LinearLayout、FrameLayout…这些都是继承ViewGroup的布局。这些布局的实现都是通过都实现ViewGroup的onLayout方法，只是实现方法不一样而已。</p>
 
       
     </div>
@@ -526,7 +465,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8GC%E4%B8%ADparallel%20scavenge%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BDCMS%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8%EF%BC%9F/">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/IoC%E5%92%8CAOP%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
@@ -540,7 +479,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/04/10/java/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8GC%E4%B8%ADparallel%20scavenge%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BDCMS%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8%EF%BC%9F/" class="post-title-link" itemprop="url">垃圾收集器GC中parallel scavenge收集器为什么不能CMS配合使用？</a>
+            <a href="/2020/04/10/java/IoC%E5%92%8CAOP%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">IoC和AOP的简单总结</a>
         </h2>
 
         <div class="post-meta">
@@ -551,7 +490,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:11:40" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:03:14" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -574,28 +513,168 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>首先看一下收集器的分布：</p>
-<p><img src="http://img.blog.csdn.net/20170102225015393" alt="垃圾收集器"></p>
-<p>1.解答parallel scavenge收集器为什么不能CMS配合使用？<br>首先讲一下Hotspot，HotSpot VM里多个GC有部分共享的代码。有一个分代式GC框架，Serial/Serial Old/ParNew/CMS都在这个框架内；在该框架内的young collector和old collector可以任意搭配使用，所谓的“mix-and-match”。<br>而ParallelScavenge与G1则不在这个框架内，而是各自采用了自己特别的框架。这是因为新的GC实现时发现原本的分代式GC框架用起来不顺手。</p>
-<p>ParallelScavenge（PS）的young collector就如其名字所示，是并行的拷贝式收集器。本来这个young collector就是“Parallel Scavenge”所指，但因为它不兼容原本的分代式GC框架，为了凸显出它是不同的，所以它的young collector带上了PS前缀，全名变成PS Scavenge。对应的，它的old collector的名字也带上了PS前缀，叫做PS MarkSweep。</p>
-<p>这个PS MarkSweep默认的实现实际上是一层皮，它底下真正做mark-sweep-compact工作的代码是跟分代式GC框架里的serial old（这个collector名字叫做MarkSweepCompact）是共用同一份代码的。也就是说实际上PS MarkSweep与MarkSweepCompact在HotSpot VM里是同一个collector实现，包了两张不同的皮；这个collector是串行的。</p>
-<p>最后：<br>重点就是Parallel Scavenge没有使用原本HotSpot其它GC通用的那个GC框架，所以不能跟使用了那个框架的CMS搭配使用。</p>
-<p>新生代：使用复制算法进行GC。<br>老年代：使用标记-整理算法。</p>
-<p>并发：（concurrent）用户线程与垃圾收集器同时执行（但不一定并行的，可能会交替执行）<br>并行：（parallel）多条垃圾手机线程并行，用户线程仍然等待。</p>
-<p>1.新生代收集器<br>serial收集器：是新生代的一个单线程的GC，，进行GC时，停掉所有用户线程，直至回收结束，“stop-the-world”。但是其单线程的简单高效，没有线程交互的开销，常被JVM运行在client模式下的默认新生代收集器。</p>
-<p>ParNew：并行收集器，是serial收集器的多线程的版本。是运行在server模式下的首先的新生代的收集器。</p>
-<p>parallel scavenge ：新生代收集器，多线程，并行收集。<br>此收集器与之前的收集器目的不同：（特点）达到一个可控制的吞吐量。吞吐量=运行用户代码时间/CPU总执行时间。<br>用于精确吞吐量的两个参数：1.控制最大垃圾收集停顿时间参数 2.直接设置吞吐量大小的参数。Parallel scavenge收集器与ParNew收集器重要区别是： 垃圾自适应调节策略。</p>
-<p>2.老年代收集器<br>serial old：老年代收集器版本，单线程。<br>用途：1.在JDK1.5版本之前与parallel scavenge 收集器搭配使用。<br>2.作为CMS收集器的后备预案。</p>
-<p>Parallel Old ：使用多线程收集。吞吐量优先。</p>
-<p>CMS：</p>
+          <hr>
+<h2 id="IoC："><a href="#IoC：" class="headerlink" title="IoC："></a>IoC：</h2><hr>
+<p>context是总管家。总领全局<br>    context创建一个bean工厂，一个解析工具（如xmlReader）。先让解析工具去完成对xml或者注解中bean的解析，对于每个bean节点，提取出其中的名称，类型、属性来构建出一个beandefinition(bd)，并存放到解析工具的map中，之后创建这个map中的bd全部移到bean工厂的map中，然后扫描出所有类型为bean初始化前置/后置处理器的bean，此时就要把它们创建好，并把它们都加到bean工厂的前置/后置处理列表中。<br>此时bean工厂中有了所有的bean的bd（但bean本身还没创建，除了前置/后置处理器bean）<br>（tiny中是全部bean都在这里创建，而在spring中，bean创建可以等到用户第一次getbean时，再触发下面的动作）<br>之后进行bean的创建，进行context的onrefresh，在bean工厂中遍历map，创建bean的实例，并且对每个bean实例做如下工作：<br>    创建后把bean实例和它的bd绑定起来（把它赋给bd的一个属性），并且从bd中取出之前设定的一些属性，给bean赋上。然后对从bean工厂中取出之前加入到前置处理器列表中的bean，使用这些处理器bean对当前的这个bean做前置处理；然后进行这个bean的初始化方法（指定的init-method），然后取出之前加入到后置处理器列表中的bean，使用这些处理器bean对当前的这个bean做后置处理（比如aop就是在这一步发挥作用，检测这个bean的类型是不是符合要拦截处理的类型，如果是，则创建用一个该类代理类型的bean代替当前的这个bean返回）； 做完前置/后置处理后都会返回bean(这个bean可能已经被修改了)，再次把这个最终经过前后置处理的bean重新与bd绑定（之前绑定的就作废了）。（真正的spring中还有给每个bean设置关于容器感知，名称感知，context感知之类的功能）<br>（如果对于特定类型的bean要执行特定的前置/后置处理，只需在处理器中判断bean的类型，满足再处理，否则就把传入的bean原样返回即可）<br>此时，bean的初始化就完成了，获取bean的话，就通过context得到bean工厂，再从bean工厂中通过要获取的bean的类型或名称得到bd，再从bd得到与之绑定的bean。</p>
+<h2 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h2><p>有一个后置处理器叫AspectJAwareAdvisorAutoProxyCreator（简称apc），它的作用是在bean的后置处理时如果需要创建代理，则创建代理来代替原始bean返回<br>有一个类叫TargetSource，它可以封装一个其他类的实例对象，类型，以及它实现和继承的类型/接口集合，相当于是某个实例对象的信息组合。<br>一个类叫AdvisedSupport（具体实现是proxyFactory），它是一个aop的核心类型，它有targetsource的成员变量，有方法拦截器的成员变量，有方法匹配器的成员变量。<br>advisors实际上是包含所有需要代理的类的名单，需要拦截的方法的名单，以及所有的方法拦截器。<br>advisors由多个advisor组成，每个advisor包含一个pointcut成员，一个advice成员。<br>    pointcut定义了一组规则，包括符合条件的类型名规则，符合拦截的方法名规则。（术语是切点）<br>    advice就是一个方法拦截器.(其实就是执行额外的逻辑代码的工具) （术语是通知）<br>（这里advisor的术语就是aspect，即切面，实际上就是切点和通知的综合体）<br>每个advisor也是一个bean，它在spring中实际上就是注解了@AspectJ的类的实例，其pointcut和advice可能都是自己。（而且为了保证advisor必须在其他实例创建之前就创建好，每次有一个bean进入创建代理的后置处理器时，会从容器获得所有的advisor(利用getBeansForType)，如果有某个advisor还没创建，则优先创建它。因此会保证如果一个bean需要被代理，则其advisor一定在它用之前就创建好）</p>
+<p>当有一个bean要进行apc的后置处理的时候，遍历所有的advisor，如果不符合所有的advisor类型规则，则直接返回bean；如果发现符合其中一个advisor的类型规则，进入下一步：（真正的spring中使用拦截链，也就是说可以有多个advisor匹配当前的bean，调用方法的时候会一个挨一个调用）<br>创建一个advisedSupport<br>  ·根据这个bean去创建一个它的targetSource，并且把这个targetSource设置给advisedSupport的成员<br>  ·把当前的advisor的方法规则（方法匹配器）设置给advisedSupport<br>  ·把当前advisor的方法拦截规则（方法拦截器）设置给advisedSupport</p>
+<p>使用advisedSupport生成一个代理工厂，该代理工厂拥有advisedSupport的成员变量，并且这个代理工厂是一个调用处理器(InvocationHandler)。<br>    使用代理工厂去生成一个当前这个bean的代理对象。如果用jdk动态代理的话，使用<br>Proxy.newProxyInstance(当前类的类型加载器, bean的所有实现和继承的类型/接口集合, 调用处理器(也就是生成它的代理工厂)）来得到一个代理对象，这个代理对象拥有所有bean的同名方法，当调用代理对象的一个方法时，会调用它的调研处理器的invoke方法，并且会把bean的原本该名称的方法、bean对象，参数都传入invoke<br>，在调用处理器（即代理工厂）的invoke方法中，使用它的成员advisedSupport的方法匹配规则来判断当前调用的这个方法是不是需要拦截的，如果不是则直接调用bean的原来的方法；如果是需要拦截的，则使用advisedSupport的方法拦截器，去执行具体的拦截器的额外逻辑代码（这里还涉及到一个MethodInvocation，但它实际上就是对一个方法、对象、参数的包装，只是为了方便打包传递，从调用处理器传递到拦截器，没有额外的用途），当然这个额外的逻辑代码中也可以调用bean原来的方法，也可以去做一些额外的操作。<br>生成代理后返回，则此时代理对象就取代了原本的bean成为了bean容器中针对原来的bean类型的合法代言人了，别的地方不论是通过原本的类型，还是设置的名称，获得的都是这个代理，而原来的bean就只存在于代理对象的调用处理器中的advisedSupport中的targetSource中（层层包裹，外部是无法得到这个bean的）。</p>
+<p>另：<br>生成代理对象的方式有jdk动态代理，还有其他一些，如Cglib2等，但原理都是一样的。</p>
+<blockquote>
+<p>注意，jdk动态代理生成的对象只能转成实际类实现的接口类型的对象，而无法转成实在的类的对象（而cglib能）<br>例如，A implements I<br>jdk动态代理创建好的代理proxy只能强转成I类型的，而不能强转成A类型的。</p>
+</blockquote>
+<blockquote>
+<p>注意，InvocationHandler的invoke方法，传递过来的是proxy，而不是原始对象，所以如果要运行原本实例的方法(method.invoke)，需要在InvocationHandler中保存原本的实例</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/Concurrent%20mode%20failure%E5%92%8C%20promotion%20failed/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/java/Concurrent%20mode%20failure%E5%92%8C%20promotion%20failed/" class="post-title-link" itemprop="url">Concurrent mode failure和 promotion failed</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:54:47" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>：（两种错误刚好就是三种进入老年代的方法引起的）</p>
+<h2 id="一-并发模式失败（concurrent-mode-failure）：产生的原因是老年代的可用空间不够了（因为正常晋升入老年代的对象太多太快，或者由于新生代不够而从创建就直接进入老年代的对象太多）"><a href="#一-并发模式失败（concurrent-mode-failure）：产生的原因是老年代的可用空间不够了（因为正常晋升入老年代的对象太多太快，或者由于新生代不够而从创建就直接进入老年代的对象太多）" class="headerlink" title="一.并发模式失败（concurrent mode failure）：产生的原因是老年代的可用空间不够了（因为正常晋升入老年代的对象太多太快，或者由于新生代不够而从创建就直接进入老年代的对象太多）"></a>一.并发模式失败（concurrent mode failure）：产生的原因是老年代的可用空间不够了（因为正常晋升入老年代的对象太多太快，或者由于新生代不够而从创建就直接进入老年代的对象太多）</h2><p>原因有两种：<br>    1.年轻代提升太快，老年代的处理速度跟不上新生代的提升速度；或者新生代空间太小，放不下新产生的对象而直接转入老年代，但老年代也空间不够<br>        解决办法：<br>        ①.调大新生代空间 -Xmn<br>        ②.加大新生代晋升的阈值 -XX:MaxTenuringThreshold<br>    2.老年代碎片过多<br>        解决办法：<br>        ①.调大老年代的比例  –XX:NewRatio<br>        ②.降低老年代进行垃圾回收的阈值，<br>        -XX:CMSInitiatingOccupancyFraction=60（默认是 68）<br>        -XX:+UseCMSInitiatingOccupancyOnly<br>当老年代碎片过多时，这个过程注意cms的性能会比较差，退化成只有一个线程来收集垃圾，耗时可能有几秒或十几秒。</p>
+<h2 id="二-提升失败（promotion-failed）：新生代太小，放不下要复制的存活对象，转而要往老年代放，但这样老年代就有大量短命对象，而很快内存不够就报错（因为MinorGC时的survivor放不下eden和另一个survivor中没回收的对象，转而进入老年代）"><a href="#二-提升失败（promotion-failed）：新生代太小，放不下要复制的存活对象，转而要往老年代放，但这样老年代就有大量短命对象，而很快内存不够就报错（因为MinorGC时的survivor放不下eden和另一个survivor中没回收的对象，转而进入老年代）" class="headerlink" title="二. 提升失败（promotion failed）：新生代太小，放不下要复制的存活对象，转而要往老年代放，但这样老年代就有大量短命对象，而很快内存不够就报错（因为MinorGC时的survivor放不下eden和另一个survivor中没回收的对象，转而进入老年代）"></a>二. 提升失败（promotion failed）：新生代太小，放不下要复制的存活对象，转而要往老年代放，但这样老年代就有大量短命对象，而很快内存不够就报错（因为MinorGC时的survivor放不下eden和另一个survivor中没回收的对象，转而进入老年代）</h2><p>一个Survivor 区不能容纳eden和另外一个survivor里面的存活对象，多余的对象进入老年代，这样就会导致老年代里面的存放大量的短暂存活的对象，<br>而我们知道，如果老年代里面没有可用空间就会发生full gc，这样就造成扫描整个堆，造成提升失败（promotion failed）。</p>
+<pre><code>解决办法：增加survivor
+    ①.增加年轻代的大小 -Xmn
+    ②.调整survivor和eden的比例  -XX:SurvivorRatio 默认是8 ， 各占比 s0：s1 ：eden =1：1：8 ， 减小这个值也就加大了survivor。</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">Ubuntu16下 pip安装，卸载、升级，报错</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：16:48:11" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>新装的ubuntu16，自带的python2.7，使用pip升级后，报错，修改记录如下：</p>
+<h2 id="如何彻底卸载pip？"><a href="#如何彻底卸载pip？" class="headerlink" title="如何彻底卸载pip？"></a>如何彻底卸载pip？</h2><p>sudo python -m pip uninstall pip</p>
+<h2 id="如何安装pip"><a href="#如何安装pip" class="headerlink" title="如何安装pip"></a>如何安装pip</h2><p>sudo apt install python-pip</p>
+<h2 id="如何安装指定版本的pip"><a href="#如何安装指定版本的pip" class="headerlink" title="如何安装指定版本的pip"></a>如何安装指定版本的pip</h2><p>python -m pip install pip==18.1(换成你想要的版本编号)</p>
+<h2 id="pip安装软件过程中报错："><a href="#pip安装软件过程中报错：" class="headerlink" title="pip安装软件过程中报错："></a>pip安装软件过程中报错：</h2><p>Command “python setup.py egg_info” failed with error code 1 in /tmp/pip-build-BqMhb7/matplotlib/</p>
 <ol>
-<li>目标是：尽量缩短垃圾回收时间和用户线程的停顿时间</li>
-<li>严格意义上第一款并发垃圾回收器</li>
-<li>主要场景在 互联网 B/S 架构上</li>
-<li>使用标记清除算法</li>
-<li>步骤<br> 5.1 初始标记：STW、快；GC Root 能直接关联的对象<br> 5.2 并发标记：并发；GC Root Tracing 的过程<br> 5.3 重新标记：STW、快；修复并发标记阶段 用户线程运行时变动的对象<br> 5.4 并发清除：并发</li>
-<li>因为整个过程中耗时最长的 “并发标记”和“并发清除”是和用户线程并发执行的，所以可认为CMS回收器是和用户线程并发执行的</li>
+<li>安装并升级setuptools<br>pip install –upgrade setuptools</li>
+<li>升级pip<br>pip install –upgrade pip</li>
 </ol>
+<h2 id="pip升级后报错"><a href="#pip升级后报错" class="headerlink" title="pip升级后报错"></a>pip升级后报错</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "/usr/bin/pip", line 9, in &lt;module&gt;</span><br><span class="line">    from pip import main</span><br><span class="line">ImportError: cannot import name 'main'</span><br><span class="line">修改/usr/bin/pip如下：</span><br><span class="line">//修改前</span><br><span class="line">from pip import main  </span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(main()) </span><br><span class="line">修改后</span><br><span class="line">from pip import __main__  //这行也要修改</span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(__main__._main())//增加__main__._  （注意最后main()前面有个_）</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -689,7 +768,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8GC%E4%B8%ADparallel%20scavenge%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BDCMS%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8%EF%BC%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
@@ -703,7 +782,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/04/10/linux/Ubuntu16%E4%B8%8B%20pip%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8D%B8%E8%BD%BD%E3%80%81%E5%8D%87%E7%BA%A7%EF%BC%8C%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">Ubuntu16下 pip安装，卸载、升级，报错</a>
+            <a href="/2020/04/10/java/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8GC%E4%B8%ADparallel%20scavenge%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BDCMS%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8%EF%BC%9F/" class="post-title-link" itemprop="url">垃圾收集器GC中parallel scavenge收集器为什么不能CMS配合使用？</a>
         </h2>
 
         <div class="post-meta">
@@ -714,7 +793,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：16:48:11" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：17:11:40" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -722,7 +801,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
                 </span>
             </span>
 
@@ -737,16 +816,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>新装的ubuntu16，自带的python2.7，使用pip升级后，报错，修改记录如下：</p>
-<h2 id="如何彻底卸载pip？"><a href="#如何彻底卸载pip？" class="headerlink" title="如何彻底卸载pip？"></a>如何彻底卸载pip？</h2><p>sudo python -m pip uninstall pip</p>
-<h2 id="如何安装pip"><a href="#如何安装pip" class="headerlink" title="如何安装pip"></a>如何安装pip</h2><p>sudo apt install python-pip</p>
-<h2 id="如何安装指定版本的pip"><a href="#如何安装指定版本的pip" class="headerlink" title="如何安装指定版本的pip"></a>如何安装指定版本的pip</h2><p>python -m pip install pip==18.1(换成你想要的版本编号)</p>
-<h2 id="pip安装软件过程中报错："><a href="#pip安装软件过程中报错：" class="headerlink" title="pip安装软件过程中报错："></a>pip安装软件过程中报错：</h2><p>Command “python setup.py egg_info” failed with error code 1 in /tmp/pip-build-BqMhb7/matplotlib/</p>
+          <p>首先看一下收集器的分布：</p>
+<p><img src="http://img.blog.csdn.net/20170102225015393" alt="垃圾收集器"></p>
+<p>1.解答parallel scavenge收集器为什么不能CMS配合使用？<br>首先讲一下Hotspot，HotSpot VM里多个GC有部分共享的代码。有一个分代式GC框架，Serial/Serial Old/ParNew/CMS都在这个框架内；在该框架内的young collector和old collector可以任意搭配使用，所谓的“mix-and-match”。<br>而ParallelScavenge与G1则不在这个框架内，而是各自采用了自己特别的框架。这是因为新的GC实现时发现原本的分代式GC框架用起来不顺手。</p>
+<p>ParallelScavenge（PS）的young collector就如其名字所示，是并行的拷贝式收集器。本来这个young collector就是“Parallel Scavenge”所指，但因为它不兼容原本的分代式GC框架，为了凸显出它是不同的，所以它的young collector带上了PS前缀，全名变成PS Scavenge。对应的，它的old collector的名字也带上了PS前缀，叫做PS MarkSweep。</p>
+<p>这个PS MarkSweep默认的实现实际上是一层皮，它底下真正做mark-sweep-compact工作的代码是跟分代式GC框架里的serial old（这个collector名字叫做MarkSweepCompact）是共用同一份代码的。也就是说实际上PS MarkSweep与MarkSweepCompact在HotSpot VM里是同一个collector实现，包了两张不同的皮；这个collector是串行的。</p>
+<p>最后：<br>重点就是Parallel Scavenge没有使用原本HotSpot其它GC通用的那个GC框架，所以不能跟使用了那个框架的CMS搭配使用。</p>
+<p>新生代：使用复制算法进行GC。<br>老年代：使用标记-整理算法。</p>
+<p>并发：（concurrent）用户线程与垃圾收集器同时执行（但不一定并行的，可能会交替执行）<br>并行：（parallel）多条垃圾手机线程并行，用户线程仍然等待。</p>
+<p>1.新生代收集器<br>serial收集器：是新生代的一个单线程的GC，，进行GC时，停掉所有用户线程，直至回收结束，“stop-the-world”。但是其单线程的简单高效，没有线程交互的开销，常被JVM运行在client模式下的默认新生代收集器。</p>
+<p>ParNew：并行收集器，是serial收集器的多线程的版本。是运行在server模式下的首先的新生代的收集器。</p>
+<p>parallel scavenge ：新生代收集器，多线程，并行收集。<br>此收集器与之前的收集器目的不同：（特点）达到一个可控制的吞吐量。吞吐量=运行用户代码时间/CPU总执行时间。<br>用于精确吞吐量的两个参数：1.控制最大垃圾收集停顿时间参数 2.直接设置吞吐量大小的参数。Parallel scavenge收集器与ParNew收集器重要区别是： 垃圾自适应调节策略。</p>
+<p>2.老年代收集器<br>serial old：老年代收集器版本，单线程。<br>用途：1.在JDK1.5版本之前与parallel scavenge 收集器搭配使用。<br>2.作为CMS收集器的后备预案。</p>
+<p>Parallel Old ：使用多线程收集。吞吐量优先。</p>
+<p>CMS：</p>
 <ol>
-<li>安装并升级setuptools<br>pip install –upgrade setuptools</li>
-<li>升级pip<br>pip install –upgrade pip</li>
+<li>目标是：尽量缩短垃圾回收时间和用户线程的停顿时间</li>
+<li>严格意义上第一款并发垃圾回收器</li>
+<li>主要场景在 互联网 B/S 架构上</li>
+<li>使用标记清除算法</li>
+<li>步骤<br> 5.1 初始标记：STW、快；GC Root 能直接关联的对象<br> 5.2 并发标记：并发；GC Root Tracing 的过程<br> 5.3 重新标记：STW、快；修复并发标记阶段 用户线程运行时变动的对象<br> 5.4 并发清除：并发</li>
+<li>因为整个过程中耗时最长的 “并发标记”和“并发清除”是和用户线程并发执行的，所以可认为CMS回收器是和用户线程并发执行的</li>
 </ol>
-<h2 id="pip升级后报错"><a href="#pip升级后报错" class="headerlink" title="pip升级后报错"></a>pip升级后报错</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "/usr/bin/pip", line 9, in &lt;module&gt;</span><br><span class="line">    from pip import main</span><br><span class="line">ImportError: cannot import name 'main'</span><br><span class="line">修改/usr/bin/pip如下：</span><br><span class="line">//修改前</span><br><span class="line">from pip import main  </span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(main()) </span><br><span class="line">修改后</span><br><span class="line">from pip import __main__  //这行也要修改</span><br><span class="line">if __name__ == '__main__':  </span><br><span class="line">    sys.exit(__main__._main())//增加__main__._  （注意最后main()前面有个_）</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -915,84 +1006,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/%E7%AE%97%E6%B3%95/220.%20Contains%20Duplicate%20III/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lu.jpg">
-      <meta itemprop="name" content="CloudLander~Lu">
-      <meta itemprop="description" content="记录学习生活，力求每日进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CloudLander's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/%E7%AE%97%E6%B3%95/220.%20Contains%20Duplicate%20III/" class="post-title-link" itemprop="url">220. Contains Duplicate III</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：16:13:55" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Medium</span><br><span class="line"></span><br><span class="line">Given an <span class="built_in">array</span> of <span class="built_in">int</span>egers, find <span class="keyword">out</span> whether there are two distinct indices i <span class="keyword">and</span> j <span class="keyword">in</span> the <span class="built_in">array</span> such that the absolute difference between nums[i] <span class="keyword">and</span> nums[j] <span class="keyword">is</span> at most t <span class="keyword">and</span> the absolute difference between i <span class="keyword">and</span> j <span class="keyword">is</span> at most k.</span><br><span class="line"></span><br><span class="line">Example <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">Input: nums = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>], k = <span class="number">3</span>, t = <span class="number">0</span></span><br><span class="line">Output: <span class="literal">true</span></span><br><span class="line">Example <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">Input: nums = [<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>], k = <span class="number">1</span>, t = <span class="number">2</span></span><br><span class="line">Output: <span class="literal">true</span></span><br><span class="line">Example <span class="number">3</span>:</span><br><span class="line"></span><br><span class="line">Input: nums = [<span class="number">1</span>,<span class="number">5</span>,<span class="number">9</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">9</span>], k = <span class="number">2</span>, t = <span class="number">3</span></span><br><span class="line">Output: <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">给定一个整数数组，找出数组中是否有两个不同的索引i和j，使得nums[i]和nums[j]之间的绝对值差最大为t, i和j之间的绝对值差最大为k。</span><br></pre></td></tr></table></figure>
-
-<p>笨办法就是双重循环，如果下标绝对值符合后再看数值是否符合，会超时</p>
-<p>网上找的中文解释都没看懂。</p>
-<p>使用TreeSet数据结构，可以借助TreeSet中有用的函数</p>
-<p>TreeSet.floor(x) 表示TreeSet中小于或等于x的最大元素<br>TreeSet.ceiling(x) 表示TreeSet中大于或等于x的最小元素</p>
-<p>对于数组中任意一个数nums[i], 与其绝对值差小于等于为t的区间为 [nums[i]-t，nums[i]+t],  数轴表示如下</p>
-<pre><code>    I__________I__________I
-nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceiling函数，可以得到是否有数字在上述区间内<br>即：f = floor(nums[i] + t) 且 f&gt;=nums[i]，说明f在[ nums[i], nums[i]+t]内<br>   c = ceiling(nums[i] - t) 且 c&lt;=nums[i]，说明c在[ nums[i]-t, nums[i]]内</p>
-<p>如果存在f或者c，然后要保证的是 它们的索引和i差距小于k，则只需维持TreeSet中始终只保留窗口大小为k的元素即可（在访问nums[i]时，TreeSet中始终只保留nums[i-k]到nums[i-1] ）。</p>
-<p>这样，只要存在f或者c，就存在满足条件的值，因为TreeSet中元素的坐标都满足和i的约束关系，直接返回。<br>若不存在，则把nums[i]加入TreeSet，删去nums[i-k]（因为下一个要访问的是nums[i+1]，nums[i-k]与nums[i+1]的坐标约束不满足），继续遍历。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">containsNearbyAlmostDuplicate</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k, <span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span> || k &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> TreeSet&lt;Integer&gt; values = <span class="keyword">new</span> TreeSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">final</span> Integer floor = values.floor(nums[i] + t); <span class="comment">//set中是否有满足 小于或等于 nums[i]+t 的数字</span></span><br><span class="line">            <span class="keyword">final</span> Integer ceil = values.ceiling(nums[i] - t); <span class="comment">//set中是否有满足 大于或等于 nums[i]-t 的数字</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//如果有这样的数字，且TreeSet中元素坐标都与i满足约束条件，那么就有满足题意的元素</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> ((floor != <span class="keyword">null</span> &amp;&amp; floor &gt;= nums[ind])</span><br><span class="line">                    || (ceil != <span class="keyword">null</span> &amp;&amp; ceil &lt;= nums[ind])) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            values.add(nums[i]);</span><br><span class="line">            <span class="comment">//保证TreeSet中的坐标和i的差都小于等于k</span></span><br><span class="line">            <span class="keyword">if</span> (i &gt;= k) &#123; </span><br><span class="line">                values.remove(nums[i - k]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1064,7 +1077,7 @@ nums[i]-t   nums[i]      nums[i]+t</code></pre><p>使用TreeSet的floor和ceilin
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
