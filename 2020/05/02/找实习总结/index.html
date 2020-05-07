@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lujianyun06.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="时至今日，经历了3个月的找实习工作终于落下了帷幕，幸运的是，最终拿到了自己最心仪的蚂蚁金服的offer。往年的话在现在这个时间点本来应该在实验室搬砖的，而今年受到疫情的影响，到现在还在家中。但在家也有在家的好处，在家如果有压力的话其实也能够全神贯注地去学习去准备找实习。 上次过年本来打算只在家呆两周就回学校复习的，但因为疫情导致回学校遥遥无期。时间不等人，各个公司招聘的节奏又跟往常一样，所以早早在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="找实习总结">
+<meta property="og:url" content="https://lujianyun06.github.io/2020/05/02/%E6%89%BE%E5%AE%9E%E4%B9%A0%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="CloudLander&#39;s Blog">
+<meta property="og:description" content="时至今日，经历了3个月的找实习工作终于落下了帷幕，幸运的是，最终拿到了自己最心仪的蚂蚁金服的offer。往年的话在现在这个时间点本来应该在实验室搬砖的，而今年受到疫情的影响，到现在还在家中。但在家也有在家的好处，在家如果有压力的话其实也能够全神贯注地去学习去准备找实习。 上次过年本来打算只在家呆两周就回学校复习的，但因为疫情导致回学校遥遥无期。时间不等人，各个公司招聘的节奏又跟往常一样，所以早早在">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-02T01:44:19.000Z">
+<meta property="article:modified_time" content="2020-05-02T05:15:33.097Z">
+<meta property="article:author" content="CloudLander~Lu">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="后台开发">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://lujianyun06.github.io/2020/05/02/%E6%89%BE%E5%AE%9E%E4%B9%A0%E6%80%BB%E7%BB%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>找实习总结 | CloudLander's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">CloudLander's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">0</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">41</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/05/02/%E6%89%BE%E5%AE%9E%E4%B9%A0%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          找实习总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-05-02 09:44:19 / 修改时间：13:15:33" itemprop="dateCreated datePublished" datetime="2020-05-02T09:44:19+08:00">2020-05-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%85%B6%E4%BB%96/" itemprop="url" rel="index"><span itemprop="name">其他</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>时至今日，经历了3个月的找实习工作终于落下了帷幕，幸运的是，最终拿到了自己最心仪的蚂蚁金服的offer。往年的话在现在这个时间点本来应该在实验室搬砖的，而今年受到疫情的影响，到现在还在家中。但在家也有在家的好处，在家如果有压力的话其实也能够全神贯注地去学习去准备找实习。</p>
+<p>上次过年本来打算只在家呆两周就回学校复习的，但因为疫情导致回学校遥遥无期。时间不等人，各个公司招聘的节奏又跟往常一样，所以早早在家就开始复习了。一开始给自己定的目标，最理想的是蚂蚁金服，因为自己比较喜欢金融这一块的东西。蚂蚁算是国内金融+互联网这一块的巨头（貌似是估值最高的独角兽？第二是字节）。支付宝和微信几乎成了每个人必备的工具。发展的前景不可谓不好。在蚂蚁金服之后的理想的去向是字节跳动和腾讯。字节跳动作为估值仅次于蚂蚁金服的大厂，在近几年凭借着头条，抖音的火爆而迅速崛起。字节的产品可以说是占据了当代中青年内容输入的大头。我的同学，朋友，包括爸妈，爷爷奶奶都是头条或抖音的拥趸，每天把看头条当做读报纸一样的习惯去看。我自己也在疫情期间几乎每天都上头条了解国内外疫情的最新进展。在内容质量，排版方面来说，头条做的确实要比其他一些新闻应用做得好。例如相比于腾讯新闻，其内容的质量，排版都要更优（现在的腾讯新闻已经变成了百家号的聚集地，芝麻大的事情能发1000字的文章，狗屁不通浪费时间，如果腾讯新闻再不把把质量关感觉真的不行）。而相比于澎湃这种更专业的新闻应用。它又显得更亲民，少了一些复杂的专业术语，多了一些家长里短的闲聊。而抖音更是被誉为当代年轻人的精神鸦片，其影响力可见一斑。腾讯就不用多说了，游戏大厂，不说口碑，但用户量应该是国内毫无争议的第一。我给自己定的目标就是这三个，蚂蚁金服第一，腾讯or字节第二。但蚂蚁因为是阿里系，技术栈是java的，我自己本身的用java的，虽然说一个优秀的程序员无所谓语言，但是更换语言，尤其是对一门语言了解的越深入，更换的成本就越大，对于一门新语言的机制，语言特性都要重新学起。所以在语言方面，阿里对于我无疑是更合适的选择；而腾讯用的是C++，字节多用python和go，都需要更换成本。</p>
+<p>这次算是第二次找工作了，自己也是有了之前一些找工作的经验，而且自己本身就耽误了1，2年，所以也没有时间再去试错，就要一步到位去定居的地方了。距离家乡近的，互联网方向发展前景好的地方，看下来应该就只有西安和成都两个地方。相比西安，成都的发展前景必然更好，天府之国，气候也湿润，其实是更适合人居住的。所以这次找工作就只把目标定在了成都，专心找成都的工作。</p>
+<h2 id="字节跳动"><a href="#字节跳动" class="headerlink" title="字节跳动"></a>字节跳动</h2><p>从2月中旬开始着手复习，先是把深入理解JVM又全面地看了一遍，把自己之前做的笔记也认真复盘，自己的项目也全面复盘了一遍。在二月底的时候就开始着手投简历了，其实这算投的比较早了，不过这种事情赶早不赶晚。早点投了简历也能逼迫自己早点进入学习的状态，先是投了一波京东，字节，和网易雷火。京东和字节是成都的，网易是杭州的，是为了练手（但网易效率真的太低了。。直到2个月后我都落定了才来了笔试邀请，有事就给鸽了🥶，京东到现在都没下文，要是能把北邮的简历都给筛了只能说明真的强无敌。。）。所以最后只来了字节的笔试邀请。成都的字节跳动是效率工程，之前是专门为内部hr做提高效率的工具，属于对内的一个团队。不过后来听说也要对外去卖产品了。非常有名的飞书(Lark)就是其产品，可以说是做的相当不错，国外也有很多团队在用。</p>
+<p>这里要夸一波字节，效率真的高，全程都有hr跟进进度，不论结果怎样都会通知一声，而且流程很正式。就全程都给人感觉很舒服。字节的笔试不难，算是leetcode的medium难度。题目如下：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>峰值定义：比前后元素都大；数组可能存在多个峰值，返回任意一个就行：如<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">2</span> <span class="number">1</span> <span class="number">4</span> <span class="number">3</span>,可以返回<span class="number">4</span>或者<span class="number">3</span></span><br><span class="line">&gt;直接遍历比较前后即可，唯一需要注意的就是边界上的额外处理题目不难。这道题a过了</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>输出指定的二叉树的镜像：以二叉树对应的完全二叉树为参照，空白节点处使用#字符填充，使用层次遍历来表示二叉树，节点间使用空格分隔，如<span class="number">4</span> <span class="number">2</span> <span class="number">7</span> # <span class="number">3</span> <span class="number">6</span> <span class="number">9</span>。要求输出翻转的二叉树的层序。</span><br><span class="line">&gt;本来想直接按照层序遍历来按照节点的编号顺序来做的，其实画个图就能看出来，满二叉树只需要每层倒序就是其镜像树。但这么做只能a过<span class="number">80</span>%。之后因为还有时间，就用重构二叉树，然后再求镜像的方法，依然是只能过<span class="number">80</span>%。其实这道题最后还是没明白为什么没a掉，如果是时间复杂度的问题，重构可能比较慢，但每层倒序已经是O(n)的复杂度了，还是过不了，就有点不太明白了</span><br></pre></td></tr></table></figure>
+<p>所以最终笔试了90分（50+40）</p>
+<p>笔试完的第二天，hr打电话来告诉我笔试通过，约了当天下午的一面。这是我找实习经历中的第一次面试。<br>题目如下：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> jvm内存模型，垃圾回收方法，对象可达性分析</span><br><span class="line"><span class="number">2.</span> cms是怎么工作的，并发标记和重新标记之间发生了什么</span><br><span class="line"><span class="number">3.</span> mysql索引，聚簇和非聚簇索引，索引怎么优化</span><br><span class="line"><span class="number">4.</span> hashmap底层原理，hashtable，concurrenthashmap的区别和原理，怎么实现线程安全</span><br><span class="line"><span class="number">5.</span> aqs原理，如何把一个节点加到队列中</span><br><span class="line"><span class="number">6.</span> 算法题：类似围棋：<span class="number">01</span>的棋盘，把所有被<span class="number">0</span>包含的<span class="number">1</span>变成<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>其实真是要特别感谢这位面试官，给我找到了好多知识的欠缺之处。最明显的例子就是问了我cms的并发标记和重新标记之间的过程，其实这个部分在书上和其他面经或资料上很少提到，但却是CMS中很重要的部分，就是并发预清理，带着对这个部分的疑问，又去深入了解的三色标记法。可以说是对整个cms有了更深刻的认识。而hashmap更是老生常谈的问题，但要把它的整个工作过程完整细致地描述出来也不是一件轻松的事，这就是熟能生巧了。而对于算法题其实也是leetcode上的一道原题（bfs+标记），只不过最后因为时间不够就没做完了，但还是详细地描述了解法。整体答得还行。唯一的缺憾就是题没有做完。</p>
+<p>面完第二天hr打电话来说一面通过，约了一下二面的时间（效率是真的高）<br>二面题目如下：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">实现<span class="number">62</span>进制加法：<span class="number">0</span><span class="number">-9</span>，<span class="keyword">a</span>-z A-Z</span><br><span class="line"><span class="built_in">get</span>和<span class="built_in">post</span>的区别，<span class="built_in">post</span>和<span class="built_in">put</span>的区别</span><br><span class="line"><span class="keyword">http</span>状态码</span><br><span class="line">mysql是binlog是什么</span><br><span class="line">微博的长连接变短怎么做的</span><br></pre></td></tr></table></figure>
+<p>上来先是做题，不得不说字节对于算法能力看得真的很重。先笔试，然后每一轮面都有做题。算法题不难，就是多进制的加法，处理好映射和进位的问题就能迎刃而解，再者这种题做的太多了，几乎是不假思索地动手写。很快就写完了。剩余问的基础题也不难。只要好好准备一般都是在覆盖范围之内的。最后问了一道开放题。微博中如何长连接变短，变成t.cn/dasgjkd 这种形式。我回答的是在微博服务端利用hash对长连接生成相应的短连接，然后将其映射关系保存在数据库中，在访问的时候请求先到微博服务端，然后取出真正的连接后通过redirect或者forward来转到真实的地址。而对于网络的相关问题，重点在于幂等性上，知识并不难，但需要有所了解才能回答得上，所以还是应该广泛地涉猎知识</p>
+<p>二面后隔了几天，hr打电话说二面通过了，简单聊了一下（基本是为什么想来成都，以及对于互联网快节奏的看法等）。之后就发offer了，效率是真的很高。</p>
+<p><strong>总结：字节作为互联网新贵，其前景相当不错。整个面笔试的流程突出的特点：<br>第一就是十分注重代码能力，除了1轮笔试，2轮面试都要做题。所以平常刷题还是很有必要的。<br>第二就是注重基础知识，对于网络，基础容器原理（hashmap，chm），并发原理（aqs工作原理、cas）的侧重点会更加多。<br>第三就是对于校招来说不太看项目，这是我面试过程中少有的两轮完全没有问任何项目，全程都在做题和问基础知识。因此突出一个基础知识以及刷题的重要性。<br>字节整个面试都使用飞书，体验感觉也很不错，感觉钉钉和飞书视频会议这部分做的很不错的</strong></p>
+<p>必须要感谢字节，首先发了offer让我心里有了底，而且指示了面试的大方向和重点。</p>
+<p>之后经同学介绍，美团的业务部门也面了一下，整体的感觉也还行，面试题目如下：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">序列化和反序列化一棵二叉树</span><br><span class="line"><span class="keyword">jmm</span></span><br><span class="line"><span class="keyword">mysql索引</span></span><br><span class="line"><span class="keyword">泛型相关</span></span><br><span class="line"><span class="keyword">项目相关</span></span><br></pre></td></tr></table></figure>
+<p>整体回答的还行，但最后问到入职的时间，人家需要能马上入职的，感觉不合适，就没有再继续了。</p>
+<h2 id="蚂蚁金服（阿里巴巴）"><a href="#蚂蚁金服（阿里巴巴）" class="headerlink" title="蚂蚁金服（阿里巴巴）"></a>蚂蚁金服（阿里巴巴）</h2><p>接下来是旷日持久的阿里的面试，从3月5日一面，到4月30日意向书发放，耗时2个月，经历了 笔试 + 基础面+主管面+交叉面+总监面+hr面+补笔试。基本算是7次试了。流程虽然很长，但非常有幸认识了非常好的主管，他的提问过程是非常比较体现语言魅力的，会挖掘你的潜力，去引导回答问题，而且不仅仅是问技术基础，还会提问一些开放性的问题来综合体现各方面的素质。还有一点是我觉得他的语气非常亲切，让人在交流过程中也不会紧张。而且他还给了我一些非常宝贵的建议，不仅仅是技术方面的提高建议，还有思维方面，在平时的工作生活中要养成多观察的建议。而且后续也一直是他帮忙跟进我的流程状态直到拿到offer，真的是非常非常感谢他。</p>
+<p>今年的笔试是所有技术岗都必须参加的，但不得不说，题目真的太难了，只有第二题a了10%<br>题目如下：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>输入<span class="number">10</span>个<span class="built_in">int</span>表示<span class="number">10</span>种牌个数（<span class="number">1</span>到<span class="number">10</span>的牌），可以打单牌（<span class="number">1</span>），对子(<span class="number">11</span>)，顺子（<span class="number">12345</span>）, 连对（<span class="number">112233</span>）,求最少几次可以打完所有牌</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>给出n个不下降字符串（即<span class="built_in">string</span>[i]&gt;=<span class="built_in">string</span>[i<span class="number">-1</span>），求用给出的原始字符串，拼出不下降字符串的字符串最大个数？</span><br></pre></td></tr></table></figure>
+<p>第一题可能是需要贪心的就是类似于剪绳子，把绳子剪成2和3的小段，核心思想是去减4的段和5的段，所以我觉得应该是去尽可能凑其中的某两种或者某一种组合，如果直接使用递归形式的深度优先遍历，在复杂度低时可以解决，但是当数很大时就会耗很久，我也下来后写了代码进行验证，在数组全满的情况下需要将近10秒，所以其实还是不能全a的。由于做的时候没形成合适的代码流，（其实可以回溯拼一拼的）</p>
+<p>第二题因为本来是以为和数组的最长递增子序列的做法类似，用动态规划的方法，只不过每次叠加的长度是其中字符串的长度，但这样做过不了，所以现在还没想到更好的办法，网上搜索也没有搜到更好的做法。</p>
+<p>阿里的笔试风格和平常刷的leetcode的风格相差比较大，不太好做针对性的练习，所以还得平常多积累，多找找类似风格的题做</p>
+<p>整个面试问题如下：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">一面：</span><br><span class="line">网约车怎么设计，</span><br><span class="line">讲讲HashMap</span><br><span class="line">Java继承怎么体现在数据库表上：</span><br><span class="line">mybatis怎么解决N+<span class="number">1</span>的问题</span><br><span class="line">hibernate和mybatis的区别</span><br><span class="line">讲一讲spring IOC AOP</span><br><span class="line"><span class="built_in">String</span>、<span class="built_in">StringBuffer</span>、StringBuilder区别</span><br><span class="line">ruby <span class="keyword">on</span> rails和springboot相比有什么优缺点</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">二面：</span><br><span class="line">并发，锁机制，悲观乐观</span><br><span class="line">threadlocal</span><br><span class="line">简单介绍Springboot</span><br><span class="line">Spring事务传播行为</span><br><span class="line">mysql事务隔离级别</span><br><span class="line">Springbean的生命周期，包括静态代码块，构造函数，初始化方法的执行顺序</span><br><span class="line">幂等性，post，<span class="keyword">get</span></span><br><span class="line">Linux常用命令，怎么看java进程，怎么查看java的cpu使用率</span><br><span class="line">印象深刻的事</span><br><span class="line">技术中印象深刻的事</span><br><span class="line"></span><br><span class="line">三面：</span><br><span class="line">介绍一下项目</span><br><span class="line">项目中有什么难点，具体的解决方法，解决后有什么改进（刨到灵魂深处）</span><br><span class="line">平常是怎么学习技术的，除了技术书还看什么书</span><br><span class="line">有什么其他爱好，比如体育爱好之类的</span><br><span class="line">为什么笔试题没做出来，现在如果让你重新做，你有什么好的做法吗？要求细化到具体方法，不能只说贪心、动态规划之类的泛化方法（刨到灵魂深处）</span><br><span class="line"></span><br><span class="line">技术终面：</span><br><span class="line">介绍一下毕设</span><br><span class="line">毕设中有什么亮点，通过项目学到了什么</span><br><span class="line">介绍一下项目，项目中有什么难点，怎么解决的</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">hr面：</span><br><span class="line">自己的亮点</span><br><span class="line">为什么想去成都</span><br><span class="line">金融在生活中的使用场景</span><br></pre></td></tr></table></figure>
+
+<p>因为之前笔试成绩比较低，所以又补了一轮笔试，这轮的题目比较符合平常做的题目类型：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">题目一：判断数字是否是回文对称数字</span><br><span class="line">例如： <span class="number">12321</span>，<span class="number">13577531</span> 左右对称的数字为回文数字</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">题目二：LRU缓存实现</span><br><span class="line">最近最少使用（LRU）缓存方案，是在缓存已满并且需要将新近被使用的项目添加到缓存时首先丢弃最近最少使用的项目。（不能使用LinkedHashMap）</span><br></pre></td></tr></table></figure>
+
+<p>第一道题直接用StringBuilder的reverse。第二个可以用HashMap+LinkedList，map来映射k-v关系，list来维护要淘汰的顺序。</p>
+<p>由于四月是阿里整个财年的年底，所以hr很忙，一直到4月30号晚上才发了意向书，整个阿里实习求职历经两个月终于能画下个比较完美的句号了</p>
+<p><strong>整个阿里面试流程的重点在以下几个方面：</strong></p>
+<ol>
+<li>java基础知识，包括并发，容器（hashmap是重中之重）。</li>
+<li>数据库基础知识，这一块比较广，涉猎的多总不是坏事</li>
+<li>框架，主要是spring的原理，这一部分还是应该去看一下源码，用小demo打断点跑一下流程的，因为spring继承体系纷繁复杂，各种抽象类之间跳来跳去，干看代码很难走通逻辑，所以打断点看流程是最好的学习方式。</li>
+<li>在项目中的难点和总结，必须要对项目有比较深刻的理解和想法，所以平时在做项目的时候要多总结多输出知识</li>
+</ol>
+<p>在5月之前拿到了自己理想的offer，也算是对自己的辛苦刷题和学习有所交代，期间还有一些其他公司的小插曲不足道，拿到了两个自己最想要的offer，后面就要好好努力了！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/29/%E7%AE%97%E6%B3%95/%E6%9C%AA%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%B4%AF%E5%8A%A0%E5%92%8C%E5%B0%8F%E4%BA%8E%E6%88%96%E7%AD%89%E4%BA%8E%E7%BB%99%E5%AE%9A%E5%80%BC%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6/" rel="prev" title="未排序数组中累加和小于或等于给定值的最长子数组长度">
+      <i class="fa fa-chevron-left"></i> 未排序数组中累加和小于或等于给定值的最长子数组长度
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/07/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93/" rel="next" title="代码整洁之道">
+      代码整洁之道 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字节跳动"><span class="nav-number">1.</span> <span class="nav-text">字节跳动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#蚂蚁金服（阿里巴巴）"><span class="nav-number">2.</span> <span class="nav-text">蚂蚁金服（阿里巴巴）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CloudLander~Lu"
+      src="/images/lu.jpg">
+  <p class="site-author-name" itemprop="name">CloudLander~Lu</p>
+  <div class="site-description" itemprop="description">记录学习生活，力求每日进步</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lujianyun06" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lujianyun06" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lujianyun66@163.com" title="E-Mail → mailto:lujianyun66@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fas fa-cloud"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CloudLander~Lu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
