@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/05/07/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93/">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/05/07/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/05/07/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93/" class="post-title-link" itemprop="url">代码整洁之道</a>
+            <a href="/2020/05/07/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93/" class="post-title-link" itemprop="url">代码整洁之道</a>
         </h2>
 
         <div class="post-meta">
@@ -210,10 +210,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-05-07 14:47:28 / 修改时间：20:36:34" itemprop="dateCreated datePublished" datetime="2020-05-07T14:47:28+08:00">2020-05-07</time>
+              <time title="创建时间：2020-05-07 14:47:28" itemprop="dateCreated datePublished" datetime="2020-05-07T14:47:28+08:00">2020-05-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-08 15:56:43" itemprop="dateModified" datetime="2020-05-08T15:56:43+08:00">2020-05-08</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -481,6 +487,11 @@
 <blockquote>
 <p>整个过程体现了抽象、封装的思想，尽可能用基类去实现相似的功能来避免重复。</p>
 </blockquote>
+<h1 id="JUnit内幕"><a href="#JUnit内幕" class="headerlink" title="JUnit内幕"></a>JUnit内幕</h1><p>是一个比较两个字符串的工具的重构过程。和上一章内容类似，都是详细描述了重构的过程</p>
+<p>不要用实现接口的形式去获得接口中的常量，应该使用静态导入的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> XXXContants.*;</span><br></pre></td></tr></table></figure>
+
+<p>根据java内存模型，32位值的赋值操作是原子的，不可中断的；而64位值的赋值需要两次32位赋值，这意味着第一次和第二次32位赋值之间，其他线程可能插进来，修改其中一个值。</p>
 
       
     </div>
@@ -500,7 +511,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/05/02/%E6%89%BE%E5%AE%9E%E4%B9%A0%E6%80%BB%E7%BB%93/">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/05/02/%E5%85%B6%E4%BB%96/%E6%89%BE%E5%AE%9E%E4%B9%A0%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
@@ -514,7 +525,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/05/02/%E6%89%BE%E5%AE%9E%E4%B9%A0%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">找实习总结</a>
+            <a href="/2020/05/02/%E5%85%B6%E4%BB%96/%E6%89%BE%E5%AE%9E%E4%B9%A0%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">找实习总结</a>
         </h2>
 
         <div class="post-meta">
