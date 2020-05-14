@@ -20,30 +20,21 @@
     var CONFIG = {"hostname":"lujianyun06.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="本文大部分内容借鉴自https:&#x2F;&#x2F;baijiahao.baidu.com&#x2F;s?id&#x3D;1633338040568845450&amp;wfr&#x3D;spider&amp;for&#x3D;pc，感谢大神的辛勤劳动！ 跳表就是跳跃的表，其实归根结底是好多层的链表，最底层是正常的数据链表，往上走是代表性的索引 越往上走一个索引代表的节点就越多，其实跳表和B* 树有些类似， B* 树  跳表： 越往上走，一个值能代表的">
+  <meta name="description" content="子矩阵的最大累加和问题给定一个矩阵matrix，其中的值有正有负有0，返回子矩阵的最大累加和例如，矩阵matrix为：-90 48   7864  -40  64-81 -7   66其中，最大累加和的子矩阵为：48 78-40 64-7 66所以返回累加和209 例如，matrix为：-1 -1 -11 2 2-1 -1 -1其中最大累加和的子矩阵为2 2所以返回累加和为4 假设一个2行4列的矩">
 <meta property="og:type" content="article">
-<meta property="og:title" content="跳表">
-<meta property="og:url" content="https://lujianyun06.github.io/2020/04/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%B7%B3%E8%A1%A8/index.html">
+<meta property="og:title" content="子矩阵的最大累加和问题">
+<meta property="og:url" content="https://lujianyun06.github.io/2020/05/14/%E7%AE%97%E6%B3%95/%E5%AD%90%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E5%A4%A7%E7%B4%AF%E5%8A%A0%E5%92%8C%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="CloudLander&#39;s Blog">
-<meta property="og:description" content="本文大部分内容借鉴自https:&#x2F;&#x2F;baijiahao.baidu.com&#x2F;s?id&#x3D;1633338040568845450&amp;wfr&#x3D;spider&amp;for&#x3D;pc，感谢大神的辛勤劳动！ 跳表就是跳跃的表，其实归根结底是好多层的链表，最底层是正常的数据链表，往上走是代表性的索引 越往上走一个索引代表的节点就越多，其实跳表和B* 树有些类似， B* 树  跳表： 越往上走，一个值能代表的">
+<meta property="og:description" content="子矩阵的最大累加和问题给定一个矩阵matrix，其中的值有正有负有0，返回子矩阵的最大累加和例如，矩阵matrix为：-90 48   7864  -40  64-81 -7   66其中，最大累加和的子矩阵为：48 78-40 64-7 66所以返回累加和209 例如，matrix为：-1 -1 -11 2 2-1 -1 -1其中最大累加和的子矩阵为2 2所以返回累加和为4 假设一个2行4列的矩">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200312205851392.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200312210012776.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200312205831229.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200312205831176.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200312205831220.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200312205831280.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200312205831286.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200313112143915.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2020-04-10T09:56:08.000Z">
-<meta property="article:modified_time" content="2020-04-10T10:00:17.087Z">
+<meta property="article:published_time" content="2020-05-14T08:54:09.000Z">
+<meta property="article:modified_time" content="2020-05-14T08:54:31.628Z">
 <meta property="article:author" content="CloudLander~Lu">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="后台开发">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200312205851392.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70">
 
-<link rel="canonical" href="https://lujianyun06.github.io/2020/04/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%B7%B3%E8%A1%A8/">
+<link rel="canonical" href="https://lujianyun06.github.io/2020/05/14/%E7%AE%97%E6%B3%95/%E5%AD%90%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E5%A4%A7%E7%B4%AF%E5%8A%A0%E5%92%8C%E9%97%AE%E9%A2%98/">
 
 
 <script id="page-configurations">
@@ -56,7 +47,7 @@
   };
 </script>
 
-  <title>跳表 | CloudLander's Blog</title>
+  <title>子矩阵的最大累加和问题 | CloudLander's Blog</title>
   
 
 
@@ -199,7 +190,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%B7%B3%E8%A1%A8/">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/05/14/%E7%AE%97%E6%B3%95/%E5%AD%90%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E5%A4%A7%E7%B4%AF%E5%8A%A0%E5%92%8C%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lu.jpg">
@@ -212,7 +203,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          跳表
+          子矩阵的最大累加和问题
         </h1>
 
         <div class="post-meta">
@@ -223,7 +214,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-04-10 17:56:08 / 修改时间：18:00:17" itemprop="dateCreated datePublished" datetime="2020-04-10T17:56:08+08:00">2020-04-10</time>
+              <time title="创建时间：2020-05-14 16:54:09 / 修改时间：16:54:31" itemprop="dateCreated datePublished" datetime="2020-05-14T16:54:09+08:00">2020-05-14</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -231,7 +222,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
                 </span>
             </span>
 
@@ -253,32 +244,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文大部分内容借鉴自<a href="https://baijiahao.baidu.com/s?id=1633338040568845450&amp;wfr=spider&amp;for=pc，感谢大神的辛勤劳动！" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1633338040568845450&amp;wfr=spider&amp;for=pc，感谢大神的辛勤劳动！</a></p>
-<p>跳表就是跳跃的表，其实归根结底是好多层的链表，最底层是正常的数据链表，往上走是代表性的索引</p>
-<p>越往上走一个索引代表的节点就越多，其实跳表和B* 树有些类似，</p>
-<p>B* 树</p>
-<p><img src="https://img-blog.csdnimg.cn/20200312205851392.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="1"></p>
-<p>跳表：</p>
-<p>越往上走，一个值能代表的范围越广。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200312210012776.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt=""></p>
-<p>都是：如果在当前层大于本节点，小于下一个节点，则往下走，否则继续往前走</p>
-<p>跳表。跳表是redis的一个核心组件，也同时被广泛地运用到了各种缓存地实现当中，它的主要优点，就是可以跟红黑树、AVL等平衡树一样，做到比较稳定地插入、查询与删除。理论插入查询删除的算法时间复杂度为O(logN)。<br><img src="https://img-blog.csdnimg.cn/20200312205831229.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="3"></p>
-<p>什么是跳表</p>
-<p>链表，相信大家都不陌生，维护一个有序的链表是一件非常简单的事情，我们都知道，在一个有序的链表里面，查询跟插入的算法复杂度都是O(n)。<br><img src="https://img-blog.csdnimg.cn/20200312205831176.png" alt="4"></p>
-<p>我们能不能进行优化呢，比如我们一次比较两个呢？那样不就可以把时间缩小一半？<br><img src="https://img-blog.csdnimg.cn/20200312205831220.png" alt="5"></p>
-<p>同理，如果我们4个4个比，那不就更快了？<br><img src="https://img-blog.csdnimg.cn/20200312205831280.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="6"></p>
-<p>跳表就是这样的一种数据结构，结点是跳过一部分的，从而加快了查询的速度。跳表跟红黑树又有什么差别呢？既然两者的算法复杂度差不多，为什么Redis要使用跳表而不使用红黑树呢？跳表相对于红黑树，主要有这几个优点：1.代码相对简单，手写个跳表还有可能，手写个红黑树试试？</p>
-<p>2.如果我们要查询一个区间里面的值，用平衡树可能会麻烦。这里的麻烦指的是实现和理解上，平衡二叉树查询一段区间也是可以做到的。3.删除一段区间，这个如果是平衡二叉树，就会相当困难，毕竟设计到树的平衡问题，而跳表则没有这种烦恼。好了，相信你对跳表已经有一些认识了，我们来简单介绍平衡二叉树的几个基本操作。</p>
-<p><strong>查询</strong></p>
-<p>假如我们要查询11，那么我们从最上层出发，发现下一个是5，再下一个是13，已经大于11，所以进入下一层，下一层的一个是9，查找下一个，下一个又是13，再次进入下一层。最终找到11。<br><img src="https://img-blog.csdnimg.cn/20200312205831286.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="7"></p>
-<p>是不是非常的简单？我们可以把查找的过程总结为一条三目表达式（下一个是否大于结果？下一个：下一层）。理解跳表的查询过程非常重要，试试看查询其他数字，只要你理解了查询，后面两种都非常简单。</p>
-<p><strong>插入</strong></p>
-<p>插入的时候，首先要进行查询，然后从最底层开始，插入被插入的元素。然后看看从下而上，是否需要逐层插入。可是到底要不要插入上一层呢？我们都知道，我们想每层的跳跃都非常高效，越是平衡就越好（第一层1级跳，第二层2级跳，第3层4级跳，第4层8级跳）。但是用算法实现起来，确实非常地复杂的，并且要严格地按照2地指数次幂，我们还要对原有地结构进行调整。所以跳表的思路是抛硬币，听天由命，产生一个随机数，50%概率再向上扩展，否则就结束。这样子，每一个元素能够有X层的概率为0.5^(X-1)次方。反过来，第X层有多少个元素的数学期望大家也可以算一下。</p>
-<p><strong>删除</strong></p>
-<p>同插入一样，删除也是先查找，查找到了之后，再从下往上逐个删除。比较简单，就不再赘叙。</p>
-<p>跳表和二叉搜索树比较：<br><img src="https://img-blog.csdnimg.cn/20200313112143915.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="8"></p>
-<p><strong>总结</strong></p>
-<p>跳表，用了计算机中一场非常用的解决问题的思路，随机。随机在深度学习与人工智能领域运用得非常的广泛。</p>
+        <p>子矩阵的最大累加和问题<br>给定一个矩阵matrix，其中的值有正有负有0，返回子矩阵的最大累加和<br>例如，矩阵matrix为：<br>-90 48   78<br>64  -40  64<br>-81 -7   66<br>其中，最大累加和的子矩阵为：<br>48 78<br>-40 64<br>-7 66<br>所以返回累加和209</p>
+<p>例如，matrix为：<br>-1 -1 -1<br>1 2 2<br>-1 -1 -1<br>其中最大累加和的子矩阵为<br>2 2<br>所以返回累加和为4</p>
+<p>假设一个2行4列的矩阵如下：<br>-2 3 -5 7<br>1 4 -1 -3</p>
+<p>可以先把两行元素累加，然后得到累加数组[-1,7,-6,4],接下来求这个累加数组的最大累加和，结果是7.也就说，必须含有2行元素的子矩阵的最大和为7，且这个子矩阵是<br>3<br>4<br>也就是说，如果一个矩阵共有k行且限定必须有k行元素的情况下，我们只要把矩阵中每一列的k个元素累加生成一个累加数组，然后求出这个数组的最大累加和，这个最大累加和就是必须含有k行元素的子矩阵中的最大累加和</p>
+<p>利用题目的第一个例子来讲述：<br>首先考虑只有一行的矩阵[-90.48,78],因为只有一行，所以累加数组arr就是[-90.48.78]这个数组的最大累加和为126</p>
+<p>接下来考虑含两行的矩阵<br>-90 48   78<br>64  -40  64<br>这个矩阵的累加数组就是上一步的累加数组[-90.48,78]的基础上，依次在每个位置上加上矩阵最新一行[64,-40,64]的结果，即[-26,8,142]，这个数组的最大累加和为150.</p>
+<p>接下来考虑含有3行的矩阵：<br>-90 48   78<br>64  -40  64<br>-81 -7   66<br>这个矩阵的累加数组就是上一步累加数组[-26,8,142]的基础上，依次在每个位置上加上矩阵的最新一行[-81 -7   66]的结果，即[-107,1,208]，这个数组的最大累加和为209。此时，必须从矩阵第一行元素开始，并往下的所有子矩阵都已查找完毕，接下来从矩阵的第二行开始，继续这样的过程。。。</p>
+<p>整个过程中最关键的地方有两处：</p>
+<ul>
+<li>用求累加数组的最大累加和的方式得到每一步的最大子矩阵的累加和</li>
+<li>每一步的累加数组可以利用前一步求出的累加数组很方便的得到<br>由于求一个数组的最大子数组累加和时间复杂度为O(N),所以如果矩阵大小为N&times;N，则全部过程的时间复杂度为O(N^3)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxSum</span><span class="params">(<span class="keyword">int</span>[][] m)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(m==<span class="keyword">null</span> || m.length==<span class="number">0</span> || m[<span class="number">0</span>].length==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> col = m[<span class="number">0</span>].length;</span><br><span class="line">    <span class="keyword">int</span>[] sumArr = <span class="keyword">new</span> <span class="keyword">int</span>[col];</span><br><span class="line">    <span class="keyword">int</span> res = Integer.MIN_VALUE;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m.length;i++)&#123;</span><br><span class="line">        Arrays.fill(sumArr, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;m.length;j++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;col;k++)&#123;</span><br><span class="line">                sumArr[k] += m[j][k];</span><br><span class="line">            &#125;</span><br><span class="line">            res = Math.max(res, maxSum(sumArr));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//求子数组累加最大和</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxSum</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(arr==<span class="keyword">null</span> || arr.length==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> sum = arr[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">int</span> res = sum;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;arr.length;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(arr[i]+sum&gt;arr[i])&#123;</span><br><span class="line">            sum += arr[i];</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">            sum = arr[i];</span><br><span class="line">        res = Math.max(sum, res);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -294,13 +272,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/04/10/mysql/mysql%20error1193/" rel="prev" title="ERROR 1193 (HY000)：Unknown system variable ‘tx_isolaton’">
-      <i class="fa fa-chevron-left"></i> ERROR 1193 (HY000)：Unknown system variable ‘tx_isolaton’
+    <a href="/2020/05/07/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93/" rel="prev" title="代码整洁之道">
+      <i class="fa fa-chevron-left"></i> 代码整洁之道
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/04/10/mac/brew%E4%BB%8E%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85/" rel="next" title="brew从国内源安装">
-      brew从国内源安装 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     

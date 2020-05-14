@@ -130,7 +130,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">41</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">42</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -183,6 +183,111 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lujianyun06.github.io/2020/04/10/java/spring/%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8&%E4%BD%BF%E7%94%A8aop%E6%97%B6%E6%B3%A8%E5%85%A5%E5%B1%9E%E6%80%A7%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lu.jpg">
+      <meta itemprop="name" content="CloudLander~Lu">
+      <meta itemprop="description" content="记录学习生活，力求每日进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CloudLander's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/10/java/spring/%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8&%E4%BD%BF%E7%94%A8aop%E6%97%B6%E6%B3%A8%E5%85%A5%E5%B1%9E%E6%80%A7%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">循环引用&使用aop时注入属性失效的问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 09:17:08 / 修改时间：18:13:29" itemprop="dateCreated datePublished" datetime="2020-04-10T09:17:08+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>结论：如果一个对象要被生成代理，那么不要对它的属性或方法进行注入，这些都会变成null（构造器注入是可以的）</p>
+<p>首先第一个问题：</p>
+<blockquote>
+<p>如果循环引用的对象需要被拦截，即要创建代理怎么办？</p>
+</blockquote>
+<blockquote>
+<p>假如A依赖B，B依赖A，（A有一个属性B b，B有一个属性A a）且A需要被aop拦截，需要创建代理去替代本身：<br>假如首先创建A，先用构造方法创建了一个A的早期实例，把它放在singletonFactories中，然后调用populateBean去给它填充属性时，发现需要创建B，然后去进入创建B的流程,在创建完B实例后，须去填充B的a属性<br>applyPropertyValues<br>-&gt;resolveValueIfNecessary(BeanDefinitionValueResolver)尝试去获取a的实例，已经有实例了，但在去获取的过程中，会发现a是一个factorybean，此时要去检查是否需要对它生成代理，发现需要，则生成代理后放入二级缓存，并从三级缓存中删除原始实例，填充到B的属性中。接着去完成B的创建</p>
+</blockquote>
+<blockquote>
+<p>B创建完后，回到A的创建流程，把这个创建完成的B填充到A的属性b，然后会检查A是不是有早期引用（检查二级和三级缓存），发现有（即是那个代理对象），然后用代理对象把A给代替了放入容器中，但此时这个代理对象的属性是没有B的引用的!<br>在mvc中验证，此时调用A的b属性，得到的是空</p>
+</blockquote>
+<p>接下来是两个例子，分别是循环引用和非循环引用的场景；</p>
+<p>首先是两个bean类：<br><img src="https://img-blog.csdnimg.cn/20200318114609956.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="1"><br><img src="https://img-blog.csdnimg.cn/2020031811461055.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="2"></p>
+<p>测试代码：<br><img src="https://img-blog.csdnimg.cn/20200318114610164.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="3"></p>
+<p>在不使用代理时：<br>输出：</p>
+<blockquote>
+<p>aop1:com.ljy.inspector.aop.Aop1Util@1fe8f5e8<br>aop2:com.ljy.inspector.aop.Aop2Util@2e0ad709<br>1.2= com.ljy.inspector.aop.Aop2Util@2e0ad709<br>2.1= com.ljy.inspector.aop.Aop1Util@1fe8f5e8</p>
+</blockquote>
+<p>添加切面：（即会对aop1util 创建代理）<br><img src="https://img-blog.csdnimg.cn/20200318114610212.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="4"></p>
+<p>再执行测试代码：</p>
+<blockquote>
+<p>aop1:com.ljy.inspector.aop.Aop1Util@56b1e527<br>aop2:com.ljy.inspector.aop.Aop2Util@6b25ef1c<br>1.2= null<br>2.1= com.ljy.inspector.aop.Aop1Util@56b1e527</p>
+</blockquote>
+<blockquote>
+<p>如果出现了循环引用，原始对象并不会把自己已经创建好的属性赋给用来替代它的那个代理对象.</p>
+</blockquote>
+<p>那么如果不循环引用的话呢？我们知道，正常给一个对象创建代理是在<br>initializeBean()-&gt;applyBeanPostProcessorsAfterInitialization()中，也就是后置处理中。<br>经过验证，就算不循环引用，前期的创建的属性在创建了代理后仍会被清空。</p>
+<p>对于两个工具类：<br><img src="https://img-blog.csdnimg.cn/20200318114610111.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="5"><br><img src="https://img-blog.csdnimg.cn/202003181146107.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="6"><br>测试代码：<br><img src="https://img-blog.csdnimg.cn/20200318114610147.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="7"><br>结果：</p>
+<blockquote>
+<p>aop1:com.ljy.inspector.aop.Aop1Util@56b1e527<br>aop2:com.ljy.inspector.aop.Aop2Util@4e974b9e<br>1.2= null</p>
+</blockquote>
+<p>可以进入堆栈中看：<br>在创建aop1util时，当执行完populateBean时，它的“aop2Util”属性就已经被填充了，此时它仍是正常的实例<br><img src="https://img-blog.csdnimg.cn/20200318114610355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="8"><br>在进入initialzeBean后，执行完前置处理后，可以看到这个bean仍然没有变化：（在initialzeBean中以wrappedBean为准）<br><img src="https://img-blog.csdnimg.cn/20200318114610342.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="9"></p>
+<p>但一经过后置处理，可以看到wrappedBean已经变成了代理对象，而且其aop2util属性是空<br><img src="https://img-blog.csdnimg.cn/20200318114610381.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc1Mjg1NA==,size_16,color_FFFFFF,t_70" alt="10"></p>
+<p><strong>结论：如果一个对象要被生成代理，那么不要对它的属性或方法进行注入，这些都会变成null（构造器注入是可以的,因为构造器注入时创建代理对象时必须要调用其父类（也就是被代理类）的构造函数，此时就会把要注入的对象注入了）</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -331,7 +436,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
